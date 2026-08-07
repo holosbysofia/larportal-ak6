@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sannolikhet – Matematik åk 6</title>
+
+<style>
+:root{
+  --bg:#f6f8fb;
+  --dark:#0f172a;
+  --text:#1f2937;
+  --muted:#64748b;
+  --teal:#0f766e;
+  --teal2:#115e59;
+  --green:#059669;
+  --blue:#2563eb;
+  --purple:#7c3aed;
+  --orange:#ea580c;
+  --red:#dc2626;
+  --card:#ffffff;
+  --border:#e2e8f0;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:white;
+  padding:12px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+
+.navlinks a{
+  color:#334155;
+  font-weight:800;
+  padding:8px 11px;
+  border-radius:10px;
+}
+
+.navlinks a:hover{
+  background:#ccfbf1;
+  color:#115e59;
+}
+
+.navlinks .home{
+  background:var(--teal);
+  color:white;
+}
+
+.hero{
+  background:
+    radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+    linear-gradient(135deg,#0f766e,#115e59,#134e4a);
+  color:white;
+  padding:72px 6% 100px;
+}
+
+.hero-inner{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:35px;
+  align-items:center;
+}
+
+.hero h1{
+  margin:0 0 16px;
+  font-size:clamp(3rem,8vw,5.4rem);
+  line-height:1;
+}
+
+.hero p{
+  font-size:1.18rem;
+  max-width:720px;
+}
+
+.hero-card{
+  background:white;
+  color:#115e59;
+  border-radius:24px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 18px 50px rgba(0,0,0,.2);
+}
+
+.dice{
+  font-size:5rem;
+  margin:10px 0;
+}
+
+.wrap{
+  max-width:1180px;
+  margin:auto;
+  padding:0 20px 70px;
+}
+
+.overview{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-top:-42px;
+}
+
+.overview div{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:800;
+  box-shadow:0 10px 28px rgba(0,0,0,.09);
+}
+
+section{margin-top:62px}
+
+.section-head{
+  margin-bottom:22px;
+}
+
+.section-head h2{
+  margin:0 0 8px;
+  color:var(--dark);
+  font-size:2rem;
+}
+
+.section-head p{
+  margin:0;
+  color:var(--muted);
+}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.grid-4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+
+.card h3{
+  margin-top:0;
+  color:var(--dark);
+}
+
+.formula{
+  background:#ecfdf5;
+  border:1px solid #a7f3d0;
+  border-radius:14px;
+  padding:15px;
+  text-align:center;
+  font-size:1.45rem;
+  font-weight:900;
+  color:#065f46;
+  margin:14px 0;
+}
+
+.tip{
+  background:#ecfdf5;
+  border-left:5px solid var(--teal);
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+
+.scale{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+  margin-top:18px;
+}
+
+.scale div{
+  text-align:center;
+  padding:16px 8px;
+  border-radius:14px;
+  color:white;
+  font-weight:800;
+}
+
+.scale div:nth-child(1){background:#b91c1c}
+.scale div:nth-child(2){background:#ea580c}
+.scale div:nth-child(3){background:#ca8a04}
+.scale div:nth-child(4){background:#059669}
+.scale div:nth-child(5){background:#047857}
+
+.fraction-box{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+  margin:16px 0;
+}
+
+.frac{
+  display:inline-grid;
+  grid-template-rows:auto auto;
+  text-align:center;
+  min-width:60px;
+  font-size:1.5rem;
+  font-weight:900;
+}
+
+.frac span:first-child{
+  border-bottom:2px solid currentColor;
+  padding:0 8px 3px;
+}
+
+.frac span:last-child{
+  padding:3px 8px 0;
+}
+
+.step{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  padding:13px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+.concept{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 5px 16px rgba(0,0,0,.05);
+}
+
+.concept strong{
+  display:block;
+  color:#115e59;
+  margin-bottom:5px;
+}
+
+.mistake{
+  background:white;
+  border-top:5px solid var(--red);
+  border-radius:16px;
+  padding:20px;
+}
+
+.wrong{
+  color:#b91c1c;
+  font-weight:800;
+}
+
+.right{
+  color:#166534;
+  font-weight:800;
+}
+
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.level{
+  color:white;
+  border-radius:22px;
+  padding:24px;
+}
+
+.level1{
+  background:linear-gradient(135deg,#059669,#047857);
+}
+
+.level2{
+  background:linear-gradient(135deg,#0f766e,#115e59);
+}
+
+.level3{
+  background:linear-gradient(135deg,#7c3aed,#5b21b6);
+}
+
+.level button{
+  border:none;
+  background:white;
+  color:#111827;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.panel{
+  display:none;
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  margin-top:18px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+
+.panel.active{
+  display:block;
+}
+
+.task{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  margin:12px 0;
+}
+
+.task label{
+  display:block;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.task input{
+  padding:10px;
+  border:1px solid #cbd5e1;
+  border-radius:9px;
+  width:100%;
+  max-width:280px;
+}
+
+.check{
+  margin-top:9px;
+  background:var(--teal);
+  color:white;
+  border:none;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.feedback{
+  display:none;
+  margin-top:9px;
+  padding:10px;
+  border-radius:9px;
+  font-weight:800;
+}
+
+.feedback.good{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
+}
+
+.feedback.bad{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.quiz{
+  background:#0f172a;
+  color:white;
+  border-radius:24px;
+  padding:28px;
+}
+
+.quiz-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.score{
+  background:#1e293b;
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:900;
+}
+
+.quiz-card{
+  background:#1e293b;
+  border-radius:16px;
+  padding:22px;
+  margin-top:18px;
+}
+
+.answers{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.answer{
+  border:none;
+  background:white;
+  color:#1f2937;
+  padding:14px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  text-align:left;
+}
+
+.answer:hover{
+  background:#ccfbf1;
+}
+
+.answer:disabled{
+  opacity:.75;
+  cursor:default;
+}
+
+#quizFeedback{
+  display:none;
+  margin-top:14px;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+}
+
+#nextBtn{
+  display:none;
+  margin-top:12px;
+  border:none;
+  background:#facc15;
+  color:#111827;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.problem{
+  background:linear-gradient(135deg,#ccfbf1,#dbeafe);
+  border-radius:24px;
+  padding:28px;
+}
+
+.problem-card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  margin-top:15px;
+}
+
+.problem textarea{
+  width:100%;
+  min-height:110px;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  resize:vertical;
+  margin-top:12px;
+}
+
+.reveal{
+  margin-top:10px;
+  border:none;
+  background:#115e59;
+  color:white;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.solution{
+  display:none;
+  background:#f8fafc;
+  border-radius:10px;
+  padding:14px;
+  margin-top:12px;
+}
+
+.support{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist label{
+  display:flex;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.checklist input{
+  width:19px;
+  height:19px;
+}
+
+.goal-btn{
+  margin-top:16px;
+  border:none;
+  background:var(--teal2);
+  color:white;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+#goalResult{
+  margin-top:12px;
+  font-weight:900;
+}
+
+footer{
+  background:#020617;
+  color:#cbd5e1;
+  padding:34px 20px;
+  text-align:center;
+  margin-top:60px;
+}
+
+@media(max-width:900px){
+  .overview,.grid-4,.scale{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .grid-3,.levels{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:700px){
+  .hero-inner,.grid-2,.overview,.answers,.scale{
+    grid-template-columns:1fr;
+  }
+
+  .hero-card{
+    display:none;
+  }
+
+  .overview{
+    margin-top:-25px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">🎲 Sannolikhet – Matematik åk 6</div>
+
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="matematik.html">🔢 Matematik</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Problem</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+
+    <div>
+      <h1>Sannolikhet</h1>
+      <p>
+        Här lär du dig hur troligt något är, hur möjliga utfall kan beskrivas
+        och hur sannolikhet kan skrivas som bråk, decimaltal och procent.
+      </p>
+    </div>
+
+    <div class="hero-card">
+      <div class="dice">🎲</div>
+      <h3>Vad är chansen att slå en sexa?</h3>
+      <div class="formula">1 av 6 möjliga utfall</div>
+    </div>
+
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="overview">
+    <div>🎯 Sannolikhet</div>
+    <div>🎲 Utfall</div>
+    <div>🍀 Gynnsamma utfall</div>
+    <div>➗ Bråk</div>
+    <div>🧪 Experiment</div>
+  </div>
+
+  <section id="forsta">
+    <div class="section-head">
+      <h2>📘 Vad är sannolikhet?</h2>
+      <p>Sannolikhet beskriver hur troligt det är att något händer.</p>
+    </div>
+
+    <div class="scale">
+      <div>0 %<br>Omöjligt</div>
+      <div>25 %<br>Inte så troligt</div>
+      <div>50 %<br>Lika troligt</div>
+      <div>75 %<br>Ganska troligt</div>
+      <div>100 %<br>Säkert</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🎲 Möjliga utfall</h2>
+      <p>Ett utfall är ett möjligt resultat av ett slumpförsök.</p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>Mynt</h3>
+        <div class="formula">Krona eller klave</div>
+        <p>Det finns 2 möjliga utfall.</p>
+      </div>
+
+      <div class="card">
+        <h3>Tärning</h3>
+        <div class="formula">1, 2, 3, 4, 5, 6</div>
+        <p>Det finns 6 möjliga utfall.</p>
+      </div>
+
+      <div class="card">
+        <h3>Färgat lyckohjul</h3>
+        <div class="formula">Röd, blå, grön, gul</div>
+        <p>Om alla delar är lika stora är varje färg lika sannolik.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🍀 Gynnsamma utfall</h2>
+      <p>Gynnsamma utfall är de resultat som gör att det vi frågar efter händer.</p>
+    </div>
+
+    <div class="card">
+      <h3>Exempel: slå ett jämnt tal med en vanlig tärning</h3>
+
+      <div class="step">Möjliga utfall: 1, 2, 3, 4, 5, 6</div>
+      <div class="step">Gynnsamma utfall: 2, 4, 6</div>
+
+      <div class="fraction-box">
+        <span>Sannolikheten är</span>
+
+        <span class="frac">
+          <span>3</span>
+          <span>6</span>
+        </span>
+
+        <span>=</span>
+
+        <span class="frac">
+          <span>1</span>
+          <span>2</span>
+        </span>
+
+        <span>= 50 %</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>➗ Sannolikhet som bråk</h2>
+      <p>När alla utfall är lika sannolika kan vi använda denna modell.</p>
+    </div>
+
+    <div class="card">
+      <div class="formula">
+        sannolikhet = gynnsamma utfall ÷ möjliga utfall
+      </div>
+
+      <p>
+        Exempel: sannolikheten att slå en sexa är 1 gynnsamt utfall av 6 möjliga.
+      </p>
+
+      <div class="fraction-box">
+        <span class="frac">
+          <span>1</span>
+          <span>6</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>💯 Bråk, decimal och procent</h2>
+      <p>Samma sannolikhet kan beskrivas på flera sätt.</p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>En halv</h3>
+        <div class="formula">1/2 = 0,5 = 50 %</div>
+      </div>
+
+      <div class="card">
+        <h3>En fjärdedel</h3>
+        <div class="formula">1/4 = 0,25 = 25 %</div>
+      </div>
+
+      <div class="card">
+        <h3>Tre fjärdedelar</h3>
+        <div class="formula">3/4 = 0,75 = 75 %</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🧪 Teoretisk och experimentell sannolikhet</h2>
+      <p>Vi kan både räkna ut sannolikhet och undersöka den genom försök.</p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>📘 Teoretisk sannolikhet</h3>
+        <p>
+          Vi räknar ut vad som borde hända utifrån möjliga och gynnsamma utfall.
+        </p>
+        <div class="tip">
+          Ett rättvist mynt har teoretiskt 50 % chans för krona.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🧪 Experimentell sannolikhet</h3>
+        <p>
+          Vi gör många försök och ser hur ofta ett visst resultat faktiskt inträffar.
+        </p>
+        <div class="tip">
+          Om krona kommer 48 gånger på 100 kast är experimentresultatet 48 %.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🧠 Begreppsbank</h2>
+    </div>
+
+    <div class="grid-4">
+      <div class="concept"><strong>Sannolikhet</strong>Hur troligt det är att något händer.</div>
+      <div class="concept"><strong>Utfall</strong>Ett möjligt resultat.</div>
+      <div class="concept"><strong>Gynnsamt utfall</strong>Ett resultat som passar det vi söker.</div>
+      <div class="concept"><strong>Slump</strong>När vi inte kan veta exakt vilket resultat som kommer.</div>
+      <div class="concept"><strong>Slumpförsök</strong>Ett försök där resultatet påverkas av slumpen.</div>
+      <div class="concept"><strong>Teoretisk sannolikhet</strong>Den sannolikhet vi räknar ut.</div>
+      <div class="concept"><strong>Experimentell sannolikhet</strong>Den sannolikhet vi får från försök.</div>
+      <div class="concept"><strong>Likvärdiga utfall</strong>Utfall som är lika sannolika.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>⚠️ Vanliga missuppfattningar</h2>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="mistake">
+        <h3>En sexa har inte kommit på länge</h3>
+        <p class="wrong">❌ Då måste sexan komma nästa gång.</p>
+        <p class="right">✅ Varje nytt rättvist tärningskast har fortfarande sannolikheten 1/6 för en sexa.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>50 % betyder säkert hälften varje gång</h3>
+        <p class="wrong">❌ 10 myntkast måste ge exakt 5 kronor.</p>
+        <p class="right">✅ 50 % beskriver sannolikheten, men korta försök kan variera.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Fler gynnsamma än möjliga?</h3>
+        <p class="wrong">❌ Sannolikheten kan vara större än 100 %.</p>
+        <p class="right">✅ Sannolikhet ligger mellan 0 % och 100 %.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="traning">
+    <div class="section-head">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>Klicka på en nivå. Uppgifterna öppnas direkt.</p>
+    </div>
+
+    <div class="levels">
+
+      <div class="level level1">
+        <h3>🌱 Nivå 1</h3>
+        <p>Utfall och enkla sannolikheter.</p>
+        <button type="button" onclick="showLevel(1)">Öppna nivå 1</button>
+      </div>
+
+      <div class="level level2">
+        <h3>🚀 Nivå 2</h3>
+        <p>Bråk, procent och jämförelser.</p>
+        <button type="button" onclick="showLevel(2)">Öppna nivå 2</button>
+      </div>
+
+      <div class="level level3">
+        <h3>🏆 Nivå 3</h3>
+        <p>Resonemang och experiment.</p>
+        <button type="button" onclick="showLevel(3)">Öppna nivå 3</button>
+      </div>
+
+    </div>
+
+    <div id="level1" class="panel">
+      <h3>🌱 Nivå 1</h3>
+
+      <div class="task">
+        <label>1. Hur många möjliga utfall finns när du kastar ett vanligt mynt?</label>
+        <input id="a1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a1',['2'],'f1')">Kontrollera</button>
+        <div id="f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Hur många möjliga utfall finns på en vanlig sexsidig tärning?</label>
+        <input id="a2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a2',['6'],'f2')">Kontrollera</button>
+        <div id="f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vad är sannolikheten för krona med ett rättvist mynt? Svara i procent.</label>
+        <input id="a3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a3',['50','50%','50 %'],'f3')">Kontrollera</button>
+        <div id="f3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level2" class="panel">
+      <h3>🚀 Nivå 2</h3>
+
+      <div class="task">
+        <label>1. Vad är sannolikheten att slå ett jämnt tal på en vanlig tärning? Svara som bråk.</label>
+        <input id="b1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b1',['1/2','3/6'],'g1')">Kontrollera</button>
+        <div id="g1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad är 1/4 i procent?</label>
+        <input id="b2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b2',['25','25%','25 %'],'g2')">Kontrollera</button>
+        <div id="g2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. En påse innehåller 3 röda och 1 blå kula. Vad är sannolikheten att dra en blå kula? Svara som bråk.</label>
+        <input id="b3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b3',['1/4'],'g3')">Kontrollera</button>
+        <div id="g3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level3" class="panel">
+      <h3>🏆 Nivå 3</h3>
+
+      <div class="task">
+        <label>1. Ett lyckohjul har 8 lika stora fält. 2 är gröna. Vad är sannolikheten för grönt i procent?</label>
+        <input id="c1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c1',['25','25%','25 %'],'h1')">Kontrollera</button>
+        <div id="h1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Ett mynt kastas 100 gånger och visar krona 47 gånger. Vad är den experimentella sannolikheten för krona i procent?</label>
+        <input id="c2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c2',['47','47%','47 %'],'h2')">Kontrollera</button>
+        <div id="h2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vad är sannolikheten att slå ett tal större än 4 på en vanlig tärning? Svara som förenklat bråk.</label>
+        <input id="c3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c3',['1/3'],'h3')">Kontrollera</button>
+        <div id="h3" class="feedback"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="quiz">
+    <div class="quiz">
+
+      <div class="quiz-top">
+        <div>
+          <h2>🎮 Sannolikhetsquiz</h2>
+          <p>Åtta frågor. Svarsalternativen blandas.</p>
+        </div>
+
+        <div id="score" class="score">Poäng: 0 / 0</div>
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+        <h3 id="question"></h3>
+        <div id="answers" class="answers"></div>
+        <div id="quizFeedback"></div>
+
+        <button id="nextBtn" type="button" onclick="nextQuestion()">
+          Nästa fråga →
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="section-head">
+      <h2>🧩 Problemlösning</h2>
+      <p>Visa hur du tänker och förklara varför.</p>
+    </div>
+
+    <div class="problem">
+
+      <div class="problem-card">
+        <h3>🎒 Kulorna i påsen</h3>
+
+        <p>
+          I en påse finns 5 röda, 3 blå och 2 gröna kulor.
+          En kula dras slumpmässigt.
+        </p>
+
+        <p>
+          <strong>
+            a) Vad är sannolikheten att dra en blå kula?<br>
+            b) Vad är sannolikheten att inte dra en grön kula?
+          </strong>
+        </p>
+
+        <textarea placeholder="Skriv hur du tänker och räknar..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol1')">
+          Visa lösningsförslag
+        </button>
+
+        <div id="sol1" class="solution">
+          Totalt antal kulor: 5 + 3 + 2 = 10.<br><br>
+
+          a) Blå kulor: 3 av 10.<br>
+          Sannolikheten är 3/10 = 30 %.<br><br>
+
+          b) Inte grön: röda eller blå = 5 + 3 = 8 kulor.<br>
+          Sannolikheten är 8/10 = 4/5 = 80 %.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>💬 Resonera</h2>
+      <p>Kan två personer göra samma slumpförsök och få olika resultat?</p>
+    </div>
+
+    <div class="problem">
+      <div class="problem-card">
+        <p>
+          Elev A kastar ett mynt 20 gånger och får 13 kronor.
+          Elev B kastar samma sorts mynt 20 gånger och får 8 kronor.
+        </p>
+
+        <p>
+          <strong>
+            Betyder det att något av mynten måste vara fel? Förklara.
+          </strong>
+        </p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol2')">
+          Visa ledtråd
+        </button>
+
+        <div id="sol2" class="solution">
+          Nej. Slump gör att korta försöksserier kan ge olika resultat.
+          Om försöket upprepas väldigt många gånger brukar andelen krona
+          närma sig den teoretiska sannolikheten 50 % för ett rättvist mynt.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🌱 Stöd och utmaning</h2>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="support">
+        <h3>🆘 Jag behöver hjälp</h3>
+        <ul>
+          <li>Skriv först alla möjliga utfall.</li>
+          <li>Markera vilka utfall som är gynnsamma.</li>
+          <li>Skriv gynnsamma utfall över möjliga utfall.</li>
+          <li>Kontrollera att sannolikheten ligger mellan 0 och 100 %.</li>
+        </ul>
+      </div>
+
+      <div class="support">
+        <h3>🚀 Jag vill utmanas</h3>
+        <ul>
+          <li>Skapa ett eget lyckohjul och beräkna olika sannolikheter.</li>
+          <li>Gör 50 myntkast och jämför experimentell och teoretisk sannolikhet.</li>
+          <li>Skapa en påse med färgade kulor där sannolikheten för rött är 40 %.</li>
+          <li>Förklara varför ett slumpresultat inte påverkar nästa oberoende kast.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>✅ Kunskapscheck</h2>
+    </div>
+
+    <div class="checklist">
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan förklara vad sannolikhet betyder.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan beskriva möjliga utfall.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan hitta gynnsamma utfall.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan skriva enkel sannolikhet som bråk.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan koppla sannolikhet till procent.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan jämföra teoretisk och experimentell sannolikhet.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan tolka sannolikhet mellan 0 % och 100 %.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan använda sannolikhet i problemlösning.
+      </label>
+
+      <button class="goal-btn" type="button" onclick="checkGoals()">
+        Se min progression
+      </button>
+
+      <div id="goalResult"></div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <strong>🎲 Sannolikhet • Matematik åk 6</strong><br>
+  Förstå • Undersöka • Beräkna • Resonera
+</footer>
+
+<script>
+var quizQuestions = [
+  {
+    q:"Hur många möjliga utfall finns när du kastar ett vanligt mynt?",
+    a:["1","2","4","6"],
+    c:"2",
+    e:"Ett mynt kan ge krona eller klave."
+  },
+  {
+    q:"Vad är sannolikheten att slå en sexa med en vanlig tärning?",
+    a:["1/2","1/3","1/6","5/6"],
+    c:"1/6",
+    e:"Det finns 1 gynnsamt utfall av 6 möjliga."
+  },
+  {
+    q:"Vilket motsvarar 50 %?",
+    a:["1/4","1/2","3/4","1/10"],
+    c:"1/2",
+    e:"50 % är samma som hälften."
+  },
+  {
+    q:"Vad är sannolikheten att slå ett jämnt tal på en vanlig tärning?",
+    a:["1/6","1/3","1/2","2/3"],
+    c:"1/2",
+    e:"De jämna talen är 2, 4 och 6: 3 av 6 = 1/2."
+  },
+  {
+    q:"Vad betyder ett gynnsamt utfall?",
+    a:[
+      "Ett resultat som passar det vi söker",
+      "Det största möjliga resultatet",
+      "Ett säkert resultat",
+      "Ett resultat som aldrig kan inträffa"
+    ],
+    c:"Ett resultat som passar det vi söker",
+    e:"Gynnsamma utfall är de resultat som gör att händelsen vi undersöker inträffar."
+  },
+  {
+    q:"1/4 motsvarar ...",
+    a:["10 %","20 %","25 %","40 %"],
+    c:"25 %",
+    e:"1/4 = 0,25 = 25 %."
+  },
+  {
+    q:"Ett lyckohjul har 4 lika stora fält och 1 är rött. Vad är sannolikheten för rött?",
+    a:["20 %","25 %","50 %","75 %"],
+    c:"25 %",
+    e:"1 av 4 lika stora fält = 1/4 = 25 %."
+  },
+  {
+    q:"Ett rättvist mynt har gett krona fem gånger i rad. Vad är sannolikheten för krona i nästa kast?",
+    a:["0 %","25 %","50 %","100 %"],
+    c:"50 %",
+    e:"Varje nytt kast är oberoende. Sannolikheten är fortfarande 50 %."
+  }
+];
+
+var order=[];
+var current=0;
+var score=0;
+var answered=0;
+
+function normalize(value){
+  return value.trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function showLevel(number){
+  document.querySelectorAll(".panel").forEach(function(panel){
+    panel.classList.remove("active");
+  });
+
+  var selected=document.getElementById("level"+number);
+  selected.classList.add("active");
+  selected.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function checkAnswer(inputId,correctAnswers,feedbackId){
+  var value=normalize(document.getElementById(inputId).value);
+  var feedback=document.getElementById(feedbackId);
+
+  var correct=correctAnswers.some(function(answer){
+    return value===normalize(answer);
+  });
+
+  if(correct){
+    feedback.className="feedback good";
+    feedback.textContent="✅ Rätt! Bra jobbat.";
+  }else{
+    feedback.className="feedback bad";
+    feedback.textContent="❌ Inte riktigt. Försök igen.";
+  }
+}
+
+function toggleSolution(id){
+  var box=document.getElementById(id);
+  box.style.display=box.style.display==="block" ? "none" : "block";
+}
+
+function shuffle(array){
+  var copy=array.slice();
+
+  for(var i=copy.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var temp=copy[i];
+    copy[i]=copy[j];
+    copy[j]=temp;
+  }
+
+  return copy;
+}
+
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;
+  score=0;
+  answered=0;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+
+  document.getElementById("question").textContent=
+    (current+1)+". "+item.q;
+
+  var answerBox=document.getElementById("answers");
+  answerBox.innerHTML="";
+
+  shuffle(item.a).forEach(function(choice){
+    var button=document.createElement("button");
+    button.type="button";
+    button.className="answer";
+    button.textContent=choice;
+
+    button.onclick=function(){
+      answerQuestion(choice,item.c,item.e);
+    };
+
+    answerBox.appendChild(button);
+  });
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="none";
+  feedback.innerHTML="";
+
+  document.getElementById("nextBtn").style.display="none";
+
+  updateScore();
+}
+
+function answerQuestion(choice,correct,explanation){
+  document.querySelectorAll(".answer").forEach(function(button){
+    button.disabled=true;
+  });
+
+  answered++;
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="block";
+
+  if(choice===correct){
+    score++;
+    feedback.style.background="#dcfce7";
+    feedback.style.color="#166534";
+    feedback.innerHTML="✅ Rätt! "+explanation;
+  }else{
+    feedback.style.background="#fee2e2";
+    feedback.style.color="#991b1b";
+    feedback.innerHTML=
+      "❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+explanation;
+  }
+
+  updateScore();
+
+  document.getElementById("nextBtn").style.display="inline-block";
+}
+
+function nextQuestion(){
+  current++;
+
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quizet är klart!</h3>"+
+      "<p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p>"+
+      "<button type='button' style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+
+    return;
+  }
+
+  renderQuestion();
+}
+
+function updateScore(){
+  document.getElementById("score").textContent=
+    "Poäng: "+score+" / "+answered;
+}
+
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal");
+  var checked=0;
+
+  goals.forEach(function(goal){
+    if(goal.checked){
+      checked++;
+    }
+  });
+
+  var result=document.getElementById("goalResult");
+
+  if(checked===goals.length){
+    result.textContent="🏆 Alla mål markerade!";
+  }else if(checked>=6){
+    result.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  }else if(checked>=3){
+    result.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  }else{
+    result.textContent="👣 Börja med utfall och enkla sannolikheter och arbeta vidare steg för steg.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  startQuiz();
+});
+</script>
+
+</body>
+</html>
