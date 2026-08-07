@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samband och förändring – Matematik åk 6</title>
+
+<style>
+:root{
+  --bg:#f7f9fc;
+  --dark:#0f172a;
+  --text:#1f2937;
+  --muted:#64748b;
+  --green:#16a34a;
+  --green2:#15803d;
+  --blue:#2563eb;
+  --teal:#0f766e;
+  --orange:#ea580c;
+  --purple:#7c3aed;
+  --red:#dc2626;
+  --card:#ffffff;
+  --border:#e2e8f0;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:white;
+  padding:12px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+
+.navlinks a{
+  color:#334155;
+  font-weight:800;
+  padding:8px 11px;
+  border-radius:10px;
+}
+
+.navlinks a:hover{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.navlinks .home{
+  background:var(--green);
+  color:white;
+}
+
+.hero{
+  background:
+    radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+    linear-gradient(135deg,#16a34a,#15803d,#166534);
+  color:white;
+  padding:72px 6% 100px;
+}
+
+.hero-inner{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:35px;
+  align-items:center;
+}
+
+.hero h1{
+  margin:0 0 16px;
+  font-size:clamp(2.7rem,7vw,5rem);
+  line-height:1;
+}
+
+.hero p{
+  font-size:1.18rem;
+  max-width:760px;
+}
+
+.hero-card{
+  background:white;
+  color:#166534;
+  border-radius:24px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 18px 50px rgba(0,0,0,.2);
+}
+
+.graph{
+  position:relative;
+  width:240px;
+  height:180px;
+  margin:14px auto;
+  border-left:4px solid #334155;
+  border-bottom:4px solid #334155;
+}
+
+.graph-line{
+  position:absolute;
+  left:15px;
+  bottom:20px;
+  width:190px;
+  height:4px;
+  background:#16a34a;
+  transform:rotate(-30deg);
+  transform-origin:left center;
+  border-radius:10px;
+}
+
+.dot{
+  width:12px;
+  height:12px;
+  background:#15803d;
+  border-radius:50%;
+  position:absolute;
+}
+
+.dot1{left:37px;bottom:42px}
+.dot2{left:91px;bottom:73px}
+.dot3{left:145px;bottom:104px}
+.dot4{left:199px;bottom:135px}
+
+.wrap{
+  max-width:1180px;
+  margin:auto;
+  padding:0 20px 70px;
+}
+
+.overview{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-top:-42px;
+}
+
+.overview div{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:800;
+  box-shadow:0 10px 28px rgba(0,0,0,.09);
+}
+
+section{margin-top:62px}
+
+.section-head{margin-bottom:22px}
+
+.section-head h2{
+  margin:0 0 8px;
+  color:var(--dark);
+  font-size:2rem;
+}
+
+.section-head p{
+  margin:0;
+  color:var(--muted);
+}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.grid-4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+
+.card h3{
+  margin-top:0;
+  color:var(--dark);
+}
+
+.formula{
+  background:#f0fdf4;
+  border:1px solid #bbf7d0;
+  border-radius:14px;
+  padding:15px;
+  text-align:center;
+  font-size:1.35rem;
+  font-weight:900;
+  color:#166534;
+  margin:14px 0;
+}
+
+.tip{
+  background:#f0fdf4;
+  border-left:5px solid var(--green);
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+
+.step{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  padding:13px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+.table-wrap{overflow-x:auto}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+th,td{
+  padding:12px 14px;
+  border-bottom:1px solid var(--border);
+  text-align:center;
+}
+
+th{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.concept{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 5px 16px rgba(0,0,0,.05);
+}
+
+.concept strong{
+  display:block;
+  color:#166534;
+  margin-bottom:5px;
+}
+
+.mistake{
+  background:white;
+  border-top:5px solid var(--red);
+  border-radius:16px;
+  padding:20px;
+}
+
+.wrong{color:#b91c1c;font-weight:800}
+.right{color:#166534;font-weight:800}
+
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.level{
+  color:white;
+  border-radius:22px;
+  padding:24px;
+}
+
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#16a34a,#15803d)}
+.level3{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+
+.level button{
+  border:none;
+  background:white;
+  color:#111827;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.panel{
+  display:none;
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  margin-top:18px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+
+.panel.active{display:block}
+
+.task{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  margin:12px 0;
+}
+
+.task label{
+  display:block;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.task input{
+  padding:10px;
+  border:1px solid #cbd5e1;
+  border-radius:9px;
+  width:100%;
+  max-width:320px;
+}
+
+.check{
+  margin-top:9px;
+  background:var(--green);
+  color:white;
+  border:none;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.feedback{
+  display:none;
+  margin-top:9px;
+  padding:10px;
+  border-radius:9px;
+  font-weight:800;
+}
+
+.feedback.good{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
+}
+
+.feedback.bad{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.quiz{
+  background:#0f172a;
+  color:white;
+  border-radius:24px;
+  padding:28px;
+}
+
+.quiz-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.score{
+  background:#1e293b;
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:900;
+}
+
+.quiz-card{
+  background:#1e293b;
+  border-radius:16px;
+  padding:22px;
+  margin-top:18px;
+}
+
+.answers{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.answer{
+  border:none;
+  background:white;
+  color:#1f2937;
+  padding:14px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  text-align:left;
+}
+
+.answer:hover{background:#dcfce7}
+.answer:disabled{opacity:.75;cursor:default}
+
+#quizFeedback{
+  display:none;
+  margin-top:14px;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+}
+
+#nextBtn{
+  display:none;
+  margin-top:12px;
+  border:none;
+  background:#facc15;
+  color:#111827;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.problem{
+  background:linear-gradient(135deg,#dcfce7,#dbeafe);
+  border-radius:24px;
+  padding:28px;
+}
+
+.problem-card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  margin-top:15px;
+}
+
+.problem textarea{
+  width:100%;
+  min-height:115px;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  resize:vertical;
+  margin-top:12px;
+}
+
+.reveal{
+  margin-top:10px;
+  border:none;
+  background:#166534;
+  color:white;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.solution{
+  display:none;
+  background:#f8fafc;
+  border-radius:10px;
+  padding:14px;
+  margin-top:12px;
+}
+
+.support{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist label{
+  display:flex;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.checklist input{
+  width:19px;
+  height:19px;
+}
+
+.goal-btn{
+  margin-top:16px;
+  border:none;
+  background:var(--green2);
+  color:white;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+#goalResult{
+  margin-top:12px;
+  font-weight:900;
+}
+
+footer{
+  background:#020617;
+  color:#cbd5e1;
+  padding:34px 20px;
+  text-align:center;
+  margin-top:60px;
+}
+
+@media(max-width:900px){
+  .overview,.grid-4{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .grid-3,.levels{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:700px){
+  .hero-inner,.grid-2,.overview,.answers{
+    grid-template-columns:1fr;
+  }
+
+  .hero-card{display:none}
+  .overview{margin-top:-25px}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">📈 Samband och förändring – Matematik åk 6</div>
+
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="matematik.html">🔢 Matematik</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Problem</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+
+    <div>
+      <h1>Samband och förändring</h1>
+      <p>
+        Här lär du dig se hur olika storheter hänger ihop.
+        Du arbetar med proportionalitet, förhållanden, jämförpris,
+        skala, hastighet–tid–sträcka, förändring, tabeller och grafer.
+      </p>
+    </div>
+
+    <div class="hero-card">
+      <h3>📈 Ett samband</h3>
+      <div class="graph">
+        <div class="graph-line"></div>
+        <div class="dot dot1"></div>
+        <div class="dot dot2"></div>
+        <div class="dot dot3"></div>
+        <div class="dot dot4"></div>
+      </div>
+      <strong>När x ökar, ökar också y.</strong>
+    </div>
+
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="overview">
+    <div>⚖️ Proportionalitet</div>
+    <div>🔢 Förhållanden</div>
+    <div>🗺️ Skala</div>
+    <div>🚗 Hastighet</div>
+    <div>📊 Tabeller & grafer</div>
+  </div>
+
+  <section id="forsta">
+
+    <div class="section-head">
+      <h2>📘 Vad är ett samband?</h2>
+      <p>
+        Ett samband beskriver hur två eller flera storheter påverkar eller hör ihop med varandra.
+      </p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>Pris och antal</h3>
+        <div class="formula">1 glass = 20 kr</div>
+        <p>2 glassar kostar 40 kr, 3 kostar 60 kr.</p>
+      </div>
+
+      <div class="card">
+        <h3>Sträcka och tid</h3>
+        <div class="formula">60 km/h</div>
+        <p>På 2 timmar färdas du 120 km om hastigheten är konstant.</p>
+      </div>
+
+      <div class="card">
+        <h3>Skala och verklighet</h3>
+        <div class="formula">1 cm på kartan = 100 m</div>
+        <p>2 cm på kartan motsvarar 200 m i verkligheten.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>⚖️ Proportionalitet</h2>
+      <p>
+        Ett samband är proportionellt när båda storheterna förändras med samma faktor.
+      </p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Exempel: äpplen</h3>
+        <div class="formula">1 kg = 30 kr</div>
+        <div class="step">2 kg = 60 kr</div>
+        <div class="step">3 kg = 90 kr</div>
+        <div class="tip">
+          Dubbel mängd ger dubbelt pris. Det är proportionellt.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Inte proportionellt</h3>
+        <p>
+          En taxi kan ha en startavgift på 50 kr och sedan 20 kr per kilometer.
+          Då är priset inte proportionellt mot antalet kilometer eftersom priset inte börjar på 0 kr.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🔢 Förhållanden</h2>
+      <p>
+        Ett förhållande jämför två mängder.
+      </p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Exempel</h3>
+        <p>I en grupp finns 6 röda och 3 blå kulor.</p>
+        <div class="formula">röda : blå = 6 : 3 = 2 : 1</div>
+        <div class="tip">
+          Det finns dubbelt så många röda som blå.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Jämför olika storheter</h3>
+        <p>
+          Förhållanden används bland annat i recept, kartor, blandningar och skala.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🛒 Jämförpris</h2>
+      <p>
+        Jämförpris hjälper dig att jämföra varor med olika storlek eller mängd.
+      </p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Förpackning A</h3>
+        <p>500 g kostar 25 kr.</p>
+        <div class="formula">25 ÷ 0,5 = 50 kr/kg</div>
+      </div>
+
+      <div class="card">
+        <h3>Förpackning B</h3>
+        <p>1 kg kostar 45 kr.</p>
+        <div class="formula">45 kr/kg</div>
+        <div class="tip">
+          Förpackning B har lägre jämförpris.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🗺️ Skala</h2>
+      <p>
+        Skala visar förhållandet mellan en bild, karta eller modell och verkligheten.
+      </p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>Skala 1:100</h3>
+        <p>1 cm på ritningen motsvarar 100 cm i verkligheten.</p>
+        <div class="formula">1 cm → 1 m</div>
+      </div>
+
+      <div class="card">
+        <h3>Exempel</h3>
+        <p>En vägg är 5 cm på en ritning i skala 1:100.</p>
+        <div class="formula">5 · 100 = 500 cm</div>
+        <div class="step">500 cm = 5 m</div>
+      </div>
+
+      <div class="card">
+        <h3>Kom ihåg</h3>
+        <div class="tip">
+          Kontrollera alltid enheterna innan du svarar.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🚗 Hastighet – tid – sträcka</h2>
+      <p>
+        Hastighet beskriver hur långt något färdas under en viss tid.
+      </p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>Sträcka</h3>
+        <div class="formula">sträcka = hastighet · tid</div>
+        <p>60 km/h i 2 h → 120 km.</p>
+      </div>
+
+      <div class="card">
+        <h3>Hastighet</h3>
+        <div class="formula">hastighet = sträcka ÷ tid</div>
+        <p>150 km på 3 h → 50 km/h.</p>
+      </div>
+
+      <div class="card">
+        <h3>Tid</h3>
+        <div class="formula">tid = sträcka ÷ hastighet</div>
+        <p>120 km i 60 km/h → 2 h.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>📊 Tabeller visar samband</h2>
+    </div>
+
+    <div class="table-wrap">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Antal pennor</th>
+            <th>Pris</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr><td>1</td><td>12 kr</td></tr>
+          <tr><td>2</td><td>24 kr</td></tr>
+          <tr><td>3</td><td>36 kr</td></tr>
+          <tr><td>4</td><td>48 kr</td></tr>
+          <tr><td>5</td><td>60 kr</td></tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="tip">
+      Priset ökar med 12 kr för varje extra penna.
+    </div>
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>📈 Grafer</h2>
+      <p>
+        En graf kan visa hur två storheter förändras tillsammans.
+      </p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>x-axeln</h3>
+        <p>
+          Den vågräta axeln visar ofta det vi väljer eller förändrar, till exempel antal.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>y-axeln</h3>
+        <p>
+          Den lodräta axeln visar ofta resultatet, till exempel pris.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>📉 Förändring</h2>
+      <p>
+        Vi kan beskriva hur något ökar eller minskar.
+      </p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>Ökning</h3>
+        <div class="formula">40 → 50</div>
+        <p>Ökningen är 10.</p>
+      </div>
+
+      <div class="card">
+        <h3>Minskning</h3>
+        <div class="formula">80 → 60</div>
+        <p>Minskningen är 20.</p>
+      </div>
+
+      <div class="card">
+        <h3>Procentuell förändring</h3>
+        <p>
+          Procent kan användas för att beskriva hur stor förändringen är jämfört med ursprungsvärdet.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🧠 Begreppsbank</h2>
+    </div>
+
+    <div class="grid-4">
+
+      <div class="concept">
+        <strong>Samband</strong>
+        Hur två eller flera storheter hör ihop.
+      </div>
+
+      <div class="concept">
+        <strong>Proportionalitet</strong>
+        När storheter förändras med samma faktor.
+      </div>
+
+      <div class="concept">
+        <strong>Förhållande</strong>
+        En jämförelse mellan två mängder.
+      </div>
+
+      <div class="concept">
+        <strong>Jämförpris</strong>
+        Pris per gemensam enhet, till exempel kr/kg.
+      </div>
+
+      <div class="concept">
+        <strong>Skala</strong>
+        Förhållandet mellan bild och verklighet.
+      </div>
+
+      <div class="concept">
+        <strong>Hastighet</strong>
+        Sträcka per tidsenhet.
+      </div>
+
+      <div class="concept">
+        <strong>Graf</strong>
+        En bild som visar ett samband mellan storheter.
+      </div>
+
+      <div class="concept">
+        <strong>Förändring</strong>
+        Hur mycket något ökar eller minskar.
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>⚠️ Vanliga missuppfattningar</h2>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="mistake">
+        <h3>Dubbel mängd</h3>
+        <p class="wrong">❌ Dubbel mängd betyder alltid dubbelt pris.</p>
+        <p class="right">✅ Bara om sambandet är proportionellt.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Skala</h3>
+        <p class="wrong">❌ 1:100 betyder att 1 cm är 100 meter.</p>
+        <p class="right">✅ 1 cm motsvarar 100 cm, alltså 1 meter.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Hastighet</h3>
+        <p class="wrong">❌ 60 km/h betyder 60 km varje minut.</p>
+        <p class="right">✅ Det betyder 60 kilometer på en timme.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="traning">
+
+    <div class="section-head">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>Klicka på en nivå. Uppgifterna öppnas direkt.</p>
+    </div>
+
+    <div class="levels">
+
+      <div class="level level1">
+        <h3>🌱 Nivå 1</h3>
+        <p>Enkla samband och tabeller.</p>
+        <button type="button" onclick="showLevel(1)">Öppna nivå 1</button>
+      </div>
+
+      <div class="level level2">
+        <h3>🚀 Nivå 2</h3>
+        <p>Skala, jämförpris och hastighet.</p>
+        <button type="button" onclick="showLevel(2)">Öppna nivå 2</button>
+      </div>
+
+      <div class="level level3">
+        <h3>🏆 Nivå 3</h3>
+        <p>Proportionalitet och problemlösning.</p>
+        <button type="button" onclick="showLevel(3)">Öppna nivå 3</button>
+      </div>
+
+    </div>
+
+    <div id="level1" class="panel">
+
+      <h3>🌱 Nivå 1</h3>
+
+      <div class="task">
+        <label>1. En penna kostar 12 kr. Vad kostar 3 pennor?</label>
+        <input id="a1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a1',['36','36 kr'],'f1')">Kontrollera</button>
+        <div id="f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. 1 kg äpplen kostar 30 kr. Vad kostar 2 kg?</label>
+        <input id="a2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a2',['60','60 kr'],'f2')">Kontrollera</button>
+        <div id="f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. I förhållandet 6:3, vad blir det förenklade förhållandet?</label>
+        <input id="a3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a3',['2:1','2 : 1'],'f3')">Kontrollera</button>
+        <div id="f3" class="feedback"></div>
+      </div>
+
+    </div>
+
+    <div id="level2" class="panel">
+
+      <h3>🚀 Nivå 2</h3>
+
+      <div class="task">
+        <label>1. På en ritning i skala 1:100 är en vägg 4 cm. Hur lång är väggen i verkligheten?</label>
+        <input id="b1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b1',['4 m','4','400 cm'],'g1')">Kontrollera</button>
+        <div id="g1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. En bil kör 60 km/h i 3 timmar. Hur långt kör bilen?</label>
+        <input id="b2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b2',['180','180 km'],'g2')">Kontrollera</button>
+        <div id="g2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. 2 kg ris kostar 70 kr. Vad är jämförpriset per kg?</label>
+        <input id="b3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b3',['35','35 kr','35 kr/kg'],'g3')">Kontrollera</button>
+        <div id="g3" class="feedback"></div>
+      </div>
+
+    </div>
+
+    <div id="level3" class="panel">
+
+      <h3>🏆 Nivå 3</h3>
+
+      <div class="task">
+        <label>1. 5 biljetter kostar 400 kr. Vad kostar 8 biljetter om priset är proportionellt?</label>
+        <input id="c1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c1',['640','640 kr'],'h1')">Kontrollera</button>
+        <div id="h1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. En cyklist färdas 45 km på 3 timmar. Vilken är medelhastigheten?</label>
+        <input id="c2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c2',['15','15 km/h'],'h2')">Kontrollera</button>
+        <div id="h2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. En karta har skala 1:50 000. 2 cm på kartan motsvarar hur långt i verkligheten?</label>
+        <input id="c3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c3',['1 km','1000 m','100000 cm'],'h3')">Kontrollera</button>
+        <div id="h3" class="feedback"></div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="quiz">
+
+    <div class="quiz">
+
+      <div class="quiz-top">
+
+        <div>
+          <h2>🎮 Sambandsquiz</h2>
+          <p>Åtta frågor. Svarsalternativen blandas.</p>
+        </div>
+
+        <div id="score" class="score">
+          Poäng: 0 / 0
+        </div>
+
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+
+        <h3 id="question"></h3>
+
+        <div id="answers" class="answers"></div>
+
+        <div id="quizFeedback"></div>
+
+        <button id="nextBtn" type="button" onclick="nextQuestion()">
+          Nästa fråga →
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="problem">
+
+    <div class="section-head">
+      <h2>🧩 Problemlösning</h2>
+      <p>Använd samband, tabeller och rätt enheter.</p>
+    </div>
+
+    <div class="problem">
+
+      <div class="problem-card">
+
+        <h3>🚴 Cykelturen</h3>
+
+        <p>
+          Amir cyklar med jämn hastighet 18 km/h.
+          Hur långt hinner han på 2,5 timmar?
+        </p>
+
+        <textarea placeholder="Skriv hur du tänker och räknar..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol1')">
+          Visa lösningsförslag
+        </button>
+
+        <div id="sol1" class="solution">
+          Sträcka = hastighet · tid.<br><br>
+          18 · 2,5 = 45.<br><br>
+          <strong>Svar: Amir cyklar 45 km.</strong>
+        </div>
+
+      </div>
+
+      <div class="problem-card">
+
+        <h3>🛒 Vilket paket är billigast?</h3>
+
+        <p>
+          Paket A: 750 g kostar 39 kr.<br>
+          Paket B: 1 kg kostar 50 kr.
+        </p>
+
+        <textarea placeholder="Jämför priserna per kg..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol2')">
+          Visa lösningsförslag
+        </button>
+
+        <div id="sol2" class="solution">
+          Paket A:<br>
+          39 ÷ 0,75 = 52 kr/kg.<br><br>
+
+          Paket B:<br>
+          50 kr/kg.<br><br>
+
+          <strong>Svar: Paket B är billigast per kilogram.</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>💬 Resonemangsutmaning</h2>
+    </div>
+
+    <div class="problem">
+
+      <div class="problem-card">
+
+        <p>
+          En elev säger:
+          “Om 2 glassar kostar 40 kr så måste 4 glassar alltid kosta 80 kr.”
+        </p>
+
+        <p>
+          <strong>Har eleven alltid rätt? Förklara.</strong>
+        </p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol3')">
+          Visa ledtråd
+        </button>
+
+        <div id="sol3" class="solution">
+          Eleven har rätt om priset är proportionellt och varje glass har samma styckepris.
+          Men kampanjer, mängdrabatt eller en fast avgift kan göra att sambandet inte längre är proportionellt.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🌱 Stöd och utmaning</h2>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="support">
+        <h3>🆘 Jag behöver hjälp</h3>
+        <ul>
+          <li>Gör en tabell med de två storheterna.</li>
+          <li>Kontrollera om båda storheterna förändras med samma faktor.</li>
+          <li>Skriv alltid enheten.</li>
+          <li>Vid skala: kontrollera om du behöver omvandla cm till m eller km.</li>
+          <li>Vid hastighet: skriv vilken av sträcka, tid eller hastighet du söker.</li>
+        </ul>
+      </div>
+
+      <div class="support">
+        <h3>🚀 Jag vill utmanas</h3>
+        <ul>
+          <li>Skapa en tabell för ett eget proportionellt samband.</li>
+          <li>Jämför tre olika paket med hjälp av jämförpris.</li>
+          <li>Skapa en ritning i skala 1:50.</li>
+          <li>Rita en graf som visar priset för ett antal varor.</li>
+          <li>Förklara skillnaden mellan proportionellt och icke-proportionellt samband.</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>✅ Kunskapscheck</h2>
+    </div>
+
+    <div class="checklist">
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan förklara vad ett samband är.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag känner igen enkla proportionella samband.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan använda förhållanden.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan beräkna jämförpris.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan använda skala.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan räkna med hastighet, tid och sträcka.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan läsa en tabell och en enkel graf.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan resonera om förändring och samband.
+      </label>
+
+      <button class="goal-btn" type="button" onclick="checkGoals()">
+        Se min progression
+      </button>
+
+      <div id="goalResult"></div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <strong>📈 Samband och förändring • Matematik åk 6</strong><br>
+  Jämföra • Beskriva • Beräkna • Tolka • Resonera
+</footer>
+
+<script>
+var quizQuestions = [
+  {
+    q:"En penna kostar 15 kr. Vad kostar 4 pennor om priset är proportionellt?",
+    a:["45 kr","50 kr","60 kr","75 kr"],
+    c:"60 kr",
+    e:"15 · 4 = 60 kr."
+  },
+  {
+    q:"Vad betyder skala 1:100?",
+    a:[
+      "1 cm motsvarar 100 cm",
+      "1 cm motsvarar 100 m",
+      "100 cm motsvarar 1 mm",
+      "Allt är 100 gånger större på bilden"
+    ],
+    c:"1 cm motsvarar 100 cm",
+    e:"Skalan jämför samma enhet på ritning och verklighet."
+  },
+  {
+    q:"En bil kör 50 km/h i 2 timmar. Hur långt kör den?",
+    a:["25 km","50 km","100 km","150 km"],
+    c:"100 km",
+    e:"50 · 2 = 100 km."
+  },
+  {
+    q:"Vad är jämförpriset om 2 kg kostar 80 kr?",
+    a:["20 kr/kg","40 kr/kg","80 kr/kg","160 kr/kg"],
+    c:"40 kr/kg",
+    e:"80 ÷ 2 = 40 kr/kg."
+  },
+  {
+    q:"Vilket är det förenklade förhållandet 8:4?",
+    a:["1:1","2:1","4:1","8:1"],
+    c:"2:1",
+    e:"Båda talen delas med 4."
+  },
+  {
+    q:"Vilken formel ger sträckan?",
+    a:[
+      "hastighet · tid",
+      "sträcka ÷ tid",
+      "tid ÷ hastighet",
+      "hastighet + tid"
+    ],
+    c:"hastighet · tid",
+    e:"Sträcka = hastighet · tid."
+  },
+  {
+    q:"En vara kostar 20 kr styck. Vad kostar 5 stycken?",
+    a:["25 kr","40 kr","80 kr","100 kr"],
+    c:"100 kr",
+    e:"20 · 5 = 100 kr."
+  },
+  {
+    q:"Vad visar en graf över antal och pris?",
+    a:[
+      "Hur storheterna hänger ihop",
+      "Bara det största priset",
+      "Bara antalet",
+      "Vilken färg varorna har"
+    ],
+    c:"Hur storheterna hänger ihop",
+    e:"En graf visar relationen mellan två storheter."
+  }
+];
+
+var order=[];
+var current=0;
+var score=0;
+var answered=0;
+
+function normalize(value){
+  return value.trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function showLevel(number){
+  document.querySelectorAll(".panel").forEach(function(panel){
+    panel.classList.remove("active");
+  });
+
+  var selected=document.getElementById("level"+number);
+  selected.classList.add("active");
+  selected.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function checkAnswer(inputId,correctAnswers,feedbackId){
+  var value=normalize(document.getElementById(inputId).value);
+  var feedback=document.getElementById(feedbackId);
+
+  var correct=correctAnswers.some(function(answer){
+    return value===normalize(answer);
+  });
+
+  if(correct){
+    feedback.className="feedback good";
+    feedback.textContent="✅ Rätt! Bra jobbat.";
+  }else{
+    feedback.className="feedback bad";
+    feedback.textContent="❌ Inte riktigt. Försök igen.";
+  }
+}
+
+function toggleSolution(id){
+  var box=document.getElementById(id);
+  box.style.display=box.style.display==="block" ? "none" : "block";
+}
+
+function shuffle(array){
+  var copy=array.slice();
+
+  for(var i=copy.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var temp=copy[i];
+    copy[i]=copy[j];
+    copy[j]=temp;
+  }
+
+  return copy;
+}
+
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;
+  score=0;
+  answered=0;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+
+  document.getElementById("question").textContent=
+    (current+1)+". "+item.q;
+
+  var answerBox=document.getElementById("answers");
+  answerBox.innerHTML="";
+
+  shuffle(item.a).forEach(function(choice){
+    var button=document.createElement("button");
+    button.type="button";
+    button.className="answer";
+    button.textContent=choice;
+
+    button.onclick=function(){
+      answerQuestion(choice,item.c,item.e);
+    };
+
+    answerBox.appendChild(button);
+  });
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="none";
+  feedback.innerHTML="";
+
+  document.getElementById("nextBtn").style.display="none";
+
+  updateScore();
+}
+
+function answerQuestion(choice,correct,explanation){
+  document.querySelectorAll(".answer").forEach(function(button){
+    button.disabled=true;
+  });
+
+  answered++;
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="block";
+
+  if(choice===correct){
+    score++;
+
+    feedback.style.background="#dcfce7";
+    feedback.style.color="#166534";
+    feedback.innerHTML="✅ Rätt! "+explanation;
+  }else{
+    feedback.style.background="#fee2e2";
+    feedback.style.color="#991b1b";
+    feedback.innerHTML=
+      "❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+explanation;
+  }
+
+  updateScore();
+
+  document.getElementById("nextBtn").style.display="inline-block";
+}
+
+function nextQuestion(){
+  current++;
+
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quizet är klart!</h3>"+
+      "<p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p>"+
+      "<button type='button' style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+
+    return;
+  }
+
+  renderQuestion();
+}
+
+function updateScore(){
+  document.getElementById("score").textContent=
+    "Poäng: "+score+" / "+answered;
+}
+
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal");
+  var checked=0;
+
+  goals.forEach(function(goal){
+    if(goal.checked){
+      checked++;
+    }
+  });
+
+  var result=document.getElementById("goalResult");
+
+  if(checked===goals.length){
+    result.textContent="🏆 Alla mål markerade!";
+  }else if(checked>=6){
+    result.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  }else if(checked>=3){
+    result.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  }else{
+    result.textContent="👣 Börja med enkla samband och proportionalitet och arbeta vidare steg för steg.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  startQuiz();
+});
+</script>
+
+</body>
+</html>
