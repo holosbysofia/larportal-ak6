@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lärspel – Åk 6</title>
+<style>
+:root{
+  --bg:#f6f8fc;--ink:#14213d;--muted:#667085;--card:#fff;--line:#e5e7eb;
+  --blue:#2563eb;--violet:#7c3aed;--green:#059669;--orange:#ea580c;
+  --rose:#e11d48;--cyan:#0891b2;--yellow:#f59e0b;--navy:#0f172a
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+button{font:inherit}
+.topbar{
+  position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:12px 5%;flex-wrap:wrap
+}
+.brand{font-weight:900;font-size:1.08rem}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.nav a{padding:9px 12px;border-radius:10px;font-weight:800;color:#334155}
+.nav a:hover{background:#eef2ff}
+.nav .home{background:var(--blue);color:white}
+
+.hero{
+  background:
+    radial-gradient(circle at 85% 20%,rgba(255,255,255,.18),transparent 23%),
+    linear-gradient(135deg,#4f46e5,#2563eb,#0891b2);
+  color:#fff;padding:72px 6% 96px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.45fr .8fr;gap:32px;align-items:center}
+.hero h1{font-size:clamp(3.2rem,8vw,5.5rem);line-height:.95;margin:0 0 16px}
+.hero p{font-size:1.18rem;max-width:760px;line-height:1.6;margin:0}
+.hero-card{
+  background:#fff;color:#243b53;border-radius:24px;padding:28px;text-align:center;
+  box-shadow:0 18px 50px rgba(0,0,0,.18)
+}
+.hero-card .big{font-size:5rem}
+.hero-card strong{display:block;font-size:1.4rem;margin-top:6px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.stats{
+  margin-top:-36px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px
+}
+.stat{
+  background:#fff;border-radius:16px;padding:18px;text-align:center;
+  box-shadow:0 10px 28px rgba(0,0,0,.09)
+}
+.stat b{display:block;font-size:1.35rem;color:#1d4ed8}
+.stat span{font-size:.9rem;color:var(--muted)}
+
+section{margin-top:58px}
+.section-head{margin-bottom:20px}
+.section-head h2{font-size:2rem;margin:0 0 8px}
+.section-head p{margin:0;color:var(--muted);line-height:1.55}
+
+.filterbar{
+  display:flex;gap:9px;flex-wrap:wrap;background:#fff;border-radius:18px;
+  padding:14px;box-shadow:0 5px 18px rgba(0,0,0,.05);margin-bottom:20px
+}
+.filterbar button{
+  border:0;background:#f1f5f9;color:#334155;padding:9px 13px;border-radius:999px;
+  font-weight:900;cursor:pointer
+}
+.filterbar button.active{background:#1d4ed8;color:#fff}
+
+.game-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.game-card{
+  background:#fff;border-radius:22px;padding:22px;box-shadow:0 6px 22px rgba(0,0,0,.06);
+  border:1px solid #edf1f6;transition:.2s;display:flex;flex-direction:column;min-height:265px
+}
+.game-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.1)}
+.game-card.hide{display:none}
+.icon{font-size:2.6rem}
+.badge{
+  display:inline-block;margin-top:10px;padding:5px 9px;border-radius:999px;
+  font-size:.78rem;font-weight:900;background:#eef2ff;color:#4338ca
+}
+.game-card h3{margin:12px 0 7px;font-size:1.35rem}
+.game-card p{color:var(--muted);line-height:1.5;flex:1}
+.play{
+  border:0;background:#1d4ed8;color:#fff;border-radius:11px;padding:11px 14px;
+  font-weight:900;cursor:pointer;width:100%
+}
+.play:hover{filter:brightness(.94)}
+
+.arena{
+  display:none;background:#fff;border-radius:26px;padding:28px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);border:1px solid #e8edf4
+}
+.arena.active{display:block}
+.arena-top{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap
+}
+.arena-title h2{margin:0 0 5px}
+.arena-title p{margin:0;color:var(--muted)}
+.close{
+  border:0;background:#e2e8f0;color:#334155;border-radius:10px;padding:9px 12px;
+  font-weight:900;cursor:pointer
+}
+.scoreline{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0
+}
+.scorebox{background:#f8fafc;border-radius:14px;padding:13px;text-align:center}
+.scorebox b{display:block;font-size:1.25rem}
+.scorebox span{font-size:.8rem;color:var(--muted)}
+
+.progress{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:16px 0 24px}
+.progress div{height:100%;background:linear-gradient(90deg,#2563eb,#0891b2);width:0;transition:.25s}
+
+.question{
+  background:linear-gradient(135deg,#f8fbff,#f1f5ff);border-radius:18px;padding:22px;
+  border:1px solid #dbeafe
+}
+.question h3{font-size:1.35rem;margin:0 0 8px}
+.question .hint{color:var(--muted);font-size:.92rem}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.answer{
+  border:2px solid #dbe2ea;background:#fff;color:#1f2937;padding:15px;border-radius:13px;
+  text-align:left;font-weight:800;cursor:pointer;min-height:58px
+}
+.answer:hover{border-color:#93c5fd;background:#eff6ff}
+.answer.correct{border-color:#16a34a;background:#dcfce7;color:#166534}
+.answer.wrong{border-color:#dc2626;background:#fee2e2;color:#991b1b}
+.answer:disabled{cursor:default}
+.feedback{display:none;margin-top:16px;padding:14px;border-radius:12px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+.next{
+  display:none;margin-top:14px;border:0;background:#f59e0b;color:#111827;
+  border-radius:10px;padding:10px 14px;font-weight:900;cursor:pointer
+}
+.result{
+  display:none;text-align:center;padding:32px 12px
+}
+.result .trophy{font-size:4rem}
+.result h3{font-size:2rem;margin:8px 0}
+.result p{color:var(--muted);font-size:1.05rem}
+.result button{
+  border:0;background:#1d4ed8;color:#fff;border-radius:11px;padding:11px 15px;
+  font-weight:900;cursor:pointer;margin:5px
+}
+
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.info{
+  background:#fff;border-radius:20px;padding:22px;box-shadow:0 5px 18px rgba(0,0,0,.05)
+}
+.info h3{margin-top:0;color:#1d4ed8}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center}
+
+@media(max-width:900px){
+  .stats,.game-grid{grid-template-columns:repeat(2,1fr)}
+  .info-grid{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .hero-inner,.stats,.game-grid,.answers,.scoreline{grid-template-columns:1fr}
+  .hero-card{display:none}.stats{margin-top:-24px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">🎮 Lärspel – Åk 6</div>
+  <nav class="nav">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="#spel">Spel</a>
+    <a href="#spela">Spela nu</a>
+    <a href="#sa-fungerar-det">Så fungerar det</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Lärspel</h1>
+      <p>
+        Träna matematik, svenska, engelska och NO genom korta spel.
+        Frågorna blandas, svarsalternativen byter plats och du får direkt återkoppling.
+        Välj ett spel och försök slå ditt eget resultat.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="big">🎮🧠⭐</div>
+      <strong>Spela • träna • lär</strong>
+      <p>Ingen inloggning. Inga tomma popupfönster.</p>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+<div class="stats">
+  <div class="stat"><b>12</b><span>lärspel</span></div>
+  <div class="stat"><b>4</b><span>ämnen</span></div>
+  <div class="stat"><b>10</b><span>frågor per spel</span></div>
+  <div class="stat"><b>∞</b><span>nya försök</span></div>
+</div>
+
+<section id="spel">
+  <div class="section-head">
+    <h2>🕹️ Välj lärspel</h2>
+    <p>Filtrera på ämne eller välj direkt. Alla spelen fungerar i den här filen.</p>
+  </div>
+
+  <div class="filterbar">
+    <button class="active" onclick="filterGames('alla',this)">Alla</button>
+    <button onclick="filterGames('matematik',this)">➗ Matematik</button>
+    <button onclick="filterGames('svenska',this)">📚 Svenska</button>
+    <button onclick="filterGames('engelska',this)">🇬🇧 Engelska</button>
+    <button onclick="filterGames('no',this)">🔬 NO</button>
+  </div>
+
+  <div class="game-grid">
+    <article class="game-card" data-subject="matematik">
+      <div class="icon">➕</div><span class="badge">MATEMATIK</span>
+      <h3>Räknesättsmästaren</h3>
+      <p>Träna addition, subtraktion, multiplikation, division och prioritering.</p>
+      <button class="play" onclick="startGame('raknesatt')">Spela →</button>
+    </article>
+
+    <article class="game-card" data-subject="matematik">
+      <div class="icon">🧩</div><span class="badge">MATEMATIK</span>
+      <h3>Problemlösaren</h3>
+      <p>Läs, välj strategi och lös vardagsnära matematiska problem.</p>
+      <button class="play" onclick="startGame('problemlosning')">Spela →</button>
+    </article>
+
+    <article class="game-card" data-subject="matematik">
+      <div class="icon">📊</div><span class="badge">MATEMATIK</span>
+      <h3>Bråk, decimal & procent</h3>
+      <p>Para ihop talformer och jämför bråk, decimaler och procent.</p>
+      <button class="play" onclick="startGame('talformer')">Spela →</button>
+    </article>
+
+    <article class="game-card" data-subject="svenska">
+      <div class="icon">🔤</div><span class="badge">SVENSKA</span>
+      <h3>Ordklassjakten</h3>
+      <p>Hitta substantiv, verb, adjektiv, pronomen och andra ordklasser.</p>
+      <button class="play" onclick="startGame('ordklasser')">Spela →</button>
+    </article>
+
+    <article class="game-card" data-subject="svenska">
+      <div class="icon">✍️</div><span class="badge">SVENSKA</span>
+      <h3>Språkfixaren</h3>
+      <p>Träna meningsbyggnad, skiljetecken, stavning och sambandsord.</p>
+      <button class="play" onclick="startGame('sprakfixaren')">Spela →</button>
+    </article>
+
+    <article class="game-card" data-subject="svenska">
+      <div class="icon">📖</div><span class="badge">SVENSKA</span>
+      <h3>Läsdetektiven</h3>
+      <p>Träna huvudidé, inferenser, budskap, detaljer och källkritik.</p>
+      <button class="play" onclick="startGame('lasdetektiven')">Spela →</button>
+    </article>
+
+    <article class="game-card" data-subject="engelska">
+      <div class="icon">💬</div><span class="badge">ENGLISH</span>
+      <h3>Everyday English</h3>
+      <p>Vardagliga fraser, frågor, svar och användbar klassrumsengelska.</p>
+      <button class="play" onclick="startGame('everyday')">Spela →</button>
+    </article>
+
+    <article class="game-card" data-subject="engelska">
+      <div class="icon">🏃</div><span class="badge">ENGLISH</span>
+      <h3>Grammar Challenge</h3>
+      <p>Verb, tempus, ordföljd, frågor, adjectives och adverbs.</p>
+      <button class="play" onclick="startGame('grammar')">Spela →</button>
+    </article>
+
+    <article class="game-card" data-subject="engelska">
+      <div class="icon">🧠</div><span class="badge">ENGLISH</span>
+      <h3>Vocabulary Quest</h3>
+      <p>Synonymer, motsatser, betydelser och vanliga engelska uttryck.</p>
+      <button class="play" onclick="startGame('vocabulary')">Spela →</button>
+    </article>
+
+    <article class="game-card" data-subject="no">
+      <div class="icon">🫀</div><span class="badge">NO</span>
+      <h3>Kroppen & hälsa</h3>
+      <p>Organ, organsystem, näring, rörelse och hälsosamma vanor.</p>
+      <button class="play" onclick="startGame('kroppen')">Spela →</button>
+    </article>
+
+    <article class="game-card" data-subject="no">
+      <div class="icon">⚡</div><span class="badge">NO</span>
+      <h3>Energi & krafter</h3>
+      <p>Energiomvandlingar, rörelse, friktion, elektricitet, ljus och ljud.</p>
+      <button class="play" onclick="startGame('energi')">Spela →</button>
+    </article>
+
+    <article class="game-card" data-subject="no">
+      <div class="icon">🌱</div><span class="badge">NO</span>
+      <h3>Ekosystem & hållbarhet</h3>
+      <p>Näringskedjor, producenter, konsumenter, kretslopp och hållbar utveckling.</p>
+      <button class="play" onclick="startGame('ekosystem')">Spela →</button>
+    </article>
+  </div>
+</section>
+
+<section id="spela">
+  <div id="arena" class="arena">
+    <div class="arena-top">
+      <div class="arena-title">
+        <h2 id="gameTitle">Spel</h2>
+        <p id="gameDesc"></p>
+      </div>
+      <button class="close" onclick="closeGame()">✕ Stäng</button>
+    </div>
+
+    <div class="scoreline">
+      <div class="scorebox"><b id="qNum">1/10</b><span>fråga</span></div>
+      <div class="scorebox"><b id="score">0</b><span>poäng</span></div>
+      <div class="scorebox"><b id="streak">0</b><span>svit</span></div>
+      <div class="scorebox"><b id="best">0</b><span>bästa svit</span></div>
+    </div>
+
+    <div class="progress"><div id="progressBar"></div></div>
+
+    <div id="questionArea">
+      <div class="question">
+        <h3 id="questionText"></h3>
+        <div id="questionHint" class="hint"></div>
+      </div>
+      <div id="answers" class="answers"></div>
+      <div id="feedback" class="feedback"></div>
+      <button id="nextBtn" class="next" onclick="nextQuestion()">Nästa fråga →</button>
+    </div>
+
+    <div id="result" class="result">
+      <div class="trophy">🏆</div>
+      <h3 id="resultTitle">Bra jobbat!</h3>
+      <p id="resultText"></p>
+      <button onclick="restartGame()">Spela igen</button>
+      <button onclick="closeGame()">Välj annat spel</button>
+    </div>
+  </div>
+</section>
+
+<section id="sa-fungerar-det">
+  <div class="section-head">
+    <h2>💡 Så fungerar lärspelen</h2>
+    <p>Spelen är byggda för kort, återkommande träning och direkt återkoppling.</p>
+  </div>
+  <div class="info-grid">
+    <div class="info"><h3>🔀 Blandade svar</h3><p>Rätt svar ligger inte alltid på samma plats. Svarsalternativen blandas varje gång.</p></div>
+    <div class="info"><h3>✅ Direkt återkoppling</h3><p>Eleven ser direkt om svaret är rätt och får en kort förklaring.</p></div>
+    <div class="info"><h3>🔁 Spela igen</h3><p>Frågorna blandas mellan försöken så att spelet inte blir identiskt varje gång.</p></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>🎮 Lärspel • Åk 6</strong><br>
+  Matematik • Svenska • Engelska • NO
+</footer>
+
+<script>
+const GAMES = {
+  raknesatt:{
+    title:"➕ Räknesättsmästaren",
+    desc:"Träna de fyra räknesätten och prioritering.",
+    qs:[
+      ["Vad är 48 ÷ 6?",["8","6","7","9"],"8","48 delat i 6 lika stora grupper ger 8."],
+      ["Vad är 27 × 4?",["108","98","104","112"],"108","27 × 4 = 108."],
+      ["Vad är 350 - 178?",["172","182","168","178"],"172","350 - 178 = 172."],
+      ["Vad är 125 + 286?",["411","401","421","391"],"411","125 + 286 = 411."],
+      ["Vad är 6 + 3 × 4?",["18","36","24","15"],"18","Multiplikation räknas före addition: 3 × 4 = 12, sedan 6 + 12 = 18."],
+      ["Vad är 720 ÷ 9?",["80","90","70","81"],"80","9 × 80 = 720."],
+      ["Vad är 14 × 12?",["168","156","178","148"],"168","14 × 12 = 168."],
+      ["Vad är 1000 - 465?",["535","545","525","565"],"535","1000 - 465 = 535."],
+      ["Vilket uttryck är lika med 56?",["7 × 8","6 × 8","9 × 6","64 ÷ 4"],"7 × 8","7 × 8 = 56."],
+      ["Vad är (18 + 12) ÷ 5?",["6","5","7","8"],"6","18 + 12 = 30 och 30 ÷ 5 = 6."],
+      ["Vad är 2,5 + 1,75?",["4,25","3,25","4,15","4,35"],"4,25","2,50 + 1,75 = 4,25."],
+      ["Vad är 4,8 ÷ 2?",["2,4","2,8","1,4","3,4"],"2,4","4,8 delat med 2 = 2,4."]
+    ]
+  },
+  problemlosning:{
+    title:"🧩 Problemlösaren",
+    desc:"Läs noggrant, välj räknesätt och lös problemet.",
+    qs:[
+      ["En buss har 48 platser. 37 är upptagna. Hur många är lediga?",["11","9","10","12"],"11","48 - 37 = 11."],
+      ["Fyra lådor innehåller 24 pennor var. Hur många pennor är det totalt?",["96","88","92","104"],"96","4 × 24 = 96."],
+      ["En bok kostar 125 kr. Tre böcker kostar lika mycket per styck. Vad kostar de tillsammans?",["375 kr","350 kr","325 kr","425 kr"],"375 kr","3 × 125 = 375 kr."],
+      ["240 elever delas i 8 lika stora grupper. Hur många i varje grupp?",["30","32","28","40"],"30","240 ÷ 8 = 30."],
+      ["Sara går 1,8 km till skolan och lika långt hem. Hur långt går hon totalt?",["3,6 km","2,8 km","3,8 km","1,8 km"],"3,6 km","1,8 + 1,8 = 3,6 km."],
+      ["En klass samlar 685 kr och behöver 900 kr. Hur mycket saknas?",["215 kr","225 kr","205 kr","315 kr"],"215 kr","900 - 685 = 215 kr."],
+      ["5 biljetter kostar 60 kr styck. Gruppen betalar med 500 kr. Hur mycket får de tillbaka?",["200 kr","180 kr","220 kr","240 kr"],"200 kr","5 × 60 = 300 och 500 - 300 = 200 kr."],
+      ["En kanna rymmer 1,5 liter. Hur mycket rymmer 4 kannor?",["6 liter","5 liter","4,5 liter","7 liter"],"6 liter","1,5 × 4 = 6 liter."],
+      ["En film börjar 18:35 och är 1 h 45 min lång. När slutar den?",["20:20","20:10","20:30","19:80"],"20:20","18:35 + 1:45 = 20:20."],
+      ["12 elever delar lika på 84 kort. Hur många får varje elev?",["7","6","8","9"],"7","84 ÷ 12 = 7."],
+      ["En tröja kostar 400 kr och sänks med 25 %. Hur mycket blir rabatten?",["100 kr","75 kr","125 kr","150 kr"],"100 kr","25 % av 400 = 100 kr."],
+      ["Tre paket väger 0,75 kg var. Vad väger de tillsammans?",["2,25 kg","1,5 kg","2,5 kg","3 kg"],"2,25 kg","0,75 × 3 = 2,25 kg."]
+    ]
+  },
+  talformer:{
+    title:"📊 Bråk, decimal & procent",
+    desc:"Träna samband mellan bråk, decimalform och procent.",
+    qs:[
+      ["Vilket är samma som 50 %?",["0,5","0,05","5,0","0,25"],"0,5","50 % = 50/100 = 0,5."],
+      ["Vilket bråk är samma som 25 %?",["1/4","1/2","3/4","1/5"],"1/4","25 % = 25/100 = 1/4."],
+      ["Vad är 3/4 i procent?",["75 %","60 %","80 %","34 %"],"75 %","3/4 = 0,75 = 75 %."],
+      ["Vilket tal är störst?",["0,8","75 %","3/4","0,7"],"0,8","0,8 = 80 %, vilket är störst."],
+      ["Vad är 10 % av 250?",["25","20","15","30"],"25","10 % är en tiondel: 250 ÷ 10 = 25."],
+      ["Vad är 1/5 i decimalform?",["0,2","0,5","0,25","0,1"],"0,2","1 ÷ 5 = 0,2."],
+      ["Vad är 0,35 i procent?",["35 %","3,5 %","350 %","30 %"],"35 %","0,35 × 100 = 35 %."],
+      ["Vilket är minst?",["20 %","0,25","1/3","0,4"],"20 %","20 % = 0,20 och är minst."],
+      ["Vad är hälften av 3/4?",["3/8","1/4","2/4","3/2"],"3/8","3/4 ÷ 2 = 3/8."],
+      ["Vad är 0,125 som bråk av åtta lika delar?",["1/8","2/8","3/8","4/8"],"1/8","0,125 = 1/8."],
+      ["Vilket är samma som 120 %?",["1,2","0,12","12","1,02"],"1,2","120 % = 1,20."],
+      ["Vad är 40 % av 50?",["20","15","25","10"],"20","0,4 × 50 = 20."]
+    ]
+  },
+  ordklasser:{
+    title:"🔤 Ordklassjakten",
+    desc:"Identifiera ordklasser i svenska meningar.",
+    qs:[
+      ["Vilken ordklass är ordet 'springer'?",["verb","substantiv","adjektiv","pronomen"],"verb","Springer beskriver en handling och är ett verb."],
+      ["Vilken ordklass är 'vacker'?",["adjektiv","verb","substantiv","preposition"],"adjektiv","Vacker beskriver en egenskap."],
+      ["Vilken ordklass är 'skola'?",["substantiv","verb","adverb","pronomen"],"substantiv","Skola är namn på en sak/plats."],
+      ["Vilken ordklass är 'hon'?",["pronomen","adjektiv","substantiv","konjunktion"],"pronomen","Hon ersätter ett namn."],
+      ["Vilken ordklass är 'under' i 'Boken ligger under bordet'?",["preposition","verb","adjektiv","pronomen"],"preposition","Under visar relation i rum."],
+      ["Vilken ordklass är 'och'?",["konjunktion","adverb","pronomen","substantiv"],"konjunktion","Och binder ihop ord eller satser."],
+      ["Vilken ordklass är 'snabbt' i 'Han springer snabbt'?",["adverb","adjektiv","substantiv","pronomen"],"adverb","Snabbt beskriver hur han springer."],
+      ["Vilken ordklass är 'vi'?",["pronomen","verb","preposition","adjektiv"],"pronomen","Vi är ett personligt pronomen."],
+      ["Vilket ord är ett verb?",["förklarar","förklaring","tydlig","mycket"],"förklarar","Förklarar uttrycker en handling."],
+      ["Vilket ord är ett substantiv?",["frihet","fri","fritt","befriar"],"frihet","Frihet är ett substantiv."],
+      ["Vilket ord är ett adjektiv?",["nyfiken","nyfiket","nyfikenhet","frågar"],"nyfiken","Nyfiken beskriver en egenskap."],
+      ["Vilket ord är en preposition?",["mellan","men","kanske","de"],"mellan","Mellan visar relation mellan saker."]
+    ]
+  },
+  sprakfixaren:{
+    title:"✍️ Språkfixaren",
+    desc:"Träna meningsbyggnad, skiljetecken och språk.",
+    qs:[
+      ["Vilken mening har korrekt stor bokstav och punkt?",["Vi går till skolan.","vi går till skolan.","Vi går till skolan","vi går till skolan"],"Vi går till skolan.","En mening börjar med stor bokstav och avslutas med punkt."],
+      ["Vilket skiljetecken passar? 'Var bor du__'",["?","!",";",":"],"?","En direkt fråga avslutas med frågetecken."],
+      ["Vilken mening är tydligast?",["Eftersom det regnade tog vi bussen.","Eftersom regnade vi bussen tog.","Vi eftersom bussen tog regnade.","Tog vi eftersom regnade bussen."],"Eftersom det regnade tog vi bussen.","Meningen har tydlig och korrekt ordföljd."],
+      ["Vilket sambandsord visar motsats?",["men","och","eftersom","därför"],"men","Men markerar en kontrast."],
+      ["Vilket sambandsord visar orsak?",["eftersom","men","sedan","dessutom"],"eftersom","Eftersom förklarar varför."],
+      ["Vilken stavning är korrekt?",["intressant","intresant","interesant","intressannt"],"intressant","Intressant stavas med dubbel s."],
+      ["Vilken mening använder kommatecken bäst?",["Efter maten, gick vi ut.","Efter maten gick vi ut.","Efter, maten gick vi ut.","Efter maten gick, vi ut."],"Efter maten gick vi ut.","Här behövs inget kommatecken."],
+      ["Vilket ord passar bäst? 'Texten är tydlig ___ den har bra rubriker.'",["eftersom","men","eller","trots"],"eftersom","Eftersom anger orsaken."],
+      ["Vilken mening varierar språket bäst?",["Först åt vi. Sedan gick vi ut.","Vi åt. Vi gick. Vi såg. Vi kom.","Och vi åt och vi gick och vi såg.","Åt vi sedan först."],"Först åt vi. Sedan gick vi ut.","Tidsorden skapar tydlig struktur."],
+      ["Vilken mening är en fullständig mening?",["Eleverna arbetar tyst.","När eleverna.","Eftersom det.","I klassrummet när."],"Eleverna arbetar tyst.","Den har subjekt och predikat och uttrycker en hel tanke."],
+      ["Vilket tecken används ofta före en uppräkning?",[":","?","!","-"],":","Kolon kan användas före en uppräkning."],
+      ["Vilken mening är korrekt?",["De gick hem eftersom det var sent.","Dem gick hem eftersom det var sent.","Dom gick hem eftersom den var sent.","De gick hem eftersom dem var sent."],"De gick hem eftersom det var sent.","De används som subjekt."]
+    ]
+  },
+  lasdetektiven:{
+    title:"📖 Läsdetektiven",
+    desc:"Träna läsförståelse, inferenser och källkritik.",
+    qs:[
+      ["Text: 'Maja tog fram paraplyet och drog upp huvan.' Vad kan vi dra för slutsats?",["Det regnar eller ska regna.","Det är mycket varmt.","Hon ska bada.","Det är natt."],"Det regnar eller ska regna.","Paraply och huva är ledtrådar till regn."],
+      ["Vad är en huvudidé?",["Det viktigaste texten handlar om.","Ett enskilt årtal.","Textens längsta ord.","Författarens namn."],"Det viktigaste texten handlar om.","Huvudidén sammanfattar textens kärna."],
+      ["Vad betyder att läsa mellan raderna?",["Dra slutsatser med hjälp av ledtrådar.","Hoppa över varannan rad.","Läsa bara rubriken.","Räkna meningarna."],"Dra slutsatser med hjälp av ledtrådar.","Inferenser bygger på textens ledtrådar och egna kunskaper."],
+      ["Vilken fråga är källkritisk?",["Vem står bakom informationen?","Vilken färg har sidan?","Hur lång är texten?","Finns det många bilder?"],"Vem står bakom informationen?","Avsändaren är central i källkritik."],
+      ["Vad är ett budskap?",["Det texten vill säga eller väcka tankar om.","Det första ordet i texten.","Alla fakta i alfabetisk ordning.","En bildtext."],"Det texten vill säga eller väcka tankar om.","Budskap är textens övergripande mening eller tanke."],
+      ["Vad är en sammanfattning?",["En kort återgivning av det viktigaste.","En kopia av hela texten.","En lista med alla ord.","En personlig åsikt utan stöd."],"En kort återgivning av det viktigaste.","En sammanfattning tar med kärnan och utelämnar detaljer."],
+      ["Vilket är en detalj?",["Bussen avgår 07:45.","Texten handlar om resor.","Budskapet är att våga.","Författaren vill informera."],"Bussen avgår 07:45.","Tiden är en specifik uppgift."],
+      ["En text är publicerad för tio år sedan. Vad bör du kontrollera?",["Om informationen fortfarande är aktuell.","Om typsnittet är fint.","Om sidan har logga.","Om texten har fyra stycken."],"Om informationen fortfarande är aktuell.","Aktualitet är viktig i källkritik."],
+      ["Vad är en inferens?",["En slutsats utifrån ledtrådar.","En rubrik.","Ett skiljetecken.","En källa."],"En slutsats utifrån ledtrådar.","Inferens betyder att förstå något som inte sägs direkt."],
+      ["Vilken källa är oftast bäst för aktuell myndighetsinformation?",["Myndighetens egen webbplats.","Ett anonymt forum.","En gammal reklambroschyr.","En meme."],"Myndighetens egen webbplats.","Förstahandskällan är ofta bäst för myndighetens aktuella information."],
+      ["Vad bör en bra sammanfattning undvika?",["Onödiga detaljer.","Huvudidén.","Viktiga fakta.","Egna formuleringar."],"Onödiga detaljer.","Sammanfattningen ska vara kort och fokuserad."],
+      ["Vilken fråga hjälper dig hitta syftet?",["Varför har texten skapats?","Hur många bokstäver har rubriken?","Vilken färg är bakgrunden?","Hur många kommatecken finns?"],"Varför har texten skapats?","Syftet handlar om varför materialet skapades."]
+    ]
+  },
+  everyday:{
+    title:"💬 Everyday English",
+    desc:"Useful English for everyday communication.",
+    qs:[
+      ["What is a natural answer to 'How are you?'",["I'm fine, thanks.","At seven o'clock.","Blue.","Yesterday."],"I'm fine, thanks.","This is a natural response to a greeting."],
+      ["How do you ask someone to repeat?",["Can you repeat that, please?","Where repeat you?","Repeat is blue.","I repeated tomorrow."],"Can you repeat that, please?","This is a polite and useful classroom phrase."],
+      ["Which phrase asks for an opinion?",["What do you think?","How old is the table?","Where yesterday?","Who blue?"],"What do you think?","It invites another person's opinion."],
+      ["Choose the best phrase in a shop.",["How much is this?","How many weather?","What time is blue?","Where do you eat yesterday?"],"How much is this?","This asks for the price."],
+      ["What can you say if you need help?",["Can you help me, please?","I help yesterday maybe.","Help is a colour.","Where is help doing?"],"Can you help me, please?","It is clear and polite."],
+      ["Which phrase keeps a conversation going?",["What about you?","Goodbye forever.","No words.","Stop."],"What about you?","It returns the question to the other person."],
+      ["How do you ask for the meaning of a word?",["What does this word mean?","Where word?","When is word?","Why blue?"],"What does this word mean?","This asks for clarification."],
+      ["Which is a polite request?",["Could you speak more slowly, please?","Speak slower now!","You slow.","Slow speaking yesterday."],"Could you speak more slowly, please?","Could you... please? is polite."],
+      ["What is a useful thinking phrase?",["Let me think...","Never English.","No answer.","I gone."],"Let me think...","It gives you time without ending the conversation."],
+      ["Which sentence expresses a preference?",["I prefer tea to coffee.","I yesterday tea.","Tea where?","Prefer is blue."],"I prefer tea to coffee.","Prefer is used to say what you like more."],
+      ["Which is the best follow-up question after 'I play tennis'?",["How often do you play?","What colour is Monday?","Are you a table?","When is blue?"],"How often do you play?","It builds on what the person said."],
+      ["Which phrase shows agreement?",["I agree because...","I disagree no.","Agreement yesterday.","I am agreeing."],"I agree because...","This gives agreement and opens for a reason."]
+    ]
+  },
+  grammar:{
+    title:"🏃 Grammar Challenge",
+    desc:"Verbs, tenses, word order and adjectives.",
+    qs:[
+      ["Choose the correct sentence.",["She plays football every Friday.","She play football every Friday.","She playing football every Friday.","She plays football now every Friday."],"She plays football every Friday.","He/she/it usually takes -s in present simple."],
+      ["Choose the correct form: 'They ___ TV now.'",["are watching","watch","watched","is watching"],"are watching","Now often signals present continuous: are + verb-ing."],
+      ["Past simple of 'go' is...",["went","goed","goes","going"],"went","Go is irregular: go → went."],
+      ["Choose the correct question.",["Where do you live?","Where you live?","Where does you live?","Do where you live?"],"Where do you live?","Question word + do + subject + base verb."],
+      ["Choose the correct negative.",["He doesn't like milk.","He doesn't likes milk.","He don't likes milk.","He not like milk."],"He doesn't like milk.","After doesn't, use the base form."],
+      ["Comparative of 'big' is...",["bigger","biggest","more big","biger"],"bigger","Big → bigger."],
+      ["Superlative of 'good' is...",["best","better","goodest","most good"],"best","Good → better → best."],
+      ["Choose the adverb.",["quickly","quick","quicker","quickness"],"quickly","Quickly describes how an action happens."],
+      ["Choose the correct sentence.",["I usually walk to school.","I walk usually to school always.","Usually I to school walk.","I usually to walk school."],"I usually walk to school.","Frequency adverbs often come before the main verb."],
+      ["Choose the correct past question.",["Did you see the film?","Did you saw the film?","Do you saw the film?","Saw you the film?"],"Did you see the film?","After did, use the base form."],
+      ["Choose the correct sentence.",["There are three books on the table.","There is three books on the table.","There three books are.","Are there books three."],"There are three books on the table.","Use there are with plural nouns."],
+      ["Choose the correct pronoun: 'Lisa is my friend. ___ is funny.'",["She","Her","Him","They"],"She","She is the subject pronoun replacing Lisa."]
+    ]
+  },
+  vocabulary:{
+    title:"🧠 Vocabulary Quest",
+    desc:"Words, synonyms, opposites and useful chunks.",
+    qs:[
+      ["Which word is a synonym of 'big'?",["large","tiny","slow","late"],"large","Large and big have similar meanings."],
+      ["Which word is the opposite of 'easy'?",["difficult","simple","quick","quiet"],"difficult","Difficult is the opposite of easy."],
+      ["What does 'careful' mean?",["försiktig/noggrann","arg","hungrig","högljudd"],"försiktig/noggrann","Careful describes someone who takes care."],
+      ["Complete the chunk: 'make a ___'",["mistake","homework","breakfast","bus"],"mistake","The common collocation is 'make a mistake'."],
+      ["Complete the chunk: 'do ___'",["homework","a mistake","a bus","breakfast"],"homework","We say 'do homework'."],
+      ["Complete: 'take a ___'",["break","mistake","homework","meal"],"break","'Take a break' is a common chunk."],
+      ["What is the opposite of 'quiet'?",["loud","small","early","soft"],"loud","Loud is the opposite of quiet."],
+      ["Which word belongs to the word family of 'help'?",["helpful","table","slowly","garden"],"helpful","Helpful is built from help + -ful."],
+      ["What does 'freezing' usually mean?",["very cold","very hot","very fast","very loud"],"very cold","Freezing can describe extremely cold weather."],
+      ["Which is a synonym of 'happy'?",["glad","angry","tired","empty"],"glad","Glad and happy have similar meanings."],
+      ["Which word means 'resa'?",["travel","table","weather","health"],"travel","Travel means resa."],
+      ["Which phrase is natural English?",["have breakfast","do breakfast","make breakfasting","take breakfast homework"],"have breakfast","'Have breakfast' is a common collocation."]
+    ]
+  },
+  kroppen:{
+    title:"🫀 Kroppen & hälsa",
+    desc:"Organ, organsystem och hälsosamma vanor.",
+    qs:[
+      ["Vilket organ pumpar blod genom kroppen?",["hjärtat","lungorna","magsäcken","njurarna"],"hjärtat","Hjärtat fungerar som en pump i blodomloppet."],
+      ["Var sker det mesta gasutbytet med syre och koldioxid?",["lungorna","magsäcken","hjärnan","skelettet"],"lungorna","I lungorna byts syre och koldioxid mellan luft och blod."],
+      ["Vilket system transporterar blod?",["cirkulationssystemet","matspjälkningssystemet","skelettet","huden"],"cirkulationssystemet","Hjärta och blodkärl ingår i cirkulationssystemet."],
+      ["Vad är en viktig uppgift för skelettet?",["ge stöd och skydda organ","bryta ner maten","pumpa blod","producera luft"],"ge stöd och skydda organ","Skelettet ger stöd och skyddar bland annat hjärna och hjärta."],
+      ["Vad gör muskler när de skapar rörelse?",["drar ihop sig","förvandlas till ben","stannar blodet","producerar syre"],"drar ihop sig","Muskler kan dra ihop sig och skapa rörelse."],
+      ["Var börjar matspjälkningen?",["munnen","lungorna","hjärtat","njurarna"],"munnen","Tuggning och saliv startar matspjälkningen."],
+      ["Vilket organ styr många av kroppens funktioner?",["hjärnan","magsäcken","levern","huden"],"hjärnan","Hjärnan är en central del av nervsystemet."],
+      ["Varför behöver kroppen sömn?",["för återhämtning och viktiga kroppsfunktioner","för att sluta andas","för att muskler ska försvinna","för att blodet ska stanna"],"för återhämtning och viktiga kroppsfunktioner","Sömn är viktig för återhämtning, minne och kroppens reglering."],
+      ["Vilket näringsämne är en viktig energikälla?",["kolhydrater","vatten enbart","mineraler enbart","syre som mat"],"kolhydrater","Kolhydrater är en vanlig energikälla i kosten."],
+      ["Vad händer med pulsen vid fysisk aktivitet?",["den ökar ofta","den blir alltid noll","den påverkas aldrig","hjärtat stannar"],"den ökar ofta","Hjärtat behöver ofta pumpa mer blod när kroppen arbetar."],
+      ["Vilken vana stödjer hälsan?",["regelbunden rörelse, sömn och varierad kost","ingen sömn","bara socker","aldrig rörelse"],"regelbunden rörelse, sömn och varierad kost","Hälsa påverkas av flera vanor tillsammans."],
+      ["Vilket organ hjälper till att rena blod och bilda urin?",["njurarna","lungorna","hjärtat","magsäcken"],"njurarna","Njurarna filtrerar blodet och hjälper kroppen reglera vatten och salter."]
+    ]
+  },
+  energi:{
+    title:"⚡ Energi & krafter",
+    desc:"Energi, rörelse, friktion, el, ljus och ljud.",
+    qs:[
+      ["Vad händer med energi i en omvandling?",["den byter form","den försvinner alltid","den skapas ur ingenting","den blir materia"],"den byter form","Energi kan omvandlas mellan olika former."],
+      ["Vilken kraft drar föremål mot jorden?",["gravitation","friktion","magnetism enbart","ljud"],"gravitation","Gravitation drar massor mot varandra."],
+      ["Vad gör friktion ofta?",["motverkar rörelse mellan ytor","skapar ljus alltid","tar bort massan","stoppar gravitation"],"motverkar rörelse mellan ytor","Friktion bromsar ofta rörelse."],
+      ["Vilket material leder elektrisk ström bra?",["metall","plast","gummi","torrt trä"],"metall","Många metaller är goda elektriska ledare."],
+      ["Vad krävs för att en enkel lampa ska lysa?",["en sluten elektrisk krets","en öppen krets","bara en sladd","ingen energikälla"],"en sluten elektrisk krets","Ström behöver en sammanhängande väg."],
+      ["Hur uppstår ljud?",["genom vibrationer","genom stillastående luft enbart","genom färg","genom gravitation utan rörelse"],"genom vibrationer","Ljud börjar med vibrationer."],
+      ["Vad händer när ljus träffar en spegel?",["det reflekteras","det blir ljud","det försvinner helt","det blir massa"],"det reflekteras","Spegeln reflekterar ljus."],
+      ["Vilken energikälla är förnybar?",["solenergi","kol","olja","naturgas"],"solenergi","Solens energi förnyas kontinuerligt."],
+      ["Vilken enhet används ofta för kraft?",["newton","liter","sekund","grad Celsius"],"newton","Kraft mäts i newton (N)."],
+      ["Vad betyder balanserade krafter?",["den sammanlagda kraften är noll","alla krafter är stora","föremålet måste röra sig snabbare","det finns ingen gravitation"],"den sammanlagda kraften är noll","Balanserade krafter tar ut varandra."],
+      ["Vad påverkar tonhöjden hos ett ljud?",["vibrationernas frekvens","färgen på källan","massan på lyssnaren","antal lampor"],"vibrationernas frekvens","Högre frekvens ger högre ton."],
+      ["Vilken energi har ett föremål som rör sig?",["rörelseenergi","lägesenergi enbart","kemisk energi enbart","kärnenergi alltid"],"rörelseenergi","Rörelseenergi är energi hos ett föremål i rörelse."]
+    ]
+  },
+  ekosystem:{
+    title:"🌱 Ekosystem & hållbarhet",
+    desc:"Näringskedjor, kretslopp och hållbar utveckling.",
+    qs:[
+      ["Vad är en producent i ett ekosystem?",["en organism som kan tillverka energirik näring, t.ex. en växt","ett rovdjur","en nedbrytare","ett berg"],"en organism som kan tillverka energirik näring, t.ex. en växt","Gröna växter är vanliga producenter genom fotosyntes."],
+      ["Vad är en konsument?",["en organism som äter andra organismer","en växt som alltid gör fotosyntes","en sten","vatten"],"en organism som äter andra organismer","Konsumenter får energi genom att äta."],
+      ["Vilken roll har nedbrytare?",["bryter ner dött organiskt material","producerar solljus","stoppar kretslopp","äter bara sten"],"bryter ner dött organiskt material","Nedbrytare återför näringsämnen till kretsloppen."],
+      ["Vad visar en näringskedja?",["vem som äter vem och hur energi förs vidare","vädret nästa vecka","hur lång en växt är","bergens höjd"],"vem som äter vem och hur energi förs vidare","Näringskedjan visar födorelationer och energiflöde."],
+      ["Vad är biologisk mångfald?",["variation av arter, gener och livsmiljöer","bara antal träd","bara antal rovdjur","en enda art"],"variation av arter, gener och livsmiljöer","Biologisk mångfald finns på flera nivåer."],
+      ["Vilken gas tar växter upp vid fotosyntesen?",["koldioxid","syre enbart","kväve som enda gas","väte"],"koldioxid","Växter använder koldioxid och vatten med ljusenergi."],
+      ["Vad är hållbar utveckling?",["att möta behov idag utan att förstöra framtida generationers möjligheter","att använda alla resurser så fort som möjligt","att aldrig förändra något","bara ekonomisk tillväxt"],"att möta behov idag utan att förstöra framtida generationers möjligheter","Hållbar utveckling väger ekologiska, sociala och ekonomiska aspekter."],
+      ["Vilket är ett exempel på en förnybar resurs?",["solenergi","olja","kol","naturgas"],"solenergi","Solen är en förnybar energikälla."],
+      ["Vad kan hända om en art försvinner ur en näringsväv?",["andra arter kan påverkas","ingenting kan någonsin påverkas","alla växter dör direkt","jorden slutar rotera"],"andra arter kan påverkas","Arter är kopplade till varandra i ekosystem."],
+      ["Vad menas med ett ekosystem?",["organismer och deras miljö som samspelar","bara djuren i en skog","bara växterna","bara marken"],"organismer och deras miljö som samspelar","Ekosystem omfattar både levande och icke-levande delar."],
+      ["Vilken handling minskar ofta resursanvändning?",["återanvända produkter","slänga fungerande saker","köpa nytt varje dag","bränna allt avfall"],"återanvända produkter","Återanvändning kan minska behovet av nya resurser."],
+      ["Varifrån kommer den mesta energin som driver många ekosystem?",["solen","månen","jorden inifrån i alla fall","vinden enbart"],"solen","Solenergi fångas av producenter och förs vidare i näringskedjor."]
+    ]
+  }
+};
+
+let state={key:null, questions:[], index:0, score:0, streak:0, best:0, answered:false};
+
+function shuffle(arr){
+  let a=arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function filterGames(subject,btn){
+  document.querySelectorAll('.filterbar button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.game-card').forEach(card=>{
+    card.classList.toggle('hide',subject!=='alla' && card.dataset.subject!==subject);
+  });
+}
+
+function startGame(key){
+  state.key=key;
+  state.questions=shuffle(GAMES[key].qs).slice(0,10);
+  state.index=0; state.score=0; state.streak=0; state.best=0; state.answered=false;
+  document.getElementById('gameTitle').textContent=GAMES[key].title;
+  document.getElementById('gameDesc').textContent=GAMES[key].desc;
+  document.getElementById('arena').classList.add('active');
+  document.getElementById('result').style.display='none';
+  document.getElementById('questionArea').style.display='block';
+  renderQuestion();
+  setTimeout(()=>document.getElementById('arena').scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+
+function renderQuestion(){
+  state.answered=false;
+  const q=state.questions[state.index];
+  document.getElementById('questionText').textContent=q[0];
+  document.getElementById('questionHint').textContent='Välj det svar du tror är rätt.';
+  const box=document.getElementById('answers');
+  box.innerHTML='';
+  shuffle(q[1]).forEach(choice=>{
+    const b=document.createElement('button');
+    b.className='answer';
+    b.textContent=choice;
+    b.onclick=()=>answer(choice,b);
+    box.appendChild(b);
+  });
+  const fb=document.getElementById('feedback');
+  fb.className='feedback';fb.textContent='';
+  document.getElementById('nextBtn').style.display='none';
+  updateHud();
+}
+
+function answer(choice,button){
+  if(state.answered)return;
+  state.answered=true;
+  const q=state.questions[state.index];
+  const correct=q[2];
+  const explanation=q[3];
+  const buttons=[...document.querySelectorAll('.answer')];
+  buttons.forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===correct)b.classList.add('correct');
+  });
+  const fb=document.getElementById('feedback');
+  if(choice===correct){
+    state.score++;
+    state.streak++;
+    state.best=Math.max(state.best,state.streak);
+    button.classList.add('correct');
+    fb.className='feedback good';
+    fb.textContent='✅ Rätt! '+explanation;
+  }else{
+    state.streak=0;
+    button.classList.add('wrong');
+    fb.className='feedback bad';
+    fb.innerHTML='❌ Inte riktigt. Rätt svar är <strong>'+correct+'</strong>. '+explanation;
+  }
+  updateHud();
+  document.getElementById('nextBtn').style.display='inline-block';
+}
+
+function nextQuestion(){
+  state.index++;
+  if(state.index>=state.questions.length){showResult();return}
+  renderQuestion();
+}
+
+function updateHud(){
+  document.getElementById('qNum').textContent=(state.index+1)+'/'+state.questions.length;
+  document.getElementById('score').textContent=state.score;
+  document.getElementById('streak').textContent=state.streak;
+  document.getElementById('best').textContent=state.best;
+  document.getElementById('progressBar').style.width=((state.index)/state.questions.length*100)+'%';
+}
+
+function showResult(){
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('questionArea').style.display='none';
+  const r=document.getElementById('result');
+  r.style.display='block';
+  let title='Bra jobbat!';
+  if(state.score===10)title='🌟 Full pott!';
+  else if(state.score>=8)title='🏆 Mycket starkt!';
+  else if(state.score>=6)title='👏 Bra arbete!';
+  else title='🌱 Fortsätt träna!';
+  document.getElementById('resultTitle').textContent=title;
+  document.getElementById('resultText').textContent=
+    'Du fick '+state.score+' av '+state.questions.length+' rätt. Din bästa svit var '+state.best+'.';
+}
+
+function restartGame(){startGame(state.key)}
+
+function closeGame(){
+  document.getElementById('arena').classList.remove('active');
+  document.getElementById('spel').scrollIntoView({behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>
