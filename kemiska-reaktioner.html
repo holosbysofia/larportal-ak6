@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kemiska reaktioner – NO åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --red:#dc2626;--red2:#b91c1c;--orange:#ea580c;--yellow:#eab308;
+  --blue:#2563eb;--green:#16a34a;--purple:#7c3aed;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{text-decoration:none}button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#fee2e2;color:#991b1b}
+.navlinks .home{background:var(--red);color:white}
+
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#dc2626,#ea580c,#7c2d12);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#991b1b;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0}
+
+.fact{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:15px;font-weight:800;color:#9a3412;margin:14px 0}
+.tip{background:#fff7ed;border-left:5px solid var(--orange);padding:14px;border-radius:10px;margin-top:12px}
+.step{background:#f8fafc;border:1px solid var(--border);padding:13px;border-radius:12px;margin-top:10px}
+.sign{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--red)
+}
+.sign strong{display:block;color:#b91c1c;margin-bottom:6px}
+.concept strong{display:block;color:#b91c1c;margin-bottom:5px}
+
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#ea580c,#c2410c)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:360px}
+.check{margin-top:9px;background:var(--red);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#fee2e2}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+
+.problem{background:linear-gradient(135deg,#fee2e2,#ffedd5);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:115px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#991b1b;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#991b1b;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🔥 Kemiska reaktioner – NO åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="no.html">🔬 NO</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Resonera</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Kemiska reaktioner</h1>
+      <p>
+        Här lär du dig hur nya ämnen kan bildas när ämnen reagerar.
+        Du arbetar med tecken på kemiska reaktioner, förbränning, rost,
+        energiomvandlingar och säkerhet vid experiment.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">🔥🧪⚗️</div>
+      <h3>Nya ämnen kan bildas</h3>
+      <p>Utgångsämnen → kemisk reaktion → nya ämnen</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>🧪 Reaktion</div>
+  <div>🔥 Förbränning</div>
+  <div>🧲 Rost</div>
+  <div>🌡️ Energi</div>
+  <div>🛡️ Säkerhet</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head">
+    <h2>📘 Vad är en kemisk reaktion?</h2>
+    <p>Vid en kemisk reaktion omvandlas ämnen till nya ämnen med andra egenskaper.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Före reaktionen</h3><p>Det finns ett eller flera utgångsämnen.</p></div>
+    <div class="card"><h3>Under reaktionen</h3><p>Atomerna omgrupperas och nya bindningar kan bildas.</p></div>
+    <div class="card"><h3>Efter reaktionen</h3><p>Nya ämnen med nya egenskaper har bildats.</p></div>
+  </div>
+
+  <div class="fact">I en kemisk reaktion försvinner inte atomerna. De ordnas om och blir delar av nya ämnen.</div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>🔍 Tecken på kemisk reaktion</h2>
+    <p>Vi kan ofta upptäcka en kemisk reaktion genom förändringar som sker.</p>
+  </div>
+
+  <div class="grid-4">
+    <div class="sign"><strong>🌈 Färgförändring</strong><p>Ämnet får en ny färg.</p></div>
+    <div class="sign"><strong>💨 Gas bildas</strong><p>Bubblor eller gas kan uppstå.</p></div>
+    <div class="sign"><strong>🌡️ Temperatur ändras</strong><p>Reaktionen kan avge eller ta upp energi.</p></div>
+    <div class="sign"><strong>🧱 Nytt fast ämne</strong><p>Ett fast ämne kan bildas ur två lösningar.</p></div>
+  </div>
+
+  <div class="tip">Ett tecken räcker inte alltid för att säkert avgöra att en kemisk reaktion har skett. Man behöver undersöka sammanhanget.</div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>🔥 Förbränning</h2>
+    <p>Förbränning är en kemisk reaktion där ett ämne reagerar med syre.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Vad behövs?</h3>
+      <div class="step">Brännbart ämne</div>
+      <div class="step">Syre</div>
+      <div class="step">Tillräcklig temperatur</div>
+      <div class="tip">Dessa tre delar brukar illustreras som brandtriangeln.</div>
+    </div>
+
+    <div class="card">
+      <h3>Vad bildas?</h3>
+      <p>Vilka produkter som bildas beror på vilket ämne som brinner.</p>
+      <div class="fact">Vid fullständig förbränning av många organiska bränslen bildas bland annat koldioxid och vatten.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>🧲 Rost</h2>
+    <p>Rost är resultatet av en kemisk reaktion där järn reagerar med syre och vatten.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card"><h3>Vad behövs?</h3><p>Järn, syre och fukt gör att rost lättare bildas.</p></div>
+    <div class="card"><h3>Hur kan man skydda järn?</h3><p>Färg, olja eller annan ytbehandling kan hindra syre och vatten från att nå metallen.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>🌡️ Energi i kemiska reaktioner</h2>
+    <p>Kemiska reaktioner kan avge energi eller ta upp energi.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card"><h3>Energi avges</h3><p>Vid många förbränningsreaktioner frigörs energi som värme och ibland ljus.</p></div>
+    <div class="card"><h3>Energi tas upp</h3><p>Vissa reaktioner behöver energi från omgivningen för att kunna ske.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>🧪 Fysikalisk eller kemisk förändring?</h2>
+    <p>Alla förändringar är inte kemiska reaktioner.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Fysikalisk förändring</h3>
+      <p>Ämnet är fortfarande samma ämne, men form eller aggregationstillstånd har ändrats.</p>
+      <div class="step">Exempel: is smälter till vatten.</div>
+    </div>
+
+    <div class="card">
+      <h3>Kemisk förändring</h3>
+      <p>Nya ämnen bildas.</p>
+      <div class="step">Exempel: järn rostar.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>🛡️ Säkerhet vid kemiska undersökningar</h2>
+    <p>Experiment ska genomföras enligt instruktion och med rätt skydd.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><h3>🥽 Skyddsglasögon</h3><p>Skyddar ögonen när det finns risk för stänk.</p></div>
+    <div class="card"><h3>📋 Följ instruktioner</h3><p>Blanda aldrig ämnen på eget initiativ.</p></div>
+    <div class="card"><h3>🔥 Värme och låga</h3><p>Används bara under vuxens ledning och med säkra rutiner.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+  <div class="grid-4">
+    <div class="concept"><strong>Kemisk reaktion</strong>När nya ämnen bildas.</div>
+    <div class="concept"><strong>Utgångsämne</strong>Ämne som finns före reaktionen.</div>
+    <div class="concept"><strong>Produkt</strong>Ämne som bildas i reaktionen.</div>
+    <div class="concept"><strong>Förbränning</strong>Reaktion där ett ämne reagerar med syre.</div>
+    <div class="concept"><strong>Rost</strong>Ämnen som bildas när järn reagerar med syre och vatten.</div>
+    <div class="concept"><strong>Syre</strong>Gas som behövs vid många förbränningsreaktioner.</div>
+    <div class="concept"><strong>Fysikalisk förändring</strong>Förändring där inget nytt ämne bildas.</div>
+    <div class="concept"><strong>Kemisk förändring</strong>Förändring där nya ämnen bildas.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Vanliga missuppfattningar</h2></div>
+  <div class="grid-3">
+    <div class="mistake"><h3>All förändring är kemisk</h3><p class="wrong">❌ Smältande is är en kemisk reaktion.</p><p class="right">✅ Vatten är fortfarande vatten, därför är det en fysikalisk förändring.</p></div>
+    <div class="mistake"><h3>Ämnen försvinner</h3><p class="wrong">❌ Atomerna försvinner i reaktionen.</p><p class="right">✅ Atomerna omgrupperas och ingår i nya ämnen.</p></div>
+    <div class="mistake"><h3>Förbränning är bara eld</h3><p class="wrong">❌ Förbränning betyder bara synlig låga.</p><p class="right">✅ Förbränning är en kemisk reaktion med syre och kan ske på olika sätt.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Nivå 1</h3><p>Grundbegrepp.</p><button onclick="showLevel(1)">Öppna nivå 1</button></div>
+    <div class="level level2"><h3>🚀 Nivå 2</h3><p>Förbränning och rost.</p><button onclick="showLevel(2)">Öppna nivå 2</button></div>
+    <div class="level level3"><h3>🏆 Nivå 3</h3><p>Jämföra och resonera.</p><button onclick="showLevel(3)">Öppna nivå 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Nivå 1</h3>
+    <div class="task"><label>1. Vad kallas en förändring där nya ämnen bildas?</label><input id="a1"><br><button class="check" onclick="checkAnswer('a1',['kemisk reaktion','kemisk förändring','kemisk forandring'],'f1')">Kontrollera</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. Nämn ett möjligt tecken på en kemisk reaktion.</label><input id="a2"><br><button class="check" onclick="checkAnswer('a2',['färgförändring','fargforandring','gas','bubblor','temperaturförändring','temperaturforandring','nytt fast ämne'],'f2')">Kontrollera</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Är smältande is en kemisk reaktion?</label><input id="a3"><br><button class="check" onclick="checkAnswer('a3',['nej'],'f3')">Kontrollera</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Nivå 2</h3>
+    <div class="task"><label>1. Vilken gas behövs vid förbränning?</label><input id="b1"><br><button class="check" onclick="checkAnswer('b1',['syre'],'g1')">Kontrollera</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad behöver järn för att lättare rosta?</label><input id="b2"><br><button class="check" onclick="checkAnswer('b2',['syre och vatten','vatten och syre','syre och fukt','fukt och syre'],'g2')">Kontrollera</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Vad kan skydda järn från rost?</label><input id="b3"><br><button class="check" onclick="checkAnswer('b3',['färg','farg','olja','ytbehandling'],'g3')">Kontrollera</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Nivå 3</h3>
+    <div class="task"><label>1. Vad kallas ämnen som finns före en kemisk reaktion?</label><input id="c1"><br><button class="check" onclick="checkAnswer('c1',['utgångsämnen','utgangsamnen','utgångsämne'],'h1')">Kontrollera</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kallas ämnen som bildas i en reaktion?</label><input id="c2"><br><button class="check" onclick="checkAnswer('c2',['produkter','produkt'],'h2')">Kontrollera</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Försvinner atomerna i en kemisk reaktion?</label><input id="c3"><br><button class="check" onclick="checkAnswer('c3',['nej'],'h3')">Kontrollera</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Reaktionsquiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Nästa fråga →</button>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="section-head"><h2>💬 Resonera om kemiska reaktioner</h2><p>Använd begrepp och förklara samband.</p></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>🧲 Varför rostar cykeln?</h3>
+      <p>En cykel står ute i regn under lång tid och börjar rosta. Förklara vad som händer och hur man kan minska risken.</p>
+      <textarea placeholder="Skriv ditt resonemang..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Visa lösningsförslag</button>
+      <div id="sol1" class="solution">Järnet i cykeln reagerar med syre och vatten och bildar rost. Genom att måla, olja eller på annat sätt skydda metallen kan man minska kontakten med syre och vatten och därmed bromsa rostbildningen.</div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🔥 Ett brinnande ljus</h3>
+      <p>Varför slocknar ett ljus om man sätter ett glas över det?</p>
+      <textarea placeholder="Skriv ditt resonemang..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Visa exempel</button>
+      <div id="sol2" class="solution">Förbränningen behöver syre. När glaset sätts över ljuset finns bara en begränsad mängd syre kvar. När syrehalten blir för låg kan förbränningen inte fortsätta och lågan slocknar.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+  <div class="grid-2">
+    <div class="support"><h3>🆘 Jag behöver hjälp</h3><ul><li>Fråga: Bildas ett nytt ämne?</li><li>Leta efter tecken som gas, färg- eller temperaturförändring.</li><li>Jämför före och efter reaktionen.</li><li>Använd orden utgångsämne och produkt.</li></ul></div>
+    <div class="support"><h3>🚀 Jag vill utmanas</h3><ul><li>Jämför förbränning och rost.</li><li>Förklara varför atomer inte försvinner.</li><li>Designa en säker undersökning som visar ett tecken på kemisk reaktion.</li><li>Förklara skillnaden mellan fysikalisk och kemisk förändring med två exempel.</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Kunskapscheck</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> Jag kan förklara vad en kemisk reaktion är.</label>
+    <label><input class="goal" type="checkbox"> Jag kan ge exempel på tecken på en kemisk reaktion.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara vad förbränning är.</label>
+    <label><input class="goal" type="checkbox"> Jag kan beskriva hur rost bildas.</label>
+    <label><input class="goal" type="checkbox"> Jag kan skilja mellan fysikalisk och kemisk förändring.</label>
+    <label><input class="goal" type="checkbox"> Jag kan använda begreppen utgångsämne och produkt.</label>
+    <label><input class="goal" type="checkbox"> Jag vet att atomer omgrupperas i reaktioner.</label>
+    <label><input class="goal" type="checkbox"> Jag känner till viktiga säkerhetsregler vid experiment.</label>
+    <button class="goal-btn" onclick="checkGoals()">Se min progression</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer><strong>🔥 Kemiska reaktioner • NO åk 6</strong><br>Reaktioner • Förbränning • Rost • Energi • Säkerhet</footer>
+
+<script>
+var quizQuestions=[
+{q:"Vad händer vid en kemisk reaktion?",a:["Nya ämnen bildas","Alla ämnen försvinner","Bara formen ändras","Ingenting förändras"],c:"Nya ämnen bildas",e:"Vid en kemisk reaktion bildas nya ämnen med nya egenskaper."},
+{q:"Vilket kan vara ett tecken på en kemisk reaktion?",a:["Gas bildas","Ett föremål flyttas","En bok öppnas","En penna vässas"],c:"Gas bildas",e:"Gasbildning kan vara ett tecken på en kemisk reaktion."},
+{q:"Vilken gas behövs vid förbränning?",a:["Syre","Kväve","Helium","Väte"],c:"Syre",e:"Förbränning kräver syre."},
+{q:"Vad behöver järn för att lättare rosta?",a:["Syre och vatten","Bara ljus","Bara kyla","Sand och socker"],c:"Syre och vatten",e:"Rostbildning gynnas när järn kommer i kontakt med syre och vatten."},
+{q:"Vilket är en fysikalisk förändring?",a:["Is smälter","Järn rostar","Ved brinner","Ägg steks"],c:"Is smälter",e:"Vatten är fortfarande samma ämne när is smälter."},
+{q:"Vad kallas ämnena före reaktionen?",a:["Utgångsämnen","Produkter","Sediment","Lösningsmedel"],c:"Utgångsämnen",e:"Utgångsämnen finns före reaktionen."},
+{q:"Vad kallas ämnena som bildas?",a:["Produkter","Utgångsämnen","Isolatorer","Partiklar"],c:"Produkter",e:"Produkter är ämnen som bildas i reaktionen."},
+{q:"Vad händer med atomerna i en kemisk reaktion?",a:["De omgrupperas","De försvinner helt","De blir alltid större","De slutar existera"],c:"De omgrupperas",e:"Atomerna finns kvar men ordnas om i nya kombinationer."}
+];
+
+var order=[],current=0,score=0,answered=0;
+function normalize(v){return v.trim().toLowerCase().replace(/\s+/g," ")}
+function showLevel(n){document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));var s=document.getElementById("level"+n);s.classList.add("active");s.scrollIntoView({behavior:"smooth",block:"start"})}
+function checkAnswer(id,answers,fid){var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);var ok=answers.some(a=>value===normalize(a));f.className=ok?"feedback good":"feedback bad";f.textContent=ok?"✅ Rätt! Bra jobbat.":"❌ Inte riktigt. Försök igen."}
+function toggleSolution(id){var b=document.getElementById(id);b.style.display=b.style.display==="block"?"none":"block"}
+function shuffle(a){var c=a.slice();for(var i=c.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));[c[i],c[j]]=[c[j],c[i]]}return c}
+function startQuiz(){order=shuffle([0,1,2,3,4,5,6,7]);current=0;score=0;answered=0;renderQuestion()}
+function renderQuestion(){var item=quizQuestions[order[current]];document.getElementById("question").textContent=(current+1)+". "+item.q;var box=document.getElementById("answers");box.innerHTML="";shuffle(item.a).forEach(choice=>{var b=document.createElement("button");b.className="answer";b.textContent=choice;b.onclick=()=>answerQuestion(choice,item.c,item.e);box.appendChild(b)});var f=document.getElementById("quizFeedback");f.style.display="none";f.innerHTML="";document.getElementById("nextBtn").style.display="none";updateScore()}
+function answerQuestion(choice,correct,exp){document.querySelectorAll(".answer").forEach(b=>b.disabled=true);answered++;var f=document.getElementById("quizFeedback");f.style.display="block";if(choice===correct){score++;f.style.background="#dcfce7";f.style.color="#166534";f.innerHTML="✅ Rätt! "+exp}else{f.style.background="#fee2e2";f.style.color="#991b1b";f.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+exp}updateScore();document.getElementById("nextBtn").style.display="inline-block"}
+function nextQuestion(){current++;if(current>=quizQuestions.length){document.getElementById("quizCard").innerHTML="<h3>🎉 Quizet är klart!</h3><p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";return}renderQuestion()}
+function updateScore(){document.getElementById("score").textContent="Poäng: "+score+" / "+answered}
+function checkGoals(){var goals=document.querySelectorAll(".goal"),checked=0;goals.forEach(g=>{if(g.checked)checked++});var r=document.getElementById("goalResult");if(checked===goals.length)r.textContent="🏆 Alla mål markerade!";else if(checked>=6)r.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";else if(checked>=3)r.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";else r.textContent="👣 Börja med vad en kemisk reaktion är och vilka tecken du kan se."}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
