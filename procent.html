@@ -1,966 +1,1165 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matematik åk 6</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Procent – Matematik åk 6</title>
 
-<style>
-:root{
-  --bg:#f5f7fb;
-  --dark:#0f172a;
-  --blue:#2563eb;
-  --purple:#7c3aed;
-  --green:#059669;
-  --orange:#ea580c;
-  --red:#dc2626;
-  --cyan:#0891b2;
-  --pink:#db2777;
-  --card:#ffffff;
-  --text:#1f2937;
-  --muted:#64748b;
-}
+  <style>
+    :root{
+      --bg:#f7f8fc;
+      --card:#ffffff;
+      --dark:#0f172a;
+      --text:#1f2937;
+      --muted:#64748b;
+      --pink:#db2777;
+      --pink2:#be185d;
+      --purple:#7c3aed;
+      --blue:#2563eb;
+      --green:#059669;
+      --orange:#ea580c;
+      --yellow:#f59e0b;
+      --red:#dc2626;
+      --border:#e2e8f0;
+    }
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
 
-html{
-  scroll-behavior:smooth;
-}
+    button,input,textarea{font:inherit}
 
-body{
-  font-family:Arial, Helvetica, sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.6;
-}
+    nav{
+      position:sticky;top:0;z-index:1000;
+      background:white;
+      padding:13px 5%;
+      display:flex;justify-content:space-between;align-items:center;gap:20px;
+      box-shadow:0 2px 14px rgba(0,0,0,.08);
+    }
 
-nav{
-  background:white;
-  padding:14px 5%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  position:sticky;
-  top:0;
-  z-index:1000;
-  box-shadow:0 2px 14px rgba(0,0,0,.08);
-}
+    .logo{font-size:1.2rem;font-weight:900;color:var(--dark);white-space:nowrap}
+    .navlinks{display:flex;flex-wrap:wrap;gap:7px;justify-content:flex-end}
+    .navlinks a{
+      text-decoration:none;color:#334155;padding:8px 11px;border-radius:10px;
+      font-weight:800;font-size:.88rem
+    }
+    .navlinks a:hover{background:#fce7f3;color:#be185d}
+    .navlinks .home{background:var(--pink);color:white}
 
-.logo{
-  font-size:1.25rem;
-  font-weight:900;
-  color:var(--dark);
-}
+    .hero{
+      background:
+        radial-gradient(circle at 85% 18%,rgba(255,255,255,.19),transparent 22%),
+        radial-gradient(circle at 76% 70%,rgba(255,255,255,.10),transparent 20%),
+        linear-gradient(135deg,#db2777,#be185d 45%,#7c3aed);
+      color:white;padding:80px 6% 110px;
+    }
 
-.navlinks{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
+    .hero-inner{
+      max-width:1250px;margin:auto;
+      display:grid;grid-template-columns:1.7fr 1fr;align-items:center;gap:45px
+    }
 
-.navlinks a{
-  text-decoration:none;
-  color:#334155;
-  padding:9px 12px;
-  border-radius:10px;
-  font-weight:700;
-  font-size:.9rem;
-}
+    .badge{
+      display:inline-block;background:rgba(255,255,255,.15);
+      border:1px solid rgba(255,255,255,.25);
+      padding:8px 14px;border-radius:30px;font-weight:800;margin-bottom:18px
+    }
 
-.navlinks a:hover{
-  background:#eff6ff;
-  color:#1d4ed8;
-}
+    .hero h1{font-size:clamp(3rem,8vw,5.5rem);line-height:1;margin-bottom:18px}
+    .hero p{font-size:1.2rem;max-width:720px}
 
-.home{
-  background:#2563eb !important;
-  color:white !important;
-}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+    .hero-actions a{
+      text-decoration:none;background:white;color:#9d174d;
+      padding:13px 18px;border-radius:13px;font-weight:900
+    }
+    .hero-actions a.secondary{
+      background:rgba(255,255,255,.14);color:white;
+      border:1px solid rgba(255,255,255,.28)
+    }
 
-.hero{
-  background:
-    radial-gradient(circle at 80% 20%,rgba(255,255,255,.18),transparent 25%),
-    linear-gradient(135deg,#1d4ed8,#2563eb,#4f46e5);
-  color:white;
-  padding:75px 6%;
-}
+    .hero-visual{display:flex;justify-content:center}
 
-.hero-inner{
-  max-width:1200px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:40px;
-  align-items:center;
-}
+    .percent-circle{
+      width:280px;height:280px;border-radius:50%;
+      background:conic-gradient(#fde68a 0deg 270deg,rgba(255,255,255,.22) 270deg 360deg);
+      border:12px solid rgba(255,255,255,.18);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 20px 60px rgba(0,0,0,.20)
+    }
 
-.hero h1{
-  font-size:clamp(2.6rem,6vw,4.8rem);
-  line-height:1.05;
-  margin-bottom:18px;
-}
+    .percent-circle div{
+      background:white;color:#9d174d;width:150px;height:150px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:2.7rem;font-weight:900
+    }
 
-.hero p{
-  font-size:1.2rem;
-  max-width:720px;
-}
+    .wrapper{max-width:1250px;margin:auto;padding:0 22px 70px}
 
-.hero-icon{
-  font-size:9rem;
-  text-align:center;
-}
+    .overview{
+      display:grid;grid-template-columns:repeat(5,1fr);gap:15px;
+      margin-top:-58px;position:relative;z-index:20
+    }
 
-.wrapper{
-  max-width:1250px;
-  margin:auto;
-  padding:50px 22px;
-}
+    .overview-card{
+      background:white;padding:20px 15px;border-radius:18px;text-align:center;
+      box-shadow:0 12px 35px rgba(15,23,42,.12)
+    }
+    .overview-card span{display:block;font-size:2rem;margin-bottom:6px}
 
-.intro-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  margin-top:-80px;
-  position:relative;
-  z-index:10;
-}
+    .section{margin-top:70px}
+    .section-head{margin-bottom:26px}
+    .section-head h2{font-size:2rem;color:var(--dark);margin-bottom:7px}
+    .section-head p{color:var(--muted);max-width:850px}
 
-.intro-card{
-  background:white;
-  padding:22px;
-  border-radius:20px;
-  box-shadow:0 12px 35px rgba(15,23,42,.11);
-}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 
-.intro-card span{
-  font-size:2rem;
-}
+    .card{
+      background:white;padding:26px;border-radius:22px;
+      box-shadow:0 7px 23px rgba(0,0,0,.07)
+    }
+    .card h3{color:var(--dark);margin-bottom:10px}
+    .card p{color:#475569}
 
-.intro-card h3{
-  margin:8px 0;
-}
+    .big-number{font-size:2.6rem;font-weight:900;color:#be185d;margin:17px 0}
 
-.intro-card p{
-  color:var(--muted);
-  font-size:.94rem;
-}
+    .callout{
+      background:#fdf2f8;border-left:6px solid var(--pink);
+      padding:18px;border-radius:14px;margin-top:16px
+    }
 
-.section{
-  margin-top:70px;
-}
+    .hundred-grid{
+      display:grid;grid-template-columns:repeat(10,1fr);gap:3px;
+      max-width:430px;margin-top:20px
+    }
+    .square{aspect-ratio:1;border-radius:3px;background:#e2e8f0}
+    .square.on{background:#f472b6}
+    .square.blue{background:#60a5fa}
 
-.section-title{
-  margin-bottom:25px;
-}
+    .relation{
+      background:linear-gradient(135deg,#fdf2f8,#eef2ff);
+      border-radius:25px;padding:30px;box-shadow:0 7px 22px rgba(0,0,0,.06)
+    }
 
-.section-title h2{
-  font-size:2rem;
-  color:var(--dark);
-}
+    .relation-row{
+      display:flex;justify-content:center;align-items:center;
+      flex-wrap:wrap;gap:18px;margin-top:20px
+    }
 
-.section-title p{
-  color:var(--muted);
-}
+    .relation-box{
+      background:white;min-width:170px;padding:20px;border-radius:18px;
+      text-align:center;box-shadow:0 5px 14px rgba(0,0,0,.06)
+    }
+    .relation-box strong{display:block;font-size:1.6rem;color:#9d174d}
+    .arrow{font-size:2rem;font-weight:900;color:#db2777}
 
-.topic-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:22px;
-}
+    .step-list{display:grid;gap:13px;margin-top:18px}
+    .step{
+      background:#f8fafc;border:1px solid var(--border);
+      padding:15px;border-radius:13px
+    }
+    .step strong{color:#be185d}
 
-.topic{
-  background:white;
-  border-radius:22px;
-  padding:26px;
-  box-shadow:0 7px 24px rgba(0,0,0,.07);
-  border-top:6px solid var(--blue);
-  transition:.2s;
-}
+    .percent-buttons{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px
+    }
+    .percent-button{
+      background:white;border:2px solid #f9a8d4;border-radius:18px;
+      padding:20px;text-align:center
+    }
+    .percent-button strong{display:block;font-size:2rem;color:#be185d}
+    .percent-button span{color:#64748b}
 
-.topic:nth-child(1){border-top-color:#2563eb;}
-.topic:nth-child(2){border-top-color:#7c3aed;}
-.topic:nth-child(3){border-top-color:#059669;}
-.topic:nth-child(4){border-top-color:#0891b2;}
-.topic:nth-child(5){border-top-color:#db2777;}
-.topic:nth-child(6){border-top-color:#ea580c;}
-.topic:nth-child(7){border-top-color:#ca8a04;}
-.topic:nth-child(8){border-top-color:#9333ea;}
-.topic:nth-child(9){border-top-color:#0f766e;}
-.topic:nth-child(10){border-top-color:#be123c;}
-.topic:nth-child(11){border-top-color:#4f46e5;}
-.topic:nth-child(12){border-top-color:#16a34a;}
+    .concept{
+      background:white;padding:20px;border-radius:18px;
+      box-shadow:0 5px 18px rgba(0,0,0,.06)
+    }
+    .concept strong{display:block;color:#be185d;margin-bottom:6px;font-size:1.05rem}
 
-.topic:hover{
-  transform:translateY(-5px);
-}
+    .mistakes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .mistake{
+      background:white;border-radius:18px;padding:22px;border-top:5px solid var(--red);
+      box-shadow:0 5px 18px rgba(0,0,0,.06)
+    }
+    .wrong{color:#b91c1c;font-weight:900;margin:10px 0}
+    .right{color:#047857;font-weight:800}
 
-.topic-icon{
-  font-size:2.7rem;
-  margin-bottom:8px;
-}
+    .levels{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .level{
+      border-radius:25px;padding:30px;color:white;min-height:330px;
+      display:flex;flex-direction:column;justify-content:space-between
+    }
+    .level1{background:linear-gradient(135deg,#059669,#0f766e)}
+    .level2{background:linear-gradient(135deg,#db2777,#be185d)}
+    .level3{background:linear-gradient(135deg,#7c3aed,#6d28d9)}
+    .level h3{font-size:1.5rem;margin-bottom:8px}
+    .level ul{padding-left:20px;margin:16px 0}
+    .level button{
+      border:none;background:white;color:#111827;padding:11px 16px;
+      border-radius:11px;font-weight:900;cursor:pointer;width:max-content
+    }
 
-.topic h3{
-  font-size:1.35rem;
-  margin-bottom:8px;
-}
+    .training-panel{
+      display:none;margin-top:22px;background:white;border-radius:22px;
+      padding:28px;box-shadow:0 7px 24px rgba(0,0,0,.08)
+    }
+    .training-panel.active{display:block}
 
-.topic p{
-  color:#64748b;
-  margin-bottom:15px;
-}
+    .task{
+      background:#f8fafc;border:1px solid var(--border);
+      padding:18px;border-radius:14px;margin-bottom:14px
+    }
+    .task label{display:block;font-weight:800;margin-bottom:8px}
+    .task input{
+      width:100%;max-width:320px;padding:11px;border:1px solid #cbd5e1;
+      border-radius:10px
+    }
 
-.topic ul{
-  padding-left:20px;
-  margin-bottom:18px;
-}
+    .check-btn{
+      border:none;background:var(--pink);color:white;padding:10px 15px;
+      border-radius:10px;font-weight:900;cursor:pointer;margin-top:10px
+    }
 
-.topic-button{
-  display:inline-block;
-  background:#eff6ff;
-  color:#1d4ed8;
-  padding:10px 15px;
-  border-radius:10px;
-  font-weight:800;
-  text-decoration:none;
-  border:none;
-}
+    .feedback{
+      margin-top:10px;display:none;padding:10px 12px;
+      border-radius:10px;font-weight:800
+    }
+    .feedback.good{display:block;background:#dcfce7;color:#166534}
+    .feedback.bad{display:block;background:#fee2e2;color:#991b1b}
 
-.topic-button:hover{
-  background:#dbeafe;
-}
+    .quiz-zone{background:#0f172a;color:white;border-radius:28px;padding:36px}
+    .quiz-top{
+      display:flex;justify-content:space-between;align-items:center;
+      flex-wrap:wrap;gap:20px
+    }
+    .score{background:#1e293b;padding:10px 14px;border-radius:12px;font-weight:900}
+    .quiz-card{margin-top:23px;background:#1e293b;padding:26px;border-radius:20px}
+    .quiz-card h3{font-size:1.35rem;margin-bottom:18px}
+    .answer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .answer-btn{
+      border:none;padding:16px;border-radius:13px;background:white;color:#1f2937;
+      font-weight:900;cursor:pointer;text-align:left
+    }
+    .answer-btn:hover{background:#fce7f3}
+    .answer-btn:disabled{cursor:default;opacity:.85}
 
-.future{
-  display:inline-block;
-  background:#f1f5f9;
-  color:#64748b;
-  padding:10px 15px;
-  border-radius:10px;
-  font-weight:800;
-}
+    .quiz-feedback{
+      display:none;margin-top:18px;padding:15px;border-radius:12px;font-weight:800
+    }
 
-.learn-grid{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:15px;
-}
+    .next-btn{
+      margin-top:15px;border:none;padding:11px 16px;border-radius:11px;
+      background:#facc15;color:#111827;font-weight:900;cursor:pointer;display:none
+    }
 
-.learn-card{
-  background:white;
-  padding:22px 15px;
-  text-align:center;
-  border-radius:18px;
-  box-shadow:0 5px 18px rgba(0,0,0,.06);
-}
+    .problem-zone{
+      background:linear-gradient(135deg,#fce7f3,#fef3c7);
+      border-radius:28px;padding:34px
+    }
+    .problem-card{
+      background:rgba(255,255,255,.82);padding:25px;border-radius:18px;margin-top:18px
+    }
+    .problem-card textarea{
+      width:100%;min-height:130px;border:1px solid #cbd5e1;
+      border-radius:12px;padding:14px;margin-top:15px;resize:vertical
+    }
 
-.learn-card span{
-  font-size:2.5rem;
-  display:block;
-  margin-bottom:8px;
-}
+    .reveal-btn{
+      margin-top:12px;border:none;background:#9d174d;color:white;
+      padding:10px 15px;border-radius:10px;font-weight:900;cursor:pointer
+    }
 
-.practice-zone{
-  background:#0f172a;
-  color:white;
-  border-radius:28px;
-  padding:35px;
-}
+    .solution{
+      display:none;margin-top:16px;background:white;padding:16px;border-radius:12px
+    }
 
-.practice-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-  margin-top:25px;
-}
+    .support-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    .support{
+      background:white;padding:28px;border-radius:22px;
+      box-shadow:0 6px 20px rgba(0,0,0,.06)
+    }
+    .support h3{margin-bottom:15px}
+    .support ul{list-style:none}
+    .support li{background:#f8fafc;padding:12px;border-radius:10px;margin:9px 0}
 
-.practice-card{
-  background:#1e293b;
-  padding:24px;
-  border-radius:18px;
-}
+    .checklist{
+      background:white;border-radius:25px;padding:30px;
+      box-shadow:0 7px 23px rgba(0,0,0,.06)
+    }
+    .checklist label{
+      display:flex;gap:10px;align-items:flex-start;padding:11px 0;
+      border-bottom:1px solid var(--border);cursor:pointer
+    }
+    .checklist input{width:20px;height:20px;margin-top:2px}
 
-.practice-card span{
-  font-size:2.5rem;
-}
+    .finish-box{margin-top:22px;background:#fdf2f8;padding:20px;border-radius:18px}
+    .finish-box button{
+      border:none;background:#be185d;color:white;padding:11px 16px;
+      border-radius:10px;font-weight:900;cursor:pointer
+    }
+    #finishResult{margin-top:12px;font-weight:900}
 
-.practice-card h3{
-  margin:10px 0 6px;
-}
+    footer{
+      margin-top:70px;background:#020617;color:#cbd5e1;
+      padding:38px 20px;text-align:center
+    }
 
-.practice-card p{
-  color:#cbd5e1;
-  margin-bottom:15px;
-}
+    @media(max-width:1050px){
+      .overview,.grid-4,.percent-buttons{grid-template-columns:repeat(2,1fr)}
+      .grid-3,.levels,.mistakes{grid-template-columns:repeat(2,1fr)}
+    }
 
-footer{
-  margin-top:70px;
-  background:#020617;
-  color:#cbd5e1;
-  padding:35px;
-  text-align:center;
-}
-
-@media(max-width:1000px){
-  .intro-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .topic-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .learn-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .practice-grid{
-    grid-template-columns:1fr;
-  }
-}
-
-@media(max-width:700px){
-  nav{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .hero-inner,
-  .intro-grid,
-  .topic-grid,
-  .learn-grid{
-    grid-template-columns:1fr;
-  }
-
-  .hero-icon{
-    font-size:5rem;
-  }
-
-  .intro-grid{
-    margin-top:-40px;
-  }
-}
-</style>
+    @media(max-width:760px){
+      nav{flex-direction:column;align-items:flex-start}
+      .hero-inner,.overview,.grid-2,.grid-3,.grid-4,.levels,
+      .mistakes,.support-grid,.answer-grid,.percent-buttons{grid-template-columns:1fr}
+      .hero-visual{display:none}
+      .overview{margin-top:-38px}
+      .relation-row{flex-direction:column}
+      .arrow{transform:rotate(90deg)}
+    }
+  </style>
 </head>
 
 <body>
 
 <nav>
-
-  <div class="logo">
-    🔢 Matematik åk 6
-  </div>
+  <div class="logo">💯 Procent – Matematik åk 6</div>
 
   <div class="navlinks">
     <a class="home" href="index.html">🏠 Start</a>
-    <a href="#omraden">Områden</a>
-    <a href="#arbetssatt">Så arbetar du</a>
-    <a href="#traning">Träning</a>
+    <a href="matematik.html">🔢 Matematik</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#begrepp">Begrepp</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Problem</a>
   </div>
-
 </nav>
 
-
 <section class="hero">
-
   <div class="hero-inner">
 
     <div>
+      <div class="badge">Matematik åk 6 • Procent</div>
 
-      <h1>
-        Matematik<br>
-        åk 6
-      </h1>
+      <h1>Procent</h1>
 
       <p>
-        Förstå matematiken, inte bara svaret.
-        Här arbetar du med begrepp, metoder, modeller,
-        problemlösning, resonemang och matematik från vardagen.
+        Procent betyder hundradelar. Här lär du dig förstå procent,
+        beräkna procent av ett antal, koppla procent till bråk och decimaler,
+        arbeta med rabatt och lösa problem från vardagen.
       </p>
 
+      <div class="hero-actions">
+        <a href="#forsta">📘 Börja lära</a>
+        <a class="secondary" href="#traning">✍️ Börja träna</a>
+      </div>
     </div>
 
-    <div class="hero-icon">
-      🧠➗
+    <div class="hero-visual">
+      <div class="percent-circle">
+        <div>75 %</div>
+      </div>
     </div>
 
   </div>
-
 </section>
-
 
 <main class="wrapper">
 
-
-<section class="intro-grid">
-
-  <div class="intro-card">
-    <span>📘</span>
-    <h3>Lär dig</h3>
-    <p>Tydliga genomgångar och visuella modeller.</p>
-  </div>
-
-  <div class="intro-card">
-    <span>✍️</span>
-    <h3>Träna</h3>
-    <p>Övningar på olika nivåer.</p>
-  </div>
-
-  <div class="intro-card">
-    <span>💬</span>
-    <h3>Resonera</h3>
-    <p>Förklara hur och varför.</p>
-  </div>
-
-  <div class="intro-card">
-    <span>🏆</span>
-    <h3>Utmana dig</h3>
-    <p>Problemlösning och fördjupning.</p>
-  </div>
-
-</section>
-
-
-
-<section class="section" id="omraden">
-
-  <div class="section-title">
-
-    <h2>
-      📚 Matematikens områden
-    </h2>
-
-    <p>
-      Klicka på ett färdigt område för att börja arbeta.
-    </p>
-
-  </div>
-
-
-  <div class="topic-grid">
-
-
-    <article class="topic">
-
-      <div class="topic-icon">
-        🔢
-      </div>
-
-      <h3>
-        Taluppfattning
-      </h3>
-
-      <p>
-        Förstå tal, platsvärde och hur tal hänger ihop.
-      </p>
-
-      <ul>
-        <li>Heltal</li>
-        <li>Negativa tal</li>
-        <li>Tallinje</li>
-        <li>Avrundning</li>
-      </ul>
-
-      <span class="future">
-        Nästa område
-      </span>
-
-    </article>
-
-
-
-    <article class="topic">
-
-      <div class="topic-icon">
-        ➕
-      </div>
-
-      <h3>
-        De fyra räknesätten
-      </h3>
-
-      <p>
-        Addition, subtraktion, multiplikation och division.
-      </p>
-
-      <ul>
-        <li>Huvudräkning</li>
-        <li>Uppställning</li>
-        <li>Överslag</li>
-        <li>Rimlighetsbedömning</li>
-      </ul>
-
-      <span class="future">
-        Byggs efter Taluppfattning
-      </span>
-
-    </article>
-
-
-
-    <article class="topic">
-
-      <div class="topic-icon">
-        🍕
-      </div>
-
-      <h3>
-        Bråk
-      </h3>
-
-      <p>
-        Förstå delar av en helhet, likvärdiga bråk,
-        tallinje och problemlösning.
-      </p>
-
-      <ul>
-        <li>Täljare och nämnare</li>
-        <li>Förlänga och förkorta</li>
-        <li>Jämföra bråk</li>
-        <li>Bråk av antal</li>
-      </ul>
-
-      <a class="topic-button" href="brak.html">
-        Öppna Bråk →
-      </a>
-
-    </article>
-
-
-
-    <article class="topic">
-
-      <div class="topic-icon">
-        🔟
-      </div>
-
-      <h3>
-        Decimaltal
-      </h3>
-
-      <p>
-        Tiondelar, hundradelar, platsvärde,
-        tallinje och beräkningar.
-      </p>
-
-      <ul>
-        <li>Platsvärde</li>
-        <li>Jämföra tal</li>
-        <li>Avrundning</li>
-        <li>Bråk, decimal och procent</li>
-      </ul>
-
-      <a class="topic-button" href="decimaltal.html">
-        Öppna Decimaltal →
-      </a>
-
-    </article>
-
-
-
-    <article class="topic">
-
-      <div class="topic-icon">
-        💯
-      </div>
-
-      <h3>
-        Procent
-      </h3>
-
-      <p>
-        Förstå procent som hundradelar och använd
-        procent i vardagliga situationer.
-      </p>
-
-      <ul>
-        <li>1 %, 10 %, 25 %, 50 %</li>
-        <li>Procent av antal</li>
-        <li>Rabatt</li>
-        <li>Bråk, decimal och procent</li>
-      </ul>
-
-      <a class="topic-button" href="procent.html">
-        Öppna Procent →
-      </a>
-
-    </article>
-
-
-
-    <article class="topic">
-
-      <div class="topic-icon">
-        🔠
-      </div>
-
-      <h3>
-        Algebra
-      </h3>
-
-      <p>
-        Upptäck hur bokstäver och symboler kan representera tal.
-      </p>
-
-      <ul>
-        <li>Uttryck</li>
-        <li>Likheter</li>
-        <li>Ekvationer</li>
-        <li>Obekanta tal</li>
-      </ul>
-
-      <span class="future">
-        Kommande område
-      </span>
-
-    </article>
-
-
-
-    <article class="topic">
-
-      <div class="topic-icon">
-        📐
-      </div>
-
-      <h3>
-        Geometri
-      </h3>
-
-      <p>
-        Undersök former, vinklar, area,
-        omkrets och volym.
-      </p>
-
-      <ul>
-        <li>Vinklar</li>
-        <li>Trianglar</li>
-        <li>Fyrhörningar</li>
-        <li>Area och omkrets</li>
-      </ul>
-
-      <span class="future">
-        Kommande område
-      </span>
-
-    </article>
-
-
-
-    <article class="topic">
-
-      <div class="topic-icon">
-        📊
-      </div>
-
-      <h3>
-        Statistik
-      </h3>
-
-      <p>
-        Samla, visa, jämför och tolka data.
-      </p>
-
-      <ul>
-        <li>Tabeller</li>
-        <li>Diagram</li>
-        <li>Medelvärde</li>
-        <li>Median och typvärde</li>
-      </ul>
-
-      <span class="future">
-        Kommande område
-      </span>
-
-    </article>
-
-
-
-    <article class="topic">
-
-      <div class="topic-icon">
-        🎲
-      </div>
-
-      <h3>
-        Sannolikhet
-      </h3>
-
-      <p>
-        Undersök hur troligt något är.
-      </p>
-
-      <ul>
-        <li>Möjliga utfall</li>
-        <li>Slump</li>
-        <li>Bråk och sannolikhet</li>
-        <li>Experiment</li>
-      </ul>
-
-      <span class="future">
-        Kommande område
-      </span>
-
-    </article>
-
-
-
-    <article class="topic">
-
-      <div class="topic-icon">
-        🧩
-      </div>
-
-      <h3>
-        Problemlösning
-      </h3>
-
-      <p>
-        Välj strategier, lös problem och
-        visa hur du tänker.
-      </p>
-
-      <ul>
-        <li>Rita bild</li>
-        <li>Gör tabell</li>
-        <li>Pröva systematiskt</li>
-        <li>Arbeta baklänges</li>
-      </ul>
-
-      <span class="future">
-        Kommande område
-      </span>
-
-    </article>
-
-
-
-    <article class="topic">
-
-      <div class="topic-icon">
-        🔁
-      </div>
-
-      <h3>
-        Mönster
-      </h3>
-
-      <p>
-        Upptäck regler och matematiska samband.
-      </p>
-
-      <ul>
-        <li>Talföljder</li>
-        <li>Figurmönster</li>
-        <li>Regler</li>
-        <li>Generalisering</li>
-      </ul>
-
-      <span class="future">
-        Kommande område
-      </span>
-
-    </article>
-
-
-
-    <article class="topic">
-
-      <div class="topic-icon">
-        📈
-      </div>
-
-      <h3>
-        Samband och förändring
-      </h3>
-
-      <p>
-        Förstå hur olika storheter kan hänga ihop.
-      </p>
-
-      <ul>
-        <li>Proportionalitet</li>
-        <li>Förhållanden</li>
-        <li>Skala</li>
-        <li>Hastighet</li>
-        <li>Tabeller och grafer</li>
-      </ul>
-
-      <span class="future">
-        Kommande område
-      </span>
-
-    </article>
-
-
-  </div>
-
-</section>
-
-
-
-<section class="section" id="arbetssatt">
-
-  <div class="section-title">
-
-    <h2>
-      👣 Så arbetar du i varje område
-    </h2>
-
-    <p>
-      Samma struktur återkommer så att du snabbt känner igen dig.
-    </p>
-
-  </div>
-
-
-  <div class="learn-grid">
-
-    <div class="learn-card">
-      <span>📘</span>
-      <h3>1. Förstå</h3>
+  <section class="overview">
+    <div class="overview-card"><span>💯</span><strong>Hundradelar</strong></div>
+    <div class="overview-card"><span>🍕</span><strong>Bråk</strong></div>
+    <div class="overview-card"><span>🔟</span><strong>Decimal</strong></div>
+    <div class="overview-card"><span>🛍️</span><strong>Rabatt</strong></div>
+    <div class="overview-card"><span>🧩</span><strong>Problem</strong></div>
+  </section>
+
+  <section class="section" id="forsta">
+    <div class="section-head">
+      <h2>📘 1. Vad betyder procent?</h2>
+      <p>Ordet procent betyder per hundra. Därför är 1 % samma sak som en hundradel.</p>
     </div>
 
-    <div class="learn-card">
-      <span>👀</span>
-      <h3>2. Se exempel</h3>
-    </div>
-
-    <div class="learn-card">
-      <span>🧠</span>
-      <h3>3. Begrepp</h3>
-    </div>
-
-    <div class="learn-card">
-      <span>✍️</span>
-      <h3>4. Träna</h3>
-    </div>
-
-    <div class="learn-card">
-      <span>🏆</span>
-      <h3>5. Utmana dig</h3>
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<section class="section" id="traning">
-
-  <div class="practice-zone">
-
-    <div class="section-title">
-
-      <h2 style="color:white;">
-        🎮 Färdiga träningsområden
-      </h2>
-
-      <p style="color:#cbd5e1;">
-        Här kommer du direkt till de områden som redan är byggda.
-      </p>
-
-    </div>
-
-
-    <div class="practice-grid">
-
-
-      <div class="practice-card">
-
-        <span>
-          🍕
-        </span>
-
-        <h3>
-          Bråk
-        </h3>
-
-        <p>
-          Visuella modeller, nivåträning,
-          quiz, problemlösning och kunskapscheck.
-        </p>
-
-        <a class="topic-button" href="brak.html">
-          Träna Bråk →
-        </a>
-
+    <div class="grid-3">
+      <div class="card">
+        <h3>💯 1 procent</h3>
+        <div class="big-number">1 %</div>
+        <p>En procent är en av hundra lika stora delar.</p>
+        <div class="callout">1 % = 1/100 = 0,01</div>
       </div>
 
-
-
-      <div class="practice-card">
-
-        <span>
-          🔟
-        </span>
-
-        <h3>
-          Decimaltal
-        </h3>
-
-        <p>
-          Platsvärde, tallinje, beräkningar,
-          quiz och problemlösning.
-        </p>
-
-        <a class="topic-button" href="decimaltal.html">
-          Träna Decimaltal →
-        </a>
-
+      <div class="card">
+        <h3>🟪 25 procent</h3>
+        <div class="big-number">25 %</div>
+        <p>25 % betyder 25 av 100.</p>
+        <div class="callout">25 % = 25/100 = 1/4 = 0,25</div>
       </div>
 
-
-
-      <div class="practice-card">
-
-        <span>
-          💯
-        </span>
-
-        <h3>
-          Procent
-        </h3>
-
-        <p>
-          Hundradelar, procent av antal,
-          rabatt, quiz och problemlösning.
-        </p>
-
-        <a class="topic-button" href="procent.html">
-          Träna Procent →
-        </a>
-
+      <div class="card">
+        <h3>🟡 50 procent</h3>
+        <div class="big-number">50 %</div>
+        <p>50 % betyder hälften.</p>
+        <div class="callout">50 % = 50/100 = 1/2 = 0,5</div>
       </div>
+    </div>
+  </section>
 
-
+  <section class="section">
+    <div class="section-head">
+      <h2>🎨 Procent som bild</h2>
+      <p>Ett hundrarutnät gör det enkelt att se procent. Varje liten ruta motsvarar 1 %.</p>
     </div>
 
-  </div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>25 %</h3>
+        <p>Här är 25 av 100 rutor markerade.</p>
+        <div id="grid25" class="hundred-grid"></div>
+      </div>
 
-</section>
+      <div class="card">
+        <h3>60 %</h3>
+        <p>Här är 60 av 100 rutor markerade.</p>
+        <div id="grid60" class="hundred-grid"></div>
+      </div>
+    </div>
+  </section>
 
+  <section class="section">
+    <div class="section-head">
+      <h2>🍕 Bråk, decimal och procent</h2>
+      <p>Samma tal kan skrivas på flera olika sätt.</p>
+    </div>
+
+    <div class="relation">
+      <div class="relation-row">
+        <div class="relation-box"><span>Bråk</span><strong>1/2</strong></div>
+        <div class="arrow">↔</div>
+        <div class="relation-box"><span>Decimal</span><strong>0,5</strong></div>
+        <div class="arrow">↔</div>
+        <div class="relation-box"><span>Procent</span><strong>50 %</strong></div>
+      </div>
+
+      <div class="relation-row">
+        <div class="relation-box"><span>Bråk</span><strong>1/4</strong></div>
+        <div class="arrow">↔</div>
+        <div class="relation-box"><span>Decimal</span><strong>0,25</strong></div>
+        <div class="arrow">↔</div>
+        <div class="relation-box"><span>Procent</span><strong>25 %</strong></div>
+      </div>
+
+      <div class="relation-row">
+        <div class="relation-box"><span>Bråk</span><strong>3/4</strong></div>
+        <div class="arrow">↔</div>
+        <div class="relation-box"><span>Decimal</span><strong>0,75</strong></div>
+        <div class="arrow">↔</div>
+        <div class="relation-box"><span>Procent</span><strong>75 %</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>⚡ Procent som är bra att kunna snabbt</h2>
+      <p>Några procenttal kan du räkna ut med enkla strategier.</p>
+    </div>
+
+    <div class="percent-buttons">
+      <div class="percent-button"><strong>50 %</strong><span>hälften</span></div>
+      <div class="percent-button"><strong>25 %</strong><span>en fjärdedel</span></div>
+      <div class="percent-button"><strong>10 %</strong><span>dela med 10</span></div>
+      <div class="percent-button"><strong>1 %</strong><span>dela med 100</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>🧮 Beräkna procent av ett antal</h2>
+      <p>Det finns flera strategier. Välj den som passar uppgiften.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>50 % av 80</h3>
+        <div class="step-list">
+          <div class="step"><strong>50 % betyder hälften.</strong></div>
+          <div class="step">80 ÷ 2 = 40</div>
+          <div class="step"><strong>Svar: 40</strong></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>25 % av 60</h3>
+        <div class="step-list">
+          <div class="step"><strong>25 % betyder en fjärdedel.</strong></div>
+          <div class="step">60 ÷ 4 = 15</div>
+          <div class="step"><strong>Svar: 15</strong></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>10 % av 350</h3>
+        <div class="step-list">
+          <div class="step"><strong>10 % betyder en tiondel.</strong></div>
+          <div class="step">350 ÷ 10 = 35</div>
+          <div class="step"><strong>Svar: 35</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>🧠 Smart strategi: bygg procent</h2>
+      <p>Du kan använda procent du redan känner till för att hitta andra procenttal.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>20 % av 300</h3>
+        <div class="step-list">
+          <div class="step"><strong>10 % av 300 = 30</strong></div>
+          <div class="step">20 % är två gånger 10 %.</div>
+          <div class="step">30 + 30 = 60</div>
+          <div class="step"><strong>Svar: 60</strong></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>15 % av 200</h3>
+        <div class="step-list">
+          <div class="step"><strong>10 % av 200 = 20</strong></div>
+          <div class="step"><strong>5 % är hälften av 10 % = 10</strong></div>
+          <div class="step">20 + 10 = 30</div>
+          <div class="step"><strong>Svar: 30</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>🛍️ Rabatt</h2>
+      <p>Procent används ofta när priser sänks.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>25 % rabatt</h3>
+        <p>En tröja kostar 400 kr. Den säljs med 25 % rabatt.</p>
+        <div class="step-list">
+          <div class="step"><strong>25 % av 400</strong></div>
+          <div class="step">400 ÷ 4 = 100 kr</div>
+          <div class="step">400 − 100 = 300 kr</div>
+          <div class="step"><strong>Nytt pris: 300 kr</strong></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>20 % rabatt</h3>
+        <p>Ett spel kostar 600 kr. Priset sänks med 20 %.</p>
+        <div class="step-list">
+          <div class="step">10 % av 600 = 60</div>
+          <div class="step">20 % = 120</div>
+          <div class="step">600 − 120 = 480</div>
+          <div class="step"><strong>Nytt pris: 480 kr</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>👥 Hur stor procent är delen?</h2>
+    </div>
+
+    <div class="card">
+      <p>I en klass går 25 elever. 5 elever cyklar till skolan.</p>
+      <div class="step-list">
+        <div class="step"><strong>Del:</strong> 5</div>
+        <div class="step"><strong>Helhet:</strong> 25</div>
+        <div class="step">5/25 = 1/5</div>
+        <div class="step">1/5 = 20 %</div>
+        <div class="step"><strong>20 % av eleverna cyklar.</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="begrepp">
+    <div class="section-head">
+      <h2>🧠 Begreppsbank</h2>
+      <p>Förstå orden så blir procentuppgifterna lättare att tolka.</p>
+    </div>
+
+    <div class="grid-4">
+      <div class="concept"><strong>Procent</strong>Hundradelar. Procent betyder per hundra.</div>
+      <div class="concept"><strong>Procenttecken</strong>Symbolen %.</div>
+      <div class="concept"><strong>Helhet</strong>Det totala som procenten jämförs med.</div>
+      <div class="concept"><strong>Del</strong>Den mängd som är en del av helheten.</div>
+      <div class="concept"><strong>Rabatt</strong>En sänkning av ett pris.</div>
+      <div class="concept"><strong>Ordinarie pris</strong>Priset innan rabatten.</div>
+      <div class="concept"><strong>Nytt pris</strong>Priset efter rabatten.</div>
+      <div class="concept"><strong>Hundradel</strong>En del när helheten delas i 100 lika stora delar.</div>
+      <div class="concept"><strong>50 %</strong>Samma som hälften.</div>
+      <div class="concept"><strong>25 %</strong>Samma som en fjärdedel.</div>
+      <div class="concept"><strong>10 %</strong>Samma som en tiondel.</div>
+      <div class="concept"><strong>1 %</strong>Samma som en hundradel.</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>⚠️ Vanliga missuppfattningar</h2>
+    </div>
+
+    <div class="mistakes">
+      <div class="mistake">
+        <h3>25 % betyder 25?</h3>
+        <div class="wrong">❌ 25 % av 80 är 25.</div>
+        <div class="right">✅ 25 % betyder en fjärdedel. 80 ÷ 4 = 20.</div>
+      </div>
+
+      <div class="mistake">
+        <h3>Rabatt är nya priset?</h3>
+        <div class="wrong">❌ 20 % rabatt på 500 kr betyder att priset blir 100 kr.</div>
+        <div class="right">✅ 100 kr är rabatten. Det nya priset är 400 kr.</div>
+      </div>
+
+      <div class="mistake">
+        <h3>0,5 % och 50 %</h3>
+        <div class="wrong">❌ 0,5 = 0,5 %</div>
+        <div class="right">✅ 0,5 som decimal motsvarar 50 %.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="traning">
+    <div class="section-head">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>Klicka på en nivå. Uppgifterna öppnas direkt här på sidan.</p>
+    </div>
+
+    <div class="levels">
+      <div class="level level1">
+        <div>
+          <h3>🌱 Nivå 1 – Grund</h3>
+          <p>Jag förstår vanliga procenttal.</p>
+          <ul>
+            <li>50 %</li>
+            <li>25 %</li>
+            <li>10 %</li>
+            <li>1 %</li>
+          </ul>
+        </div>
+        <button onclick="openLevel(1)">Öppna nivå 1</button>
+      </div>
+
+      <div class="level level2">
+        <div>
+          <h3>🚀 Nivå 2 – Vidare</h3>
+          <p>Jag räknar procent av ett antal.</p>
+          <ul>
+            <li>Procent av antal</li>
+            <li>Rabatt</li>
+            <li>Bråk och procent</li>
+            <li>Decimal och procent</li>
+          </ul>
+        </div>
+        <button onclick="openLevel(2)">Öppna nivå 2</button>
+      </div>
+
+      <div class="level level3">
+        <div>
+          <h3>🏆 Nivå 3 – Utmaning</h3>
+          <p>Jag använder procent i problemlösning.</p>
+          <ul>
+            <li>Flera steg</li>
+            <li>Pengar</li>
+            <li>Jämförelser</li>
+            <li>Resonemang</li>
+          </ul>
+        </div>
+        <button onclick="openLevel(3)">Öppna nivå 3</button>
+      </div>
+    </div>
+
+    <div id="level1Panel" class="training-panel">
+      <h3>🌱 Nivå 1</h3>
+
+      <div class="task">
+        <label>1. Vad är 50 % av 40?</label>
+        <input id="l1q1" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l1q1',['20'],'l1f1')">Kontrollera</button>
+        <div id="l1f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad är 25 % av 80?</label>
+        <input id="l1q2" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l1q2',['20'],'l1f2')">Kontrollera</button>
+        <div id="l1f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vad är 10 % av 300?</label>
+        <input id="l1q3" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l1q3',['30'],'l1f3')">Kontrollera</button>
+        <div id="l1f3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level2Panel" class="training-panel">
+      <h3>🚀 Nivå 2</h3>
+
+      <div class="task">
+        <label>1. Vad är 20 % av 250?</label>
+        <input id="l2q1" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l2q1',['50'],'l2f1')">Kontrollera</button>
+        <div id="l2f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Ett spel kostar 400 kr. Du får 25 % rabatt. Hur stor är rabatten?</label>
+        <input id="l2q2" type="text" placeholder="Skriv t.ex. 100">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l2q2',['100','100 kr'],'l2f2')">Kontrollera</button>
+        <div id="l2f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Skriv 0,75 som procent.</label>
+        <input id="l2q3" type="text" placeholder="Skriv t.ex. 75 %">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l2q3',['75','75%','75 %'],'l2f3')">Kontrollera</button>
+        <div id="l2f3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level3Panel" class="training-panel">
+      <h3>🏆 Nivå 3</h3>
+
+      <div class="task">
+        <label>1. En jacka kostar 800 kr och säljs med 30 % rabatt. Hur stor är rabatten?</label>
+        <input id="l3q1" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l3q1',['240','240 kr'],'l3f1')">Kontrollera</button>
+        <div id="l3f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad kostar jackan efter rabatten?</label>
+        <input id="l3q2" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l3q2',['560','560 kr'],'l3f2')">Kontrollera</button>
+        <div id="l3f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. 15 av 60 elever väljer fotboll. Hur många procent är det?</label>
+        <input id="l3q3" type="text" placeholder="Skriv t.ex. 25 %">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l3q3',['25','25%','25 %'],'l3f3')">Kontrollera</button>
+        <div id="l3f3" class="feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="quiz">
+    <div class="quiz-zone">
+      <div class="quiz-top">
+        <div>
+          <h2>🎮 Procentquiz</h2>
+          <p style="color:#cbd5e1;">Frågorna och svarsalternativen blandas.</p>
+        </div>
+        <div id="scoreBox" class="score">Poäng: 0 / 0</div>
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+        <h3 id="quizQuestion">Laddar fråga...</h3>
+        <div id="quizAnswers" class="answer-grid"></div>
+        <div id="quizFeedback" class="quiz-feedback"></div>
+        <button id="nextButton" class="next-btn" onclick="nextQuizQuestion()">Nästa fråga →</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="problem">
+    <div class="section-head">
+      <h2>🧩 Problemlösning</h2>
+      <p>Visa både beräkning och hur du tänker.</p>
+    </div>
+
+    <div class="problem-zone">
+      <h2>🛍️ Rean</h2>
+
+      <div class="problem-card">
+        <p>En ryggsäck kostar <strong>600 kr</strong>. Under en rea sänks priset med <strong>25 %</strong>.</p>
+        <br>
+        <p><strong>Hur mycket kostar ryggsäcken efter rabatten?</strong></p>
+
+        <textarea placeholder="Skriv hur du tänker och räknar..."></textarea>
+
+        <button class="reveal-btn" onclick="toggleSolution('solution1')">Visa lösningsförslag</button>
+
+        <div id="solution1" class="solution">
+          25 % är en fjärdedel.
+          <br><br>
+          600 ÷ 4 = 150 kr.
+          <br><br>
+          Rabatten är 150 kr.
+          <br><br>
+          600 − 150 = 450 kr.
+          <br><br>
+          <strong>Svar: Ryggsäcken kostar 450 kr efter rabatten.</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="problem-zone" style="background:linear-gradient(135deg,#ede9fe,#dbeafe);">
+      <h2>🧠 Resonemangsutmaning</h2>
+
+      <div class="problem-card">
+        <p>Amir säger:</p>
+        <br>
+        <p style="font-size:1.2rem;font-weight:900;">”50 % av ett tal är alltid 50.”</p>
+        <br>
+        <p>Har Amir rätt eller fel? Ge minst två exempel som visar hur du vet.</p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+
+        <button class="reveal-btn" onclick="toggleSolution('solution2')">Visa ledtråd</button>
+
+        <div id="solution2" class="solution">
+          Amir har fel.
+          <br><br>
+          50 % betyder hälften av helheten.
+          <br><br>
+          50 % av 100 = 50, men 50 % av 60 = 30 och 50 % av 200 = 100.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>🌱 Stöd och utmaning</h2>
+    </div>
+
+    <div class="support-grid">
+      <div class="support">
+        <h3>🆘 Jag behöver hjälp</h3>
+        <ul>
+          <li>💯 Tänk att procent betyder hundradelar.</li>
+          <li>½ Kom ihåg att 50 % betyder hälften.</li>
+          <li>¼ Kom ihåg att 25 % betyder en fjärdedel.</li>
+          <li>🔟 Hitta 10 % genom att dela med 10.</li>
+          <li>1️⃣ Hitta 1 % genom att dela med 100.</li>
+          <li>🛍️ Vid rabatt: beräkna först rabatten och sedan nya priset.</li>
+        </ul>
+      </div>
+
+      <div class="support">
+        <h3>🚀 Jag vill utmanas</h3>
+        <ul>
+          <li>🧠 Hitta 35 % av ett tal med flera strategier.</li>
+          <li>🔀 Lös samma procentuppgift på två olika sätt.</li>
+          <li>🛒 Skapa ett eget reaprisproblem.</li>
+          <li>📊 Undersök procent i en klassundersökning.</li>
+          <li>🍕 Koppla procent till bråk och decimaler.</li>
+          <li>🏆 Förklara varför 150 % är mer än en hel.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>✅ Kunskapscheck</h2>
+      <p>Kryssa i det du känner att du kan.</p>
+    </div>
+
+    <div class="checklist">
+      <label><input class="goal" type="checkbox"> Jag kan förklara vad procent betyder.</label>
+      <label><input class="goal" type="checkbox"> Jag vet att 1 % betyder en hundradel.</label>
+      <label><input class="goal" type="checkbox"> Jag kan koppla enkla procenttal till bråk.</label>
+      <label><input class="goal" type="checkbox"> Jag kan koppla procent till decimaltal.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beräkna 50 %, 25 %, 10 % och 1 %.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beräkna procent av ett antal.</label>
+      <label><input class="goal" type="checkbox"> Jag kan lösa uppgifter med rabatt.</label>
+      <label><input class="goal" type="checkbox"> Jag kan använda procent i problemlösning och förklara min metod.</label>
+
+      <div class="finish-box">
+        <button onclick="checkGoals()">Se min progression</button>
+        <div id="finishResult"></div>
+      </div>
+    </div>
+  </section>
 
 </main>
 
-
 <footer>
-
-  <p>
-    <strong>
-      🔢 Matematik åk 6 • Lärportal
-    </strong>
-  </p>
-
-  <p>
-    Förstå • Träna • Resonera • Lösa problem
-  </p>
-
+  <p><strong>💯 Procent • Matematik åk 6</strong></p>
+  <p>Förstå • Träna • Resonera • Lösa problem</p>
 </footer>
+
+<script>
+  function createHundredGrid(id, amount, className){
+    const grid = document.getElementById(id);
+    grid.innerHTML = "";
+
+    for(let i = 1; i <= 100; i++){
+      const square = document.createElement("div");
+      square.className = "square";
+      if(i <= amount) square.classList.add(className);
+      grid.appendChild(square);
+    }
+  }
+
+  createHundredGrid("grid25",25,"on");
+  createHundredGrid("grid60",60,"blue");
+
+  function normalize(value){
+    return value.trim().toLowerCase().replace(/\s+/g," ");
+  }
+
+  function checkMulti(inputId, answers, feedbackId){
+    const value = normalize(document.getElementById(inputId).value);
+    const feedback = document.getElementById(feedbackId);
+    const correct = answers.some(answer => value === normalize(answer));
+
+    if(correct){
+      feedback.className = "feedback good";
+      feedback.textContent = "✅ Rätt! Bra jobbat.";
+    } else {
+      feedback.className = "feedback bad";
+      feedback.textContent = "❌ Inte riktigt ännu. Försök igen.";
+    }
+  }
+
+  function openLevel(level){
+    document.querySelectorAll(".training-panel").forEach(panel => {
+      panel.classList.remove("active");
+    });
+
+    const panel = document.getElementById("level" + level + "Panel");
+    panel.classList.add("active");
+    panel.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  function toggleSolution(id){
+    const element = document.getElementById(id);
+    element.style.display = element.style.display === "block" ? "none" : "block";
+  }
+
+  const quizQuestions = [
+    {
+      question:"Vad är 50 % av 80?",
+      answers:["20","30","40","50"],
+      correct:"40",
+      explanation:"50 % betyder hälften. Hälften av 80 är 40."
+    },
+    {
+      question:"Vad är 25 % av 100?",
+      answers:["10","20","25","50"],
+      correct:"25",
+      explanation:"25 % av 100 är 25."
+    },
+    {
+      question:"Vad är 10 % av 450?",
+      answers:["4,5","45","90","450"],
+      correct:"45",
+      explanation:"10 % betyder en tiondel. 450 ÷ 10 = 45."
+    },
+    {
+      question:"Vilket bråk motsvarar 50 %?",
+      answers:["1/4","1/5","1/2","3/4"],
+      correct:"1/2",
+      explanation:"50 % är samma som 50/100 = 1/2."
+    },
+    {
+      question:"Vilket decimaltal motsvarar 25 %?",
+      answers:["0,025","0,25","2,5","25"],
+      correct:"0,25",
+      explanation:"25 % = 25/100 = 0,25."
+    },
+    {
+      question:"En tröja kostar 400 kr och har 25 % rabatt. Hur stor är rabatten?",
+      answers:["25 kr","75 kr","100 kr","300 kr"],
+      correct:"100 kr",
+      explanation:"25 % är en fjärdedel. 400 ÷ 4 = 100."
+    },
+    {
+      question:"Vad kostar tröjan efter rabatten?",
+      answers:["100 kr","200 kr","300 kr","375 kr"],
+      correct:"300 kr",
+      explanation:"400 − 100 = 300 kr."
+    },
+    {
+      question:"15 av 60 elever väljer basket. Hur många procent är det?",
+      answers:["15 %","20 %","25 %","60 %"],
+      correct:"25 %",
+      explanation:"15/60 = 1/4 = 25 %."
+    }
+  ];
+
+  let quizOrder = [];
+  let currentQuiz = 0;
+  let quizScore = 0;
+  let quizAnswered = 0;
+
+  function shuffle(array){
+    const copy = [...array];
+    for(let i = copy.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i],copy[j]] = [copy[j],copy[i]];
+    }
+    return copy;
+  }
+
+  function startQuiz(){
+    quizOrder = shuffle(quizQuestions.map((_,index) => index));
+    currentQuiz = 0;
+    quizScore = 0;
+    quizAnswered = 0;
+    renderQuiz();
+  }
+
+  function renderQuiz(){
+    const item = quizQuestions[quizOrder[currentQuiz]];
+
+    document.getElementById("quizQuestion").textContent =
+      (currentQuiz + 1) + ". " + item.question;
+
+    const container = document.getElementById("quizAnswers");
+    container.innerHTML = "";
+
+    shuffle(item.answers).forEach(answer => {
+      const button = document.createElement("button");
+      button.className = "answer-btn";
+      button.textContent = answer;
+      button.onclick = function(){
+        answerQuiz(answer,item.correct,item.explanation);
+      };
+      container.appendChild(button);
+    });
+
+    const feedback = document.getElementById("quizFeedback");
+    feedback.style.display = "none";
+    feedback.innerHTML = "";
+
+    document.getElementById("nextButton").style.display = "none";
+    updateScore();
+  }
+
+  function answerQuiz(answer,correct,explanation){
+    document.querySelectorAll(".answer-btn").forEach(button => {
+      button.disabled = true;
+    });
+
+    quizAnswered++;
+
+    const feedback = document.getElementById("quizFeedback");
+    feedback.style.display = "block";
+
+    if(answer === correct){
+      quizScore++;
+      feedback.style.background = "#dcfce7";
+      feedback.style.color = "#166534";
+      feedback.innerHTML = "✅ Rätt! " + explanation;
+    } else {
+      feedback.style.background = "#fee2e2";
+      feedback.style.color = "#991b1b";
+      feedback.innerHTML =
+        "❌ Inte riktigt. Rätt svar är <strong>" +
+        correct +
+        "</strong>.<br>" +
+        explanation;
+    }
+
+    updateScore();
+    document.getElementById("nextButton").style.display = "inline-block";
+  }
+
+  function nextQuizQuestion(){
+    currentQuiz++;
+
+    if(currentQuiz >= quizQuestions.length){
+      const card = document.getElementById("quizCard");
+
+      let message = "";
+      if(quizScore === quizQuestions.length){
+        message = "🏆 Alla rätt! Fantastiskt arbete.";
+      } else if(quizScore >= 6){
+        message = "🌟 Mycket bra förståelse för procent.";
+      } else if(quizScore >= 4){
+        message = "👍 Bra arbete. Repetera gärna det du missade.";
+      } else {
+        message = "🌱 Fortsätt träna och prova quizet igen.";
+      }
+
+      card.innerHTML = `
+        <h3>🎉 Quizet är klart!</h3>
+        <p style="font-size:1.2rem;margin-top:15px;">
+          Du fick <strong>${quizScore} av ${quizQuestions.length}</strong> rätt.
+        </p>
+        <p style="margin-top:15px;color:#cbd5e1;">${message}</p>
+        <button class="next-btn" style="display:inline-block" onclick="startQuizAfterFinish()">
+          Spela igen
+        </button>
+      `;
+      return;
+    }
+
+    renderQuiz();
+  }
+
+  function startQuizAfterFinish(){
+    location.reload();
+  }
+
+  function updateScore(){
+    document.getElementById("scoreBox").textContent =
+      "Poäng: " + quizScore + " / " + quizAnswered;
+  }
+
+  function checkGoals(){
+    const goals = document.querySelectorAll(".goal");
+    let checked = 0;
+
+    goals.forEach(goal => {
+      if(goal.checked) checked++;
+    });
+
+    const result = document.getElementById("finishResult");
+
+    if(checked === goals.length){
+      result.textContent = "🏆 Du har markerat alla mål. Prova nu utmaningsuppgifterna.";
+    } else if(checked >= 6){
+      result.textContent = "🌟 Du har markerat " + checked + " av " + goals.length + " mål. Mycket bra.";
+    } else if(checked >= 3){
+      result.textContent = "🌱 Du har markerat " + checked + " av " + goals.length + " mål. Fortsätt träna.";
+    } else {
+      result.textContent = "👣 Börja gärna med vad procent betyder och arbeta vidare steg för steg.";
+    }
+  }
+
+  startQuiz();
+</script>
 
 </body>
 </html>
