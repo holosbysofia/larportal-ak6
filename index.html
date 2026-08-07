@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lärportal åk 6</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+      color: white;
+      text-align: center;
+      padding: 70px 20px;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    nav {
+      background: white;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #1f2937;
+      font-weight: bold;
+      padding: 10px 18px;
+      border-radius: 20px;
+      background: #eef2ff;
+    }
+
+    nav a:hover {
+      background: #dbeafe;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .intro h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      transition: 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.13);
+    }
+
+    .icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      margin-bottom: 20px;
+      color: #4b5563;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 11px 20px;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #1d4ed8;
+    }
+
+    .section {
+      margin-top: 60px;
+      background: white;
+      padding: 35px;
+      border-radius: 18px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    }
+
+    .section h2 {
+      margin-bottom: 15px;
+    }
+
+    .section ul {
+      padding-left: 22px;
+    }
+
+    footer {
+      margin-top: 60px;
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🌟 Lärportal åk 6</h1>
+  <p>
+    Lär, träna, undersök och utvecklas i matematik, NO och teknik.
+  </p>
+</header>
+
+<nav>
+  <a href="#matematik">Matematik</a>
+  <a href="#no">NO</a>
+  <a href="#teknik">Teknik</a>
+  <a href="#spel">Lärspel</a>
+  <a href="#material">Material</a>
+</nav>
+
+<main class="container">
+
+  <div class="intro">
+    <h2>Vad vill du arbeta med idag?</h2>
+    <p>Välj ett område och börja utforska.</p>
+  </div>
+
+  <div class="grid">
+
+    <div class="card" id="matematik">
+      <div class="icon">🔢</div>
+      <h3>Matematik</h3>
+      <p>
+        Träna taluppfattning, räknesätt, bråk, procent,
+        geometri, problemlösning och mycket mer.
+      </p>
+      <a class="btn" href="#matematik-info">Öppna matematik</a>
+    </div>
+
+    <div class="card" id="no">
+      <div class="icon">🔬</div>
+      <h3>NO</h3>
+      <p>
+        Utforska kroppen, hälsa, energi, fysik, kemi,
+        biologi och naturvetenskapliga undersökningar.
+      </p>
+      <a class="btn" href="#no-info">Öppna NO</a>
+    </div>
+
+    <div class="card" id="teknik">
+      <div class="icon">⚙️</div>
+      <h3>Teknik</h3>
+      <p>
+        Upptäck konstruktioner, tekniska system,
+        programmering och hur tekniken påverkar samhället.
+      </p>
+      <a class="btn" href="#teknik-info">Öppna teknik</a>
+    </div>
+
+    <div class="card" id="spel">
+      <div class="icon">🎮</div>
+      <h3>Lärspel</h3>
+      <p>
+        Spela samtidigt som du tränar matematik,
+        begrepp, problemlösning och logiskt tänkande.
+      </p>
+      <a class="btn" href="#spel-info">Öppna spel</a>
+    </div>
+
+    <div class="card" id="material">
+      <div class="icon">📚</div>
+      <h3>Material</h3>
+      <p>
+        Här kommer arbetsblad, begreppslistor,
+        repetition, uppdrag och stödmaterial.
+      </p>
+      <a class="btn" href="#material-info">Öppna material</a>
+    </div>
+
+    <div class="card">
+      <div class="icon">🏆</div>
+      <h3>Veckans utmaning</h3>
+      <p>
+        Testa ett klurigt uppdrag där du behöver
+        resonera, samarbeta och hitta olika lösningar.
+      </p>
+      <a class="btn" href="#utmaning">Starta utmaningen</a>
+    </div>
+
+  </div>
+
+  <section class="section" id="matematik-info">
+    <h2>🔢 Matematik</h2>
+
+    <ul>
+      <li>Taluppfattning</li>
+      <li>De fyra räknesätten</li>
+      <li>Bråk och decimaltal</li>
+      <li>Procent</li>
+      <li>Algebra</li>
+      <li>Geometri</li>
+      <li>Statistik och sannolikhet</li>
+      <li>Problemlösning</li>
+      <li>Matematiska resonemang</li>
+    </ul>
+  </section>
+
+  <section class="section" id="no-info">
+    <h2>🔬 NO</h2>
+
+    <ul>
+      <li>Kroppen</li>
+      <li>Hälsa och livsstil</li>
+      <li>Energi</li>
+      <li>Biologi</li>
+      <li>Kemi</li>
+      <li>Fysik</li>
+      <li>Experiment</li>
+      <li>Naturvetenskapliga begrepp</li>
+    </ul>
+  </section>
+
+  <section class="section" id="teknik-info">
+    <h2>⚙️ Teknik</h2>
+
+    <ul>
+      <li>Tekniska lösningar</li>
+      <li>Konstruktion</li>
+      <li>Tekniska system</li>
+      <li>Programmering</li>
+      <li>Teknikutveckling</li>
+      <li>Teknik och hållbar utveckling</li>
+    </ul>
+  </section>
+
+  <section class="section" id="spel-info">
+    <h2>🎮 Lärspel</h2>
+
+    <p>
+      Här kommer vi att lägga in riktiga interaktiva spel.
+    </p>
+
+    <ul>
+      <li>Matematikduellen</li>
+      <li>Problemlösningsjakten</li>
+      <li>Begreppsmästaren</li>
+      <li>Geometriutmaningen</li>
+      <li>NO-quiz</li>
+      <li>Escape room</li>
+    </ul>
+  </section>
+
+  <section class="section" id="material-info">
+    <h2>📚 Material</h2>
+
+    <ul>
+      <li>Arbetsblad</li>
+      <li>Begreppskort</li>
+      <li>Repetition</li>
+      <li>Exit tickets</li>
+      <li>Checklistor</li>
+      <li>Stödstrukturer</li>
+    </ul>
+  </section>
+
+  <section class="section" id="utmaning">
+    <h2>🏆 Veckans utmaning</h2>
+
+    <p>
+      En klass ska åka på utflykt. Det finns 28 elever.
+      Varje bil kan ta 4 elever.
+    </p>
+
+    <p>
+      <strong>Hur många bilar behövs?</strong>
+    </p>
+
+    <p>
+      Fundera också på hur du kan visa din lösning på minst två olika sätt.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <p>🌟 Lärportal åk 6</p>
+  <p>Lärande • Nyfikenhet • Utveckling</p>
+</footer>
+
+</body>
+</html>
