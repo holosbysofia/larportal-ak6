@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Svenska – Lärportal åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --rose:#e11d48;--rose2:#be123c;--purple:#7c3aed;--blue:#2563eb;
+  --green:#16a34a;--orange:#ea580c;--border:#e2e8f0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#ffe4e6;color:#9f1239}
+.navlinks .home{background:var(--rose);color:white}
+
+.hero{
+  background:
+    radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+    linear-gradient(135deg,#e11d48,#7c3aed,#0f172a);
+  color:white;padding:74px 6% 98px
+}
+.hero-inner{
+  max-width:1180px;margin:auto;display:grid;grid-template-columns:1.45fr 1fr;
+  gap:36px;align-items:center
+}
+.hero h1{margin:0 0 14px;font-size:clamp(3.2rem,8vw,5.4rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{
+  background:white;color:#9f1239;border-radius:26px;padding:28px;text-align:center;
+  box-shadow:0 18px 50px rgba(0,0,0,.2)
+}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 75px}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:-42px}
+.quick div{
+  background:white;padding:20px;border-radius:18px;text-align:center;font-weight:900;
+  box-shadow:0 10px 28px rgba(0,0,0,.09)
+}
+
+section{margin-top:62px}
+.section-head{margin-bottom:24px}
+.section-head h2{margin:0 0 7px;font-size:2rem;color:var(--dark)}
+.section-head p{margin:0;color:var(--muted)}
+
+.intro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.intro{
+  background:white;border-radius:20px;padding:23px;box-shadow:0 6px 22px rgba(0,0,0,.06);
+  border-top:5px solid var(--rose)
+}
+.intro h3{margin-top:0;color:#9f1239}
+
+.strands{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.strand{
+  background:linear-gradient(135deg,#fff1f2,#faf5ff);border:1px solid #fbcfe8;
+  border-radius:22px;padding:25px
+}
+.strand h3{margin-top:0;color:#881337}
+
+.topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.topic{
+  display:flex;flex-direction:column;min-height:235px;background:white;border-radius:22px;padding:23px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);border:1px solid #f1f5f9;transition:.18s ease
+}
+.topic:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.1);border-color:#fecdd3}
+.topic-icon{font-size:2.4rem}
+.topic h3{margin:10px 0 7px;color:#881337}
+.topic p{margin:0 0 18px;color:#475569}
+.topic .open{
+  margin-top:auto;display:inline-block;background:var(--rose);color:white;
+  font-weight:900;padding:10px 14px;border-radius:11px;text-align:center
+}
+
+.process{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:14px
+}
+.process div{
+  background:white;border-radius:18px;padding:20px;text-align:center;
+  box-shadow:0 5px 18px rgba(0,0,0,.05)
+}
+.process span{
+  display:grid;place-items:center;width:42px;height:42px;margin:0 auto 10px;
+  border-radius:50%;background:#ffe4e6;color:#9f1239;font-weight:900
+}
+
+.language-box{
+  background:linear-gradient(135deg,#fff1f2,#f5f3ff);border-radius:24px;padding:28px
+}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.chip{background:white;border:1px solid #e2e8f0;padding:8px 12px;border-radius:999px;font-weight:800;color:#334155}
+
+.support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.support{
+  background:white;border-radius:20px;padding:22px;box-shadow:0 5px 18px rgba(0,0,0,.05)
+}
+.support h3{margin-top:0;color:#6d28d9}
+
+footer{background:#020617;color:#cbd5e1;padding:36px 20px;text-align:center}
+
+@media(max-width:920px){
+  .quick,.intro-grid{grid-template-columns:repeat(2,1fr)}
+  .topic-grid,.strands,.support-grid{grid-template-columns:1fr 1fr}
+  .process{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:700px){
+  .hero-inner,.quick,.intro-grid,.topic-grid,.strands,.support-grid,.process{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .quick{margin-top:-24px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">📚 Svenska – åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="#omraden">Områden</a>
+    <a href="#arbetsgang">Arbetsgång</a>
+    <a href="#sprak">Språkstöd</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Svenska</h1>
+      <p>
+        Läs, skriv, tala, lyssna och utveckla ditt språk. Här tränar du på att förstå texter,
+        uttrycka egna tankar, använda språket med säkerhet och kommunicera i olika situationer.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">📖✍️💬</div>
+      <h3>Språk öppnar dörrar</h3>
+      <p>Läsa • Skriva • Tala • Lyssna • Resonera</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="quick">
+  <div>📖 Läs och förstå</div>
+  <div>✍️ Skriv och utveckla</div>
+  <div>💬 Tala och samtala</div>
+  <div>🧠 Ord och språk</div>
+</div>
+
+<section>
+  <div class="section-head">
+    <h2>🌟 Så arbetar vi i svenska</h2>
+    <p>Du får både stöd, utmaning och många tillfällen att använda språket aktivt.</p>
+  </div>
+  <div class="intro-grid">
+    <div class="intro"><h3>📖 Förstå</h3><p>Läs texter, hitta information, dra slutsatser och förstå budskap.</p></div>
+    <div class="intro"><h3>✍️ Skapa</h3><p>Skriv berättande, beskrivande, förklarande och argumenterande texter.</p></div>
+    <div class="intro"><h3>💬 Kommunicera</h3><p>Samtala, lyssna, presentera och uttryck tankar med tydlighet.</p></div>
+    <div class="intro"><h3>🧠 Utveckla språket</h3><p>Arbeta med ord, grammatik, stavning, meningsbyggnad och språkliga strategier.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>🧭 Fyra delar av ämnet</h2>
+  </div>
+  <div class="strands">
+    <div class="strand"><h3>📚 Läsa</h3><p>Skönlitteratur, faktatexter, lässtrategier, inferenser, budskap och källor.</p></div>
+    <div class="strand"><h3>✏️ Skriva</h3><p>Planera, formulera, bearbeta och förbättra olika typer av texter.</p></div>
+    <div class="strand"><h3>🗣️ Tala och lyssna</h3><p>Samtal, muntliga presentationer, återberättande och aktivt lyssnande.</p></div>
+  </div>
+</section>
+
+<section id="omraden">
+  <div class="section-head">
+    <h2>📚 Svenska – alla områden</h2>
+    <p>Välj ett område och börja arbeta.</p>
+  </div>
+
+  <div class="topic-grid">
+
+    <a class="topic" href="lasforstaelse.html">
+      <div class="topic-icon">📖</div>
+      <h3>Läsförståelse</h3>
+      <p>Lässtrategier, frågor på, mellan och bortom raderna, inferenser och budskap.</p>
+      <span class="open">Öppna området →</span>
+    </a>
+
+    <a class="topic" href="faktatexter.html">
+      <div class="topic-icon">📰</div>
+      <h3>Faktatexter</h3>
+      <p>Rubriker, stycken, nyckelord, sammanfattning, textstruktur och saklig information.</p>
+      <span class="open">Öppna området →</span>
+    </a>
+
+    <a class="topic" href="skonlitteratur.html">
+      <div class="topic-icon">📚</div>
+      <h3>Skönlitteratur</h3>
+      <p>Handling, personer, miljö, tema, budskap, berättarperspektiv och textsamtal.</p>
+      <span class="open">Öppna området →</span>
+    </a>
+
+    <a class="topic" href="skriva-berattande.html">
+      <div class="topic-icon">✍️</div>
+      <h3>Skriva berättande</h3>
+      <p>Inledning, handling, problem, lösning, miljöbeskrivning och gestaltning.</p>
+      <span class="open">Öppna området →</span>
+    </a>
+
+    <a class="topic" href="skriva-faktatext.html">
+      <div class="topic-icon">📝</div>
+      <h3>Skriva faktatext</h3>
+      <p>Planera, strukturera, använda ämnesspråk, förklara och bearbeta faktatexter.</p>
+      <span class="open">Öppna området →</span>
+    </a>
+
+    <a class="topic" href="argumenterande-text.html">
+      <div class="topic-icon">⚖️</div>
+      <h3>Argumenterande text</h3>
+      <p>Åsikt, tes, argument, motargument, exempel och avslutning.</p>
+      <span class="open">Öppna området →</span>
+    </a>
+
+    <a class="topic" href="ordklasser.html">
+      <div class="topic-icon">🧩</div>
+      <h3>Ordklasser</h3>
+      <p>Substantiv, verb, adjektiv, pronomen, prepositioner och andra vanliga ordklasser.</p>
+      <span class="open">Öppna området →</span>
+    </a>
+
+    <a class="topic" href="meningsbyggnad.html">
+      <div class="topic-icon">🔤</div>
+      <h3>Meningsbyggnad</h3>
+      <p>Huvudsats, bisats, subjekt, predikat, variation och tydliga meningar.</p>
+      <span class="open">Öppna området →</span>
+    </a>
+
+    <a class="topic" href="stavning-skiljetecken.html">
+      <div class="topic-icon">✅</div>
+      <h3>Stavning och skiljetecken</h3>
+      <p>Stavningsstrategier, punkt, frågetecken, utropstecken, komma och talstreck.</p>
+      <span class="open">Öppna området →</span>
+    </a>
+
+    <a class="topic" href="ord-begrepp.html">
+      <div class="topic-icon">🧠</div>
+      <h3>Ord och begrepp</h3>
+      <p>Ordförråd, synonymer, motsatsord, sammansatta ord, ämnesord och strategier för nya ord.</p>
+      <span class="open">Öppna området →</span>
+    </a>
+
+    <a class="topic" href="muntlig-presentation.html">
+      <div class="topic-icon">🎤</div>
+      <h3>Muntlig presentation</h3>
+      <p>Planering, struktur, stödord, kroppsspråk, röst och anpassning till mottagare.</p>
+      <span class="open">Öppna området →</span>
+    </a>
+
+    <a class="topic" href="kallkritik.html">
+      <div class="topic-icon">🔎</div>
+      <h3>Källkritik</h3>
+      <p>Avsändare, syfte, trovärdighet, fakta och åsikt, jämförelse av källor och digital information.</p>
+      <span class="open">Öppna området →</span>
+    </a>
+
+  </div>
+</section>
+
+<section id="arbetsgang">
+  <div class="section-head">
+    <h2>🔄 Arbetsgång</h2>
+    <p>En tydlig arbetsgång hjälper dig att utvecklas steg för steg.</p>
+  </div>
+  <div class="process">
+    <div><span>1</span><strong>Förförstå</strong><p>Vad vet jag redan?</p></div>
+    <div><span>2</span><strong>Lär</strong><p>Nya ord, modeller och strategier.</p></div>
+    <div><span>3</span><strong>Träna</strong><p>Prova med stöd och exempel.</p></div>
+    <div><span>4</span><strong>Använd</strong><p>Läs, skriv eller tala självständigt.</p></div>
+    <div><span>5</span><strong>Förbättra</strong><p>Bearbeta med återkoppling.</p></div>
+  </div>
+</section>
+
+<section id="sprak">
+  <div class="section-head">
+    <h2>🗣️ Språk och begrepp</h2>
+    <p>På varje område tränar du både innehåll och språk.</p>
+  </div>
+
+  <div class="language-box">
+    <h3>Ord som återkommer i svenska</h3>
+    <div class="chips">
+      <span class="chip">rubrik</span>
+      <span class="chip">stycke</span>
+      <span class="chip">budskap</span>
+      <span class="chip">tema</span>
+      <span class="chip">inferens</span>
+      <span class="chip">sammanfatta</span>
+      <span class="chip">resonera</span>
+      <span class="chip">argument</span>
+      <span class="chip">källa</span>
+      <span class="chip">mottagare</span>
+      <span class="chip">struktur</span>
+      <span class="chip">bearbeta</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>🌱 Stöd för att lyckas</h2>
+  </div>
+  <div class="support-grid">
+    <div class="support"><h3>🖼️ Visuellt stöd</h3><p>Modeller, exempel, färgmarkeringar, begrepp och tydliga steg.</p></div>
+    <div class="support"><h3>💬 Språkstöd</h3><p>Meningsstarter, ordlistor, stödfrågor och möjlighet att först samtala.</p></div>
+    <div class="support"><h3>🚀 Utmaning</h3><p>Fördjupade texter, egna resonemang, jämförelser och självständig bearbetning.</p></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>📚 Svenska • Lärportal åk 6</strong><br>
+  Läsa • Skriva • Tala • Lyssna • Språk • Källkritik
+</footer>
+
+</body>
+</html>
