@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elektricitet – NO åk 6</title>
+
+<style>
+:root{
+  --bg:#f7f9fc;
+  --dark:#0f172a;
+  --text:#1f2937;
+  --muted:#64748b;
+  --yellow:#eab308;
+  --yellow2:#ca8a04;
+  --blue:#2563eb;
+  --green:#16a34a;
+  --red:#dc2626;
+  --orange:#ea580c;
+  --purple:#7c3aed;
+  --card:#ffffff;
+  --border:#e2e8f0;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:white;
+  padding:12px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{
+  color:#334155;
+  font-weight:800;
+  padding:8px 11px;
+  border-radius:10px;
+}
+.navlinks a:hover{background:#fef9c3;color:#854d0e}
+.navlinks .home{background:var(--yellow2);color:white}
+
+.hero{
+  background:
+    radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+    linear-gradient(135deg,#eab308,#ca8a04,#854d0e);
+  color:white;
+  padding:72px 6% 100px;
+}
+
+.hero-inner{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:35px;
+  align-items:center;
+}
+.hero h1{
+  margin:0 0 16px;
+  font-size:clamp(3rem,8vw,5rem);
+  line-height:1;
+}
+.hero p{font-size:1.18rem;max-width:760px}
+
+.hero-card{
+  background:white;
+  color:#854d0e;
+  border-radius:24px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 18px 50px rgba(0,0,0,.2);
+}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+
+.overview{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-top:-42px;
+}
+.overview div{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:800;
+  box-shadow:0 10px 28px rgba(0,0,0,.09);
+}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+.card h3{margin-top:0;color:var(--dark)}
+
+.fact{
+  background:#fefce8;
+  border:1px solid #fde68a;
+  border-radius:14px;
+  padding:15px;
+  font-weight:800;
+  color:#854d0e;
+  margin:14px 0;
+}
+.tip{
+  background:#fefce8;
+  border-left:5px solid var(--yellow);
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+.step{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  padding:13px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+.circuit{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--yellow2);
+}
+.circuit strong{display:block;color:#854d0e;margin-bottom:6px}
+
+.concept{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 5px 16px rgba(0,0,0,.05);
+}
+.concept strong{display:block;color:#854d0e;margin-bottom:5px}
+
+.mistake{
+  background:white;
+  border-top:5px solid var(--red);
+  border-radius:16px;
+  padding:20px;
+}
+.wrong{color:#b91c1c;font-weight:800}
+.right{color:#166534;font-weight:800}
+
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.level{
+  color:white;
+  border-radius:22px;
+  padding:24px;
+}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#eab308,#ca8a04)}
+.level3{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.level button{
+  border:none;
+  background:white;
+  color:#111827;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.panel{
+  display:none;
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  margin-top:18px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+.panel.active{display:block}
+
+.task{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  margin:12px 0;
+}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input{
+  padding:10px;
+  border:1px solid #cbd5e1;
+  border-radius:9px;
+  width:100%;
+  max-width:360px;
+}
+
+.check{
+  margin-top:9px;
+  background:var(--yellow2);
+  color:white;
+  border:none;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+.feedback{
+  display:none;
+  margin-top:9px;
+  padding:10px;
+  border-radius:9px;
+  font-weight:800;
+}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{
+  background:#0f172a;
+  color:white;
+  border-radius:24px;
+  padding:28px;
+}
+.quiz-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.score{
+  background:#1e293b;
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:900;
+}
+.quiz-card{
+  background:#1e293b;
+  border-radius:16px;
+  padding:22px;
+  margin-top:18px;
+}
+.answers{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.answer{
+  border:none;
+  background:white;
+  color:#1f2937;
+  padding:14px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  text-align:left;
+}
+.answer:hover{background:#fef9c3}
+.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{
+  display:none;
+  margin-top:14px;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+}
+#nextBtn{
+  display:none;
+  margin-top:12px;
+  border:none;
+  background:#facc15;
+  color:#111827;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.problem{
+  background:linear-gradient(135deg,#fef9c3,#dbeafe);
+  border-radius:24px;
+  padding:28px;
+}
+.problem-card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  margin-top:15px;
+}
+.problem textarea{
+  width:100%;
+  min-height:115px;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  resize:vertical;
+  margin-top:12px;
+}
+.reveal{
+  margin-top:10px;
+  border:none;
+  background:#854d0e;
+  color:white;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+.solution{
+  display:none;
+  background:#f8fafc;
+  border-radius:10px;
+  padding:14px;
+  margin-top:12px;
+}
+
+.support{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+.checklist label{
+  display:flex;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+.checklist input{width:19px;height:19px}
+.goal-btn{
+  margin-top:16px;
+  border:none;
+  background:var(--yellow2);
+  color:white;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{
+  background:#020617;
+  color:#cbd5e1;
+  padding:34px 20px;
+  text-align:center;
+  margin-top:60px;
+}
+
+@media(max-width:900px){
+  .overview,.grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-3,.levels{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .overview{margin-top:-25px}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">💡 Elektricitet – NO åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="no.html">🔬 NO</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Resonera</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+
+    <div>
+      <h1>Elektricitet</h1>
+
+      <p>
+        Här lär du dig hur enkla elektriska kretsar fungerar.
+        Du arbetar med batterier, lampor, ledare, isolatorer,
+        serie- och parallellkoppling samt grundläggande elsäkerhet.
+      </p>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-icon">🔋💡⚡</div>
+      <h3>En sluten krets</h3>
+      <p>För att lampan ska lysa behöver kretsen vara sluten.</p>
+    </div>
+
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="overview">
+    <div>🔋 Batteri</div>
+    <div>💡 Lampa</div>
+    <div>🔌 Sluten krets</div>
+    <div>🧲 Ledare</div>
+    <div>🛡️ Elsäkerhet</div>
+  </div>
+
+  <section id="forsta">
+    <div class="section-head">
+      <h2>📘 Vad är elektricitet?</h2>
+      <p>
+        Elektricitet handlar om elektriska laddningar och hur elektrisk energi kan transporteras i en krets.
+      </p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Elektrisk energi</h3>
+        <p>Kan användas för att driva lampor, motorer, datorer och många andra apparater.</p>
+      </div>
+
+      <div class="card">
+        <h3>Elektrisk ström</h3>
+        <p>I en sluten krets kan elektriska laddningar röra sig genom ledande material.</p>
+      </div>
+
+      <div class="card">
+        <h3>Krets</h3>
+        <p>En sammanhängande väg där elektrisk ström kan gå runt.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🔌 Enkel elektrisk krets</h2>
+      <p>En enkel krets kan bestå av batteri, ledningar och en lampa.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Sluten krets</h3>
+        <div class="step">🔋 Batteri</div>
+        <div class="step">→ ledning</div>
+        <div class="step">→ 💡 lampa</div>
+        <div class="step">→ ledning tillbaka till batteriet</div>
+        <div class="tip">När kretsen är sluten kan lampan lysa.</div>
+      </div>
+
+      <div class="card">
+        <h3>Öppen krets</h3>
+        <p>
+          Om kretsen är bruten någonstans kan strömmen inte gå runt hela vägen.
+        </p>
+        <div class="fact">Öppen krets → lampan lyser inte.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🔋 Batteriet</h2>
+      <p>Batteriet ger energi till kretsen.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Kemisk energi</h3>
+        <p>
+          I batteriet finns kemisk energi som kan omvandlas till elektrisk energi.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Plus och minus</h3>
+        <p>
+          Ett batteri har två poler. För att skapa en sluten krets behöver båda polerna vara kopplade.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🧲 Ledare och isolatorer</h2>
+      <p>Olika material leder elektrisk ström olika bra.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="circuit">
+        <strong>🔩 Ledare</strong>
+        <p>Material som leder ström bra.</p>
+        <div class="step">Exempel: koppar, aluminium och flera andra metaller.</div>
+      </div>
+
+      <div class="circuit">
+        <strong>🧤 Isolatorer</strong>
+        <p>Material som leder ström mycket dåligt.</p>
+        <div class="step">Exempel: plast, gummi och glas.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>💡 Serie- och parallellkoppling</h2>
+      <p>Flera lampor kan kopplas på olika sätt.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Seriekoppling</h3>
+        <p>
+          Komponenterna sitter efter varandra i samma väg.
+        </p>
+        <div class="tip">
+          Om kretsen bryts på ett ställe kan hela kretsen sluta fungera.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Parallellkoppling</h3>
+        <p>
+          Strömmen har flera vägar genom kretsen.
+        </p>
+        <div class="tip">
+          Om en gren bryts kan andra grenar fortfarande fungera.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🔘 Strömbrytare</h2>
+      <p>En strömbrytare öppnar eller stänger kretsen.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>På</h3>
+        <div class="fact">Sluten krets → ström kan gå.</div>
+      </div>
+
+      <div class="card">
+        <h3>Av</h3>
+        <div class="fact">Öppen krets → strömmen bryts.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🛡️ Elsäkerhet</h2>
+      <p>Elektricitet kan vara farlig och ska hanteras på rätt sätt.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>🚿 Vatten och el</h3>
+        <p>Elektriska apparater ska inte användas nära vatten om de inte är avsedda för det.</p>
+      </div>
+
+      <div class="card">
+        <h3>🔌 Vägguttag</h3>
+        <p>Stoppa aldrig in föremål i vägguttag.</p>
+      </div>
+
+      <div class="card">
+        <h3>🧑‍🔧 Reparationer</h3>
+        <p>Skadade sladdar och elinstallationer ska hanteras av vuxna och behöriga personer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🧠 Begreppsbank</h2>
+    </div>
+
+    <div class="grid-4">
+      <div class="concept"><strong>Elektrisk krets</strong>En sammanhängande väg där ström kan gå.</div>
+      <div class="concept"><strong>Ström</strong>Rörelse av elektriska laddningar.</div>
+      <div class="concept"><strong>Sluten krets</strong>En komplett krets där ström kan gå runt.</div>
+      <div class="concept"><strong>Öppen krets</strong>En bruten krets där strömmen inte kan gå runt.</div>
+      <div class="concept"><strong>Ledare</strong>Material som leder ström bra.</div>
+      <div class="concept"><strong>Isolator</strong>Material som leder ström dåligt.</div>
+      <div class="concept"><strong>Seriekoppling</strong>Komponenter kopplade efter varandra.</div>
+      <div class="concept"><strong>Parallellkoppling</strong>En krets med flera grenar.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>⚠️ Vanliga missuppfattningar</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="mistake">
+        <h3>Batteriet skickar ström åt ett håll som försvinner i lampan</h3>
+        <p class="wrong">❌ Strömmen tar slut i lampan.</p>
+        <p class="right">✅ Kretsen måste vara sluten så att ström kan gå runt hela vägen.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Alla material leder ström</h3>
+        <p class="wrong">❌ Plast leder lika bra som metall.</p>
+        <p class="right">✅ Metaller leder ofta ström bra, medan plast ofta fungerar som isolator.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Öppen krets</h3>
+        <p class="wrong">❌ Lampan kan lysa även om kretsen är bruten.</p>
+        <p class="right">✅ Kretsen måste vara sluten.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="traning">
+    <div class="section-head">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>Klicka på en nivå. Uppgifterna öppnas direkt.</p>
+    </div>
+
+    <div class="levels">
+      <div class="level level1">
+        <h3>🌱 Nivå 1</h3>
+        <p>Krets, batteri och lampa.</p>
+        <button type="button" onclick="showLevel(1)">Öppna nivå 1</button>
+      </div>
+
+      <div class="level level2">
+        <h3>🚀 Nivå 2</h3>
+        <p>Ledare, isolatorer och kopplingar.</p>
+        <button type="button" onclick="showLevel(2)">Öppna nivå 2</button>
+      </div>
+
+      <div class="level level3">
+        <h3>🏆 Nivå 3</h3>
+        <p>Resonemang och elsäkerhet.</p>
+        <button type="button" onclick="showLevel(3)">Öppna nivå 3</button>
+      </div>
+    </div>
+
+    <div id="level1" class="panel">
+      <h3>🌱 Nivå 1</h3>
+
+      <div class="task">
+        <label>1. Vad kallas en komplett krets där ström kan gå runt?</label>
+        <input id="a1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a1',['sluten krets','en sluten krets'],'f1')">Kontrollera</button>
+        <div id="f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad händer med lampan om kretsen är öppen?</label>
+        <input id="a2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a2',['den lyser inte','lyser inte','släcks','slacks'],'f2')">Kontrollera</button>
+        <div id="f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vilken komponent ger energi till en enkel krets?</label>
+        <input id="a3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a3',['batteri','batteriet'],'f3')">Kontrollera</button>
+        <div id="f3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level2" class="panel">
+      <h3>🚀 Nivå 2</h3>
+
+      <div class="task">
+        <label>1. Är koppar oftast en ledare eller isolator?</label>
+        <input id="b1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b1',['ledare','en ledare'],'g1')">Kontrollera</button>
+        <div id="g1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Är plast oftast en ledare eller isolator?</label>
+        <input id="b2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b2',['isolator','en isolator'],'g2')">Kontrollera</button>
+        <div id="g2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vad kallas en koppling där komponenter sitter efter varandra i samma väg?</label>
+        <input id="b3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b3',['seriekoppling','serie'],'g3')">Kontrollera</button>
+        <div id="g3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level3" class="panel">
+      <h3>🏆 Nivå 3</h3>
+
+      <div class="task">
+        <label>1. Vad gör en strömbrytare när den stänger kretsen?</label>
+        <input id="c1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c1',['ström kan gå','strom kan ga','sluter kretsen','kretsen blir sluten'],'h1')">Kontrollera</button>
+        <div id="h1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vilken koppling har flera grenar?</label>
+        <input id="c2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c2',['parallellkoppling','parallell'],'h2')">Kontrollera</button>
+        <div id="h2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vad ska du göra om du ser en skadad elsladd?</label>
+        <input id="c3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c3',['säga till en vuxen','saga till en vuxen','inte använda den','inte anvanda den','stänga av och säga till','stanga av och saga till'],'h3')">Kontrollera</button>
+        <div id="h3" class="feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quiz">
+    <div class="quiz">
+      <div class="quiz-top">
+        <div>
+          <h2>🎮 Elektricitetsquiz</h2>
+          <p>Åtta frågor. Svarsalternativen blandas.</p>
+        </div>
+        <div id="score" class="score">Poäng: 0 / 0</div>
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+        <h3 id="question"></h3>
+        <div id="answers" class="answers"></div>
+        <div id="quizFeedback"></div>
+        <button id="nextBtn" type="button" onclick="nextQuestion()">Nästa fråga →</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="section-head">
+      <h2>💬 Resonera om elektricitet</h2>
+      <p>Använd begreppen sluten krets, ledare, isolator och strömbrytare.</p>
+    </div>
+
+    <div class="problem">
+      <div class="problem-card">
+        <h3>💡 Varför lyser inte lampan?</h3>
+        <p>
+          En elev har kopplat ett batteri och en lampa men lampan lyser inte.
+          Ge tre möjliga orsaker.
+        </p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol1')">
+          Visa exempel
+        </button>
+
+        <div id="sol1" class="solution">
+          Kretsen kan vara öppen, en ledning kan ha dålig kontakt eller batteriet kan vara urladdat.
+          Det kan också vara fel på lampan. För att lampan ska lysa behöver kretsen vara sluten
+          och komponenterna fungera.
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <h3>🔌 Varför har sladdar plast runt metallen?</h3>
+        <p>
+          Förklara varför elektriska sladdar ofta har metall inuti och plast utanpå.
+        </p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol2')">
+          Visa lösningsförslag
+        </button>
+
+        <div id="sol2" class="solution">
+          Metallen fungerar som ledare och kan transportera elektrisk ström.
+          Plasten är en isolator som leder ström mycket dåligt och hjälper därför till att skydda
+          människor från kontakt med den strömförande metallen.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🌱 Stöd och utmaning</h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="support">
+        <h3>🆘 Jag behöver hjälp</h3>
+        <ul>
+          <li>Rita kretsen som en sluten väg.</li>
+          <li>Kontrollera båda batteripolerna.</li>
+          <li>Fråga om materialet är ledare eller isolator.</li>
+          <li>Använd begreppen öppen och sluten krets.</li>
+        </ul>
+      </div>
+
+      <div class="support">
+        <h3>🚀 Jag vill utmanas</h3>
+        <ul>
+          <li>Jämför serie- och parallellkoppling.</li>
+          <li>Designa en krets med två lampor och en strömbrytare.</li>
+          <li>Undersök vilka klassrumsmaterial som leder ström.</li>
+          <li>Förklara varför elsäkerhet är viktig nära vatten.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>✅ Kunskapscheck</h2>
+    </div>
+
+    <div class="checklist">
+      <label><input class="goal" type="checkbox"> Jag kan förklara vad en elektrisk krets är.</label>
+      <label><input class="goal" type="checkbox"> Jag vet vad som menas med sluten och öppen krets.</label>
+      <label><input class="goal" type="checkbox"> Jag kan förklara batteriets funktion i en enkel krets.</label>
+      <label><input class="goal" type="checkbox"> Jag kan skilja mellan ledare och isolatorer.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beskriva en seriekoppling.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beskriva en parallellkoppling.</label>
+      <label><input class="goal" type="checkbox"> Jag kan förklara vad en strömbrytare gör.</label>
+      <label><input class="goal" type="checkbox"> Jag känner till grundläggande elsäkerhet.</label>
+
+      <button class="goal-btn" type="button" onclick="checkGoals()">Se min progression</button>
+      <div id="goalResult"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <strong>💡 Elektricitet • NO åk 6</strong><br>
+  Kretsar • Batteri • Ledare • Isolatorer • Elsäkerhet
+</footer>
+
+<script>
+var quizQuestions = [
+  {
+    q:"Vad krävs för att en enkel lampa ska kunna lysa?",
+    a:["En sluten krets","En öppen krets","Bara en ledning","Bara en strömbrytare"],
+    c:"En sluten krets",
+    e:"Strömmen behöver kunna gå runt hela kretsen."
+  },
+  {
+    q:"Vilken komponent ger energi i en enkel batterikrets?",
+    a:["Batteriet","Lampan","Ledningen","Strömbrytaren"],
+    c:"Batteriet",
+    e:"Batteriet omvandlar kemisk energi till elektrisk energi."
+  },
+  {
+    q:"Vilket material är ofta en god ledare?",
+    a:["Koppar","Plast","Gummi","Glas"],
+    c:"Koppar",
+    e:"Koppar leder elektrisk ström bra."
+  },
+  {
+    q:"Vilket material är ofta en isolator?",
+    a:["Plast","Koppar","Aluminium","Järn"],
+    c:"Plast",
+    e:"Plast leder elektrisk ström mycket dåligt."
+  },
+  {
+    q:"Vad gör en strömbrytare?",
+    a:["Öppnar eller stänger kretsen","Skapar alltid mer ström","Laddar batteriet automatiskt","Gör metall till plast"],
+    c:"Öppnar eller stänger kretsen",
+    e:"Strömbrytaren bryter eller sluter kretsen."
+  },
+  {
+    q:"Vad kännetecknar en seriekoppling?",
+    a:["Komponenterna sitter efter varandra i samma väg","Kretsen har alltid tre batterier","Alla delar är parallella","Ingen ström kan gå"],
+    c:"Komponenterna sitter efter varandra i samma väg",
+    e:"I en seriekoppling finns en gemensam väg genom komponenterna."
+  },
+  {
+    q:"Vad kännetecknar en parallellkoppling?",
+    a:["Kretsen har flera grenar","Alla lampor sitter i exakt samma punkt","Kretsen är alltid öppen","Det finns inget batteri"],
+    c:"Kretsen har flera grenar",
+    e:"I en parallellkoppling finns flera vägar för strömmen."
+  },
+  {
+    q:"Vilket är ett säkert beteende?",
+    a:["Säga till en vuxen om en skadad sladd","Peta i vägguttag","Använda trasiga sladdar","Hålla elapparater i vatten"],
+    c:"Säga till en vuxen om en skadad sladd",
+    e:"Skadad elektrisk utrustning ska inte användas."
+  }
+];
+
+var order=[];
+var current=0;
+var score=0;
+var answered=0;
+
+function normalize(value){
+  return value.trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function showLevel(number){
+  document.querySelectorAll(".panel").forEach(function(panel){
+    panel.classList.remove("active");
+  });
+
+  var selected=document.getElementById("level"+number);
+  selected.classList.add("active");
+  selected.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function checkAnswer(inputId,correctAnswers,feedbackId){
+  var value=normalize(document.getElementById(inputId).value);
+  var feedback=document.getElementById(feedbackId);
+
+  var correct=correctAnswers.some(function(answer){
+    return value===normalize(answer);
+  });
+
+  if(correct){
+    feedback.className="feedback good";
+    feedback.textContent="✅ Rätt! Bra jobbat.";
+  }else{
+    feedback.className="feedback bad";
+    feedback.textContent="❌ Inte riktigt. Försök igen.";
+  }
+}
+
+function toggleSolution(id){
+  var box=document.getElementById(id);
+  box.style.display=box.style.display==="block" ? "none" : "block";
+}
+
+function shuffle(array){
+  var copy=array.slice();
+
+  for(var i=copy.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var temp=copy[i];
+    copy[i]=copy[j];
+    copy[j]=temp;
+  }
+
+  return copy;
+}
+
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;
+  score=0;
+  answered=0;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+
+  var answerBox=document.getElementById("answers");
+  answerBox.innerHTML="";
+
+  shuffle(item.a).forEach(function(choice){
+    var button=document.createElement("button");
+    button.type="button";
+    button.className="answer";
+    button.textContent=choice;
+
+    button.onclick=function(){
+      answerQuestion(choice,item.c,item.e);
+    };
+
+    answerBox.appendChild(button);
+  });
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="none";
+  feedback.innerHTML="";
+
+  document.getElementById("nextBtn").style.display="none";
+  updateScore();
+}
+
+function answerQuestion(choice,correct,explanation){
+  document.querySelectorAll(".answer").forEach(function(button){
+    button.disabled=true;
+  });
+
+  answered++;
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="block";
+
+  if(choice===correct){
+    score++;
+    feedback.style.background="#dcfce7";
+    feedback.style.color="#166534";
+    feedback.innerHTML="✅ Rätt! "+explanation;
+  }else{
+    feedback.style.background="#fee2e2";
+    feedback.style.color="#991b1b";
+    feedback.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+explanation;
+  }
+
+  updateScore();
+  document.getElementById("nextBtn").style.display="inline-block";
+}
+
+function nextQuestion(){
+  current++;
+
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quizet är klart!</h3>"+
+      "<p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p>"+
+      "<button type='button' style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return;
+  }
+
+  renderQuestion();
+}
+
+function updateScore(){
+  document.getElementById("score").textContent="Poäng: "+score+" / "+answered;
+}
+
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal");
+  var checked=0;
+
+  goals.forEach(function(goal){
+    if(goal.checked){checked++}
+  });
+
+  var result=document.getElementById("goalResult");
+
+  if(checked===goals.length){
+    result.textContent="🏆 Alla mål markerade!";
+  }else if(checked>=6){
+    result.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  }else if(checked>=3){
+    result.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  }else{
+    result.textContent="👣 Börja med sluten krets, batteri, lampa och ledningar.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  startQuiz();
+});
+</script>
+
+</body>
+</html>
