@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English-speaking World – Engelska åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --blue:#2563eb;--cyan:#0891b2;--purple:#7c3aed;--green:#16a34a;
+  --orange:#ea580c;--red:#dc2626;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#dbeafe;color:#1d4ed8}
+.navlinks .home{background:var(--blue);color:white}
+
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#2563eb,#0891b2,#0f172a);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#1d4ed8;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0;color:#1e40af}
+.fact{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:15px;font-weight:800;color:#1e3a8a;margin:14px 0}
+.tip{background:#ecfeff;border-left:5px solid var(--cyan);padding:14px;border-radius:10px;margin-top:12px}
+
+.country{
+  background:white;border-radius:20px;padding:22px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--blue)
+}
+.country h3{margin-top:0;color:#1d4ed8}
+.flag{font-size:2.4rem}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:white;border-radius:18px;overflow:hidden;box-shadow:0 5px 18px rgba(0,0,0,.05)}
+th,td{padding:14px;border-bottom:1px solid #e2e8f0;text-align:left}
+th{background:#dbeafe;color:#1e3a8a}
+
+.concept strong{display:block;color:#1d4ed8;margin-bottom:5px}
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input,.task textarea{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:620px}
+.task textarea{min-height:120px}
+.check{margin-top:9px;background:var(--blue);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#dbeafe}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+
+.problem{background:linear-gradient(135deg,#eff6ff,#ecfeff);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:135px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#1d4ed8;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#1d4ed8;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🌍 English-speaking World – Engelska åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="engelska.html">🇬🇧 Engelska</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#utforska">Utforska</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>English-speaking World</h1>
+      <p>
+        Engelska används i många delar av världen. Här lär du dig om länder och områden där engelska har en viktig roll,
+        vardagsliv, kultur, olika engelska ord och hur språk kan variera.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">🌍🗣️✈️</div>
+      <h3>One language – many voices</h3>
+      <p>UK • USA • Canada • Australia • New Zealand • Ireland and more</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>🗺️ Countries</div>
+  <div>🗣️ Varieties</div>
+  <div>🏠 Daily life</div>
+  <div>🎭 Culture</div>
+  <div>🤝 Communication</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head">
+    <h2>📘 English is a global language</h2>
+    <p>Engelska talas som första språk, andraspråk eller främmande språk av människor över hela världen.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><h3>First language</h3><p>För vissa människor är engelska ett av de första språk de lär sig hemma.</p></div>
+    <div class="card"><h3>Additional language</h3><p>För många används engelska tillsammans med ett eller flera andra språk.</p></div>
+    <div class="card"><h3>International communication</h3><p>Engelska används ofta inom resor, utbildning, media, teknik och internationella kontakter.</p></div>
+  </div>
+
+  <div class="fact">Det finns inte bara en “rätt” sorts engelska. Uttal, ord och uttryck kan variera mellan länder, regioner och människor.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🇬🇧 United Kingdom</h2><p>Storbritannien består av England, Scotland, Wales och Northern Ireland.</p></div>
+  <div class="grid-3">
+    <div class="country"><div class="flag">🏙️</div><h3>Capital</h3><p>London är huvudstad i UK.</p></div>
+    <div class="country"><div class="flag">⚽</div><h3>Culture</h3><p>Football, music, literature, museums och många regionala traditioner.</p></div>
+    <div class="country"><div class="flag">🗣️</div><h3>Language</h3><p>Det finns många brittiska dialekter och accenter. Även andra språk används i olika delar av UK.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🇺🇸 United States</h2></div>
+  <div class="grid-3">
+    <div class="country"><div class="flag">🗽</div><h3>Large and diverse</h3><p>USA består av 50 delstater och har stor geografisk och kulturell variation.</p></div>
+    <div class="country"><div class="flag">🎬</div><h3>Media</h3><p>Film, television, music och digital kultur från USA sprids över hela världen.</p></div>
+    <div class="country"><div class="flag">🗣️</div><h3>American English</h3><p>Vissa ord och stavningar skiljer sig från brittisk engelska.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🇨🇦 Canada</h2></div>
+  <div class="grid-3">
+    <div class="country"><div class="flag">🍁</div><h3>Languages</h3><p>English och French har officiell status på federal nivå.</p></div>
+    <div class="country"><div class="flag">🏞️</div><h3>Geography</h3><p>Canada är känt för mycket stora naturområden, sjöar och skogar.</p></div>
+    <div class="country"><div class="flag">🏒</div><h3>Culture</h3><p>Sport, musik, film och många olika kulturella traditioner.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🇦🇺 Australia</h2></div>
+  <div class="grid-3">
+    <div class="country"><div class="flag">🦘</div><h3>Wildlife</h3><p>Australia har många djurarter som är starkt förknippade med landet.</p></div>
+    <div class="country"><div class="flag">🏖️</div><h3>Daily life</h3><p>Stora städer, kustliv, inland och mycket olika klimat beroende på område.</p></div>
+    <div class="country"><div class="flag">🗣️</div><h3>Australian English</h3><p>Har eget uttal, egen slang och vissa egna ord.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🇳🇿 New Zealand</h2></div>
+  <div class="grid-3">
+    <div class="country"><div class="flag">🌿</div><h3>Nature</h3><p>Berg, kust, vulkaniska landskap och stora naturområden.</p></div>
+    <div class="country"><div class="flag">🗣️</div><h3>Languages</h3><p>English används brett. Te reo Māori är också ett officiellt språk.</p></div>
+    <div class="country"><div class="flag">🤝</div><h3>Culture</h3><p>Māori-kultur är en viktig del av landets historia och nutid.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🇮🇪 Ireland</h2></div>
+  <div class="grid-3">
+    <div class="country"><div class="flag">☘️</div><h3>Languages</h3><p>Irish och English har officiell status i Republic of Ireland.</p></div>
+    <div class="country"><div class="flag">🎻</div><h3>Culture</h3><p>Music, storytelling, literature och sport har starka traditioner.</p></div>
+    <div class="country"><div class="flag">🗣️</div><h3>Irish English</h3><p>Har egna uttryck, rytmer och uttalsdrag.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌍 English in many other places</h2><p>Engelska har också en viktig roll i många andra samhällen.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>India</h3><p>English används bland annat inom utbildning, administration, media och arbete tillsammans med många andra språk.</p></div>
+    <div class="card"><h3>South Africa</h3><p>English är ett av flera officiella språk och används i många offentliga sammanhang.</p></div>
+    <div class="card"><h3>Singapore</h3><p>English har en central roll i utbildning och offentlig kommunikation tillsammans med andra språk.</p></div>
+  </div>
+  <div class="tip">När vi säger “English-speaking world” menar vi därför mer än bara Storbritannien och USA.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔤 British and American English</h2><p>Några vanliga skillnader i ord och stavning.</p></div>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>British English</th><th>American English</th><th>Svenska</th></tr>
+      <tr><td>flat</td><td>apartment</td><td>lägenhet</td></tr>
+      <tr><td>lift</td><td>elevator</td><td>hiss</td></tr>
+      <tr><td>holiday</td><td>vacation</td><td>semester/lov</td></tr>
+      <tr><td>lorry</td><td>truck</td><td>lastbil</td></tr>
+      <tr><td>football</td><td>soccer</td><td>fotboll</td></tr>
+      <tr><td>colour</td><td>color</td><td>färg</td></tr>
+      <tr><td>centre</td><td>center</td><td>centrum</td></tr>
+    </table>
+  </div>
+
+  <div class="fact">Båda varianterna är korrekt engelska. Det viktigaste är att du förstår skillnaden och försöker vara konsekvent när du skriver.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🗣️ Accents and dialects</h2></div>
+  <div class="grid-3">
+    <div class="card"><h3>Accent</h3><p>Hur människor uttalar språket.</p></div>
+    <div class="card"><h3>Dialect</h3><p>Kan innehålla skillnader i uttal, ord och grammatik.</p></div>
+    <div class="card"><h3>Variation</h3><p>Språk varierar även inom samma land och stad.</p></div>
+  </div>
+  <div class="tip">En accent säger inte hur smart eller kunnig någon är. Alla språkvarianter har regler och mönster.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🎭 Culture and everyday life</h2><p>Kultur är mer än mat och högtider.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>School</h3><p>Skoldagar, skoluniformer och skolorganisation kan se olika ut.</p></div>
+    <div class="card"><h3>Food</h3><p>Matvanor påverkas av region, familj, historia och migration.</p></div>
+    <div class="card"><h3>Sports</h3><p>Football, rugby, cricket, basketball, ice hockey och andra sporter har olika stark ställning.</p></div>
+    <div class="card"><h3>Media</h3><p>Books, music, films, games och social media påverkar hur engelska sprids.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🤝 Communicate respectfully</h2></div>
+  <div class="grid-3">
+    <div class="card"><h3>Avoid stereotypes</h3><p>Alla människor i ett land lever inte på samma sätt.</p></div>
+    <div class="card"><h3>Be curious</h3><p>Fråga, jämför och undersök istället för att anta.</p></div>
+    <div class="card"><h3>Notice similarities too</h3><p>Kulturer skiljer sig, men människor delar också många vardagliga erfarenheter.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+  <div class="grid-4">
+    <div class="concept"><strong>Global language</strong>Ett språk som används brett internationellt.</div>
+    <div class="concept"><strong>Accent</strong>Hur en person eller grupp uttalar ett språk.</div>
+    <div class="concept"><strong>Dialect</strong>En språkvariant med särskilda drag.</div>
+    <div class="concept"><strong>Variety</strong>En variant av ett språk.</div>
+    <div class="concept"><strong>Culture</strong>Idéer, vanor, uttryck och sätt att leva som människor delar och förändrar.</div>
+    <div class="concept"><strong>Official language</strong>Ett språk med formell status i ett land eller område.</div>
+    <div class="concept"><strong>Stereotype</strong>En förenklad föreställning om en grupp.</div>
+    <div class="concept"><strong>Multilingual</strong>Att använda eller kunna flera språk.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Common misconceptions</h2></div>
+  <div class="grid-3">
+    <div class="mistake"><h3>Only the UK and USA use English</h3><p class="wrong">❌ Engelska hör bara till två länder.</p><p class="right">✅ Engelska används i många länder och av människor med många olika språkliga bakgrunder.</p></div>
+    <div class="mistake"><h3>One accent is the correct accent</h3><p class="wrong">❌ Bara en accent är riktig engelska.</p><p class="right">✅ Det finns många etablerade engelska accenter och varianter.</p></div>
+    <div class="mistake"><h3>Culture is the same for everyone</h3><p class="wrong">❌ Alla i ett land har samma vanor och åsikter.</p><p class="right">✅ Det finns stor variation inom alla samhällen.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Level 1</h3><p>Countries and words.</p><button onclick="showLevel(1)">Open level 1</button></div>
+    <div class="level level2"><h3>🚀 Level 2</h3><p>Language variation.</p><button onclick="showLevel(2)">Open level 2</button></div>
+    <div class="level level3"><h3>🏆 Level 3</h3><p>Culture and comparison.</p><button onclick="showLevel(3)">Open level 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Level 1</h3>
+    <div class="task"><label>1. What is the capital of the United Kingdom?</label><input id="a1"><br><button class="check" onclick="checkAnswer('a1',['london'],'f1')">Check</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. What is the American English word for “flat”?</label><input id="a2"><br><button class="check" onclick="checkAnswer('a2',['apartment'],'f2')">Check</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Which country is strongly associated with the maple leaf?</label><input id="a3"><br><button class="check" onclick="checkAnswer('a3',['canada'],'f3')">Check</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Level 2</h3>
+    <div class="task"><label>1. What is an accent?</label><textarea id="b1"></textarea><br><button class="check" onclick="checkContains('b1',['pronounce','uttal','how people speak','how someone speaks'],'g1')">Check</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Is British English more correct than American English?</label><input id="b2"><br><button class="check" onclick="checkContains('b2',['no','nej','both','båda'],'g2')">Check</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Give one pair of British/American vocabulary differences.</label><input id="b3"><br><button class="check" onclick="checkContains('b3',['flat','apartment','lift','elevator','lorry','truck','holiday','vacation','football','soccer'],'g3')">Check</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Level 3</h3>
+    <div class="task"><label>1. Explain why “Everyone in Australia lives near the beach” is a stereotype.</label><textarea id="c1"></textarea><br><button class="check" onclick="checkContains('c1',['not everyone','different','variation','stereotype','alla bor inte'],'h1')">Check</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Compare two English-speaking countries or regions using at least two similarities and two differences.</label><textarea id="c2"></textarea><br><button class="check" onclick="checkContains('c2',['both','however','different','similar','while'],'h2')">Check</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Why can understanding several accents be useful?</label><textarea id="c3"></textarea><br><button class="check" onclick="checkContains('c3',['understand','communicate','different speakers','travel','people'],'h3')">Check</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 English-speaking World Quiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Next question →</button>
+    </div>
+  </div>
+</section>
+
+<section id="utforska">
+  <div class="section-head"><h2>🌍 Explore & Compare</h2><p>Använd engelska när du undersöker världen.</p></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>🗺️ Task 1: Country profile</h3>
+      <p>Choose one English-speaking country or region. Write a short profile with location, languages, one city, one cultural feature and one interesting fact.</p>
+      <textarea placeholder="Write your country profile..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Show structure</button>
+      <div id="sol1" class="solution">
+        Country/region:<br>
+        Location:<br>
+        Languages:<br>
+        Important city:<br>
+        Cultural feature:<br>
+        Interesting fact:
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🔤 Task 2: British or American English?</h3>
+      <p>Write five British/American word pairs. Then use two of the words in complete sentences.</p>
+      <textarea placeholder="flat – apartment..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Show example</button>
+      <div id="sol2" class="solution">
+        flat – apartment<br>
+        lift – elevator<br>
+        holiday – vacation<br>
+        lorry – truck<br>
+        football – soccer
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🤝 Task 3: Culture without stereotypes</h3>
+      <p>Write three questions you could ask a student from another country to learn about everyday life without assuming everyone lives the same way.</p>
+      <textarea placeholder="What is a normal school day like for you? ..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol3')">Show example</button>
+      <div id="sol3" class="solution">
+        What is a normal school day like for you?<br>
+        What do you like doing in your free time?<br>
+        Are there any traditions that are important in your family or community?
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+  <div class="grid-2">
+    <div class="support">
+      <h3>🆘 I need support</h3>
+      <ul>
+        <li>Use a map and a short fact box.</li>
+        <li>Learn a few countries at a time.</li>
+        <li>Use sentence starters: “In … people speak …”</li>
+        <li>Compare one difference at a time.</li>
+        <li>Use the British/American word table for support.</li>
+      </ul>
+    </div>
+    <div class="support">
+      <h3>🚀 I want a challenge</h3>
+      <ul>
+        <li>Compare three English varieties.</li>
+        <li>Investigate why English has a strong role in one selected country.</li>
+        <li>Listen to several accents and describe what you notice.</li>
+        <li>Discuss how media and travel spread language and culture.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Knowledge check</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> I know that English is used in many parts of the world.</label>
+    <label><input class="goal" type="checkbox"> I can name several countries where English has an important role.</label>
+    <label><input class="goal" type="checkbox"> I know some differences between British and American English.</label>
+    <label><input class="goal" type="checkbox"> I understand what accent and dialect mean.</label>
+    <label><input class="goal" type="checkbox"> I understand that one language can have many accepted varieties.</label>
+    <label><input class="goal" type="checkbox"> I can compare aspects of everyday life and culture.</label>
+    <label><input class="goal" type="checkbox"> I can avoid simple stereotypes when describing people and places.</label>
+    <label><input class="goal" type="checkbox"> I can use English to present information about a country or region.</label>
+    <button class="goal-btn" onclick="checkGoals()">See my progress</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>🌍 English-speaking World • Engelska åk 6</strong><br>
+  Countries • English varieties • Culture • Everyday life • Respectful communication
+</footer>
+
+<script>
+var quizQuestions=[
+{q:"Which statement about English is true?",a:["English is used in many parts of the world","English is only used in the UK","There is only one correct English accent","All English-speaking countries use exactly the same words"],c:"English is used in many parts of the world",e:"English is a global language used in many countries and international contexts."},
+{q:"What is the capital of the United Kingdom?",a:["London","Sydney","Toronto","Dublin"],c:"London",e:"London is the capital of the UK."},
+{q:"Which is American English for 'flat'?",a:["apartment","lift","lorry","holiday"],c:"apartment",e:"British 'flat' often corresponds to American 'apartment'."},
+{q:"Which pair shows a spelling difference?",a:["colour – color","flat – apartment","lift – elevator","lorry – truck"],c:"colour – color",e:"Colour/color is a common British/American spelling difference."},
+{q:"What is an accent?",a:["A way of pronouncing a language","A country's flag","A type of school","A written paragraph"],c:"A way of pronouncing a language",e:"Accent mainly refers to pronunciation."},
+{q:"Which statement is best?",a:["There are many accepted varieties of English","Only British English is correct","Only American English is correct","Everyone in one country speaks the same way"],c:"There are many accepted varieties of English",e:"English varies across regions, communities and speakers."},
+{q:"Why should we avoid stereotypes?",a:["People within the same country can have very different lives","Every country has exactly one culture","Stereotypes are always accurate","Only tourists need culture knowledge"],c:"People within the same country can have very different lives",e:"Cultures and communities contain a great deal of variation."},
+{q:"Which country is associated with the maple leaf?",a:["Canada","Australia","Ireland","New Zealand"],c:"Canada",e:"The maple leaf is a well-known symbol of Canada."}
+];
+
+var order=[],current=0,score=0,answered=0;
+
+function normalize(v){
+  return v.trim().toLowerCase().replace(/[’']/g,"'").replace(/\s+/g," ")
+}
+function showLevel(n){
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  var s=document.getElementById("level"+n);
+  s.classList.add("active");
+  s.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function checkAnswer(id,answers,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=answers.some(function(a){return value===normalize(a)});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Correct!":"❌ Try again."
+}
+function checkContains(id,parts,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=parts.some(function(p){return value.indexOf(normalize(p))!==-1});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Good!":"❌ Try again and use the information on the page."
+}
+function toggleSolution(id){
+  var b=document.getElementById(id);
+  b.style.display=b.style.display==="block"?"none":"block"
+}
+function shuffle(a){
+  var c=a.slice();
+  for(var i=c.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=c[i];c[i]=c[j];c[j]=t
+  }
+  return c
+}
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;score=0;answered=0;
+  renderQuestion()
+}
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+  var box=document.getElementById("answers");
+  box.innerHTML="";
+  shuffle(item.a).forEach(function(choice){
+    var b=document.createElement("button");
+    b.className="answer";b.type="button";b.textContent=choice;
+    b.onclick=function(){answerQuestion(choice,item.c,item.e)};
+    box.appendChild(b)
+  });
+  var f=document.getElementById("quizFeedback");
+  f.style.display="none";f.innerHTML="";
+  document.getElementById("nextBtn").style.display="none";
+  updateScore()
+}
+function answerQuestion(choice,correct,exp){
+  document.querySelectorAll(".answer").forEach(function(b){b.disabled=true});
+  answered++;
+  var f=document.getElementById("quizFeedback");
+  f.style.display="block";
+  if(choice===correct){
+    score++;
+    f.style.background="#dcfce7";
+    f.style.color="#166534";
+    f.innerHTML="✅ Correct! "+exp
+  }else{
+    f.style.background="#fee2e2";
+    f.style.color="#991b1b";
+    f.innerHTML="❌ Correct answer: <strong>"+correct+"</strong><br>"+exp
+  }
+  updateScore();
+  document.getElementById("nextBtn").style.display="inline-block"
+}
+function nextQuestion(){
+  current++;
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quiz complete!</h3><p>You got <strong>"+score+" out of "+quizQuestions.length+
+      "</strong> correct.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Play again</button>";
+    return
+  }
+  renderQuestion()
+}
+function updateScore(){
+  document.getElementById("score").textContent="Poäng: "+score+" / "+answered
+}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 All goals checked!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" of "+goals.length+" goals. Great work.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" of "+goals.length+" goals. Keep exploring.";
+  else r.textContent="👣 Start with countries, British/American words and language variation."
+}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
