@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Material och egenskaper – Teknik åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --indigo:#4f46e5;--indigo2:#4338ca;--green:#16a34a;--cyan:#0891b2;
+  --orange:#ea580c;--red:#dc2626;--purple:#7c3aed;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#ecfdf5;color:#166534}
+.navlinks .home{background:var(--indigo);color:white}
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#0f766e,#16a34a,#0f172a);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#166534;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0;color:#065f46}
+.fact{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:14px;padding:15px;font-weight:800;color:#166534;margin:14px 0}
+.tip{background:#f0fdfa;border-left:5px solid var(--green);padding:14px;border-radius:10px;margin-top:12px}
+.step{background:#f8fafc;border:1px solid var(--border);padding:13px;border-radius:12px;margin-top:10px}
+.material{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--green)
+}
+.material strong{display:block;color:#15803d;margin-bottom:6px}
+.concept strong{display:block;color:#15803d;margin-bottom:5px}
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#0891b2,#0e7490)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:390px}
+.check{margin-top:9px;background:var(--green);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#dcfce7}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.problem{background:linear-gradient(135deg,#dcfce7,#cffafe);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:120px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#15803d;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#15803d;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🧱 Material och egenskaper – Teknik åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="teknik.html">🛠️ Teknik</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Välj material</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Material och egenskaper</h1>
+      <p>
+        Här lär du dig hur material väljs utifrån funktion. Du undersöker trä, metall,
+        plast, glas, papper, textil och kompositmaterial och tränar på egenskaper som
+        hållfasthet, hårdhet, flexibilitet, vikt, värmeledning och elektrisk ledningsförmåga.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">🧱🔩🪵</div>
+      <h3>Rätt material för rätt funktion</h3>
+      <p>Egenskaper avgör vad materialet passar till.</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>💪 Styrka</div>
+  <div>🪶 Vikt</div>
+  <div>↔️ Flexibilitet</div>
+  <div>🔥 Värme</div>
+  <div>⚡ Ledning</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head">
+    <h2>📘 Varför är materialval viktigt?</h2>
+    <p>Tekniska produkter behöver material som klarar just den funktion och miljö de ska användas i.</p>
+  </div>
+  <div class="grid-3">
+    <div class="card"><h3>Funktion</h3><p>Materialet måste klara det produkten ska göra.</p></div>
+    <div class="card"><h3>Miljö</h3><p>Materialet kan behöva tåla vatten, värme, kyla eller slitage.</p></div>
+    <div class="card"><h3>Resurser</h3><p>Pris, tillgång, återvinning och miljöpåverkan påverkar också valet.</p></div>
+  </div>
+  <div class="fact">Det finns sällan ett enda perfekt material. Ofta måste flera egenskaper vägas mot varandra.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🪵 Trä</h2><p>Ett naturmaterial med många användningsområden.</p></div>
+  <div class="grid-3">
+    <div class="material"><strong>Fördelar</strong><p>Lätt att bearbeta, relativt lätt och ofta starkt i förhållande till sin vikt.</p></div>
+    <div class="material"><strong>Egenskaper</strong><p>Fiberriktningen påverkar styrkan. Trä kan också svälla eller krympa med fukt.</p></div>
+    <div class="material"><strong>Användning</strong><p>Möbler, hus, broar, verktyg och förpackningar.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔩 Metaller</h2><p>Metaller används där styrka, formbarhet eller ledningsförmåga behövs.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Stål</h3><p>Starkt och används i byggnader, verktyg och fordon.</p></div>
+    <div class="card"><h3>Aluminium</h3><p>Lätt och korrosionsbeständigt, vanligt i fordon och förpackningar.</p></div>
+    <div class="card"><h3>Koppar</h3><p>Leder elektricitet mycket bra och används ofta i ledningar.</p></div>
+    <div class="card"><h3>Metall generellt</h3><p>Många metaller leder både värme och elektricitet.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧴 Plast</h2><p>Plast är ett samlingsnamn för många olika material.</p></div>
+  <div class="grid-3">
+    <div class="material"><strong>Lätt och formbar</strong><p>Plast kan formas till komplicerade produkter.</p></div>
+    <div class="material"><strong>Olika egenskaper</strong><p>Vissa plaster är hårda, andra mjuka, elastiska eller värmetåliga.</p></div>
+    <div class="material"><strong>Miljöfråga</strong><p>Plast kan vara mycket användbart men behöver hanteras klokt för att minska avfall och utsläpp.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🪟 Glas</h2><p>Glas är hårt, genomskinligt och tåligt mot många kemikalier, men kan vara sprött.</p></div>
+  <div class="grid-2">
+    <div class="card"><h3>Fördelar</h3><p>Släpper igenom ljus, är hygieniskt och kan återvinnas.</p></div>
+    <div class="card"><h3>Nackdel</h3><p>Vanligt glas kan spricka eller gå sönder vid stötar.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📄 Papper och kartong</h2><p>Tunna material kan bli starkare genom form.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Platt papper</h3><p>Böjs lätt.</p></div>
+    <div class="card"><h3>Vikt papper</h3><p>Blir styvare när det viks till profiler.</p></div>
+    <div class="card"><h3>Kartong</h3><p>Flera lager kan ge låg vikt och god styvhet.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧵 Textilier</h2><p>Textilier kan vara mjuka, flexibla, slitstarka eller vattenavvisande.</p></div>
+  <div class="grid-3">
+    <div class="material"><strong>Bomull</strong><p>Mjuk och absorberande.</p></div>
+    <div class="material"><strong>Polyester</strong><p>Slitstarkt och torkar ofta snabbt.</p></div>
+    <div class="material"><strong>Tekniska textilier</strong><p>Kan vara förstärkta, flamskyddade eller vattenavvisande.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧩 Kompositmaterial</h2><p>Två eller flera material kombineras för att få bättre egenskaper.</p></div>
+  <div class="grid-2">
+    <div class="card"><h3>Armerad betong</h3><p>Betong klarar tryck bra och stål klarar drag bra. Tillsammans blir materialet användbart i byggnader och broar.</p></div>
+    <div class="card"><h3>Glasfiber</h3><p>Plast förstärks med glasfibrer för att bli starkare och styvare.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔍 Viktiga materialegenskaper</h2><p>När en teknisk lösning planeras behöver flera egenskaper jämföras.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Hårdhet</h3><p>Hur väl materialet står emot repor och deformation.</p></div>
+    <div class="card"><h3>Elasticitet</h3><p>Hur väl materialet återgår till sin form efter att ha böjts eller sträckts.</p></div>
+    <div class="card"><h3>Ledningsförmåga</h3><p>Hur bra materialet leder värme eller elektricitet.</p></div>
+    <div class="card"><h3>Korrosionsbeständighet</h3><p>Hur väl materialet står emot kemisk nedbrytning, till exempel rost.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌍 Material och hållbar utveckling</h2><p>Materialval påverkar både resurser och miljö.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Råvara</h3><p>Varifrån kommer materialet?</p></div>
+    <div class="card"><h3>Tillverkning</h3><p>Hur mycket energi och vatten krävs?</p></div>
+    <div class="card"><h3>Livslängd</h3><p>Hur länge kan produkten användas och repareras?</p></div>
+    <div class="card"><h3>Återvinning</h3><p>Kan materialet återanvändas eller återvinnas?</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+  <div class="grid-4">
+    <div class="concept"><strong>Materialegenskap</strong>En egenskap som påverkar hur ett material kan användas.</div>
+    <div class="concept"><strong>Hårdhet</strong>Motstånd mot repor och deformation.</div>
+    <div class="concept"><strong>Elasticitet</strong>Förmåga att återgå till ursprunglig form.</div>
+    <div class="concept"><strong>Ledningsförmåga</strong>Förmåga att leda värme eller elektricitet.</div>
+    <div class="concept"><strong>Korrosion</strong>Nedbrytning av material genom kemiska reaktioner.</div>
+    <div class="concept"><strong>Komposit</strong>Material som består av två eller flera olika material.</div>
+    <div class="concept"><strong>Återvinning</strong>Att material bearbetas så att det kan användas igen.</div>
+    <div class="concept"><strong>Livslängd</strong>Hur länge en produkt eller ett material fungerar.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Vanliga missuppfattningar</h2></div>
+  <div class="grid-3">
+    <div class="mistake"><h3>Metall är alltid bäst</h3><p class="wrong">❌ Metall är alltid det bästa materialet.</p><p class="right">✅ Material måste väljas efter funktion, vikt, miljö, pris och andra krav.</p></div>
+    <div class="mistake"><h3>Plast är ett enda material</h3><p class="wrong">❌ Alla plaster har samma egenskaper.</p><p class="right">✅ Det finns många plaster med olika egenskaper.</p></div>
+    <div class="mistake"><h3>Naturligt betyder automatiskt miljövänligt</h3><p class="wrong">❌ Naturmaterial har alltid liten miljöpåverkan.</p><p class="right">✅ Miljöpåverkan beror på hela livscykeln: råvara, tillverkning, transport, användning och avfall.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Nivå 1</h3><p>Känn igen material och egenskaper.</p><button onclick="showLevel(1)">Öppna nivå 1</button></div>
+    <div class="level level2"><h3>🚀 Nivå 2</h3><p>Välj material efter funktion.</p><button onclick="showLevel(2)">Öppna nivå 2</button></div>
+    <div class="level level3"><h3>🏆 Nivå 3</h3><p>Jämför och motivera materialval.</p><button onclick="showLevel(3)">Öppna nivå 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Nivå 1</h3>
+    <div class="task"><label>1. Vilken metall används ofta i elektriska ledningar?</label><input id="a1"><br><button class="check" onclick="checkAnswer('a1',['koppar'],'f1')">Kontrollera</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. Vilket material är genomskinligt men kan vara sprött?</label><input id="a2"><br><button class="check" onclick="checkAnswer('a2',['glas'],'f2')">Kontrollera</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Kan papper bli styvare genom vikning?</label><input id="a3"><br><button class="check" onclick="checkAnswer('a3',['ja'],'f3')">Kontrollera</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Nivå 2</h3>
+    <div class="task"><label>1. Vilket material är ofta lämpligt när låg vikt och korrosionsbeständighet är viktigt?</label><input id="b1"><br><button class="check" onclick="checkAnswer('b1',['aluminium'],'g1')">Kontrollera</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kallas förmågan att leda elektricitet?</label><input id="b2"><br><button class="check" onclick="checkAnswer('b2',['ledningsförmåga','ledningsformaga'],'g2')">Kontrollera</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Vad kallas ett material som kombinerar två eller flera material?</label><input id="b3"><br><button class="check" onclick="checkAnswer('b3',['komposit','kompositmaterial'],'g3')">Kontrollera</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Nivå 3</h3>
+    <div class="task"><label>1. Vad kallas nedbrytning av metall genom kemiska reaktioner?</label><input id="c1"><br><button class="check" onclick="checkAnswer('c1',['korrosion'],'h1')">Kontrollera</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kallas förmågan att återgå till sin ursprungliga form?</label><input id="c2"><br><button class="check" onclick="checkAnswer('c2',['elasticitet'],'h2')">Kontrollera</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Bör miljöpåverkan bedömas under hela produktens livscykel?</label><input id="c3"><br><button class="check" onclick="checkAnswer('c3',['ja'],'h3')">Kontrollera</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Materialquiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Nästa fråga →</button>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="section-head"><h2>🛠️ Välj och motivera material</h2><p>Det räcker inte att välja ett material – du ska kunna förklara varför.</p></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>🚲 Cykelram</h3>
+      <p>Du ska välja material till en cykelram. Vilka egenskaper är viktiga och vilket material skulle du välja?</p>
+      <textarea placeholder="Skriv ditt resonemang..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Visa lösningsförslag</button>
+      <div id="sol1" class="solution">
+        Viktiga egenskaper är hållfasthet, låg vikt, tålighet och möjlighet att tillverka och reparera ramen.
+        Stål kan vara starkt och relativt lätt att reparera. Aluminium är lätt och korrosionsbeständigt.
+        Valet beror på vilka krav som prioriteras.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🍳 Handtag till en stekpanna</h3>
+      <p>Varför är metall ofta olämpligt som enda material i ett handtag som man ska hålla i?</p>
+      <textarea placeholder="Skriv ditt resonemang..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Visa exempel</button>
+      <div id="sol2" class="solution">
+        Många metaller leder värme bra. Då kan handtaget bli varmt. Därför används ofta trä, värmetålig plast eller en kombination där greppytan isolerar mot värme.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+  <div class="grid-2">
+    <div class="support"><h3>🆘 Jag behöver hjälp</h3><ul><li>Börja med produktens funktion.</li><li>Fråga om materialet ska vara starkt, lätt, mjukt eller hårt.</li><li>Fundera på värme, vatten och elektricitet.</li><li>Jämför minst två material.</li></ul></div>
+    <div class="support"><h3>🚀 Jag vill utmanas</h3><ul><li>Välj material till samma produkt på två olika sätt.</li><li>Jämför pris, livslängd och miljöpåverkan.</li><li>Förklara varför kompositmaterial kan ge bättre egenskaper.</li><li>Gör en enkel livscykelanalys av en produkt.</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Kunskapscheck</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> Jag kan beskriva egenskaper hos trä, metall, plast, glas, papper och textil.</label>
+    <label><input class="goal" type="checkbox"> Jag kan välja material utifrån funktion.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara hårdhet och elasticitet.</label>
+    <label><input class="goal" type="checkbox"> Jag kan beskriva värme- och elektrisk ledningsförmåga.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara vad korrosion är.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara vad kompositmaterial är.</label>
+    <label><input class="goal" type="checkbox"> Jag kan resonera om materialens livslängd och återvinning.</label>
+    <label><input class="goal" type="checkbox"> Jag kan motivera ett materialval med flera egenskaper.</label>
+    <button class="goal-btn" onclick="checkGoals()">Se min progression</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer><strong>🧱 Material och egenskaper • Teknik åk 6</strong><br>Trä • Metall • Plast • Glas • Papper • Textil • Komposit • Återvinning</footer>
+
+<script>
+var quizQuestions=[
+{q:"Vilket material används ofta i elektriska ledningar?",a:["Koppar","Glas","Papper","Betong"],c:"Koppar",e:"Koppar leder elektricitet mycket bra."},
+{q:"Vilket material är genomskinligt men ofta sprött?",a:["Glas","Stål","Gummi","Trä"],c:"Glas",e:"Glas släpper igenom ljus men kan spricka vid stötar."},
+{q:"Vad är elasticitet?",a:["Förmågan att återgå till ursprunglig form","Förmågan att alltid leda el","Förmågan att rosta","Förmågan att väga mycket"],c:"Förmågan att återgå till ursprunglig form",e:"Elastiska material kan återgå mot sin tidigare form efter deformation."},
+{q:"Vad är ett kompositmaterial?",a:["Ett material som kombinerar flera material","Bara en metall","En färg","En ritning"],c:"Ett material som kombinerar flera material",e:"Kompositer kombinerar egenskaper från olika material."},
+{q:"Vilket material klarar tryck bra och används ofta i byggnader?",a:["Betong","Bomull","Papper","Gummi"],c:"Betong",e:"Betong har god tryckhållfasthet."},
+{q:"Vad betyder ledningsförmåga?",a:["Hur bra ett material leder värme eller elektricitet","Hur lätt det går sönder","Hur snyggt det är","Hur dyrt det är"],c:"Hur bra ett material leder värme eller elektricitet",e:"Olika material leder värme och elektricitet olika bra."},
+{q:"Vad är korrosion?",a:["Kemisk nedbrytning av material","En ritteknik","En typ av lim","En måttenhet"],c:"Kemisk nedbrytning av material",e:"Rost på järn är ett exempel på korrosion."},
+{q:"Vad bör påverka ett materialval?",a:["Funktion, egenskaper och miljöpåverkan","Bara färgen","Bara priset","Bara vikten"],c:"Funktion, egenskaper och miljöpåverkan",e:"Tekniska materialval behöver väga ihop flera krav."}
+];
+
+var order=[],current=0,score=0,answered=0;
+function normalize(v){return v.trim().toLowerCase().replace(/\s+/g," ")}
+function showLevel(n){
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  var s=document.getElementById("level"+n);s.classList.add("active");
+  s.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function checkAnswer(id,answers,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=answers.some(function(a){return value===normalize(a)});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Rätt! Bra jobbat.":"❌ Inte riktigt. Försök igen."
+}
+function toggleSolution(id){var b=document.getElementById(id);b.style.display=b.style.display==="block"?"none":"block"}
+function shuffle(a){var c=a.slice();for(var i=c.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=c[i];c[i]=c[j];c[j]=t}return c}
+function startQuiz(){order=shuffle([0,1,2,3,4,5,6,7]);current=0;score=0;answered=0;renderQuestion()}
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+  var box=document.getElementById("answers");box.innerHTML="";
+  shuffle(item.a).forEach(function(choice){
+    var b=document.createElement("button");b.className="answer";b.type="button";b.textContent=choice;
+    b.onclick=function(){answerQuestion(choice,item.c,item.e)};box.appendChild(b)
+  });
+  var f=document.getElementById("quizFeedback");f.style.display="none";f.innerHTML="";
+  document.getElementById("nextBtn").style.display="none";updateScore()
+}
+function answerQuestion(choice,correct,exp){
+  document.querySelectorAll(".answer").forEach(function(b){b.disabled=true});answered++;
+  var f=document.getElementById("quizFeedback");f.style.display="block";
+  if(choice===correct){score++;f.style.background="#dcfce7";f.style.color="#166534";f.innerHTML="✅ Rätt! "+exp}
+  else{f.style.background="#fee2e2";f.style.color="#991b1b";f.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+exp}
+  updateScore();document.getElementById("nextBtn").style.display="inline-block"
+}
+function nextQuestion(){
+  current++;
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML="<h3>🎉 Quizet är klart!</h3><p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return
+  }
+  renderQuestion()
+}
+function updateScore(){document.getElementById("score").textContent="Poäng: "+score+" / "+answered}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 Alla mål markerade!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  else r.textContent="👣 Börja med materialens egenskaper och vad de används till."
+}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
