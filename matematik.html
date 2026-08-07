@@ -1,175 +1,100 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matematik åk 6</title>
-
-  <style>
-    :root{
-      --bg:#f5f7fb;
-      --dark:#0f172a;
-      --blue:#2563eb;
-      --purple:#7c3aed;
-      --green:#059669;
-      --orange:#ea580c;
-      --red:#dc2626;
-      --cyan:#0891b2;
-      --pink:#db2777;
-      --text:#1f2937;
-      --muted:#64748b;
-    }
-
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-
-    body{
-      font-family:Arial,Helvetica,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.6;
-    }
-
-    nav{
-      background:white;
-      padding:14px 5%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:20px;
-      position:sticky;
-      top:0;
-      z-index:1000;
-      box-shadow:0 2px 14px rgba(0,0,0,.08);
-    }
-
-    .logo{font-size:1.25rem;font-weight:900;color:var(--dark)}
-    .navlinks{display:flex;flex-wrap:wrap;gap:8px}
-
-    .navlinks a{
-      text-decoration:none;color:#334155;padding:9px 12px;border-radius:10px;
-      font-weight:700;font-size:.9rem
-    }
-
-    .navlinks a:hover{background:#eff6ff;color:#1d4ed8}
-    .home{background:#2563eb !important;color:white !important}
-
-    .hero{
-      background:
-        radial-gradient(circle at 80% 20%,rgba(255,255,255,.18),transparent 25%),
-        linear-gradient(135deg,#1d4ed8,#2563eb,#4f46e5);
-      color:white;padding:75px 6%;
-    }
-
-    .hero-inner{
-      max-width:1200px;margin:auto;
-      display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:center
-    }
-
-    .hero h1{font-size:clamp(2.6rem,6vw,4.8rem);line-height:1.05;margin-bottom:18px}
-    .hero p{font-size:1.2rem;max-width:720px}
-    .hero-icon{font-size:9rem;text-align:center}
-
-    .wrapper{max-width:1250px;margin:auto;padding:50px 22px}
-
-    .intro-grid{
-      display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
-      margin-top:-80px;position:relative;z-index:10
-    }
-
-    .intro-card{
-      background:white;padding:22px;border-radius:20px;
-      box-shadow:0 12px 35px rgba(15,23,42,.11)
-    }
-
-    .intro-card span{font-size:2rem}
-    .intro-card h3{margin:8px 0}
-    .intro-card p{color:var(--muted);font-size:.94rem}
-
-    .section{margin-top:70px}
-    .section-title{margin-bottom:25px}
-    .section-title h2{font-size:2rem;color:var(--dark)}
-    .section-title p{color:var(--muted)}
-
-    .topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-
-    .topic{
-      background:white;border-radius:22px;padding:26px;
-      box-shadow:0 7px 24px rgba(0,0,0,.07);
-      border-top:6px solid var(--blue);transition:.2s
-    }
-
-    .topic:nth-child(1){border-top-color:#2563eb}
-    .topic:nth-child(2){border-top-color:#7c3aed}
-    .topic:nth-child(3){border-top-color:#059669}
-    .topic:nth-child(4){border-top-color:#0891b2}
-    .topic:nth-child(5){border-top-color:#db2777}
-    .topic:nth-child(6){border-top-color:#ea580c}
-    .topic:nth-child(7){border-top-color:#ca8a04}
-    .topic:nth-child(8){border-top-color:#9333ea}
-    .topic:nth-child(9){border-top-color:#0f766e}
-    .topic:nth-child(10){border-top-color:#be123c}
-    .topic:nth-child(11){border-top-color:#4f46e5}
-    .topic:nth-child(12){border-top-color:#16a34a}
-
-    .topic:hover{transform:translateY(-5px)}
-    .topic-icon{font-size:2.7rem;margin-bottom:8px}
-    .topic h3{font-size:1.35rem;margin-bottom:8px}
-    .topic p{color:#64748b;margin-bottom:15px}
-    .topic ul{padding-left:20px;margin-bottom:18px}
-
-    .topic-button{
-      display:inline-block;background:#eff6ff;color:#1d4ed8;
-      padding:10px 15px;border-radius:10px;font-weight:800;
-      text-decoration:none;border:none;cursor:pointer
-    }
-
-    .topic-button:hover{background:#dbeafe}
-
-    .future{
-      display:inline-block;background:#f1f5f9;color:#64748b;
-      padding:10px 15px;border-radius:10px;font-weight:800
-    }
-
-    .learn-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}
-
-    .learn-card{
-      background:white;padding:22px 15px;text-align:center;border-radius:18px;
-      box-shadow:0 5px 18px rgba(0,0,0,.06)
-    }
-
-    .learn-card span{font-size:2.5rem;display:block;margin-bottom:8px}
-
-    .practice-zone{background:#0f172a;color:white;border-radius:28px;padding:35px}
-
-    .practice-grid{
-      display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:25px
-    }
-
-    .practice-card{background:#1e293b;padding:24px;border-radius:18px}
-    .practice-card span{font-size:2.5rem}
-    .practice-card h3{margin:10px 0 6px}
-    .practice-card p{color:#cbd5e1;margin-bottom:15px}
-
-    footer{
-      margin-top:70px;background:#020617;color:#cbd5e1;
-      padding:35px;text-align:center
-    }
-
-    @media(max-width:1000px){
-      .intro-grid{grid-template-columns:repeat(2,1fr)}
-      .topic-grid{grid-template-columns:repeat(2,1fr)}
-      .learn-grid{grid-template-columns:repeat(3,1fr)}
-      .practice-grid{grid-template-columns:repeat(2,1fr)}
-    }
-
-    @media(max-width:700px){
-      nav{flex-direction:column;align-items:flex-start}
-      .hero-inner,.intro-grid,.topic-grid,.learn-grid,.practice-grid{grid-template-columns:1fr}
-      .hero-icon{font-size:5rem}
-      .intro-grid{margin-top:-40px}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matematik åk 6</title>
+<style>
+:root{
+  --bg:#f5f7fb;--dark:#0f172a;--blue:#2563eb;--purple:#7c3aed;
+  --green:#059669;--orange:#ea580c;--red:#dc2626;--cyan:#0891b2;
+  --pink:#db2777;--text:#1f2937;--muted:#64748b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+nav{
+  background:white;padding:14px 5%;display:flex;justify-content:space-between;
+  align-items:center;gap:20px;position:sticky;top:0;z-index:1000;
+  box-shadow:0 2px 14px rgba(0,0,0,.08)
+}
+.logo{font-size:1.25rem;font-weight:900;color:var(--dark)}
+.navlinks{display:flex;flex-wrap:wrap;gap:8px}
+.navlinks a{text-decoration:none;color:#334155;padding:9px 12px;border-radius:10px;font-weight:700;font-size:.9rem}
+.navlinks a:hover{background:#eff6ff;color:#1d4ed8}
+.home{background:#2563eb!important;color:white!important}
+.hero{
+  background:radial-gradient(circle at 80% 20%,rgba(255,255,255,.18),transparent 25%),
+  linear-gradient(135deg,#1d4ed8,#2563eb,#4f46e5);
+  color:white;padding:75px 6%
+}
+.hero-inner{max-width:1200px;margin:auto;display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,6vw,4.8rem);line-height:1.05;margin-bottom:18px}
+.hero p{font-size:1.2rem;max-width:720px}
+.hero-icon{font-size:9rem;text-align:center}
+.wrapper{max-width:1250px;margin:auto;padding:50px 22px}
+.intro-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:-80px;
+  position:relative;z-index:10
+}
+.intro-card{background:white;padding:22px;border-radius:20px;box-shadow:0 12px 35px rgba(15,23,42,.11)}
+.intro-card span{font-size:2rem}
+.intro-card h3{margin:8px 0}
+.intro-card p{color:var(--muted);font-size:.94rem}
+.section{margin-top:70px}
+.section-title{margin-bottom:25px}
+.section-title h2{font-size:2rem;color:var(--dark)}
+.section-title p{color:var(--muted)}
+.topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.topic{
+  background:white;border-radius:22px;padding:26px;box-shadow:0 7px 24px rgba(0,0,0,.07);
+  border-top:6px solid var(--blue);transition:.2s
+}
+.topic:nth-child(1){border-top-color:#2563eb}
+.topic:nth-child(2){border-top-color:#7c3aed}
+.topic:nth-child(3){border-top-color:#059669}
+.topic:nth-child(4){border-top-color:#0891b2}
+.topic:nth-child(5){border-top-color:#db2777}
+.topic:nth-child(6){border-top-color:#ea580c}
+.topic:nth-child(7){border-top-color:#ca8a04}
+.topic:nth-child(8){border-top-color:#9333ea}
+.topic:nth-child(9){border-top-color:#0f766e}
+.topic:nth-child(10){border-top-color:#be123c}
+.topic:nth-child(11){border-top-color:#4f46e5}
+.topic:nth-child(12){border-top-color:#16a34a}
+.topic:hover{transform:translateY(-5px)}
+.topic-icon{font-size:2.7rem;margin-bottom:8px}
+.topic h3{font-size:1.35rem;margin-bottom:8px}
+.topic p{color:#64748b;margin-bottom:15px}
+.topic ul{padding-left:20px;margin-bottom:18px}
+.topic-button{
+  display:inline-block;background:#eff6ff;color:#1d4ed8;padding:10px 15px;
+  border-radius:10px;font-weight:800;text-decoration:none;border:none;cursor:pointer
+}
+.topic-button:hover{background:#dbeafe}
+.future{
+  display:inline-block;background:#f1f5f9;color:#64748b;padding:10px 15px;
+  border-radius:10px;font-weight:800
+}
+.practice-zone{background:#0f172a;color:white;border-radius:28px;padding:35px}
+.practice-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:25px}
+.practice-card{background:#1e293b;padding:24px;border-radius:18px}
+.practice-card span{font-size:2.5rem}
+.practice-card h3{margin:10px 0 6px}
+.practice-card p{color:#cbd5e1;margin-bottom:15px}
+footer{margin-top:70px;background:#020617;color:#cbd5e1;padding:35px;text-align:center}
+@media(max-width:1000px){
+  .intro-grid{grid-template-columns:repeat(2,1fr)}
+  .topic-grid{grid-template-columns:repeat(2,1fr)}
+  .practice-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+  nav{flex-direction:column;align-items:flex-start}
+  .hero-inner,.intro-grid,.topic-grid,.practice-grid{grid-template-columns:1fr}
+  .hero-icon{font-size:5rem}
+  .intro-grid{margin-top:-40px}
+}
+</style>
 </head>
 
 <body>
@@ -179,7 +104,6 @@
   <div class="navlinks">
     <a class="home" href="index.html">🏠 Start</a>
     <a href="#omraden">Områden</a>
-    <a href="#arbetssatt">Så arbetar du</a>
     <a href="#traning">Träning</a>
   </div>
 </nav>
@@ -201,29 +125,10 @@
 <main class="wrapper">
 
   <section class="intro-grid">
-    <div class="intro-card">
-      <span>📘</span>
-      <h3>Lär dig</h3>
-      <p>Tydliga genomgångar och visuella modeller.</p>
-    </div>
-
-    <div class="intro-card">
-      <span>✍️</span>
-      <h3>Träna</h3>
-      <p>Övningar på olika nivåer.</p>
-    </div>
-
-    <div class="intro-card">
-      <span>💬</span>
-      <h3>Resonera</h3>
-      <p>Förklara hur och varför.</p>
-    </div>
-
-    <div class="intro-card">
-      <span>🏆</span>
-      <h3>Utmana dig</h3>
-      <p>Problemlösning och fördjupning.</p>
-    </div>
+    <div class="intro-card"><span>📘</span><h3>Lär dig</h3><p>Tydliga genomgångar och visuella modeller.</p></div>
+    <div class="intro-card"><span>✍️</span><h3>Träna</h3><p>Övningar på olika nivåer.</p></div>
+    <div class="intro-card"><span>💬</span><h3>Resonera</h3><p>Förklara hur och varför.</p></div>
+    <div class="intro-card"><span>🏆</span><h3>Utmana dig</h3><p>Problemlösning och fördjupning.</p></div>
   </section>
 
   <section class="section" id="omraden">
@@ -238,12 +143,7 @@
         <div class="topic-icon">🔢</div>
         <h3>Taluppfattning</h3>
         <p>Förstå tal, platsvärde och hur tal hänger ihop.</p>
-        <ul>
-          <li>Heltal</li>
-          <li>Negativa tal</li>
-          <li>Tallinje</li>
-          <li>Avrundning</li>
-        </ul>
+        <ul><li>Heltal</li><li>Negativa tal</li><li>Tallinje</li><li>Avrundning</li></ul>
         <span class="future">Ej byggd ännu</span>
       </article>
 
@@ -251,12 +151,7 @@
         <div class="topic-icon">➕</div>
         <h3>De fyra räknesätten</h3>
         <p>Addition, subtraktion, multiplikation och division.</p>
-        <ul>
-          <li>Huvudräkning</li>
-          <li>Uppställning</li>
-          <li>Överslag</li>
-          <li>Rimlighetsbedömning</li>
-        </ul>
+        <ul><li>Huvudräkning</li><li>Uppställning</li><li>Överslag</li><li>Rimlighetsbedömning</li></ul>
         <span class="future">Ej byggd ännu</span>
       </article>
 
@@ -264,12 +159,7 @@
         <div class="topic-icon">🍕</div>
         <h3>Bråk</h3>
         <p>Förstå delar av en helhet, likvärdiga bråk, tallinje och problemlösning.</p>
-        <ul>
-          <li>Täljare och nämnare</li>
-          <li>Förlänga och förkorta</li>
-          <li>Jämföra bråk</li>
-          <li>Bråk av antal</li>
-        </ul>
+        <ul><li>Täljare och nämnare</li><li>Förlänga och förkorta</li><li>Jämföra bråk</li><li>Bråk av antal</li></ul>
         <a class="topic-button" href="brak.html">Öppna Bråk →</a>
       </article>
 
@@ -277,12 +167,7 @@
         <div class="topic-icon">🔟</div>
         <h3>Decimaltal</h3>
         <p>Tiondelar, hundradelar, platsvärde, tallinje och beräkningar.</p>
-        <ul>
-          <li>Platsvärde</li>
-          <li>Jämföra tal</li>
-          <li>Avrundning</li>
-          <li>Bråk, decimal och procent</li>
-        </ul>
+        <ul><li>Platsvärde</li><li>Jämföra tal</li><li>Avrundning</li><li>Bråk, decimal och procent</li></ul>
         <a class="topic-button" href="decimaltal.html">Öppna Decimaltal →</a>
       </article>
 
@@ -290,12 +175,7 @@
         <div class="topic-icon">💯</div>
         <h3>Procent</h3>
         <p>Förstå procent som hundradelar och använd procent i vardagliga situationer.</p>
-        <ul>
-          <li>1 %, 10 %, 25 %, 50 %</li>
-          <li>Procent av antal</li>
-          <li>Rabatt</li>
-          <li>Bråk, decimal och procent</li>
-        </ul>
+        <ul><li>1 %, 10 %, 25 %, 50 %</li><li>Procent av antal</li><li>Rabatt</li><li>Bråk, decimal och procent</li></ul>
         <a class="topic-button" href="procent.html">Öppna Procent →</a>
       </article>
 
@@ -303,12 +183,7 @@
         <div class="topic-icon">🔠</div>
         <h3>Algebra</h3>
         <p>Upptäck hur bokstäver och symboler kan representera tal och samband.</p>
-        <ul>
-          <li>Variabler</li>
-          <li>Uttryck</li>
-          <li>Likheter</li>
-          <li>Ekvationer</li>
-        </ul>
+        <ul><li>Variabler</li><li>Uttryck</li><li>Likheter</li><li>Ekvationer</li></ul>
         <a class="topic-button" href="algebra.html">Öppna Algebra →</a>
       </article>
 
@@ -316,25 +191,15 @@
         <div class="topic-icon">📐</div>
         <h3>Geometri</h3>
         <p>Undersök former, vinklar, area, omkrets och volym.</p>
-        <ul>
-          <li>Vinklar</li>
-          <li>Trianglar</li>
-          <li>Fyrhörningar</li>
-          <li>Area och omkrets</li>
-        </ul>
-        <span class="future">Ej byggd ännu</span>
+        <ul><li>Vinklar</li><li>Trianglar</li><li>Fyrhörningar</li><li>Area och omkrets</li></ul>
+        <a class="topic-button" href="geometri.html">Öppna Geometri →</a>
       </article>
 
       <article class="topic">
         <div class="topic-icon">📊</div>
         <h3>Statistik</h3>
         <p>Samla, visa, jämför och tolka data.</p>
-        <ul>
-          <li>Tabeller</li>
-          <li>Diagram</li>
-          <li>Medelvärde</li>
-          <li>Median och typvärde</li>
-        </ul>
+        <ul><li>Tabeller</li><li>Diagram</li><li>Medelvärde</li><li>Median och typvärde</li></ul>
         <span class="future">Ej byggd ännu</span>
       </article>
 
@@ -342,12 +207,7 @@
         <div class="topic-icon">🎲</div>
         <h3>Sannolikhet</h3>
         <p>Undersök hur troligt något är.</p>
-        <ul>
-          <li>Möjliga utfall</li>
-          <li>Slump</li>
-          <li>Bråk och sannolikhet</li>
-          <li>Experiment</li>
-        </ul>
+        <ul><li>Möjliga utfall</li><li>Slump</li><li>Bråk och sannolikhet</li><li>Experiment</li></ul>
         <span class="future">Ej byggd ännu</span>
       </article>
 
@@ -355,12 +215,7 @@
         <div class="topic-icon">🧩</div>
         <h3>Problemlösning</h3>
         <p>Välj strategier, lös problem och visa hur du tänker.</p>
-        <ul>
-          <li>Rita bild</li>
-          <li>Gör tabell</li>
-          <li>Pröva systematiskt</li>
-          <li>Arbeta baklänges</li>
-        </ul>
+        <ul><li>Rita bild</li><li>Gör tabell</li><li>Pröva systematiskt</li><li>Arbeta baklänges</li></ul>
         <span class="future">Ej byggd ännu</span>
       </article>
 
@@ -368,12 +223,7 @@
         <div class="topic-icon">🔁</div>
         <h3>Mönster</h3>
         <p>Upptäck regler och matematiska samband.</p>
-        <ul>
-          <li>Talföljder</li>
-          <li>Figurmönster</li>
-          <li>Regler</li>
-          <li>Generalisering</li>
-        </ul>
+        <ul><li>Talföljder</li><li>Figurmönster</li><li>Regler</li><li>Generalisering</li></ul>
         <span class="future">Ej byggd ännu</span>
       </article>
 
@@ -381,69 +231,26 @@
         <div class="topic-icon">📈</div>
         <h3>Samband och förändring</h3>
         <p>Förstå hur olika storheter kan hänga ihop.</p>
-        <ul>
-          <li>Proportionalitet</li>
-          <li>Förhållanden</li>
-          <li>Skala</li>
-          <li>Hastighet</li>
-          <li>Tabeller och grafer</li>
-        </ul>
+        <ul><li>Proportionalitet</li><li>Förhållanden</li><li>Skala</li><li>Hastighet</li><li>Tabeller och grafer</li></ul>
         <span class="future">Ej byggd ännu</span>
       </article>
 
     </div>
   </section>
 
-  <section class="section" id="arbetssatt">
-    <div class="section-title">
-      <h2>👣 Så arbetar du i varje område</h2>
-      <p>Samma struktur återkommer så att du snabbt känner igen dig.</p>
-    </div>
-
-    <div class="learn-grid">
-      <div class="learn-card"><span>📘</span><h3>1. Förstå</h3></div>
-      <div class="learn-card"><span>👀</span><h3>2. Se exempel</h3></div>
-      <div class="learn-card"><span>🧠</span><h3>3. Begrepp</h3></div>
-      <div class="learn-card"><span>✍️</span><h3>4. Träna</h3></div>
-      <div class="learn-card"><span>🏆</span><h3>5. Utmana dig</h3></div>
-    </div>
-  </section>
-
   <section class="section" id="traning">
     <div class="practice-zone">
       <div class="section-title">
-        <h2 style="color:white;">🎮 Färdiga träningsområden</h2>
-        <p style="color:#cbd5e1;">Här kommer du direkt till de områden som redan är byggda.</p>
+        <h2 style="color:white">🎮 Färdiga träningsområden</h2>
+        <p style="color:#cbd5e1">Här kommer du direkt till de områden som redan är byggda.</p>
       </div>
 
       <div class="practice-grid">
-        <div class="practice-card">
-          <span>🍕</span>
-          <h3>Bråk</h3>
-          <p>Visuella modeller, nivåträning, quiz, problemlösning och kunskapscheck.</p>
-          <a class="topic-button" href="brak.html">Träna Bråk →</a>
-        </div>
-
-        <div class="practice-card">
-          <span>🔟</span>
-          <h3>Decimaltal</h3>
-          <p>Platsvärde, tallinje, beräkningar, quiz och problemlösning.</p>
-          <a class="topic-button" href="decimaltal.html">Träna Decimaltal →</a>
-        </div>
-
-        <div class="practice-card">
-          <span>💯</span>
-          <h3>Procent</h3>
-          <p>Hundradelar, procent av antal, rabatt, quiz och problemlösning.</p>
-          <a class="topic-button" href="procent.html">Träna Procent →</a>
-        </div>
-
-        <div class="practice-card">
-          <span>🔠</span>
-          <h3>Algebra</h3>
-          <p>Variabler, uttryck, ekvationer, mönster, quiz och problemlösning.</p>
-          <a class="topic-button" href="algebra.html">Träna Algebra →</a>
-        </div>
+        <div class="practice-card"><span>🍕</span><h3>Bråk</h3><p>Modeller, träning, quiz och problemlösning.</p><a class="topic-button" href="brak.html">Träna Bråk →</a></div>
+        <div class="practice-card"><span>🔟</span><h3>Decimaltal</h3><p>Platsvärde, beräkningar, quiz och problemlösning.</p><a class="topic-button" href="decimaltal.html">Träna Decimaltal →</a></div>
+        <div class="practice-card"><span>💯</span><h3>Procent</h3><p>Hundradelar, rabatt, quiz och problemlösning.</p><a class="topic-button" href="procent.html">Träna Procent →</a></div>
+        <div class="practice-card"><span>🔠</span><h3>Algebra</h3><p>Variabler, ekvationer, mönster och quiz.</p><a class="topic-button" href="algebra.html">Träna Algebra →</a></div>
+        <div class="practice-card"><span>📐</span><h3>Geometri</h3><p>Vinklar, area, omkrets, volym och quiz.</p><a class="topic-button" href="geometri.html">Träna Geometri →</a></div>
       </div>
     </div>
   </section>
