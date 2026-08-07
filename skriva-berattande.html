@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skriva berättande – Svenska åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --rose:#e11d48;--rose2:#be123c;--purple:#7c3aed;--blue:#2563eb;
+  --green:#16a34a;--orange:#ea580c;--red:#dc2626;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#ffe4e6;color:#9f1239}
+.navlinks .home{background:var(--rose);color:white}
+
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#e11d48,#7c3aed,#0f172a);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#9f1239;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0;color:#881337}
+.fact{background:#fff1f2;border:1px solid #fecdd3;border-radius:14px;padding:15px;font-weight:800;color:#9f1239;margin:14px 0}
+.tip{background:#faf5ff;border-left:5px solid var(--purple);padding:14px;border-radius:10px;margin-top:12px}
+
+.story-step{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--rose)
+}
+.story-step strong{display:block;color:#be123c;margin-bottom:6px}
+.concept strong{display:block;color:#be123c;margin-bottom:5px}
+
+.example{
+  background:white;border-radius:22px;padding:26px;box-shadow:0 6px 22px rgba(0,0,0,.06);
+  border:1px solid #f1f5f9
+}
+.example h3{margin-top:0;color:#4c1d95}
+.example blockquote{
+  margin:14px 0 0;padding:16px 18px;border-left:5px solid var(--purple);
+  background:#faf5ff;border-radius:10px
+}
+
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input,.task textarea{
+  padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:520px
+}
+.task textarea{min-height:110px}
+.check{margin-top:9px;background:var(--rose);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#ffe4e6}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+
+.problem{background:linear-gradient(135deg,#fff1f2,#ede9fe);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:140px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#be123c;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#be123c;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">✍️ Skriva berättande – Svenska åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="svenska.html">📚 Svenska</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#skriv">Skriv</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Skriva berättande</h1>
+      <p>
+        Här tränar du på att bygga upp en berättelse med tydlig inledning, handling,
+        konflikt, vändpunkt och avslutning. Du lär dig också att gestalta personer,
+        miljöer och känslor så att läsaren kan se och känna berättelsen.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">✍️📚✨</div>
+      <h3>Bygg en berättelse</h3>
+      <p>Inledning → problem → vändpunkt → lösning → avslutning</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>🎬 Inledning</div>
+  <div>⚡ Problem</div>
+  <div>🔄 Vändpunkt</div>
+  <div>✅ Lösning</div>
+  <div>🌟 Avslutning</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head">
+    <h2>📘 Vad kännetecknar en bra berättande text?</h2>
+    <p>En berättelse behöver både struktur och detaljer som gör att läsaren vill fortsätta läsa.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Tydlig struktur</h3><p>Läsaren behöver förstå hur händelserna hänger ihop.</p></div>
+    <div class="card"><h3>Levande språk</h3><p>Beskrivningar, dialog och gestaltning gör texten mer levande.</p></div>
+    <div class="card"><h3>Röd tråd</h3><p>Alla viktiga händelser ska höra ihop och leda berättelsen framåt.</p></div>
+  </div>
+
+  <div class="fact">En berättelse blir starkare när läsaren får upptäcka känslor och egenskaper genom det personerna gör, säger och reagerar på.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧱 Berättelsens struktur</h2></div>
+
+  <div class="grid-4">
+    <div class="story-step"><strong>1. Inledning</strong><p>Presentera person, plats och situation. Väcka nyfikenhet.</p></div>
+    <div class="story-step"><strong>2. Problem</strong><p>Något händer som förändrar situationen och skapar en konflikt.</p></div>
+    <div class="story-step"><strong>3. Vändpunkt</strong><p>En viktig händelse förändrar berättelsens riktning.</p></div>
+    <div class="story-step"><strong>4. Avslutning</strong><p>Problemet får en lösning eller berättelsen avslutas på ett genomtänkt sätt.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🎬 Skriv en stark inledning</h2><p>De första meningarna ska få läsaren att vilja fortsätta.</p></div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Börja mitt i en händelse</h3><p>”Dörren slog igen bakom mig och lamporna slocknade.”</p></div>
+    <div class="card"><h3>Börja med en fråga</h3><p>”Vad skulle du göra om hela skolan plötsligt blev tom?”</p></div>
+    <div class="card"><h3>Börja med en märklig detalj</h3><p>”På mitt skrivbord låg en nyckel som inte hade funnits där när jag gick hem.”</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>👤 Gestalta personer</h2><p>Visa istället för att bara berätta.</p></div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Berätta</h3>
+      <p>”Leo var nervös.”</p>
+      <div class="tip">Läsaren får informationen direkt, men bilden blir ganska enkel.</div>
+    </div>
+
+    <div class="card">
+      <h3>Gestalta</h3>
+      <p>”Leo drog handen genom håret för tredje gången och läste stödorden igen. Pennan skakade mellan fingrarna.”</p>
+      <div class="tip">Läsaren får själv dra slutsatsen att Leo är nervös.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌆 Beskriv miljön</h2><p>Miljöbeskrivningar ska hjälpa berättelsen, inte stoppa den.</p></div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Syn</h3><p>Vad ser personen?</p></div>
+    <div class="card"><h3>Ljud</h3><p>Vad hör personen?</p></div>
+    <div class="card"><h3>Känsla</h3><p>Hur påverkar platsen personen?</p></div>
+  </div>
+
+  <div class="example">
+    <h3>Exempel</h3>
+    <blockquote>
+      Korridoren låg mörk framför henne. Någonstans längre bort droppade vatten i jämn takt.
+      Golvet knarrade när hon tog ett steg framåt.
+    </blockquote>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>💬 Dialog</h2><p>Dialog kan visa relationer, konflikter och känslor.</p></div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Dialog med talstreck</h3>
+      <p>– Vi måste gå nu, sa Amira.<br>– Jag tänker inte lämna honom här, svarade Noel.</p>
+    </div>
+
+    <div class="card">
+      <h3>Variera anföringsverb</h3>
+      <p>sa, frågade, viskade, ropade, svarade, mumlade, utbrast.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔗 Skapa röd tråd</h2><p>Använd sambandsord som visar tid och ordning.</p></div>
+
+  <div class="grid-4">
+    <div class="story-step"><strong>Först</strong><p>Startar händelseförloppet.</p></div>
+    <div class="story-step"><strong>Sedan</strong><p>Visar nästa steg.</p></div>
+    <div class="story-step"><strong>Plötsligt</strong><p>Markerar en förändring eller överraskning.</p></div>
+    <div class="story-step"><strong>Till slut</strong><p>Visar hur händelsen avslutas.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+
+  <div class="grid-4">
+    <div class="concept"><strong>Inledning</strong>Berättelsens början där situationen introduceras.</div>
+    <div class="concept"><strong>Konflikt</strong>Ett problem eller hinder i berättelsen.</div>
+    <div class="concept"><strong>Vändpunkt</strong>En händelse som förändrar berättelsens riktning.</div>
+    <div class="concept"><strong>Avslutning</strong>Den del där berättelsen knyts ihop.</div>
+    <div class="concept"><strong>Gestaltning</strong>Att visa känslor och egenskaper genom handling och detaljer.</div>
+    <div class="concept"><strong>Dialog</strong>Samtal mellan personer i texten.</div>
+    <div class="concept"><strong>Röd tråd</strong>Att textens delar hänger ihop tydligt.</div>
+    <div class="concept"><strong>Sambandsord</strong>Ord som visar hur meningar och händelser hör ihop.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Vanliga missuppfattningar</h2></div>
+
+  <div class="grid-3">
+    <div class="mistake"><h3>Ju fler adjektiv desto bättre</h3><p class="wrong">❌ En berättelse blir bra bara man använder många beskrivande ord.</p><p class="right">✅ Välj detaljer som hjälper handlingen och skapar en tydlig bild.</p></div>
+    <div class="mistake"><h3>Allt måste förklaras</h3><p class="wrong">❌ Läsaren måste få veta exakt vad alla känner.</p><p class="right">✅ Gestaltning gör att läsaren själv får tolka känslor och egenskaper.</p></div>
+    <div class="mistake"><h3>Avslutningen kan komma plötsligt</h3><p class="wrong">❌ Det räcker att skriva ”slut”.</p><p class="right">✅ Avslutningen bör knyta ihop berättelsen eller ge ett medvetet öppet slut.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Nivå 1</h3><p>Struktur och berättelsedelar.</p><button onclick="showLevel(1)">Öppna nivå 1</button></div>
+    <div class="level level2"><h3>🚀 Nivå 2</h3><p>Gestaltning och dialog.</p><button onclick="showLevel(2)">Öppna nivå 2</button></div>
+    <div class="level level3"><h3>🏆 Nivå 3</h3><p>Utveckla stil och röd tråd.</p><button onclick="showLevel(3)">Öppna nivå 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Nivå 1</h3>
+    <div class="task"><label>1. Vad kallas berättelsens början?</label><input id="a1"><br><button class="check" onclick="checkAnswer('a1',['inledning','inledningen'],'f1')">Kontrollera</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kallas det problem som driver berättelsen framåt?</label><input id="a2"><br><button class="check" onclick="checkAnswer('a2',['konflikt','problemet','problem'],'f2')">Kontrollera</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Vad kallas den händelse som förändrar berättelsens riktning?</label><input id="a3"><br><button class="check" onclick="checkAnswer('a3',['vändpunkt','vandpunkt'],'f3')">Kontrollera</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Nivå 2</h3>
+    <div class="task"><label>1. Skriv ett bättre sätt att visa att någon är rädd än att bara skriva ”Hon var rädd”.</label><textarea id="b1"></textarea><br><button class="check" onclick="checkContains('b1',['skak','darr','hjärta','hjarta','andades','backade','blek','kall'],'g1')">Kontrollera</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kallas samtal mellan personer?</label><input id="b2"><br><button class="check" onclick="checkAnswer('b2',['dialog','en dialog'],'g2')">Kontrollera</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Nämn ett sambandsord som visar ordning.</label><input id="b3"><br><button class="check" onclick="checkContains('b3',['först','forst','sedan','därefter','darefter','till slut','plötsligt','plotsligt'],'g3')">Kontrollera</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Nivå 3</h3>
+    <div class="task"><label>1. Vad betyder röd tråd?</label><input id="c1"><br><button class="check" onclick="checkContains('c1',['hänger ihop','hanger ihop','samband','tydlig ordning'],'h1')">Kontrollera</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Kan ett öppet slut fungera i en berättelse?</label><input id="c2"><br><button class="check" onclick="checkAnswer('c2',['ja'],'h2')">Kontrollera</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Vad är viktigast vid gestaltning?</label><input id="c3"><br><button class="check" onclick="checkContains('c3',['visa','handling','detaljer','repliker','reaktioner'],'h3')">Kontrollera</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Berättarquiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Nästa fråga →</button>
+    </div>
+  </div>
+</section>
+
+<section id="skriv">
+  <div class="section-head"><h2>📝 Skrivuppdrag</h2><p>Använd struktur, gestaltning och tydlig röd tråd.</p></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>🔑 Uppdrag 1: Den okända nyckeln</h3>
+      <p>Du hittar en nyckel i din jackficka som du aldrig sett tidigare. Skriv början på berättelsen och låt något oväntat hända.</p>
+      <textarea placeholder="Skriv din inledning och början på handlingen..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Visa skrivstöd</button>
+      <div id="sol1" class="solution">
+        Tänk på: Var är du? När upptäcker du nyckeln? Hur ser den ut? Hur reagerar du? Vad blir problemet?
+        Försök att gestalta känslan istället för att bara skriva ”jag blev förvånad”.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🌧️ Uppdrag 2: När allt förändrades</h3>
+      <p>Skriv en berättelse där en helt vanlig dag plötsligt förändras av en oväntad händelse.</p>
+      <textarea placeholder="Planera eller skriv din berättelse..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Visa strukturstöd</button>
+      <div id="sol2" class="solution">
+        Struktur: 1) Presentera vardagen. 2) Låt något oväntat hända. 3) Bygg upp ett problem.
+        4) Skapa en vändpunkt. 5) Avsluta genom att visa vad som förändrats.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+
+  <div class="grid-2">
+    <div class="support"><h3>🆘 Jag behöver hjälp</h3><ul><li>Använd berättelsekurvan: början – problem – vändpunkt – slut.</li><li>Skriv en mening om platsen.</li><li>Skriv vad huvudpersonen vill.</li><li>Låt ett problem stå i vägen.</li><li>Använd sambandsord för att skapa röd tråd.</li></ul></div>
+    <div class="support"><h3>🚀 Jag vill utmanas</h3><ul><li>Variera meningslängden för att skapa tempo.</li><li>Använd miljön för att förstärka stämningen.</li><li>Gestalta utan att förklara känslan direkt.</li><li>Plantera en ledtråd tidigt som blir viktig i slutet.</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Kunskapscheck</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> Jag kan skriva en tydlig inledning.</label>
+    <label><input class="goal" type="checkbox"> Jag kan bygga upp ett problem eller en konflikt.</label>
+    <label><input class="goal" type="checkbox"> Jag kan använda en vändpunkt.</label>
+    <label><input class="goal" type="checkbox"> Jag kan avsluta berättelsen på ett genomtänkt sätt.</label>
+    <label><input class="goal" type="checkbox"> Jag kan gestalta känslor och egenskaper.</label>
+    <label><input class="goal" type="checkbox"> Jag kan skriva dialog på ett tydligt sätt.</label>
+    <label><input class="goal" type="checkbox"> Jag kan använda sambandsord och skapa röd tråd.</label>
+    <label><input class="goal" type="checkbox"> Jag kan bearbeta och förbättra min berättelse.</label>
+    <button class="goal-btn" onclick="checkGoals()">Se min progression</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer><strong>✍️ Skriva berättande • Svenska åk 6</strong><br>Inledning • Konflikt • Vändpunkt • Gestaltning • Dialog • Röd tråd • Avslutning</footer>
+
+<script>
+var quizQuestions=[
+{q:"Vad är en inledning?",a:["Berättelsens början","Berättelsens största problem","Den sista meningen","En dialog"],c:"Berättelsens början",e:"Inledningen presenterar situationen och väcker läsarens intresse."},
+{q:"Vad är en konflikt?",a:["Ett problem eller hinder","Ett skiljetecken","En miljöbeskrivning","Ett personnamn"],c:"Ett problem eller hinder",e:"Konflikten driver berättelsen framåt."},
+{q:"Vad är en vändpunkt?",a:["En händelse som förändrar berättelsens riktning","Den första rubriken","En beskrivning av väder","Ett sambandsord"],c:"En händelse som förändrar berättelsens riktning",e:"Vändpunkten skapar förändring i handlingen."},
+{q:"Vad betyder gestaltning?",a:["Att visa genom handlingar och detaljer","Att skriva så få ord som möjligt","Att bara använda adjektiv","Att skriva fakta"],c:"Att visa genom handlingar och detaljer",e:"Gestaltning låter läsaren själv tolka känslor och egenskaper."},
+{q:"Vilket är bäst gestaltat?",a:["Hennes händer darrade när hon tog i dörrhandtaget.","Hon var rädd.","Det var läskigt.","Hon kände en känsla."],c:"Hennes händer darrade när hon tog i dörrhandtaget.",e:"Handlingen visar känslan istället för att bara namnge den."},
+{q:"Vad hjälper sambandsord till med?",a:["Att skapa röd tråd och ordning","Att göra texten längre","Att byta huvudperson","Att ta bort handling"],c:"Att skapa röd tråd och ordning",e:"Sambandsord visar hur händelser hör ihop."},
+{q:"Vad är dialog?",a:["Samtal mellan personer","En miljöbeskrivning","En rubrik","En sammanfattning"],c:"Samtal mellan personer",e:"Dialog visar vad personer säger till varandra."},
+{q:"Vad bör en bra avslutning göra?",a:["Knyta ihop eller medvetet lämna berättelsen öppen","Börja en helt ny berättelse utan samband","Bara skriva ordet slut","Upprepa hela inledningen"],c:"Knyta ihop eller medvetet lämna berättelsen öppen",e:"Avslutningen ska kännas genomtänkt i relation till resten av berättelsen."}
+];
+
+var order=[],current=0,score=0,answered=0;
+function normalize(v){return v.trim().toLowerCase().replace(/\s+/g," ")}
+function showLevel(n){
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  var s=document.getElementById("level"+n);s.classList.add("active");
+  s.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function checkAnswer(id,answers,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=answers.some(function(a){return value===normalize(a)});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Rätt! Bra jobbat.":"❌ Inte riktigt. Försök igen."
+}
+function checkContains(id,parts,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=parts.some(function(p){return value.indexOf(normalize(p))!==-1});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Bra!":"❌ Försök igen och tänk på berättartekniken."
+}
+function toggleSolution(id){var b=document.getElementById(id);b.style.display=b.style.display==="block"?"none":"block"}
+function shuffle(a){var c=a.slice();for(var i=c.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=c[i];c[i]=c[j];c[j]=t}return c}
+function startQuiz(){order=shuffle([0,1,2,3,4,5,6,7]);current=0;score=0;answered=0;renderQuestion()}
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+  var box=document.getElementById("answers");box.innerHTML="";
+  shuffle(item.a).forEach(function(choice){
+    var b=document.createElement("button");b.className="answer";b.type="button";b.textContent=choice;
+    b.onclick=function(){answerQuestion(choice,item.c,item.e)};box.appendChild(b)
+  });
+  var f=document.getElementById("quizFeedback");f.style.display="none";f.innerHTML="";
+  document.getElementById("nextBtn").style.display="none";updateScore()
+}
+function answerQuestion(choice,correct,exp){
+  document.querySelectorAll(".answer").forEach(function(b){b.disabled=true});answered++;
+  var f=document.getElementById("quizFeedback");f.style.display="block";
+  if(choice===correct){score++;f.style.background="#dcfce7";f.style.color="#166534";f.innerHTML="✅ Rätt! "+exp}
+  else{f.style.background="#fee2e2";f.style.color="#991b1b";f.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+exp}
+  updateScore();document.getElementById("nextBtn").style.display="inline-block"
+}
+function nextQuestion(){
+  current++;
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML="<h3>🎉 Quizet är klart!</h3><p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return
+  }
+  renderQuestion()
+}
+function updateScore(){document.getElementById("score").textContent="Poäng: "+score+" / "+answered}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 Alla mål markerade!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt utveckla din berättelse.";
+  else r.textContent="👣 Börja med inledning, problem, vändpunkt och avslutning."
+}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
