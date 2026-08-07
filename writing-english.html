@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing – Engelska åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --blue:#2563eb;--blue2:#1d4ed8;--cyan:#0891b2;--purple:#7c3aed;
+  --green:#16a34a;--orange:#ea580c;--red:#dc2626;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#dbeafe;color:#1d4ed8}
+.navlinks .home{background:var(--blue);color:white}
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#2563eb,#0891b2,#0f172a);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#1d4ed8;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0;color:#1e40af}
+.fact{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:15px;font-weight:800;color:#1e3a8a;margin:14px 0}
+.tip{background:#ecfeff;border-left:5px solid var(--cyan);padding:14px;border-radius:10px;margin-top:12px}
+.write-step{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--blue)
+}
+.write-step strong{display:block;color:#1d4ed8;margin-bottom:6px}
+.concept strong{display:block;color:#1d4ed8;margin-bottom:5px}
+.model{
+  background:white;border-radius:22px;padding:26px;box-shadow:0 6px 22px rgba(0,0,0,.06);
+  border:1px solid #f1f5f9
+}
+.model h3{margin-top:0;color:#0f4c81}
+.model-text{background:#f8fafc;border-left:5px solid var(--cyan);padding:16px;border-radius:10px;margin-top:12px}
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input,.task textarea{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:560px}
+.task textarea{min-height:120px}
+.check{margin-top:9px;background:var(--blue);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#dbeafe}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.problem{background:linear-gradient(135deg,#eff6ff,#ecfeff);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:150px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#1d4ed8;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#1d4ed8;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">✍️ Writing – Engelska åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="engelska.html">🇬🇧 Engelska</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#write">Write</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Writing</h1>
+      <p>
+        Här tränar du på att skriva tydlig engelska. Du lär dig att planera, bygga meningar,
+        använda sambandsord, skriva olika texttyper och förbättra din text steg för steg.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">✍️🧠📄</div>
+      <h3>Plan • write • check • improve</h3>
+      <p>Ideas → sentences → paragraphs → text</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>🧠 Plan</div>
+  <div>🔤 Sentences</div>
+  <div>🧱 Paragraphs</div>
+  <div>🔗 Connect</div>
+  <div>✅ Improve</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head"><h2>📘 Good writing starts with a clear purpose</h2><p>Innan du skriver behöver du veta vad du ska skriva och vem som ska läsa.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Purpose</h3><p>Inform, describe, tell a story, explain or communicate.</p></div>
+    <div class="card"><h3>Reader</h3><p>Friend, teacher, class, website visitor or another audience.</p></div>
+    <div class="card"><h3>Text type</h3><p>Message, story, fact text, email or description.</p></div>
+  </div>
+  <div class="fact">När du vet syfte och mottagare blir det lättare att välja ord, ton och struktur.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 1. Plan your ideas</h2></div>
+  <div class="grid-4">
+    <div class="write-step"><strong>Topic</strong><p>What am I writing about?</p></div>
+    <div class="write-step"><strong>Key words</strong><p>Write useful words before full sentences.</p></div>
+    <div class="write-step"><strong>Order</strong><p>What comes first, next and last?</p></div>
+    <div class="write-step"><strong>Reader</strong><p>Who will read the text?</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔤 2. Build clear sentences</h2></div>
+  <div class="grid-3">
+    <div class="card"><h3>Simple sentence</h3><p>I play football.</p></div>
+    <div class="card"><h3>Add detail</h3><p>I play football after school.</p></div>
+    <div class="card"><h3>Add a reason</h3><p>I play football after school because I enjoy being active.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧱 3. Build paragraphs</h2><p>Ett stycke samlar meningar som handlar om samma huvudidé.</p></div>
+  <div class="model">
+    <h3>Example paragraph</h3>
+    <div class="model-text">
+      My favourite place is the beach near my grandparents' house. I like it because it is quiet and beautiful.
+      In summer, I swim there almost every day. Sometimes we stay until sunset and eat dinner outside.
+    </div>
+    <div class="tip">All sentences support one main idea: the writer's favourite place.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔗 Linking words</h2><p>Sambandsord hjälper meningar och stycken att hänga ihop.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Order</h3><p>first, then, next, finally</p></div>
+    <div class="card"><h3>Add</h3><p>and, also, besides</p></div>
+    <div class="card"><h3>Reason</h3><p>because, so</p></div>
+    <div class="card"><h3>Contrast</h3><p>but, however</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📱 Messages and emails</h2></div>
+  <div class="model">
+    <h3>Example email</h3>
+    <div class="model-text">
+      Hi Sam,<br><br>
+      Thanks for your message. I'm free on Saturday afternoon. Would you like to meet at the sports centre at two o'clock?
+      We could play basketball and get something to eat afterwards.<br><br>
+      See you,<br>
+      Alex
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📖 Story writing</h2></div>
+  <div class="grid-4">
+    <div class="write-step"><strong>Beginning</strong><p>Who? Where? When?</p></div>
+    <div class="write-step"><strong>Problem</strong><p>What happens?</p></div>
+    <div class="write-step"><strong>Development</strong><p>What do the characters do?</p></div>
+    <div class="write-step"><strong>Ending</strong><p>How does it finish?</p></div>
+  </div>
+  <div class="tip">Useful story words: suddenly, later, after that, while, eventually, finally.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📚 Fact writing</h2></div>
+  <div class="grid-3">
+    <div class="card"><h3>Title</h3><p>Tell the reader what the text is about.</p></div>
+    <div class="card"><h3>Paragraphs</h3><p>Organise facts into clear parts.</p></div>
+    <div class="card"><h3>Topic words</h3><p>Use accurate vocabulary for the subject.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🎨 Descriptive writing</h2><p>Gör texten tydligare med detaljer.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>See</h3><p>bright lights, dark clouds, a narrow street</p></div>
+    <div class="card"><h3>Hear</h3><p>loud music, birds singing, traffic</p></div>
+    <div class="card"><h3>Feel</h3><p>cold wind, warm sun, nervous, excited</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Check and improve</h2></div>
+  <div class="grid-4">
+    <div class="write-step"><strong>Content</strong><p>Did I answer the task?</p></div>
+    <div class="write-step"><strong>Structure</strong><p>Is the text in a clear order?</p></div>
+    <div class="write-step"><strong>Language</strong><p>Can I vary words and sentence starters?</p></div>
+    <div class="write-step"><strong>Accuracy</strong><p>Check spelling, verbs, capitals and punctuation.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+  <div class="grid-4">
+    <div class="concept"><strong>Purpose</strong>Syftet med texten.</div>
+    <div class="concept"><strong>Reader</strong>Den som ska läsa texten.</div>
+    <div class="concept"><strong>Paragraph</strong>Ett stycke med meningar om samma huvudidé.</div>
+    <div class="concept"><strong>Linking word</strong>Ett ord som binder ihop idéer.</div>
+    <div class="concept"><strong>Draft</strong>Ett första utkast.</div>
+    <div class="concept"><strong>Edit</strong>Att förbättra innehåll och språk.</div>
+    <div class="concept"><strong>Detail</strong>En specifik beskrivning eller uppgift.</div>
+    <div class="concept"><strong>Structure</strong>Hur textens delar är organiserade.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Common mistakes</h2></div>
+  <div class="grid-3">
+    <div class="mistake"><h3>Writing without a plan</h3><p class="wrong">❌ Börja direkt och hoppas att texten hänger ihop.</p><p class="right">✅ Skriv några stödord och bestäm ordningen först.</p></div>
+    <div class="mistake"><h3>Repeating the same starter</h3><p class="wrong">❌ I… I… I… I…</p><p class="right">✅ Variera med time words, linking words och olika meningsstarter.</p></div>
+    <div class="mistake"><h3>Only checking spelling</h3><p class="wrong">❌ Om orden är rättstavade är texten färdig.</p><p class="right">✅ Kontrollera också innehåll, struktur, verb och tydlighet.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Level 1</h3><p>Build sentences.</p><button onclick="showLevel(1)">Open level 1</button></div>
+    <div class="level level2"><h3>🚀 Level 2</h3><p>Link and organise ideas.</p><button onclick="showLevel(2)">Open level 2</button></div>
+    <div class="level level3"><h3>🏆 Level 3</h3><p>Improve a short text.</p><button onclick="showLevel(3)">Open level 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Level 1</h3>
+    <div class="task"><label>1. Complete: “My favourite food is … because …”</label><textarea id="a1"></textarea><br><button class="check" onclick="checkContains('a1',['because'],'f1')">Check</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. Write one sentence about your school day.</label><textarea id="a2"></textarea><br><button class="check" onclick="checkContains('a2',['school','lesson','class','teacher','break','start','finish'],'f2')">Check</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Which word can show order: first, because or but?</label><input id="a3"><br><button class="check" onclick="checkAnswer('a3',['first'],'f3')">Check</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Level 2</h3>
+    <div class="task"><label>1. Join the ideas: “I was tired. I finished my homework.” Use “but”.</label><input id="b1"><br><button class="check" onclick="checkContains('b1',['but'],'g1')">Check</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Write three connected sentences about your weekend.</label><textarea id="b2"></textarea><br><button class="check" onclick="checkContains('b2',['then','after','and','because','but','later','finally'],'g2')">Check</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. What should a paragraph mainly contain?</label><input id="b3"><br><button class="check" onclick="checkContains('b3',['one main idea','same topic','main idea'],'g3')">Check</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Level 3</h3>
+    <p><strong>Text:</strong> “I went to the park. I saw my friend. I was happy. We played football. It was fun.”</p>
+    <div class="task"><label>1. Rewrite the text with more variation and linking words.</label><textarea id="c1"></textarea><br><button class="check" onclick="checkContains('c1',['when','then','because','after','and','later','suddenly'],'h1')">Check</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Add one descriptive detail.</label><textarea id="c2"></textarea><br><button class="check" onclick="checkContains('c2',['sunny','cold','warm','green','loud','quiet','bright','windy','beautiful'],'h2')">Check</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. What should you check before submitting a text?</label><textarea id="c3"></textarea><br><button class="check" onclick="checkContains('c3',['spelling','grammar','verb','punctuation','structure','content','capital'],'h3')">Check</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Writing Quiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Next question →</button>
+    </div>
+  </div>
+</section>
+
+<section id="write">
+  <div class="section-head"><h2>📝 Writing tasks</h2><p>Planera först, skriv sedan och förbättra till sist.</p></div>
+  <div class="problem">
+    <div class="problem-card">
+      <h3>📧 Task 1: Email to a friend</h3>
+      <p>Write an email inviting a friend to do something at the weekend. Include time, place, activity and one question.</p>
+      <textarea placeholder="Write your email..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Show support</button>
+      <div id="sol1" class="solution">
+        Hi …<br><br>
+        Are you free on Saturday? Would you like to meet at the sports centre at two o'clock?
+        We could play basketball and get something to eat afterwards. What do you think?<br><br>
+        See you,<br>…
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>📖 Task 2: A surprising afternoon</h3>
+      <p>Write a short story that starts with: “Everything seemed normal until I opened the door.”</p>
+      <textarea placeholder="Write your story..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Show structure</button>
+      <div id="sol2" class="solution">
+        Beginning: Where are you and who is there?<br>
+        Problem: What surprising thing happens?<br>
+        Development: What do you do?<br>
+        Ending: How does the situation end?<br>
+        Useful words: suddenly, then, while, after that, finally.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🌍 Task 3: Fact text</h3>
+      <p>Write a short fact text about an animal, place or country. Use a title, two short paragraphs and at least three topic words.</p>
+      <textarea placeholder="Write your fact text..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol3')">Show support</button>
+      <div id="sol3" class="solution">
+        Title<br>
+        Paragraph 1: What is it? Where is it found?<br>
+        Paragraph 2: Important facts, features or behaviour.<br>
+        Use accurate topic words and linking words such as also, because and however.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+  <div class="grid-2">
+    <div class="support"><h3>🆘 I need support</h3><ul><li>Write key words before sentences.</li><li>Use a model text.</li><li>Use sentence starters.</li><li>Write one paragraph at a time.</li><li>Check one thing at a time: content, verbs, spelling, punctuation.</li></ul></div>
+    <div class="support"><h3>🚀 I want a challenge</h3><ul><li>Use varied sentence starters.</li><li>Replace basic words with more precise vocabulary.</li><li>Use longer sentences with because, when, while or although.</li><li>Edit your first draft to improve both language and structure.</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Knowledge check</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> I can plan a text with key words.</label>
+    <label><input class="goal" type="checkbox"> I can write clear English sentences.</label>
+    <label><input class="goal" type="checkbox"> I can organise ideas into paragraphs.</label>
+    <label><input class="goal" type="checkbox"> I can use linking words.</label>
+    <label><input class="goal" type="checkbox"> I can write a short message or email.</label>
+    <label><input class="goal" type="checkbox"> I can write a short story with a clear sequence.</label>
+    <label><input class="goal" type="checkbox"> I can write a short factual or descriptive text.</label>
+    <label><input class="goal" type="checkbox"> I can check and improve my writing before submitting it.</label>
+    <button class="goal-btn" onclick="checkGoals()">See my progress</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>✍️ Writing • Engelska åk 6</strong><br>
+  Planning • Sentences • Paragraphs • Linking words • Text types • Editing
+</footer>
+
+<script>
+var quizQuestions=[
+{q:"What should you do before writing a longer text?",a:["Plan key ideas","Write the ending first every time","Ignore the task","Translate every Swedish sentence"],c:"Plan key ideas",e:"A short plan helps the text stay focused and organised."},
+{q:"What is a paragraph?",a:["A group of sentences about one main idea","One random word","Only a title","A punctuation mark"],c:"A group of sentences about one main idea",e:"Paragraphs organise related ideas."},
+{q:"Which word shows a reason?",a:["because","finally","but","first"],c:"because",e:"Because explains why something happens."},
+{q:"Which word shows contrast?",a:["but","and","first","because"],c:"but",e:"But connects contrasting ideas."},
+{q:"What is a draft?",a:["A first version of a text","A final grade","A dictionary","A spoken answer"],c:"A first version of a text",e:"A draft can be edited and improved."},
+{q:"What should an email invitation include?",a:["Useful details such as time, place and activity","Only your name","No question or details","Only emojis"],c:"Useful details such as time, place and activity",e:"The reader needs enough information to understand the invitation."},
+{q:"What makes descriptive writing stronger?",a:["Specific details","Repeating 'nice' many times","Removing all adjectives","Using only one short sentence"],c:"Specific details",e:"Specific sensory and descriptive details create a clearer picture."},
+{q:"What should you check when editing?",a:["Content, structure, language and accuracy","Only font size","Only the title colour","Nothing if spellcheck is on"],c:"Content, structure, language and accuracy",e:"Editing includes much more than spelling."}
+];
+
+var order=[],current=0,score=0,answered=0;
+function normalize(v){return v.trim().toLowerCase().replace(/[’']/g,"'").replace(/\s+/g," ")}
+function showLevel(n){
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  var s=document.getElementById("level"+n);s.classList.add("active");
+  s.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function checkAnswer(id,answers,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=answers.some(function(a){return value===normalize(a)});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Correct!":"❌ Try again."
+}
+function checkContains(id,parts,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=parts.some(function(p){return value.indexOf(normalize(p))!==-1});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Good!":"❌ Try again and use the writing support on the page."
+}
+function toggleSolution(id){
+  var b=document.getElementById(id);
+  b.style.display=b.style.display==="block"?"none":"block"
+}
+function shuffle(a){
+  var c=a.slice();
+  for(var i=c.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=c[i];c[i]=c[j];c[j]=t
+  }
+  return c
+}
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;score=0;answered=0;
+  renderQuestion()
+}
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+  var box=document.getElementById("answers");box.innerHTML="";
+  shuffle(item.a).forEach(function(choice){
+    var b=document.createElement("button");b.className="answer";b.type="button";b.textContent=choice;
+    b.onclick=function(){answerQuestion(choice,item.c,item.e)};box.appendChild(b)
+  });
+  var f=document.getElementById("quizFeedback");f.style.display="none";f.innerHTML="";
+  document.getElementById("nextBtn").style.display="none";updateScore()
+}
+function answerQuestion(choice,correct,exp){
+  document.querySelectorAll(".answer").forEach(function(b){b.disabled=true});answered++;
+  var f=document.getElementById("quizFeedback");f.style.display="block";
+  if(choice===correct){score++;f.style.background="#dcfce7";f.style.color="#166534";f.innerHTML="✅ Correct! "+exp}
+  else{f.style.background="#fee2e2";f.style.color="#991b1b";f.innerHTML="❌ Correct answer: <strong>"+correct+"</strong><br>"+exp}
+  updateScore();document.getElementById("nextBtn").style.display="inline-block"
+}
+function nextQuestion(){
+  current++;
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML="<h3>🎉 Quiz complete!</h3><p>You got <strong>"+score+" out of "+quizQuestions.length+"</strong> correct.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Play again</button>";
+    return
+  }
+  renderQuestion()
+}
+function updateScore(){document.getElementById("score").textContent="Poäng: "+score+" / "+answered}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 All goals checked!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" of "+goals.length+" goals. Great work.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" of "+goals.length+" goals. Keep practising.";
+  else r.textContent="👣 Start with planning, clear sentences and linking words."
+}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
