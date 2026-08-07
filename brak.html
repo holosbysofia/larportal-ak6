@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bråk – Matematik åk 6</title>
+
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --dark:#0f172a;
+      --blue:#2563eb;
+      --purple:#7c3aed;
+      --green:#059669;
+      --orange:#f59e0b;
+      --red:#dc2626;
+      --card:#ffffff;
+      --muted:#64748b;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:#1f2937;
+      line-height:1.6;
+    }
+
+    nav{
+      background:white;
+      padding:14px 5%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,.08);
+    }
+
+    .logo{
+      font-weight:800;
+      font-size:1.2rem;
+    }
+
+    .links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .links a{
+      text-decoration:none;
+      color:#334155;
+      padding:9px 12px;
+      border-radius:10px;
+      font-weight:700;
+      font-size:.9rem;
+    }
+
+    .links a:hover{
+      background:#eef2ff;
+      color:#3730a3;
+    }
+
+    .home{
+      background:#2563eb;
+      color:white !important;
+    }
+
+    .hero{
+      background:
+        radial-gradient(circle at 80% 20%,rgba(255,255,255,.18),transparent 24%),
+        linear-gradient(135deg,#7c3aed,#4f46e5,#2563eb);
+      color:white;
+      padding:75px 6%;
+    }
+
+    .hero-inner{
+      max-width:1200px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:30px;
+      align-items:center;
+    }
+
+    .hero h1{
+      font-size:clamp(2.8rem,7vw,5rem);
+      line-height:1.05;
+      margin-bottom:16px;
+    }
+
+    .hero p{
+      font-size:1.2rem;
+      max-width:700px;
+    }
+
+    .hero-icon{
+      font-size:9rem;
+      text-align:center;
+    }
+
+    .wrapper{
+      max-width:1200px;
+      margin:auto;
+      padding:50px 22px;
+    }
+
+    .progress{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:12px;
+      margin-top:-75px;
+      position:relative;
+      z-index:20;
+    }
+
+    .progress-card{
+      background:white;
+      border-radius:18px;
+      padding:20px 16px;
+      text-align:center;
+      box-shadow:0 12px 35px rgba(0,0,0,.1);
+    }
+
+    .progress-card span{
+      display:block;
+      font-size:2rem;
+      margin-bottom:7px;
+    }
+
+    .progress-card h3{
+      font-size:1rem;
+    }
+
+    .section{
+      margin-top:70px;
+    }
+
+    .section-title{
+      margin-bottom:25px;
+    }
+
+    .section-title h2{
+      font-size:2rem;
+      color:var(--dark);
+      margin-bottom:7px;
+    }
+
+    .section-title p{
+      color:var(--muted);
+    }
+
+    .learn-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
+
+    .card{
+      background:white;
+      border-radius:22px;
+      padding:26px;
+      box-shadow:0 7px 22px rgba(0,0,0,.07);
+    }
+
+    .card h3{
+      margin-bottom:10px;
+    }
+
+    .card p{
+      color:#475569;
+    }
+
+    .fraction{
+      display:inline-flex;
+      flex-direction:column;
+      align-items:center;
+      font-size:2rem;
+      font-weight:800;
+      margin:15px;
+      line-height:1;
+    }
+
+    .fraction .top{
+      border-bottom:3px solid #1f2937;
+      padding:0 8px 5px;
+    }
+
+    .fraction .bottom{
+      padding-top:5px;
+    }
+
+    .fraction-model{
+      display:flex;
+      gap:5px;
+      margin:18px 0;
+      flex-wrap:wrap;
+    }
+
+    .piece{
+      width:55px;
+      height:55px;
+      border:2px solid #2563eb;
+      border-radius:8px;
+      background:white;
+    }
+
+    .piece.filled{
+      background:#93c5fd;
+    }
+
+    .compare-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:22px;
+    }
+
+    .example-box{
+      background:#eff6ff;
+      border-left:6px solid #2563eb;
+      padding:22px;
+      border-radius:16px;
+      margin-top:16px;
+    }
+
+    .concept-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:15px;
+    }
+
+    .concept{
+      background:white;
+      padding:20px;
+      border-radius:17px;
+      box-shadow:0 5px 16px rgba(0,0,0,.06);
+    }
+
+    .concept strong{
+      display:block;
+      color:#4f46e5;
+      margin-bottom:6px;
+    }
+
+    .levels{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
+
+    .level{
+      border-radius:24px;
+      padding:28px;
+      color:white;
+      min-height:270px;
+    }
+
+    .level1{
+      background:linear-gradient(135deg,#059669,#0f766e);
+    }
+
+    .level2{
+      background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    }
+
+    .level3{
+      background:linear-gradient(135deg,#7c3aed,#6d28d9);
+    }
+
+    .level h3{
+      font-size:1.5rem;
+      margin-bottom:10px;
+    }
+
+    .level ul{
+      padding-left:20px;
+      margin:15px 0;
+    }
+
+    .level button{
+      border:none;
+      background:white;
+      color:#111827;
+      padding:11px 15px;
+      border-radius:10px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .quiz-box{
+      background:#0f172a;
+      color:white;
+      border-radius:28px;
+      padding:35px;
+    }
+
+    .question{
+      background:#1e293b;
+      padding:25px;
+      border-radius:18px;
+      margin-top:20px;
+    }
+
+    .question h3{
+      margin-bottom:18px;
+    }
+
+    .answers{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+
+    .answer{
+      border:none;
+      padding:16px;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:1rem;
+      font-weight:700;
+      background:#f8fafc;
+      color:#1f2937;
+    }
+
+    .answer:hover{
+      background:#dbeafe;
+    }
+
+    #feedback{
+      margin-top:18px;
+      padding:15px;
+      border-radius:12px;
+      display:none;
+      font-weight:700;
+    }
+
+    .problem-box{
+      background:linear-gradient(135deg,#fef3c7,#fde68a);
+      border-radius:28px;
+      padding:35px;
+    }
+
+    .problem-box h2{
+      margin-bottom:12px;
+    }
+
+    .problem{
+      background:rgba(255,255,255,.75);
+      border-radius:18px;
+      padding:24px;
+      margin-top:20px;
+      font-size:1.08rem;
+    }
+
+    textarea{
+      width:100%;
+      min-height:130px;
+      margin-top:15px;
+      border:1px solid #cbd5e1;
+      border-radius:12px;
+      padding:15px;
+      font-family:inherit;
+      font-size:1rem;
+      resize:vertical;
+    }
+
+    .help-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+    }
+
+    .help{
+      background:white;
+      padding:28px;
+      border-radius:22px;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+    }
+
+    .help h3{
+      margin-bottom:15px;
+    }
+
+    .help ul{
+      list-style:none;
+    }
+
+    .help li{
+      background:#f8fafc;
+      padding:11px;
+      border-radius:10px;
+      margin-bottom:8px;
+    }
+
+    footer{
+      margin-top:70px;
+      background:#020617;
+      color:#cbd5e1;
+      padding:35px;
+      text-align:center;
+    }
+
+    @media(max-width:950px){
+      .progress{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .learn-grid,
+      .levels{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .concept-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media(max-width:700px){
+      nav{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .hero-inner,
+      .progress,
+      .learn-grid,
+      .compare-grid,
+      .concept-grid,
+      .levels,
+      .answers,
+      .help-grid{
+        grid-template-columns:1fr;
+      }
+
+      .progress{
+        margin-top:-35px;
+      }
+
+      .hero-icon{
+        font-size:5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">🍕 Bråk – Matematik åk 6</div>
+
+  <div class="links">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="matematik.html">🔢 Matematik</a>
+    <a href="#lar">Lär dig</a>
+    <a href="#begrepp">Begrepp</a>
+    <a href="#nivaer">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Problem</a>
+  </div>
+</nav>
+
+
+<section class="hero">
+
+  <div class="hero-inner">
+
+    <div>
+      <h1>Bråk</h1>
+
+      <p>
+        Lär dig förstå delar av en helhet, jämföra bråk,
+        förlänga och förkorta, räkna med bråk och använda bråk
+        i vardagliga situationer.
+      </p>
+    </div>
+
+    <div class="hero-icon">🍕</div>
+
+  </div>
+
+</section>
+
+
+<main class="wrapper">
+
+  <section class="progress">
+
+    <div class="progress-card">
+      <span>📘</span>
+      <h3>Förstå bråk</h3>
+    </div>
+
+    <div class="progress-card">
+      <span>🧠</span>
+      <h3>Begrepp</h3>
+    </div>
+
+    <div class="progress-card">
+      <span>✍️</span>
+      <h3>Träna</h3>
+    </div>
+
+    <div class="progress-card">
+      <span>🎮</span>
+      <h3>Quiz</h3>
+    </div>
+
+    <div class="progress-card">
+      <span>🏆</span>
+      <h3>Problemlösning</h3>
+    </div>
+
+  </section>
+
+
+  <section class="section" id="lar">
+
+    <div class="section-title">
+      <h2>📘 Vad är ett bråk?</h2>
+      <p>Ett bråk beskriver en eller flera delar av en helhet.</p>
+    </div>
+
+    <div class="learn-grid">
+
+      <div class="card">
+
+        <h3>🍕 En helhet delas</h3>
+
+        <p>
+          Om en pizza delas i 4 lika stora delar och du tar 3 delar,
+          har du tagit tre fjärdedelar.
+        </p>
+
+        <div class="fraction">
+          <span class="top">3</span>
+          <span class="bottom">4</span>
+        </div>
+
+        <div class="fraction-model">
+          <div class="piece filled"></div>
+          <div class="piece filled"></div>
+          <div class="piece filled"></div>
+          <div class="piece"></div>
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>🔼 Täljaren</h3>
+
+        <p>
+          Täljaren står ovanför bråkstrecket.
+        </p>
+
+        <div class="fraction">
+          <span class="top">3</span>
+          <span class="bottom">4</span>
+        </div>
+
+        <p>
+          Täljaren visar hur många delar vi har.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>🔽 Nämnaren</h3>
+
+        <p>
+          Nämnaren står under bråkstrecket.
+        </p>
+
+        <div class="fraction">
+          <span class="top">3</span>
+          <span class="bottom">4</span>
+        </div>
+
+        <p>
+          Nämnaren visar hur många lika stora delar helheten är delad i.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>⚖️ Jämföra bråk</h2>
+      <p>Vilket bråk är störst?</p>
+    </div>
+
+    <div class="compare-grid">
+
+      <div class="card">
+
+        <h3>Samma nämnare</h3>
+
+        <p>
+          När nämnaren är samma jämför vi täljarna.
+        </p>
+
+        <div class="example-box">
+          3/8 &gt; 2/8
+          <br><br>
+          Tre åttondelar är större än två åttondelar.
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>Samma täljare</h3>
+
+        <p>
+          Om täljaren är samma blir delen större när nämnaren är mindre.
+        </p>
+
+        <div class="example-box">
+          1/3 &gt; 1/5
+          <br><br>
+          En tredjedel är större än en femtedel.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>🔁 Förlänga och förkorta</h2>
+    </div>
+
+    <div class="compare-grid">
+
+      <div class="card">
+
+        <h3>Förlänga</h3>
+
+        <p>
+          Multiplicera både täljare och nämnare med samma tal.
+        </p>
+
+        <div class="example-box">
+          1/2 = 2/4 = 3/6
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>Förkorta</h3>
+
+        <p>
+          Dividera både täljare och nämnare med samma tal.
+        </p>
+
+        <div class="example-box">
+          6/8 = 3/4
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section" id="begrepp">
+
+    <div class="section-title">
+      <h2>🧠 Begreppsbank</h2>
+      <p>Ord du behöver kunna när du arbetar med bråk.</p>
+    </div>
+
+    <div class="concept-grid">
+
+      <div class="concept">
+        <strong>Bråk</strong>
+        En del eller flera delar av en helhet.
+      </div>
+
+      <div class="concept">
+        <strong>Täljare</strong>
+        Talet ovanför bråkstrecket.
+      </div>
+
+      <div class="concept">
+        <strong>Nämnare</strong>
+        Talet under bråkstrecket.
+      </div>
+
+      <div class="concept">
+        <strong>Bråkstreck</strong>
+        Strecket mellan täljare och nämnare.
+      </div>
+
+      <div class="concept">
+        <strong>Helhet</strong>
+        Det som delas upp i lika stora delar.
+      </div>
+
+      <div class="concept">
+        <strong>Förlänga</strong>
+        Multiplicera täljare och nämnare med samma tal.
+      </div>
+
+      <div class="concept">
+        <strong>Förkorta</strong>
+        Dividera täljare och nämnare med samma tal.
+      </div>
+
+      <div class="concept">
+        <strong>Blandad form</strong>
+        Ett heltal tillsammans med ett bråk, till exempel 2 1/2.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section" id="nivaer">
+
+    <div class="section-title">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>Börja där det känns lagom och gå vidare när du är redo.</p>
+    </div>
+
+    <div class="levels">
+
+      <div class="level level1">
+
+        <h3>🌱 Nivå 1 – Grund</h3>
+
+        <p>Jag tränar på att förstå vad ett bråk betyder.</p>
+
+        <ul>
+          <li>Hitta täljaren</li>
+          <li>Hitta nämnaren</li>
+          <li>Bråk av en figur</li>
+          <li>Jämföra enkla bråk</li>
+        </ul>
+
+        <button onclick="startLevel1()">Starta nivå 1</button>
+
+      </div>
+
+
+      <div class="level level2">
+
+        <h3>🚀 Nivå 2 – Vidare</h3>
+
+        <p>Jag tränar på samband mellan olika bråk.</p>
+
+        <ul>
+          <li>Förlänga</li>
+          <li>Förkorta</li>
+          <li>Jämföra bråk</li>
+          <li>Bråk av antal</li>
+        </ul>
+
+        <button onclick="startLevel2()">Starta nivå 2</button>
+
+      </div>
+
+
+      <div class="level level3">
+
+        <h3>🏆 Nivå 3 – Utmaning</h3>
+
+        <p>Jag använder bråk i problemlösning och resonemang.</p>
+
+        <ul>
+          <li>Flera steg</li>
+          <li>Olika lösningar</li>
+          <li>Förklara varför</li>
+          <li>Skapa egna problem</li>
+        </ul>
+
+        <button onclick="startLevel3()">Starta nivå 3</button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section" id="quiz">
+
+    <div class="quiz-box">
+
+      <div class="section-title">
+
+        <h2 style="color:white">🎮 Bråkquiz</h2>
+
+        <p style="color:#cbd5e1">
+          Klicka på det svar du tror är rätt.
+        </p>
+
+      </div>
+
+      <div class="question">
+
+        <h3 id="questionText">
+          Vilket bråk är störst?
+        </h3>
+
+        <div class="answers" id="answers">
+
+          <button class="answer" onclick="checkAnswer('a')">1/4</button>
+
+          <button class="answer" onclick="checkAnswer('b')">1/2</button>
+
+          <button class="answer" onclick="checkAnswer('c')">1/5</button>
+
+          <button class="answer" onclick="checkAnswer('d')">1/8</button>
+
+        </div>
+
+        <div id="feedback"></div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section" id="problem">
+
+    <div class="problem-box">
+
+      <h2>🏆 Problemlösning</h2>
+
+      <p>
+        Läs noggrant, välj en strategi och visa hur du tänker.
+      </p>
+
+      <div class="problem">
+
+        En klass beställer 4 lika stora pizzor.
+
+        <br><br>
+
+        På lunchen äts 2 hela pizzor och 3/4 av en tredje pizza.
+
+        <br><br>
+
+        <strong>Hur stor del av alla pizzor finns kvar?</strong>
+
+        <br><br>
+
+        Visa gärna din lösning med:
+        <br>
+        • bild
+        <br>
+        • bråk
+        <br>
+        • ord
+
+        <textarea placeholder="Skriv ditt resonemang här..."></textarea>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>🌱 Behöver du stöd eller vill du gå vidare?</h2>
+    </div>
+
+    <div class="help-grid">
+
+      <div class="help">
+
+        <h3>🆘 Jag behöver hjälp</h3>
+
+        <ul>
+          <li>🍕 Rita en helhet och dela den i lika delar.</li>
+          <li>🔼 Börja med att hitta täljaren.</li>
+          <li>🔽 Hitta sedan nämnaren.</li>
+          <li>🖼️ Rita bråket innan du räknar.</li>
+          <li>👣 Ta ett steg i taget.</li>
+        </ul>
+
+      </div>
+
+
+      <div class="help">
+
+        <h3>🚀 Jag vill utmanas</h3>
+
+        <ul>
+          <li>🔀 Visa två olika sätt att lösa uppgiften.</li>
+          <li>💬 Förklara varför metoden fungerar.</li>
+          <li>🧠 Jämför bråk med olika nämnare.</li>
+          <li>🏆 Skapa en egen bråkuppgift.</li>
+          <li>🔎 Hitta ett samband mellan bråk och procent.</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+  <p>🍕 Bråk • Matematik åk 6</p>
+  <p>Förstå • Träna • Resonera • Utmana dig</p>
+</footer>
+
+
+<script>
+
+function startLevel1(){
+  const svar = prompt("Vilken är nämnaren i bråket 3/7?");
+
+  if(svar === null) return;
+
+  if(svar.trim() === "7"){
+    alert("✅ Rätt! Nämnaren är 7.");
+  }else{
+    alert("❌ Titta på talet under bråkstrecket.");
+  }
+}
+
+
+function startLevel2(){
+  const svar = prompt("Förkorta bråket 6/8 så långt det går. Skriv som 3/4.");
+
+  if(svar === null) return;
+
+  if(svar.replace(/\s/g,"") === "3/4"){
+    alert("✅ Rätt! 6/8 = 3/4.");
+  }else{
+    alert("💡 Tips: dividera både 6 och 8 med 2.");
+  }
+}
+
+
+function startLevel3(){
+  alert(
+    "🏆 Utmaning\n\n" +
+    "Du har 3/4 liter juice.\n" +
+    "Varje glas rymmer 1/8 liter.\n\n" +
+    "Hur många fulla glas kan du fylla?\n\n" +
+    "Förklara hur du tänker."
+  );
+}
+
+
+let quizIndex = 0;
+
+const quiz = [
+  {
+    q:"Vilket bråk är störst?",
+    answers:["1/4","1/2","1/5","1/8"],
+    correct:1,
+    explanation:"1/2 är störst eftersom en halv är större än en fjärdedel, femtedel och åttondel."
+  },
+  {
+    q:"Vilket bråk är lika mycket som 1/2?",
+    answers:["2/3","2/4","3/5","1/4"],
+    correct:1,
+    explanation:"2/4 kan förkortas med 2 och blir 1/2."
+  },
+  {
+    q:"Vad är 1/4 av 20?",
+    answers:["4","5","10","15"],
+    correct:1,
+    explanation:"20 ÷ 4 = 5."
+  },
+  {
+    q:"Vilket bråk är minst?",
+    answers:["3/4","2/4","1/4","4/4"],
+    correct:2,
+    explanation:"När nämnaren är samma är bråket med lägst täljare minst."
+  }
+];
+
+
+function renderQuiz(){
+
+  const item = quiz[quizIndex];
+
+  document.getElementById("questionText").textContent = item.q;
+
+  const answerContainer = document.getElementById("answers");
+
+  answerContainer.innerHTML = "";
+
+  item.answers.forEach(function(answer,index){
+
+    const btn = document.createElement("button");
+
+    btn.className = "answer";
+
+    btn.textContent = answer;
+
+    btn.onclick = function(){
+      checkQuizAnswer(index);
+    };
+
+    answerContainer.appendChild(btn);
+
+  });
+
+  const feedback = document.getElementById("feedback");
+
+  feedback.style.display = "none";
+
+  feedback.innerHTML = "";
+
+}
+
+
+function checkQuizAnswer(index){
+
+  const item = quiz[quizIndex];
+
+  const feedback = document.getElementById("feedback");
+
+  feedback.style.display = "block";
+
+  if(index === item.correct){
+
+    feedback.style.background = "#dcfce7";
+    feedback.style.color = "#166534";
+
+    feedback.innerHTML =
+      "✅ Rätt! " +
+      item.explanation +
+      "<br><br><button onclick='nextQuestion()'>Nästa fråga →</button>";
+
+  }else{
+
+    feedback.style.background = "#fee2e2";
+    feedback.style.color = "#991b1b";
+
+    feedback.innerHTML =
+      "❌ Inte riktigt. Försök igen.<br><small>" +
+      item.explanation +
+      "</small>";
+
+  }
+
+}
+
+
+function nextQuestion(){
+
+  quizIndex++;
+
+  if(quizIndex >= quiz.length){
+
+    document.getElementById("questionText").textContent =
+      "🎉 Bra jobbat! Du är klar med bråkquizet.";
+
+    document.getElementById("answers").innerHTML =
+      "<button class='answer' onclick='restartQuiz()'>Spela igen</button>";
+
+    document.getElementById("feedback").style.display = "none";
+
+  }else{
+
+    renderQuiz();
+
+  }
+
+}
+
+
+function restartQuiz(){
+
+  quizIndex = 0;
+
+  renderQuiz();
+
+}
+
+
+function checkAnswer(letter){
+
+  const map = {
+    a:0,
+    b:1,
+    c:2,
+    d:3
+  };
+
+  checkQuizAnswer(map[letter]);
+
+}
+
+</script>
+
+</body>
+</html>
