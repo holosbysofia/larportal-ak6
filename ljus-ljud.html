@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ljus och ljud – NO åk 6</title>
+
+<style>
+:root{
+  --bg:#f7f9fc;
+  --dark:#0f172a;
+  --text:#1f2937;
+  --muted:#64748b;
+  --purple:#7c3aed;
+  --purple2:#6d28d9;
+  --blue:#2563eb;
+  --cyan:#0891b2;
+  --yellow:#eab308;
+  --green:#16a34a;
+  --red:#dc2626;
+  --card:#ffffff;
+  --border:#e2e8f0;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:white;
+  padding:12px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+
+.navlinks a{
+  color:#334155;
+  font-weight:800;
+  padding:8px 11px;
+  border-radius:10px;
+}
+
+.navlinks a:hover{
+  background:#ede9fe;
+  color:#5b21b6;
+}
+
+.navlinks .home{
+  background:var(--purple);
+  color:white;
+}
+
+.hero{
+  background:
+    radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+    linear-gradient(135deg,#7c3aed,#2563eb,#0f172a);
+  color:white;
+  padding:72px 6% 100px;
+}
+
+.hero-inner{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:35px;
+  align-items:center;
+}
+
+.hero h1{
+  margin:0 0 16px;
+  font-size:clamp(3rem,8vw,5rem);
+  line-height:1;
+}
+
+.hero p{
+  font-size:1.18rem;
+  max-width:760px;
+}
+
+.hero-card{
+  background:white;
+  color:#312e81;
+  border-radius:24px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 18px 50px rgba(0,0,0,.2);
+}
+
+.hero-icon{
+  font-size:5rem;
+  margin-bottom:8px;
+}
+
+.wrap{
+  max-width:1180px;
+  margin:auto;
+  padding:0 20px 70px;
+}
+
+.overview{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-top:-42px;
+}
+
+.overview div{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:800;
+  box-shadow:0 10px 28px rgba(0,0,0,.09);
+}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+
+.section-head h2{
+  margin:0 0 8px;
+  color:var(--dark);
+  font-size:2rem;
+}
+
+.section-head p{
+  margin:0;
+  color:var(--muted);
+}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+
+.card h3{
+  margin-top:0;
+  color:var(--dark);
+}
+
+.fact{
+  background:#eef2ff;
+  border:1px solid #c7d2fe;
+  border-radius:14px;
+  padding:15px;
+  font-weight:800;
+  color:#3730a3;
+  margin:14px 0;
+}
+
+.tip{
+  background:#eff6ff;
+  border-left:5px solid var(--blue);
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+
+.step{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  padding:13px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+.topic{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--purple);
+}
+
+.topic strong{
+  display:block;
+  color:#5b21b6;
+  margin-bottom:6px;
+}
+
+.concept{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 5px 16px rgba(0,0,0,.05);
+}
+
+.concept strong{
+  display:block;
+  color:#5b21b6;
+  margin-bottom:5px;
+}
+
+.mistake{
+  background:white;
+  border-top:5px solid var(--red);
+  border-radius:16px;
+  padding:20px;
+}
+
+.wrong{color:#b91c1c;font-weight:800}
+.right{color:#166534;font-weight:800}
+
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.level{
+  color:white;
+  border-radius:22px;
+  padding:24px;
+}
+
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#7c3aed,#6d28d9)}
+.level3{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+
+.level button{
+  border:none;
+  background:white;
+  color:#111827;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.panel{
+  display:none;
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  margin-top:18px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+
+.panel.active{display:block}
+
+.task{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  margin:12px 0;
+}
+
+.task label{
+  display:block;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.task input{
+  padding:10px;
+  border:1px solid #cbd5e1;
+  border-radius:9px;
+  width:100%;
+  max-width:360px;
+}
+
+.check{
+  margin-top:9px;
+  background:var(--purple);
+  color:white;
+  border:none;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.feedback{
+  display:none;
+  margin-top:9px;
+  padding:10px;
+  border-radius:9px;
+  font-weight:800;
+}
+
+.feedback.good{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
+}
+
+.feedback.bad{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.quiz{
+  background:#0f172a;
+  color:white;
+  border-radius:24px;
+  padding:28px;
+}
+
+.quiz-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.score{
+  background:#1e293b;
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:900;
+}
+
+.quiz-card{
+  background:#1e293b;
+  border-radius:16px;
+  padding:22px;
+  margin-top:18px;
+}
+
+.answers{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.answer{
+  border:none;
+  background:white;
+  color:#1f2937;
+  padding:14px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  text-align:left;
+}
+
+.answer:hover{background:#ede9fe}
+.answer:disabled{opacity:.75;cursor:default}
+
+#quizFeedback{
+  display:none;
+  margin-top:14px;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+}
+
+#nextBtn{
+  display:none;
+  margin-top:12px;
+  border:none;
+  background:#facc15;
+  color:#111827;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.problem{
+  background:linear-gradient(135deg,#ede9fe,#dbeafe);
+  border-radius:24px;
+  padding:28px;
+}
+
+.problem-card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  margin-top:15px;
+}
+
+.problem textarea{
+  width:100%;
+  min-height:115px;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  resize:vertical;
+  margin-top:12px;
+}
+
+.reveal{
+  margin-top:10px;
+  border:none;
+  background:#5b21b6;
+  color:white;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.solution{
+  display:none;
+  background:#f8fafc;
+  border-radius:10px;
+  padding:14px;
+  margin-top:12px;
+}
+
+.support{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist label{
+  display:flex;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.checklist input{
+  width:19px;
+  height:19px;
+}
+
+.goal-btn{
+  margin-top:16px;
+  border:none;
+  background:var(--purple2);
+  color:white;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+#goalResult{
+  margin-top:12px;
+  font-weight:900;
+}
+
+footer{
+  background:#020617;
+  color:#cbd5e1;
+  padding:34px 20px;
+  text-align:center;
+  margin-top:60px;
+}
+
+@media(max-width:900px){
+  .overview,.grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-3,.levels{grid-template-columns:1fr}
+}
+
+@media(max-width:700px){
+  .hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .overview{margin-top:-25px}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">🔊 Ljus och ljud – NO åk 6</div>
+
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="no.html">🔬 NO</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Resonera</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+
+    <div>
+      <h1>Ljus och ljud</h1>
+
+      <p>
+        Här lär du dig hur ljus och ljud uppstår, sprids och påverkas.
+        Du arbetar med reflektion, skuggor, färger, vibrationer, tonhöjd,
+        ljudstyrka samt hur ögat och örat hjälper oss att uppfatta omvärlden.
+      </p>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-icon">💡🌈🔊</div>
+      <h3>Två olika fenomen</h3>
+      <p>Ljus är elektromagnetisk strålning. Ljud är vibrationer som sprids genom materia.</p>
+    </div>
+
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="overview">
+    <div>💡 Ljus</div>
+    <div>🪞 Reflektion</div>
+    <div>🌈 Färger</div>
+    <div>🔊 Ljud</div>
+    <div>👂 Hörsel</div>
+  </div>
+
+  <section id="forsta">
+
+    <div class="section-head">
+      <h2>📘 Vad är ljus?</h2>
+      <p>Ljus gör att vi kan se föremål och omgivning.</p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>Ljuskälla</h3>
+        <p>Ett föremål som själv sänder ut ljus, till exempel solen eller en tänd lampa.</p>
+      </div>
+
+      <div class="card">
+        <h3>Ljusets väg</h3>
+        <p>I en enkel modell kan ljus beskrivas som strålar som går rakt fram tills de träffar något.</p>
+      </div>
+
+      <div class="card">
+        <h3>Vi ser genom reflekterat ljus</h3>
+        <p>Vi ser många föremål eftersom ljus träffar dem och reflekteras till våra ögon.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🪞 Reflektion</h2>
+      <p>När ljus träffar en yta kan det reflekteras.</p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Spegel</h3>
+        <p>
+          En slät yta reflekterar ljuset mer ordnat, vilket gör att en tydlig spegelbild kan uppstå.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Matta ytor</h3>
+        <p>
+          Ojämna ytor sprider det reflekterade ljuset åt många håll.
+        </p>
+        <div class="tip">
+          Därför kan vi se en vägg från många olika vinklar.
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🌑 Skuggor</h2>
+      <p>En skugga bildas när något hindrar ljusets väg.</p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="topic">
+        <strong>Ljuskälla</strong>
+        <p>Ljuset startar från en källa.</p>
+      </div>
+
+      <div class="topic">
+        <strong>Föremål</strong>
+        <p>Föremålet blockerar en del av ljuset.</p>
+      </div>
+
+      <div class="topic">
+        <strong>Skugga</strong>
+        <p>Bakom föremålet når mindre ljus fram.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🌈 Färger och vitt ljus</h2>
+      <p>Vitt ljus innehåller många olika våglängder som vi uppfattar som olika färger.</p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Prisma</h3>
+        <p>
+          Ett prisma kan dela upp vitt ljus i ett färgspektrum.
+        </p>
+        <div class="fact">Rött → orange → gult → grönt → blått → violett</div>
+      </div>
+
+      <div class="card">
+        <h3>Varför ser ett föremål rött ut?</h3>
+        <p>
+          Ett rött föremål reflekterar mycket av det röda ljuset och absorberar mycket av de andra färgerna.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>👁️ Ögat och synen</h2>
+      <p>Ögat tar emot ljus och hjärnan tolkar signalerna.</p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>Pupill</h3>
+        <p>Öppningen där ljus kommer in i ögat.</p>
+      </div>
+
+      <div class="card">
+        <h3>Lins</h3>
+        <p>Hjälper till att fokusera ljuset.</p>
+      </div>
+
+      <div class="card">
+        <h3>Näthinna</h3>
+        <p>Innehåller ljuskänsliga celler som reagerar på ljus.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🔊 Vad är ljud?</h2>
+      <p>Ljud uppstår när något vibrerar och sätter omgivande materia i rörelse.</p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Vibrationer</h3>
+        <p>
+          En gitarrsträng som vibrerar får luften omkring sig att vibrera.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Ljud behöver materia</h3>
+        <p>
+          Ljud kan spridas genom gaser, vätskor och fasta material.
+        </p>
+        <div class="fact">I vakuum finns ingen materia som kan föra ljudet vidare.</div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🎵 Tonhöjd och ljudstyrka</h2>
+      <p>Olika vibrationer ger olika egenskaper hos ljudet.</p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Tonhöjd</h3>
+        <p>
+          Snabbare vibrationer ger högre ton. Långsammare vibrationer ger lägre ton.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Ljudstyrka</h3>
+        <p>
+          Större vibrationer ger starkare ljud, mindre vibrationer ger svagare ljud.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>👂 Örat och hörseln</h2>
+      <p>Örat tar emot vibrationer och omvandlar dem till nervsignaler.</p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>Ytteröra</h3>
+        <p>Samlar in ljudvågor.</p>
+      </div>
+
+      <div class="card">
+        <h3>Trumhinna</h3>
+        <p>Börjar vibrera när ljudvågor träffar den.</p>
+      </div>
+
+      <div class="card">
+        <h3>Inneröra</h3>
+        <p>Här omvandlas vibrationer till signaler som skickas till hjärnan.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🛡️ Hörsel och säkerhet</h2>
+      <p>Mycket starka ljud kan skada hörseln.</p>
+    </div>
+
+    <div class="card">
+      <div class="step">Sänk volymen om ljudet känns obehagligt starkt.</div>
+      <div class="step">Ta pauser från höga ljudnivåer.</div>
+      <div class="step">Använd hörselskydd i bullriga miljöer när det behövs.</div>
+      <div class="tip">
+        Hörselskador kan vara permanenta, därför är förebyggande skydd viktigt.
+      </div>
+    </div>
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🧠 Begreppsbank</h2>
+    </div>
+
+    <div class="grid-4">
+      <div class="concept"><strong>Ljuskälla</strong>Något som själv sänder ut ljus.</div>
+      <div class="concept"><strong>Reflektion</strong>När ljus studsar mot en yta.</div>
+      <div class="concept"><strong>Absorption</strong>När ljus tas upp av ett material.</div>
+      <div class="concept"><strong>Skugga</strong>Ett område där mindre ljus når fram.</div>
+      <div class="concept"><strong>Vibration</strong>Snabb rörelse fram och tillbaka.</div>
+      <div class="concept"><strong>Tonhöjd</strong>Hur hög eller låg en ton uppfattas.</div>
+      <div class="concept"><strong>Ljudstyrka</strong>Hur starkt eller svagt ett ljud uppfattas.</div>
+      <div class="concept"><strong>Trumhinna</strong>En tunn hinna i örat som vibrerar av ljud.</div>
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>⚠️ Vanliga missuppfattningar</h2>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="mistake">
+        <h3>Ögat skickar ut ljus</h3>
+        <p class="wrong">❌ Vi ser för att ögat skickar ut ljus.</p>
+        <p class="right">✅ Vi ser när ljus kommer in i ögat.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Ljud kan gå i vakuum</h3>
+        <p class="wrong">❌ Ljud sprids lika bra i tom rymd.</p>
+        <p class="right">✅ Ljud behöver materia för att spridas.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Hög ton betyder starkt ljud</h3>
+        <p class="wrong">❌ Hög ton och starkt ljud är samma sak.</p>
+        <p class="right">✅ Tonhöjd och ljudstyrka är olika egenskaper.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="traning">
+
+    <div class="section-head">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>Klicka på en nivå. Uppgifterna öppnas direkt.</p>
+    </div>
+
+    <div class="levels">
+
+      <div class="level level1">
+        <h3>🌱 Nivå 1</h3>
+        <p>Ljus, ljud och grundbegrepp.</p>
+        <button type="button" onclick="showLevel(1)">Öppna nivå 1</button>
+      </div>
+
+      <div class="level level2">
+        <h3>🚀 Nivå 2</h3>
+        <p>Reflektion, vibrationer och hörsel.</p>
+        <button type="button" onclick="showLevel(2)">Öppna nivå 2</button>
+      </div>
+
+      <div class="level level3">
+        <h3>🏆 Nivå 3</h3>
+        <p>Samband och förklaringar.</p>
+        <button type="button" onclick="showLevel(3)">Öppna nivå 3</button>
+      </div>
+
+    </div>
+
+    <div id="level1" class="panel">
+      <h3>🌱 Nivå 1</h3>
+
+      <div class="task">
+        <label>1. Vad kallas något som själv sänder ut ljus?</label>
+        <input id="a1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a1',['ljuskälla','ljuskalla','en ljuskälla'],'f1')">Kontrollera</button>
+        <div id="f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad kallas det när ljus studsar mot en yta?</label>
+        <input id="a2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a2',['reflektion'],'f2')">Kontrollera</button>
+        <div id="f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vad måste något göra för att skapa ljud?</label>
+        <input id="a3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a3',['vibrera','vibration','vibrationer'],'f3')">Kontrollera</button>
+        <div id="f3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level2" class="panel">
+      <h3>🚀 Nivå 2</h3>
+
+      <div class="task">
+        <label>1. Vad händer med tonhöjden när vibrationerna blir snabbare?</label>
+        <input id="b1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b1',['den blir högre','högre','hogre'],'g1')">Kontrollera</button>
+        <div id="g1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vilken del av örat börjar vibrera när ljudvågor träffar den?</label>
+        <input id="b2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b2',['trumhinnan','trumhinna'],'g2')">Kontrollera</button>
+        <div id="g2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Kan ljud spridas i vakuum?</label>
+        <input id="b3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b3',['nej'],'g3')">Kontrollera</button>
+        <div id="g3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level3" class="panel">
+      <h3>🏆 Nivå 3</h3>
+
+      <div class="task">
+        <label>1. Vad händer med ljuset när ett rött föremål ser rött ut?</label>
+        <input id="c1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c1',['rött ljus reflekteras','rott ljus reflekteras','det röda ljuset reflekteras'],'h1')">Kontrollera</button>
+        <div id="h1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad händer med ljudstyrkan när vibrationerna blir större?</label>
+        <input id="c2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c2',['den blir starkare','starkare','högre ljudstyrka','hogre ljudstyrka'],'h2')">Kontrollera</button>
+        <div id="h2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vad bildas när ett föremål blockerar ljus?</label>
+        <input id="c3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c3',['skugga','en skugga'],'h3')">Kontrollera</button>
+        <div id="h3" class="feedback"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="quiz">
+
+    <div class="quiz">
+
+      <div class="quiz-top">
+        <div>
+          <h2>🎮 Ljus- och ljudquiz</h2>
+          <p>Åtta frågor. Svarsalternativen blandas.</p>
+        </div>
+
+        <div id="score" class="score">Poäng: 0 / 0</div>
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+        <h3 id="question"></h3>
+        <div id="answers" class="answers"></div>
+        <div id="quizFeedback"></div>
+        <button id="nextBtn" type="button" onclick="nextQuestion()">Nästa fråga →</button>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="problem">
+
+    <div class="section-head">
+      <h2>💬 Resonera om ljus och ljud</h2>
+      <p>Använd naturvetenskapliga begrepp i din förklaring.</p>
+    </div>
+
+    <div class="problem">
+
+      <div class="problem-card">
+        <h3>🪞 Varför ser du dig i en spegel?</h3>
+
+        <p>
+          Förklara hur ljus gör att du kan se ditt ansikte i en spegel.
+        </p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol1')">
+          Visa lösningsförslag
+        </button>
+
+        <div id="sol1" class="solution">
+          Ljus från en ljuskälla träffar ditt ansikte och reflekteras mot spegeln.
+          Spegeln reflekterar sedan ljuset vidare till dina ögon.
+          När ljuset kommer in i ögat kan hjärnan tolka informationen som en bild.
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <h3>🎸 Gitarrsträngen</h3>
+
+        <p>
+          En elev spänner en gitarrsträng hårdare och tonen blir högre.
+          Förklara vad som har förändrats.
+        </p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol2')">
+          Visa exempel
+        </button>
+
+        <div id="sol2" class="solution">
+          När strängen vibrerar snabbare blir frekvensen högre.
+          Då uppfattar vi tonen som högre. Tonhöjd handlar alltså om hur snabbt något vibrerar.
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🌱 Stöd och utmaning</h2>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="support">
+        <h3>🆘 Jag behöver hjälp</h3>
+        <ul>
+          <li>Rita pilar som visar ljusets väg.</li>
+          <li>Fråga: Vad vibrerar när ljudet uppstår?</li>
+          <li>Skilj på tonhöjd och ljudstyrka.</li>
+          <li>Använd orden reflektion, vibration och trumhinna.</li>
+        </ul>
+      </div>
+
+      <div class="support">
+        <h3>🚀 Jag vill utmanas</h3>
+        <ul>
+          <li>Förklara hur en regnbåge kan uppstå.</li>
+          <li>Jämför hur ljud sprids i luft och fasta material.</li>
+          <li>Skapa ett experiment om skuggors storlek.</li>
+          <li>Undersök hur strängens längd påverkar tonhöjden.</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>✅ Kunskapscheck</h2>
+    </div>
+
+    <div class="checklist">
+      <label><input class="goal" type="checkbox"> Jag kan förklara vad en ljuskälla är.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beskriva reflektion.</label>
+      <label><input class="goal" type="checkbox"> Jag kan förklara hur en skugga bildas.</label>
+      <label><input class="goal" type="checkbox"> Jag kan förklara varför föremål har olika färger.</label>
+      <label><input class="goal" type="checkbox"> Jag kan förklara hur ljud uppstår genom vibrationer.</label>
+      <label><input class="goal" type="checkbox"> Jag kan skilja mellan tonhöjd och ljudstyrka.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beskriva hur örat tar emot ljud.</label>
+      <label><input class="goal" type="checkbox"> Jag kan resonera om hörselsäkerhet.</label>
+
+      <button class="goal-btn" type="button" onclick="checkGoals()">Se min progression</button>
+      <div id="goalResult"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <strong>🔊 Ljus och ljud • NO åk 6</strong><br>
+  Ljus • Reflektion • Färger • Vibrationer • Hörsel
+</footer>
+
+<script>
+var quizQuestions = [
+  {
+    q:"Vad är en ljuskälla?",
+    a:["Något som själv sänder ut ljus","Något som bara är vitt","En skugga","Ett ljud"],
+    c:"Något som själv sänder ut ljus",
+    e:"Solen och en tänd lampa är exempel på ljuskällor."
+  },
+  {
+    q:"Vad kallas det när ljus studsar mot en yta?",
+    a:["Reflektion","Vibration","Ledning","Kondensation"],
+    c:"Reflektion",
+    e:"Reflektion betyder att ljus studsar mot en yta."
+  },
+  {
+    q:"Hur bildas en skugga?",
+    a:["När ett föremål blockerar ljus","När ljud blir starkt","När luft blir kall","När en magnet drar"],
+    c:"När ett föremål blockerar ljus",
+    e:"Bakom föremålet når mindre ljus fram."
+  },
+  {
+    q:"Vad orsakar ljud?",
+    a:["Vibrationer","Skuggor","Färger","Stillastående ljus"],
+    c:"Vibrationer",
+    e:"Ljud uppstår när något vibrerar."
+  },
+  {
+    q:"Kan ljud spridas i vakuum?",
+    a:["Nej","Ja, alltid","Bara på natten","Bara om ljudet är starkt"],
+    c:"Nej",
+    e:"Ljud behöver materia för att spridas."
+  },
+  {
+    q:"Vad händer med tonhöjden när vibrationerna blir snabbare?",
+    a:["Den blir högre","Den blir alltid svagare","Den försvinner","Ingenting händer"],
+    c:"Den blir högre",
+    e:"Snabbare vibrationer ger högre ton."
+  },
+  {
+    q:"Vilken del av örat börjar vibrera när ljudvågor når örat?",
+    a:["Trumhinnan","Pupillen","Näthinnan","Linsen"],
+    c:"Trumhinnan",
+    e:"Trumhinnan vibrerar när ljudvågor träffar den."
+  },
+  {
+    q:"Vilket är bäst för att skydda hörseln i en mycket bullrig miljö?",
+    a:["Hörselskydd","Högre volym","Stå närmare ljudkällan","Ta av alla skydd"],
+    c:"Hörselskydd",
+    e:"Hörselskydd kan minska mängden ljudenergi som når örat."
+  }
+];
+
+var order=[];
+var current=0;
+var score=0;
+var answered=0;
+
+function normalize(value){
+  return value.trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function showLevel(number){
+  document.querySelectorAll(".panel").forEach(function(panel){
+    panel.classList.remove("active");
+  });
+
+  var selected=document.getElementById("level"+number);
+  selected.classList.add("active");
+  selected.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function checkAnswer(inputId,correctAnswers,feedbackId){
+  var value=normalize(document.getElementById(inputId).value);
+  var feedback=document.getElementById(feedbackId);
+
+  var correct=correctAnswers.some(function(answer){
+    return value===normalize(answer);
+  });
+
+  if(correct){
+    feedback.className="feedback good";
+    feedback.textContent="✅ Rätt! Bra jobbat.";
+  }else{
+    feedback.className="feedback bad";
+    feedback.textContent="❌ Inte riktigt. Försök igen.";
+  }
+}
+
+function toggleSolution(id){
+  var box=document.getElementById(id);
+  box.style.display=box.style.display==="block" ? "none" : "block";
+}
+
+function shuffle(array){
+  var copy=array.slice();
+
+  for(var i=copy.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var temp=copy[i];
+    copy[i]=copy[j];
+    copy[j]=temp;
+  }
+
+  return copy;
+}
+
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;
+  score=0;
+  answered=0;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+
+  var answerBox=document.getElementById("answers");
+  answerBox.innerHTML="";
+
+  shuffle(item.a).forEach(function(choice){
+    var button=document.createElement("button");
+    button.type="button";
+    button.className="answer";
+    button.textContent=choice;
+
+    button.onclick=function(){
+      answerQuestion(choice,item.c,item.e);
+    };
+
+    answerBox.appendChild(button);
+  });
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="none";
+  feedback.innerHTML="";
+
+  document.getElementById("nextBtn").style.display="none";
+  updateScore();
+}
+
+function answerQuestion(choice,correct,explanation){
+  document.querySelectorAll(".answer").forEach(function(button){
+    button.disabled=true;
+  });
+
+  answered++;
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="block";
+
+  if(choice===correct){
+    score++;
+    feedback.style.background="#dcfce7";
+    feedback.style.color="#166534";
+    feedback.innerHTML="✅ Rätt! "+explanation;
+  }else{
+    feedback.style.background="#fee2e2";
+    feedback.style.color="#991b1b";
+    feedback.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+explanation;
+  }
+
+  updateScore();
+  document.getElementById("nextBtn").style.display="inline-block";
+}
+
+function nextQuestion(){
+  current++;
+
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quizet är klart!</h3>"+
+      "<p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p>"+
+      "<button type='button' style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return;
+  }
+
+  renderQuestion();
+}
+
+function updateScore(){
+  document.getElementById("score").textContent="Poäng: "+score+" / "+answered;
+}
+
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal");
+  var checked=0;
+
+  goals.forEach(function(goal){
+    if(goal.checked){checked++}
+  });
+
+  var result=document.getElementById("goalResult");
+
+  if(checked===goals.length){
+    result.textContent="🏆 Alla mål markerade!";
+  }else if(checked>=6){
+    result.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  }else if(checked>=3){
+    result.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  }else{
+    result.textContent="👣 Börja med ljuskälla, reflektion och vibrationer.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  startQuiz();
+});
+</script>
+
+</body>
+</html>
