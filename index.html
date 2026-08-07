@@ -3,158 +3,472 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Lärportal åk 6</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root{
+      --bg:#f5f7fb;
+      --dark:#14213d;
+      --blue:#2563eb;
+      --purple:#7c3aed;
+      --green:#10b981;
+      --orange:#f59e0b;
+      --red:#ef4444;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#64748b;
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #1f2937;
-      line-height: 1.6;
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
     }
 
-    header {
-      background: linear-gradient(135deg, #1d4ed8, #7c3aed);
-      color: white;
-      text-align: center;
-      padding: 70px 20px;
+    html{
+      scroll-behavior:smooth;
     }
 
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
     }
 
-    header p {
-      font-size: 1.2rem;
-      max-width: 700px;
-      margin: auto;
+    /* TOPP */
+    .topbar{
+      background:#0f172a;
+      color:white;
+      padding:10px 5%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:.9rem;
     }
 
-    nav {
-      background: white;
-      padding: 15px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    .topbar span{
+      opacity:.9;
     }
 
-    nav a {
-      text-decoration: none;
-      color: #1f2937;
-      font-weight: bold;
-      padding: 10px 18px;
-      border-radius: 20px;
-      background: #eef2ff;
+    /* NAVIGATION */
+    nav{
+      background:white;
+      min-height:72px;
+      padding:12px 5%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      position:sticky;
+      top:0;
+      z-index:999;
+      box-shadow:0 2px 15px rgba(0,0,0,.08);
     }
 
-    nav a:hover {
-      background: #dbeafe;
+    .logo{
+      font-size:1.35rem;
+      font-weight:800;
+      color:var(--dark);
+      white-space:nowrap;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 50px 20px;
+    .navlinks{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      justify-content:flex-end;
     }
 
-    .intro {
-      text-align: center;
-      margin-bottom: 40px;
+    .navlinks a{
+      text-decoration:none;
+      color:#334155;
+      padding:9px 13px;
+      border-radius:12px;
+      font-weight:700;
+      font-size:.9rem;
     }
 
-    .intro h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
+    .navlinks a:hover{
+      background:#eef2ff;
+      color:#3730a3;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 25px;
+    /* HERO */
+    .hero{
+      min-height:500px;
+      background:
+        radial-gradient(circle at 85% 15%, rgba(255,255,255,.20), transparent 25%),
+        linear-gradient(135deg,#1d4ed8,#6d28d9 60%,#9333ea);
+      color:white;
+      display:flex;
+      align-items:center;
+      padding:70px 6%;
     }
 
-    .card {
-      background: white;
-      border-radius: 18px;
-      padding: 30px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-      transition: 0.25s;
+    .hero-content{
+      max-width:760px;
     }
 
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.13);
+    .eyebrow{
+      display:inline-block;
+      background:rgba(255,255,255,.16);
+      padding:8px 14px;
+      border-radius:30px;
+      margin-bottom:18px;
+      font-weight:700;
     }
 
-    .icon {
-      font-size: 3rem;
-      margin-bottom: 15px;
+    .hero h1{
+      font-size:clamp(2.6rem,7vw,5rem);
+      line-height:1.02;
+      margin-bottom:20px;
     }
 
-    .card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
+    .hero p{
+      font-size:1.25rem;
+      max-width:670px;
+      line-height:1.6;
+      opacity:.95;
     }
 
-    .card p {
-      margin-bottom: 20px;
-      color: #4b5563;
+    .hero-buttons{
+      margin-top:28px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
     }
 
-    .btn {
-      display: inline-block;
-      text-decoration: none;
-      padding: 11px 20px;
-      border-radius: 10px;
-      background: #2563eb;
-      color: white;
-      font-weight: bold;
+    .hero-btn{
+      text-decoration:none;
+      background:white;
+      color:#1d4ed8;
+      padding:14px 20px;
+      border-radius:14px;
+      font-weight:800;
     }
 
-    .btn:hover {
-      background: #1d4ed8;
+    .hero-btn.secondary{
+      color:white;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.35);
     }
 
-    .section {
-      margin-top: 60px;
-      background: white;
-      padding: 35px;
-      border-radius: 18px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    /* LAYOUT */
+    .wrapper{
+      max-width:1250px;
+      margin:auto;
+      padding:55px 22px;
     }
 
-    .section h2 {
-      margin-bottom: 15px;
+    .section-heading{
+      margin-bottom:28px;
     }
 
-    .section ul {
-      padding-left: 22px;
+    .section-heading h2{
+      font-size:2rem;
+      color:#0f172a;
+      margin-bottom:8px;
     }
 
-    footer {
-      margin-top: 60px;
-      background: #111827;
-      color: white;
-      text-align: center;
-      padding: 30px 20px;
+    .section-heading p{
+      color:var(--muted);
+      font-size:1.05rem;
     }
 
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 2.2rem;
+    /* JUST NU */
+    .current{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+      margin-top:-100px;
+      position:relative;
+      z-index:10;
+    }
+
+    .current-card{
+      background:white;
+      padding:24px;
+      border-radius:20px;
+      box-shadow:0 15px 40px rgba(15,23,42,.12);
+      border-top:5px solid var(--blue);
+    }
+
+    .current-card:nth-child(2){border-top-color:var(--green)}
+    .current-card:nth-child(3){border-top-color:var(--orange)}
+    .current-card:nth-child(4){border-top-color:var(--purple)}
+
+    .current-card small{
+      color:#64748b;
+      font-weight:bold;
+    }
+
+    .current-card h3{
+      margin:8px 0;
+    }
+
+    /* ÄMNESKORT */
+    .subject-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:24px;
+    }
+
+    .subject{
+      min-height:300px;
+      border-radius:26px;
+      padding:30px;
+      color:white;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      box-shadow:0 10px 28px rgba(0,0,0,.12);
+      transition:.25s;
+    }
+
+    .subject:hover{
+      transform:translateY(-6px);
+    }
+
+    .math{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+    .science{background:linear-gradient(135deg,#059669,#0f766e)}
+    .tech{background:linear-gradient(135deg,#ea580c,#f59e0b)}
+    .swedish{background:linear-gradient(135deg,#9333ea,#6d28d9)}
+    .english{background:linear-gradient(135deg,#dc2626,#be123c)}
+    .games{background:linear-gradient(135deg,#0891b2,#0e7490)}
+
+    .subject-icon{
+      font-size:3.4rem;
+    }
+
+    .subject h3{
+      font-size:2rem;
+      margin:12px 0;
+    }
+
+    .subject p{
+      line-height:1.5;
+      opacity:.95;
+    }
+
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+      margin:18px 0;
+    }
+
+    .tag{
+      background:rgba(255,255,255,.18);
+      padding:6px 9px;
+      border-radius:20px;
+      font-size:.8rem;
+    }
+
+    .subject a{
+      display:inline-block;
+      background:white;
+      color:#172554;
+      padding:11px 16px;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:800;
+      width:max-content;
+    }
+
+    /* SNABBVAL */
+    .quick-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+
+    .quick{
+      background:white;
+      border-radius:20px;
+      padding:25px;
+      box-shadow:0 7px 22px rgba(0,0,0,.07);
+      text-align:center;
+    }
+
+    .quick .icon{
+      font-size:2.8rem;
+      margin-bottom:10px;
+    }
+
+    .quick h3{
+      margin-bottom:8px;
+    }
+
+    .quick p{
+      color:#64748b;
+      font-size:.95rem;
+      margin-bottom:14px;
+    }
+
+    .quick button{
+      border:none;
+      background:#e0e7ff;
+      color:#3730a3;
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    /* SPEL */
+    .game-zone{
+      background:#0f172a;
+      color:white;
+      border-radius:30px;
+      padding:40px;
+    }
+
+    .game-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+      margin-top:25px;
+    }
+
+    .game{
+      background:#1e293b;
+      padding:22px;
+      border-radius:18px;
+      min-height:160px;
+    }
+
+    .game span{
+      font-size:2.4rem;
+    }
+
+    .game h3{
+      margin:12px 0 6px;
+    }
+
+    .game p{
+      color:#cbd5e1;
+      font-size:.9rem;
+    }
+
+    /* STUDIESTÖD */
+    .support{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:25px;
+    }
+
+    .support-box{
+      background:white;
+      border-radius:24px;
+      padding:30px;
+      box-shadow:0 8px 25px rgba(0,0,0,.07);
+    }
+
+    .support-box h3{
+      font-size:1.5rem;
+      margin-bottom:15px;
+    }
+
+    .support-box ul{
+      list-style:none;
+    }
+
+    .support-box li{
+      background:#f8fafc;
+      margin:8px 0;
+      padding:12px;
+      border-radius:10px;
+    }
+
+    /* UPPDRAG */
+    .challenge{
+      background:linear-gradient(135deg,#fef3c7,#fde68a);
+      border-radius:28px;
+      padding:38px;
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      align-items:center;
+      gap:30px;
+    }
+
+    .challenge h2{
+      font-size:2rem;
+      margin-bottom:10px;
+    }
+
+    .challenge p{
+      line-height:1.6;
+    }
+
+    .challenge-icon{
+      font-size:7rem;
+      text-align:center;
+    }
+
+    /* FOOTER */
+    footer{
+      background:#020617;
+      color:#cbd5e1;
+      padding:45px 6%;
+      margin-top:40px;
+    }
+
+    .footer-grid{
+      max-width:1200px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr;
+      gap:30px;
+    }
+
+    footer h3{
+      color:white;
+      margin-bottom:12px;
+    }
+
+    footer p{
+      line-height:1.6;
+    }
+
+    /* RESPONSIV */
+    @media(max-width:1000px){
+      .current,
+      .quick-grid,
+      .game-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .subject-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media(max-width:700px){
+      nav{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .current,
+      .subject-grid,
+      .quick-grid,
+      .game-grid,
+      .support,
+      .challenge,
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        min-height:560px;
+      }
+
+      .current{
+        margin-top:-55px;
+      }
+
+      .challenge-icon{
+        font-size:5rem;
       }
     }
   </style>
@@ -162,188 +476,450 @@
 
 <body>
 
-<header>
-  <h1>🌟 Lärportal åk 6</h1>
-  <p>
-    Lär, träna, undersök och utvecklas i matematik, NO och teknik.
-  </p>
-</header>
+<div class="topbar">
+  <span>🌟 Lärportal åk 6</span>
+  <span>Lär • Träna • Utforska • Utvecklas</span>
+</div>
 
 <nav>
-  <a href="#matematik">Matematik</a>
-  <a href="#no">NO</a>
-  <a href="#teknik">Teknik</a>
-  <a href="#spel">Lärspel</a>
-  <a href="#material">Material</a>
+  <div class="logo">🎓 LÄRPORTAL ÅK 6</div>
+
+  <div class="navlinks">
+    <a href="#start">Start</a>
+    <a href="#amnen">Ämnen</a>
+    <a href="#traning">Träning</a>
+    <a href="#spel">Spel</a>
+    <a href="#stod">Stöd</a>
+    <a href="#utmaning">Utmaning</a>
+  </div>
 </nav>
 
-<main class="container">
+<section class="hero" id="start">
+  <div class="hero-content">
 
-  <div class="intro">
-    <h2>Vad vill du arbeta med idag?</h2>
-    <p>Välj ett område och börja utforska.</p>
-  </div>
-
-  <div class="grid">
-
-    <div class="card" id="matematik">
-      <div class="icon">🔢</div>
-      <h3>Matematik</h3>
-      <p>
-        Träna taluppfattning, räknesätt, bråk, procent,
-        geometri, problemlösning och mycket mer.
-      </p>
-      <a class="btn" href="#matematik-info">Öppna matematik</a>
+    <div class="eyebrow">
+      ✨ Din digitala lärmiljö
     </div>
 
-    <div class="card" id="no">
-      <div class="icon">🔬</div>
-      <h3>NO</h3>
-      <p>
-        Utforska kroppen, hälsa, energi, fysik, kemi,
-        biologi och naturvetenskapliga undersökningar.
-      </p>
-      <a class="btn" href="#no-info">Öppna NO</a>
-    </div>
+    <h1>
+      Välkommen till<br>
+      Lärportal åk 6
+    </h1>
 
-    <div class="card" id="teknik">
-      <div class="icon">⚙️</div>
-      <h3>Teknik</h3>
-      <p>
-        Upptäck konstruktioner, tekniska system,
-        programmering och hur tekniken påverkar samhället.
-      </p>
-      <a class="btn" href="#teknik-info">Öppna teknik</a>
-    </div>
+    <p>
+      Här kan du lära dig nya saker, repetera, träna begrepp,
+      lösa problem, spela lärspel och utmana dig själv.
+    </p>
 
-    <div class="card" id="spel">
-      <div class="icon">🎮</div>
-      <h3>Lärspel</h3>
-      <p>
-        Spela samtidigt som du tränar matematik,
-        begrepp, problemlösning och logiskt tänkande.
-      </p>
-      <a class="btn" href="#spel-info">Öppna spel</a>
-    </div>
-
-    <div class="card" id="material">
-      <div class="icon">📚</div>
-      <h3>Material</h3>
-      <p>
-        Här kommer arbetsblad, begreppslistor,
-        repetition, uppdrag och stödmaterial.
-      </p>
-      <a class="btn" href="#material-info">Öppna material</a>
-    </div>
-
-    <div class="card">
-      <div class="icon">🏆</div>
-      <h3>Veckans utmaning</h3>
-      <p>
-        Testa ett klurigt uppdrag där du behöver
-        resonera, samarbeta och hitta olika lösningar.
-      </p>
-      <a class="btn" href="#utmaning">Starta utmaningen</a>
+    <div class="hero-buttons">
+      <a class="hero-btn" href="#amnen">Välj ämne</a>
+      <a class="hero-btn secondary" href="#spel">🎮 Spela och träna</a>
     </div>
 
   </div>
+</section>
 
-  <section class="section" id="matematik-info">
-    <h2>🔢 Matematik</h2>
+<main class="wrapper">
 
-    <ul>
-      <li>Taluppfattning</li>
-      <li>De fyra räknesätten</li>
-      <li>Bråk och decimaltal</li>
-      <li>Procent</li>
-      <li>Algebra</li>
-      <li>Geometri</li>
-      <li>Statistik och sannolikhet</li>
-      <li>Problemlösning</li>
-      <li>Matematiska resonemang</li>
-    </ul>
+  <section class="current">
+
+    <div class="current-card">
+      <small>🔢 MATEMATIK</small>
+      <h3>Veckans område</h3>
+      <p>Räknesätt och samband</p>
+    </div>
+
+    <div class="current-card">
+      <small>🔬 NO</small>
+      <h3>Vi undersöker</h3>
+      <p>Kroppen, hälsa och energi</p>
+    </div>
+
+    <div class="current-card">
+      <small>⚙️ TEKNIK</small>
+      <h3>Veckans uppdrag</h3>
+      <p>Bygg, testa och förbättra</p>
+    </div>
+
+    <div class="current-card">
+      <small>🏆 UTMANING</small>
+      <h3>Dagens kluring</h3>
+      <p>Kan du hitta två lösningar?</p>
+    </div>
+
   </section>
 
-  <section class="section" id="no-info">
-    <h2>🔬 NO</h2>
 
-    <ul>
-      <li>Kroppen</li>
-      <li>Hälsa och livsstil</li>
-      <li>Energi</li>
-      <li>Biologi</li>
-      <li>Kemi</li>
-      <li>Fysik</li>
-      <li>Experiment</li>
-      <li>Naturvetenskapliga begrepp</li>
-    </ul>
+  <section id="amnen" style="margin-top:70px">
+
+    <div class="section-heading">
+      <h2>📚 Välj ämne</h2>
+      <p>Här hittar du genomgångar, träning, begrepp, uppdrag och spel.</p>
+    </div>
+
+    <div class="subject-grid">
+
+      <article class="subject math">
+
+        <div>
+          <div class="subject-icon">🔢</div>
+          <h3>Matematik</h3>
+
+          <p>
+            Utforska matematiken genom exempel,
+            problemlösning och interaktiva övningar.
+          </p>
+
+          <div class="tags">
+            <span class="tag">Tal</span>
+            <span class="tag">Bråk</span>
+            <span class="tag">Procent</span>
+            <span class="tag">Geometri</span>
+            <span class="tag">Algebra</span>
+            <span class="tag">Problemlösning</span>
+          </div>
+        </div>
+
+        <a href="matematik.html">Öppna matematik →</a>
+
+      </article>
+
+
+      <article class="subject science">
+
+        <div>
+          <div class="subject-icon">🔬</div>
+          <h3>NO</h3>
+
+          <p>
+            Undersök världen genom biologi,
+            fysik och kemi.
+          </p>
+
+          <div class="tags">
+            <span class="tag">Kroppen</span>
+            <span class="tag">Hälsa</span>
+            <span class="tag">Energi</span>
+            <span class="tag">Materia</span>
+            <span class="tag">Ekologi</span>
+          </div>
+        </div>
+
+        <a href="no.html">Utforska NO →</a>
+
+      </article>
+
+
+      <article class="subject tech">
+
+        <div>
+          <div class="subject-icon">⚙️</div>
+          <h3>Teknik</h3>
+
+          <p>
+            Konstruera, skapa, programmera och
+            förstå tekniken omkring oss.
+          </p>
+
+          <div class="tags">
+            <span class="tag">Konstruktion</span>
+            <span class="tag">System</span>
+            <span class="tag">Design</span>
+            <span class="tag">Programmering</span>
+          </div>
+        </div>
+
+        <a href="teknik.html">Öppna teknik →</a>
+
+      </article>
+
+
+      <article class="subject swedish">
+
+        <div>
+          <div class="subject-icon">📖</div>
+          <h3>Svenska / SVA</h3>
+
+          <p>
+            Utveckla läsning, skrivande,
+            språk och begrepp.
+          </p>
+
+          <div class="tags">
+            <span class="tag">Läsning</span>
+            <span class="tag">Skriva</span>
+            <span class="tag">Ordförråd</span>
+            <span class="tag">Grammatik</span>
+          </div>
+        </div>
+
+        <a href="svenska.html">Öppna svenska →</a>
+
+      </article>
+
+
+      <article class="subject english">
+
+        <div>
+          <div class="subject-icon">🇬🇧</div>
+          <h3>English</h3>
+
+          <p>
+            Practice reading, listening,
+            speaking and writing.
+          </p>
+
+          <div class="tags">
+            <span class="tag">Vocabulary</span>
+            <span class="tag">Reading</span>
+            <span class="tag">Listening</span>
+            <span class="tag">Writing</span>
+          </div>
+        </div>
+
+        <a href="engelska.html">Open English →</a>
+
+      </article>
+
+
+      <article class="subject games">
+
+        <div>
+          <div class="subject-icon">🎮</div>
+          <h3>Lärspel</h3>
+
+          <p>
+            Träna kunskaper genom spel,
+            quiz och utmaningar.
+          </p>
+
+          <div class="tags">
+            <span class="tag">Quiz</span>
+            <span class="tag">Memory</span>
+            <span class="tag">Dueller</span>
+            <span class="tag">Escape room</span>
+          </div>
+        </div>
+
+        <a href="spel.html">Till spelen →</a>
+
+      </article>
+
+    </div>
+
   </section>
 
-  <section class="section" id="teknik-info">
-    <h2>⚙️ Teknik</h2>
 
-    <ul>
-      <li>Tekniska lösningar</li>
-      <li>Konstruktion</li>
-      <li>Tekniska system</li>
-      <li>Programmering</li>
-      <li>Teknikutveckling</li>
-      <li>Teknik och hållbar utveckling</li>
-    </ul>
+  <section id="traning" style="margin-top:75px">
+
+    <div class="section-heading">
+      <h2>⚡ Snabbstart</h2>
+      <p>Vad vill du göra just nu?</p>
+    </div>
+
+    <div class="quick-grid">
+
+      <div class="quick">
+        <div class="icon">🧠</div>
+        <h3>Begreppsbank</h3>
+        <p>Träna viktiga ord och uttryck.</p>
+        <button onclick="alert('Begreppsbanken byggs som nästa del.')">
+          Öppna
+        </button>
+      </div>
+
+      <div class="quick">
+        <div class="icon">✍️</div>
+        <h3>Träna</h3>
+        <p>Övningar från lätt till utmanande.</p>
+        <button onclick="alert('Träningssidan byggs som nästa del.')">
+          Börja träna
+        </button>
+      </div>
+
+      <div class="quick">
+        <div class="icon">📋</div>
+        <h3>Testa dig själv</h3>
+        <p>Se vad du redan kan.</p>
+        <button onclick="alert('Självtesten kommer att läggas här.')">
+          Starta test
+        </button>
+      </div>
+
+      <div class="quick">
+        <div class="icon">🏆</div>
+        <h3>Utmaning</h3>
+        <p>För dig som vill tänka ett steg längre.</p>
+        <button onclick="document.getElementById('utmaning').scrollIntoView()">
+          Utmana mig
+        </button>
+      </div>
+
+    </div>
+
   </section>
 
-  <section class="section" id="spel-info">
-    <h2>🎮 Lärspel</h2>
 
-    <p>
-      Här kommer vi att lägga in riktiga interaktiva spel.
-    </p>
+  <section id="spel" style="margin-top:75px">
 
-    <ul>
-      <li>Matematikduellen</li>
-      <li>Problemlösningsjakten</li>
-      <li>Begreppsmästaren</li>
-      <li>Geometriutmaningen</li>
-      <li>NO-quiz</li>
-      <li>Escape room</li>
-    </ul>
+    <div class="game-zone">
+
+      <div class="section-heading">
+        <h2 style="color:white">🎮 Spela och lär</h2>
+        <p style="color:#cbd5e1">
+          Här kommer portalen att innehålla riktiga interaktiva spel.
+        </p>
+      </div>
+
+      <div class="game-grid">
+
+        <div class="game">
+          <span>⚔️</span>
+          <h3>Matematikduellen</h3>
+          <p>Tävla mot dig själv eller en kompis.</p>
+        </div>
+
+        <div class="game">
+          <span>🍕</span>
+          <h3>Bråkjakten</h3>
+          <p>Samla poäng genom att lösa bråkuppgifter.</p>
+        </div>
+
+        <div class="game">
+          <span>🧪</span>
+          <h3>NO-quiz</h3>
+          <p>Testa dina kunskaper i naturvetenskap.</p>
+        </div>
+
+        <div class="game">
+          <span>🔐</span>
+          <h3>Escape room</h3>
+          <p>Lös ledtrådarna för att ta dig vidare.</p>
+        </div>
+
+      </div>
+
+    </div>
+
   </section>
 
-  <section class="section" id="material-info">
-    <h2>📚 Material</h2>
 
-    <ul>
-      <li>Arbetsblad</li>
-      <li>Begreppskort</li>
-      <li>Repetition</li>
-      <li>Exit tickets</li>
-      <li>Checklistor</li>
-      <li>Stödstrukturer</li>
-    </ul>
+  <section id="stod" style="margin-top:75px">
+
+    <div class="section-heading">
+      <h2>🌱 Lär på ditt sätt</h2>
+      <p>Du ska kunna få både stöd och extra utmaningar.</p>
+    </div>
+
+    <div class="support">
+
+      <div class="support-box">
+        <h3>🆘 Jag behöver hjälp</h3>
+
+        <ul>
+          <li>👣 Visa steg för steg</li>
+          <li>💡 Visa ett exempel</li>
+          <li>📖 Förklara begreppet</li>
+          <li>🔁 Jag vill träna mer</li>
+          <li>🎧 Jag vill lyssna på texten</li>
+          <li>🖼️ Visa med bild</li>
+        </ul>
+      </div>
+
+
+      <div class="support-box">
+        <h3>🚀 Jag vill ha en utmaning</h3>
+
+        <ul>
+          <li>🧩 Svårare problem</li>
+          <li>💬 Förklara hur du tänker</li>
+          <li>🔀 Hitta flera lösningar</li>
+          <li>🔎 Undersök ett mönster</li>
+          <li>🏆 Veckans mästarutmaning</li>
+          <li>🧠 Resonera och bevisa</li>
+        </ul>
+      </div>
+
+    </div>
+
   </section>
 
-  <section class="section" id="utmaning">
-    <h2>🏆 Veckans utmaning</h2>
 
-    <p>
-      En klass ska åka på utflykt. Det finns 28 elever.
-      Varje bil kan ta 4 elever.
-    </p>
+  <section id="utmaning" style="margin-top:75px">
 
-    <p>
-      <strong>Hur många bilar behövs?</strong>
-    </p>
+    <div class="challenge">
 
-    <p>
-      Fundera också på hur du kan visa din lösning på minst två olika sätt.
-    </p>
+      <div>
+        <h2>🏆 Veckans problemlösning</h2>
+
+        <p>
+          En klass har 30 elever. Eleverna ska delas in i grupper
+          med lika många elever i varje grupp.
+        </p>
+
+        <br>
+
+        <p>
+          <strong>
+            På hur många olika sätt kan klassen delas in?
+          </strong>
+        </p>
+
+        <br>
+
+        <p>
+          Visa hur du vet att du har hittat alla möjligheter.
+          Kan du hitta mer än ett sätt att visa ditt resonemang?
+        </p>
+      </div>
+
+      <div class="challenge-icon">
+        🤔
+      </div>
+
+    </div>
+
   </section>
 
 </main>
 
+
 <footer>
-  <p>🌟 Lärportal åk 6</p>
-  <p>Lärande • Nyfikenhet • Utveckling</p>
+
+  <div class="footer-grid">
+
+    <div>
+      <h3>🎓 Lärportal åk 6</h3>
+      <p>
+        En digital lärmiljö där kunskap,
+        språk, nyfikenhet och problemlösning möts.
+      </p>
+    </div>
+
+    <div>
+      <h3>Ämnen</h3>
+      <p>
+        Matematik<br>
+        NO<br>
+        Teknik<br>
+        Svenska/SVA<br>
+        Engelska
+      </p>
+    </div>
+
+    <div>
+      <h3>Träna</h3>
+      <p>
+        Begrepp<br>
+        Spel<br>
+        Problemlösning<br>
+        Repetition<br>
+        Utmaningar
+      </p>
+    </div>
+
+  </div>
+
 </footer>
 
 </body>
