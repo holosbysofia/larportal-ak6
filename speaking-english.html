@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking – Engelska åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --blue:#2563eb;--blue2:#1d4ed8;--cyan:#0891b2;--purple:#7c3aed;
+  --green:#16a34a;--orange:#ea580c;--red:#dc2626;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#dbeafe;color:#1d4ed8}
+.navlinks .home{background:var(--blue);color:white}
+
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#2563eb,#0891b2,#0f172a);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#1d4ed8;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0;color:#1e40af}
+.fact{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:15px;font-weight:800;color:#1e3a8a;margin:14px 0}
+.tip{background:#ecfeff;border-left:5px solid var(--cyan);padding:14px;border-radius:10px;margin-top:12px}
+
+.speak-step{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--blue)
+}
+.speak-step strong{display:block;color:#1d4ed8;margin-bottom:6px}
+.concept strong{display:block;color:#1d4ed8;margin-bottom:5px}
+
+.dialogue{
+  background:white;border-radius:22px;padding:26px;box-shadow:0 6px 22px rgba(0,0,0,.06);
+  border:1px solid #f1f5f9
+}
+.dialogue h3{margin-top:0;color:#0f4c81}
+.line{padding:9px 12px;border-radius:10px;margin:7px 0}
+.a{background:#eff6ff}.b{background:#ecfdf5}
+
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input,.task textarea{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:560px}
+.task textarea{min-height:110px}
+.check{margin-top:9px;background:var(--blue);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#dbeafe}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+
+.problem{background:linear-gradient(135deg,#eff6ff,#ecfeff);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:130px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#1d4ed8;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#1d4ed8;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🗣️ Speaking – Engelska åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="engelska.html">🇬🇧 Engelska</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#speak">Speak</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Speaking</h1>
+      <p>
+        Här tränar du på att tala engelska tydligt och våga hålla igång ett samtal.
+        Du lär dig att använda användbara fraser, ställa följdfrågor, uttala tydligt,
+        förklara när du saknar ett ord och anpassa språket efter situationen.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">🗣️💬🎯</div>
+      <h3>Speak to communicate</h3>
+      <p>Start • respond • ask • explain • keep going</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>👋 Start</div>
+  <div>💬 Respond</div>
+  <div>❓ Ask</div>
+  <div>🛠️ Repair</div>
+  <div>🔄 Continue</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head">
+    <h2>📘 Speaking is communication</h2>
+    <p>Målet är inte perfekt engelska. Målet är att andra ska förstå vad du menar.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Say something</h3><p>Våga använda språket även om du inte är säker på varje ord.</p></div>
+    <div class="card"><h3>Listen and respond</h3><p>Visa att du lyssnar och svara på det den andra personen säger.</p></div>
+    <div class="card"><h3>Keep going</h3><p>Använd följdfrågor och strategier när samtalet stannar upp.</p></div>
+  </div>
+
+  <div class="fact">Det är helt normalt att pausa, tänka om och formulera sig på nytt när man talar ett annat språk.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>👋 Start a conversation</h2></div>
+
+  <div class="grid-4">
+    <div class="speak-step"><strong>Hi! How are you?</strong><p>En enkel start.</p></div>
+    <div class="speak-step"><strong>What are you doing?</strong><p>Fråga om situationen.</p></div>
+    <div class="speak-step"><strong>What do you think about …?</strong><p>Starta ett samtal om en fråga.</p></div>
+    <div class="speak-step"><strong>Have you ever …?</strong><p>Starta ett samtal om erfarenheter.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>💬 Show that you are listening</h2><p>Korta reaktioner gör samtalet naturligare.</p></div>
+
+  <div class="grid-4">
+    <div class="card"><h3>Really?</h3><p>Verkligen?</p></div>
+    <div class="card"><h3>That's interesting!</h3><p>Det är intressant!</p></div>
+    <div class="card"><h3>Me too!</h3><p>Jag också!</p></div>
+    <div class="card"><h3>I see.</h3><p>Jag förstår.</p></div>
+    <div class="card"><h3>That's great!</h3><p>Vad bra!</p></div>
+    <div class="card"><h3>Oh no!</h3><p>Åh nej!</p></div>
+    <div class="card"><h3>Exactly!</h3><p>Precis!</p></div>
+    <div class="card"><h3>Maybe.</h3><p>Kanske.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>❓ Ask follow-up questions</h2><p>Följdfrågor visar intresse och utvecklar samtalet.</p></div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Why?</h3><p>Varför?</p></div>
+    <div class="card"><h3>How often?</h3><p>Hur ofta?</p></div>
+    <div class="card"><h3>What happened next?</h3><p>Vad hände sedan?</p></div>
+    <div class="card"><h3>Who were you with?</h3><p>Vem var du med?</p></div>
+    <div class="card"><h3>Where did you go?</h3><p>Vart gick/åkte du?</p></div>
+    <div class="card"><h3>What about you?</h3><p>Hur är det med dig?</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🛠️ Communication strategies</h2><p>Du kan lösa problemet även om du saknar ett ord.</p></div>
+
+  <div class="grid-4">
+    <div class="speak-step"><strong>Describe it</strong><p>“It's something you use for …”</p></div>
+    <div class="speak-step"><strong>Give an example</strong><p>“For example …”</p></div>
+    <div class="speak-step"><strong>Use a simpler word</strong><p>Byt till ett ord du kan.</p></div>
+    <div class="speak-step"><strong>Ask for help</strong><p>“How do you say … in English?”</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Think aloud when needed</h2><p>Små fraser ger dig tid att tänka.</p></div>
+
+  <div class="grid-4">
+    <div class="card"><h3>Let me think …</h3></div>
+    <div class="card"><h3>Well …</h3></div>
+    <div class="card"><h3>I'm not sure, but …</h3></div>
+    <div class="card"><h3>I mean …</h3></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🗣️ Pronunciation</h2><p>Tydligt uttal handlar mer om förståelighet än om att låta exakt som en modersmålstalare.</p></div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Word stress</h3><p>Vissa stavelser betonas mer: <strong>TA</strong>ble, be<strong>GIN</strong>.</p></div>
+    <div class="card"><h3>Sentence stress</h3><p>Viktiga ord får mer betoning: “I <strong>LOVE</strong> that film.”</p></div>
+    <div class="card"><h3>Pauses</h3><p>Korta pauser gör talet tydligare och ger dig tid att tänka.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🎯 Give your opinion</h2></div>
+
+  <div class="grid-4">
+    <div class="card"><h3>I think …</h3><p>I think school uniforms are useful.</p></div>
+    <div class="card"><h3>In my opinion …</h3><p>In my opinion, homework should be shorter.</p></div>
+    <div class="card"><h3>I agree because …</h3><p>I agree because it saves time.</p></div>
+    <div class="card"><h3>I disagree because …</h3><p>I disagree because students need choice.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📚 Describe and compare</h2></div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Describe a person</h3><p>She is friendly, patient and funny.</p></div>
+    <div class="card"><h3>Describe a place</h3><p>It is a small town near the sea.</p></div>
+    <div class="card"><h3>Compare</h3><p>London is bigger than my town, but my town is quieter.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>💬 Model conversation</h2></div>
+
+  <div class="dialogue">
+    <h3>Topic: Free time</h3>
+    <div class="line a"><strong>A:</strong> What do you like doing after school?</div>
+    <div class="line b"><strong>B:</strong> I usually play basketball or listen to music.</div>
+    <div class="line a"><strong>A:</strong> Really? How often do you play basketball?</div>
+    <div class="line b"><strong>B:</strong> About three times a week. What about you?</div>
+    <div class="line a"><strong>A:</strong> I don't play basketball, but I go swimming on Fridays.</div>
+    <div class="line b"><strong>B:</strong> Nice! Who do you go swimming with?</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+
+  <div class="grid-4">
+    <div class="concept"><strong>Follow-up question</strong>En fråga som bygger vidare på det någon sagt.</div>
+    <div class="concept"><strong>Response</strong>Ett svar eller en reaktion.</div>
+    <div class="concept"><strong>Fluency</strong>Att kunna hålla talet igång.</div>
+    <div class="concept"><strong>Pronunciation</strong>Hur ord uttalas.</div>
+    <div class="concept"><strong>Word stress</strong>Vilken stavelse som betonas.</div>
+    <div class="concept"><strong>Repair strategy</strong>En strategi när kommunikationen inte fungerar.</div>
+    <div class="concept"><strong>Opinion</strong>En åsikt.</div>
+    <div class="concept"><strong>Interaction</strong>Samtal och samspel mellan personer.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Common mistakes</h2></div>
+
+  <div class="grid-3">
+    <div class="mistake"><h3>One-word answers</h3><p class="wrong">❌ “Yes.” “No.” “Fine.”</p><p class="right">✅ Lägg till information: “Yes, I do. I play twice a week.”</p></div>
+    <div class="mistake"><h3>Stopping for one missing word</h3><p class="wrong">❌ Samtalet tar slut.</p><p class="right">✅ Beskriv ordet, använd exempel eller fråga om hjälp.</p></div>
+    <div class="mistake"><h3>Perfect grammar first</h3><p class="wrong">❌ Jag vågar inte tala förrän allt är korrekt.</p><p class="right">✅ Tydlig kommunikation kommer först. Språket förbättras genom användning.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Level 1</h3><p>Short responses and questions.</p><button onclick="showLevel(1)">Open level 1</button></div>
+    <div class="level level2"><h3>🚀 Level 2</h3><p>Follow-up questions and opinions.</p><button onclick="showLevel(2)">Open level 2</button></div>
+    <div class="level level3"><h3>🏆 Level 3</h3><p>Repair strategies and longer answers.</p><button onclick="showLevel(3)">Open level 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Level 1</h3>
+    <div class="task"><label>1. Write a natural answer to “How are you?”</label><input id="a1"><br><button class="check" onclick="checkContains('a1',['fine','good','okay','great'],'f1')">Check</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. Write one follow-up question after “I like football.”</label><input id="a2"><br><button class="check" onclick="checkContains('a2',['why','how often','who','when','what team','do you play'],'f2')">Check</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. What can you say if you do not understand?</label><input id="a3"><br><button class="check" onclick="checkContains('a3',['repeat','don’t understand','dont understand','say that again'],'f3')">Check</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Level 2</h3>
+    <div class="task"><label>1. Complete: “In my opinion, …”</label><textarea id="b1"></textarea><br><button class="check" onclick="checkContains('b1',['in my opinion'],'g1')">Check</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Write a polite disagreement.</label><input id="b2"><br><button class="check" onclick="checkContains('b2',['disagree','i see your point','but','however'],'g2')">Check</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Write one reaction that shows you are listening.</label><input id="b3"><br><button class="check" onclick="checkContains('b3',['really','interesting','great','i see','me too','oh no'],'g3')">Check</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Level 3</h3>
+    <div class="task"><label>1. You forget the word “umbrella”. Explain it without saying the word.</label><textarea id="c1"></textarea><br><button class="check" onclick="checkContains('c1',['rain','use','hold','keep dry','dry'],'h1')">Check</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Expand “I like music” into at least two connected sentences.</label><textarea id="c2"></textarea><br><button class="check" onclick="checkContains('c2',['music','because','usually','favourite','favorite','listen'],'h2')">Check</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Write a phrase you can use to buy time while thinking.</label><input id="c3"><br><button class="check" onclick="checkContains('c3',['let me think','well','i’m not sure','im not sure'],'h3')">Check</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Speaking Quiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Next question →</button>
+    </div>
+  </div>
+</section>
+
+<section id="speak">
+  <div class="section-head"><h2>🗣️ Speaking tasks</h2><p>Öva i par eller små grupper.</p></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>🎯 Task 1: Two-minute conversation</h3>
+      <p>Choose one topic: hobbies, school, food, travel or weekend plans. Speak for two minutes without using Swedish.</p>
+      <textarea placeholder="Write useful phrases or key words..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Show support</button>
+      <div id="sol1" class="solution">
+        Start: What do you think about …?<br>
+        Continue: Really? Why? How often? What about you?<br>
+        Repair: Let me think … / How do you say … in English? / It's something you use for …
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🧩 Task 2: Describe the mystery word</h3>
+      <p>Choose an everyday object. Describe it without saying its name. Your partner guesses the word.</p>
+      <textarea placeholder="Write clues for your mystery word..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Show example</button>
+      <div id="sol2" class="solution">
+        “It is something you carry when it rains. You hold it above your head. It helps you stay dry.” → umbrella
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>⚖️ Task 3: Agree or disagree</h3>
+      <p>Discuss: “Students should have no homework.” Give an opinion, a reason, and ask your partner a follow-up question.</p>
+      <textarea placeholder="Write useful phrases..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol3')">Show example</button>
+      <div id="sol3" class="solution">
+        “I partly agree because students need time to rest. However, a small amount of homework can be useful. What do you think?”
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+
+  <div class="grid-2">
+    <div class="support">
+      <h3>🆘 I need support</h3>
+      <ul>
+        <li>Use sentence starters.</li>
+        <li>Prepare 5 key words before speaking.</li>
+        <li>Use short but complete answers.</li>
+        <li>Ask: “Can you repeat, please?”</li>
+        <li>Practise once before speaking to the class.</li>
+      </ul>
+    </div>
+
+    <div class="support">
+      <h3>🚀 I want a challenge</h3>
+      <ul>
+        <li>Speak for three minutes without notes.</li>
+        <li>Ask at least four follow-up questions.</li>
+        <li>Use a repair strategy instead of Swedish when you forget a word.</li>
+        <li>Use opinions, reasons, examples and comparisons in the same conversation.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Knowledge check</h2></div>
+
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> I can start a conversation in English.</label>
+    <label><input class="goal" type="checkbox"> I can respond naturally to what someone says.</label>
+    <label><input class="goal" type="checkbox"> I can ask follow-up questions.</label>
+    <label><input class="goal" type="checkbox"> I can give my opinion and a reason.</label>
+    <label><input class="goal" type="checkbox"> I can use phrases to gain thinking time.</label>
+    <label><input class="goal" type="checkbox"> I can describe a word when I do not know its English name.</label>
+    <label><input class="goal" type="checkbox"> I can speak clearly enough for others to understand me.</label>
+    <label><input class="goal" type="checkbox"> I can keep a short conversation going without switching to Swedish.</label>
+    <button class="goal-btn" onclick="checkGoals()">See my progress</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>🗣️ Speaking • Engelska åk 6</strong><br>
+  Interaction • Follow-up questions • Opinions • Pronunciation • Repair strategies • Fluency
+</footer>
+
+<script>
+var quizQuestions=[
+{q:"What is a follow-up question?",a:["A question that builds on what someone has said","A question asked before anyone speaks","A spelling question","A question with no connection to the topic"],c:"A question that builds on what someone has said",e:"Follow-up questions help keep a conversation going."},
+{q:"What can you say to gain thinking time?",a:["Let me think …","Goodbye forever.","No English.","Stop."],c:"Let me think …",e:"This gives you time without ending the conversation."},
+{q:"What is a good strategy if you forget a word?",a:["Describe it using words you know","Stop speaking","Switch language immediately","Say nothing"],c:"Describe it using words you know",e:"Describing the word is a useful repair strategy."},
+{q:"Which phrase shows an opinion?",a:["In my opinion …","At three o'clock","Under the table","Yesterday morning"],c:"In my opinion …",e:"This phrase introduces an opinion."},
+{q:"Which response shows active listening?",a:["Really? That's interesting!","Blue pencil.","Yesterday.","No word."],c:"Really? That's interesting!",e:"Short reactions show that you are listening."},
+{q:"What is most important in pronunciation?",a:["Being understandable","Sounding exactly like one particular accent","Speaking as fast as possible","Never pausing"],c:"Being understandable",e:"Clear communication matters more than copying one exact accent."},
+{q:"How can you make a one-word answer better?",a:["Add a reason or extra detail","Make it shorter","Repeat the same word","Avoid the topic"],c:"Add a reason or extra detail",e:"Longer responses create more natural interaction."},
+{q:"Which phrase is a polite disagreement?",a:["I see your point, but I disagree because …","You are wrong.","No.","Never."],c:"I see your point, but I disagree because …",e:"It disagrees while keeping the conversation respectful."}
+];
+
+var order=[],current=0,score=0,answered=0;
+
+function normalize(v){
+  return v.trim().toLowerCase().replace(/[’']/g,"'").replace(/\s+/g," ")
+}
+function showLevel(n){
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  var s=document.getElementById("level"+n);
+  s.classList.add("active");
+  s.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function checkContains(id,parts,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=parts.some(function(p){return value.indexOf(normalize(p))!==-1});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Good!":"❌ Try again and use one of the speaking strategies from the page."
+}
+function toggleSolution(id){
+  var b=document.getElementById(id);
+  b.style.display=b.style.display==="block"?"none":"block"
+}
+function shuffle(a){
+  var c=a.slice();
+  for(var i=c.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=c[i];c[i]=c[j];c[j]=t
+  }
+  return c
+}
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;score=0;answered=0;
+  renderQuestion()
+}
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+  var box=document.getElementById("answers");
+  box.innerHTML="";
+  shuffle(item.a).forEach(function(choice){
+    var b=document.createElement("button");
+    b.className="answer";b.type="button";b.textContent=choice;
+    b.onclick=function(){answerQuestion(choice,item.c,item.e)};
+    box.appendChild(b)
+  });
+  var f=document.getElementById("quizFeedback");
+  f.style.display="none";f.innerHTML="";
+  document.getElementById("nextBtn").style.display="none";
+  updateScore()
+}
+function answerQuestion(choice,correct,exp){
+  document.querySelectorAll(".answer").forEach(function(b){b.disabled=true});
+  answered++;
+  var f=document.getElementById("quizFeedback");
+  f.style.display="block";
+  if(choice===correct){
+    score++;
+    f.style.background="#dcfce7";
+    f.style.color="#166534";
+    f.innerHTML="✅ Correct! "+exp
+  } else {
+    f.style.background="#fee2e2";
+    f.style.color="#991b1b";
+    f.innerHTML="❌ Correct answer: <strong>"+correct+"</strong><br>"+exp
+  }
+  updateScore();
+  document.getElementById("nextBtn").style.display="inline-block"
+}
+function nextQuestion(){
+  current++;
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quiz complete!</h3><p>You got <strong>"+score+" out of "+quizQuestions.length+
+      "</strong> correct.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Play again</button>";
+    return
+  }
+  renderQuestion()
+}
+function updateScore(){
+  document.getElementById("score").textContent="Poäng: "+score+" / "+answered
+}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 All goals checked!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" of "+goals.length+" goals. Great work.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" of "+goals.length+" goals. Keep practising.";
+  else r.textContent="👣 Start with short responses, follow-up questions and useful repair phrases."
+}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
