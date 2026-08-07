@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading – Engelska åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --blue:#2563eb;--blue2:#1d4ed8;--cyan:#0891b2;--purple:#7c3aed;
+  --green:#16a34a;--orange:#ea580c;--red:#dc2626;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#dbeafe;color:#1d4ed8}
+.navlinks .home{background:var(--blue);color:white}
+
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#2563eb,#0891b2,#0f172a);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#1d4ed8;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0;color:#1e40af}
+.fact{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:15px;font-weight:800;color:#1e3a8a;margin:14px 0}
+.tip{background:#ecfeff;border-left:5px solid var(--cyan);padding:14px;border-radius:10px;margin-top:12px}
+
+.strategy{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--blue)
+}
+.strategy strong{display:block;color:#1d4ed8;margin-bottom:6px}
+.concept strong{display:block;color:#1d4ed8;margin-bottom:5px}
+
+.textbox{
+  background:white;border-radius:22px;padding:26px;box-shadow:0 6px 22px rgba(0,0,0,.06);
+  border:1px solid #f1f5f9
+}
+.textbox h3{margin-top:0;color:#0f4c81}
+.highlight{background:#fef3c7;padding:2px 6px;border-radius:6px;font-weight:900}
+
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input,.task textarea{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:560px}
+.task textarea{min-height:110px}
+.check{margin-top:9px;background:var(--blue);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#dbeafe}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+
+.problem{background:linear-gradient(135deg,#eff6ff,#ecfeff);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:130px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#1d4ed8;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#1d4ed8;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">📖 Reading – Engelska åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="engelska.html">🇬🇧 Engelska</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#read">Read & Think</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Reading</h1>
+      <p>
+        Här tränar du på att förstå engelska texter. Du lär dig att hitta huvudidé,
+        nyckelord, detaljer, dra slutsatser, använda sammanhanget och välja rätt lässtrategi.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">📖🔎🧠</div>
+      <h3>Read for meaning</h3>
+      <p>Predict • scan • understand • infer • summarise</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>🔮 Predict</div>
+  <div>🔎 Scan</div>
+  <div>🎯 Main idea</div>
+  <div>🧠 Infer</div>
+  <div>📝 Summarise</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head">
+    <h2>📘 Reading is more than translating</h2>
+    <p>Du behöver inte förstå varje ord för att förstå texten.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Understand the big picture</h3><p>Förstå vad texten huvudsakligen handlar om.</p></div>
+    <div class="card"><h3>Find important details</h3><p>Hitta namn, platser, tider och andra viktiga fakta.</p></div>
+    <div class="card"><h3>Use clues</h3><p>Använd sammanhang, rubrik, bilder och ord du redan känner igen.</p></div>
+  </div>
+
+  <div class="fact">En skicklig läsare växlar strategi beroende på varför texten läses.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔮 Before reading – predict</h2><p>Förutspå vad texten kan handla om.</p></div>
+  <div class="grid-4">
+    <div class="strategy"><strong>Title</strong><p>Vad säger rubriken?</p></div>
+    <div class="strategy"><strong>Pictures</strong><p>Vad visar bilderna?</p></div>
+    <div class="strategy"><strong>Key words</strong><p>Vilka ord känner du igen?</p></div>
+    <div class="strategy"><strong>What do I know?</strong><p>Vad vet du redan om ämnet?</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>👀 Skimming and scanning</h2></div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Skimming</h3>
+      <p>Läs snabbt för att förstå huvudidén och textens upplägg.</p>
+      <div class="tip">Bra när du vill veta: What is this text mainly about?</div>
+    </div>
+    <div class="card">
+      <h3>Scanning</h3>
+      <p>Leta snabbt efter en särskild uppgift.</p>
+      <div class="tip">Bra när du söker till exempel ett datum, namn eller pris.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🎯 Main idea and details</h2><p>Skilj det viktigaste från detaljer.</p></div>
+  <div class="textbox">
+    <h3>Example text</h3>
+    <p>
+      Many students ride bicycles to school. Cycling is cheap, gives exercise and does not produce exhaust fumes.
+      However, cyclists need safe roads and should always use a helmet.
+    </p>
+    <div class="tip"><strong>Main idea:</strong> Cycling to school has several advantages but safety is important.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Infer – read between the lines</h2><p>Ibland står svaret inte direkt i texten.</p></div>
+  <div class="textbox">
+    <h3>Example</h3>
+    <p>
+      Leo looked out of the window. Dark clouds covered the sky. He put his football boots back in the cupboard and reached for a board game.
+    </p>
+    <div class="tip"><strong>Inference:</strong> Leo probably thinks the weather will stop him from playing football outside.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔎 Unknown words</h2><p>Försök förstå ordet innan du slår upp det.</p></div>
+  <div class="grid-4">
+    <div class="strategy"><strong>Read around it</strong><p>Läs meningen före och efter.</p></div>
+    <div class="strategy"><strong>Look at word parts</strong><p>Känner du igen prefix eller grundord?</p></div>
+    <div class="strategy"><strong>Guess</strong><p>Vilket ord skulle passa betydelsen?</p></div>
+    <div class="strategy"><strong>Check</strong><p>Kontrollera i ordlista om det behövs.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📚 Different text types</h2></div>
+  <div class="grid-4">
+    <div class="card"><h3>Story</h3><p>Characters, setting, problem, events.</p></div>
+    <div class="card"><h3>Fact text</h3><p>Headings, facts, explanations, examples.</p></div>
+    <div class="card"><h3>Instruction</h3><p>Steps, commands, sequence.</p></div>
+    <div class="card"><h3>Message</h3><p>Sender, purpose, important information.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📝 Summarise</h2><p>Sammanfatta med det viktigaste – inte alla detaljer.</p></div>
+  <div class="grid-3">
+    <div class="strategy"><strong>1. Find the topic</strong><p>Vad handlar texten om?</p></div>
+    <div class="strategy"><strong>2. Choose key points</strong><p>Vilka 2–4 saker är viktigast?</p></div>
+    <div class="strategy"><strong>3. Use your own words</strong><p>Skriv kort med egna formuleringar.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📖 Reading text: The missing phone</h2></div>
+  <div class="textbox">
+    <p>
+      On Tuesday afternoon, Maya stayed late at school to finish a group project. When she finally packed her bag,
+      she noticed that her phone was missing. She checked under the table, inside her jacket and even in the recycling bin.
+      Nothing.
+    </p>
+    <p>
+      Then she remembered using the phone in the library before lunch. She hurried upstairs, but the library was already closed.
+      Maya sighed and wrote a note for the librarian.
+    </p>
+    <p>
+      The next morning, the librarian smiled when Maya entered. “Looking for this?” she asked, holding up the phone.
+      Someone had found it near the computers and handed it in.
+    </p>
+    <div class="tip">
+      Think: Where did Maya probably lose her phone? Why did she write a note? What does the librarian's smile tell you?
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+  <div class="grid-4">
+    <div class="concept"><strong>Main idea</strong>Textens huvudidé.</div>
+    <div class="concept"><strong>Detail</strong>En specifik uppgift i texten.</div>
+    <div class="concept"><strong>Prediction</strong>En förutsägelse före eller under läsningen.</div>
+    <div class="concept"><strong>Inference</strong>En slutsats byggd på ledtrådar.</div>
+    <div class="concept"><strong>Skimming</strong>Snabbläsning för huvudidé.</div>
+    <div class="concept"><strong>Scanning</strong>Sökläsning efter särskild information.</div>
+    <div class="concept"><strong>Context clue</strong>Ledtråd i sammanhanget.</div>
+    <div class="concept"><strong>Summary</strong>En kort återgivning av det viktigaste.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Common mistakes</h2></div>
+  <div class="grid-3">
+    <div class="mistake"><h3>Translate every word</h3><p class="wrong">❌ Jag kan inte gå vidare förrän varje ord är översatt.</p><p class="right">✅ Försök först förstå huvudidén och använd sammanhanget.</p></div>
+    <div class="mistake"><h3>Guess without evidence</h3><p class="wrong">❌ En inferens är vad jag själv tycker.</p><p class="right">✅ En inferens måste bygga på ledtrådar i texten.</p></div>
+    <div class="mistake"><h3>Summary = copy</h3><p class="wrong">❌ Jag kopierar hela stycken.</p><p class="right">✅ En sammanfattning väljer ut det viktigaste och använder egna ord.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Level 1</h3><p>Find information.</p><button onclick="showLevel(1)">Open level 1</button></div>
+    <div class="level level2"><h3>🚀 Level 2</h3><p>Main idea and context.</p><button onclick="showLevel(2)">Open level 2</button></div>
+    <div class="level level3"><h3>🏆 Level 3</h3><p>Inference and summary.</p><button onclick="showLevel(3)">Open level 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Level 1</h3>
+    <p><strong>Text:</strong> Emma gets up at seven. She eats breakfast and walks to school. Her first lesson starts at eight thirty.</p>
+    <div class="task"><label>1. What time does Emma get up?</label><input id="a1"><br><button class="check" onclick="checkContains('a1',['seven','7','7:00'],'f1')">Check</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. How does she get to school?</label><input id="a2"><br><button class="check" onclick="checkContains('a2',['walk','on foot'],'f2')">Check</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. When does her first lesson start?</label><input id="a3"><br><button class="check" onclick="checkContains('a3',['eight thirty','8:30','8.30'],'f3')">Check</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Level 2</h3>
+    <p><strong>Text:</strong> The streets were empty and the shops were closed. Snow covered the cars and people wore thick coats, hats and gloves.</p>
+    <div class="task"><label>1. What is the text mainly about?</label><input id="b1"><br><button class="check" onclick="checkContains('b1',['winter','cold','snow','weather'],'g1')">Check</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. What does “thick coats” tell you about the weather?</label><input id="b2"><br><button class="check" onclick="checkContains('b2',['cold','freezing','very cold'],'g2')">Check</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Which word gives the clearest clue that it is winter?</label><input id="b3"><br><button class="check" onclick="checkContains('b3',['snow'],'g3')">Check</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Level 3</h3>
+    <p><strong>Text:</strong> Nora had practised her speech all week. When the teacher called her name, she took a deep breath, looked at her notes and walked slowly to the front of the room.</p>
+    <div class="task"><label>1. How is Nora probably feeling?</label><input id="c1"><br><button class="check" onclick="checkContains('c1',['nervous','worried','anxious'],'h1')">Check</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Which clues support your answer?</label><textarea id="c2"></textarea><br><button class="check" onclick="checkContains('c2',['deep breath','notes','slowly','practised'],'h2')">Check</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Write a one-sentence summary.</label><textarea id="c3"></textarea><br><button class="check" onclick="checkContains('c3',['nora','speech','presentation','practised'],'h3')">Check</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Reading Quiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Next question →</button>
+    </div>
+  </div>
+</section>
+
+<section id="read">
+  <div class="section-head"><h2>📖 Read & Think</h2><p>Läs korta texter och motivera dina svar.</p></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>🌧️ Text 1</h3>
+      <p>
+        Mia opened the front door and immediately stepped back. Rain was falling heavily and the wind pushed the trees from side to side.
+        She looked at the picnic basket in her hand and laughed.
+      </p>
+      <p><strong>Question:</strong> Why does Mia laugh?</p>
+      <textarea placeholder="Write your answer in English or Swedish..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Show example</button>
+      <div id="sol1" class="solution">
+        She probably laughs because the weather is terrible for a picnic. The rain, wind and picnic basket are the clues.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🐕 Text 2</h3>
+      <p>
+        Every afternoon, Ben's dog waits by the window at four o'clock. At 4:10, its tail starts moving. A few minutes later,
+        Ben's school bus stops outside the house.
+      </p>
+      <p><strong>Question:</strong> What has the dog learned?</p>
+      <textarea placeholder="Write your reasoning..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Show example</button>
+      <div id="sol2" class="solution">
+        The dog has learned when Ben usually comes home. It waits before the bus arrives because it recognises the daily routine.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+
+  <div class="grid-2">
+    <div class="support">
+      <h3>🆘 I need support</h3>
+      <ul>
+        <li>Read the title first.</li>
+        <li>Underline words you know.</li>
+        <li>Look for names, times and places.</li>
+        <li>Do not stop at every unknown word.</li>
+        <li>Use the sentence before and after for clues.</li>
+      </ul>
+    </div>
+    <div class="support">
+      <h3>🚀 I want a challenge</h3>
+      <ul>
+        <li>Explain answers with evidence from the text.</li>
+        <li>Write a short summary without copying.</li>
+        <li>Compare two characters or viewpoints.</li>
+        <li>Identify information that is stated directly and information that must be inferred.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Knowledge check</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> I can use the title and pictures to predict a text.</label>
+    <label><input class="goal" type="checkbox"> I can skim for the main idea.</label>
+    <label><input class="goal" type="checkbox"> I can scan for specific information.</label>
+    <label><input class="goal" type="checkbox"> I can identify the main idea and important details.</label>
+    <label><input class="goal" type="checkbox"> I can use context to understand unknown words.</label>
+    <label><input class="goal" type="checkbox"> I can make an inference using clues from the text.</label>
+    <label><input class="goal" type="checkbox"> I can recognise different text types.</label>
+    <label><input class="goal" type="checkbox"> I can write a short summary in my own words.</label>
+    <button class="goal-btn" onclick="checkGoals()">See my progress</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>📖 Reading • Engelska åk 6</strong><br>
+  Prediction • Skimming • Scanning • Main idea • Context • Inference • Summary
+</footer>
+
+<script>
+var quizQuestions=[
+{q:"What is skimming?",a:["Reading quickly for the main idea","Looking for one exact detail","Translating every word","Reading aloud very slowly"],c:"Reading quickly for the main idea",e:"Skimming helps you understand what the text is mainly about."},
+{q:"What is scanning?",a:["Looking for specific information","Reading every sentence carefully","Guessing without reading","Writing a summary"],c:"Looking for specific information",e:"Scanning is useful for finding names, dates, times and other details."},
+{q:"What is the main idea?",a:["The most important overall message","One small detail","The longest word","The first sentence every time"],c:"The most important overall message",e:"The main idea tells what the text is mainly about."},
+{q:"What is an inference?",a:["A conclusion based on clues","A direct quote","A spelling rule","A title"],c:"A conclusion based on clues",e:"An inference combines clues from the text with what you know."},
+{q:"What should you do with an unknown word first?",a:["Use context and word clues","Stop reading immediately","Translate the whole text","Ignore the whole paragraph"],c:"Use context and word clues",e:"The surrounding text often helps you understand the word."},
+{q:"Which is best for a summary?",a:["The main points in your own words","Every detail from the text","A copy of the first paragraph","Only the title"],c:"The main points in your own words",e:"A summary is short and focuses on the most important information."},
+{q:"Which strategy helps before reading?",a:["Predict from the title and pictures","Skip the title","Translate all words first","Read only the last line"],c:"Predict from the title and pictures",e:"Prediction activates prior knowledge and prepares you for the text."},
+{q:"Which answer is supported by evidence?",a:["An answer that uses clues from the text","A random guess","A personal opinion with no connection","The longest answer"],c:"An answer that uses clues from the text",e:"Good reading answers are supported by the text."}
+];
+
+var order=[],current=0,score=0,answered=0;
+
+function normalize(v){
+  return v.trim().toLowerCase().replace(/[’']/g,"'").replace(/\s+/g," ")
+}
+function showLevel(n){
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  var s=document.getElementById("level"+n);
+  s.classList.add("active");
+  s.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function checkContains(id,parts,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=parts.some(function(p){return value.indexOf(normalize(p))!==-1});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Good!":"❌ Try again and look for clues in the text."
+}
+function toggleSolution(id){
+  var b=document.getElementById(id);
+  b.style.display=b.style.display==="block"?"none":"block"
+}
+function shuffle(a){
+  var c=a.slice();
+  for(var i=c.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=c[i];c[i]=c[j];c[j]=t
+  }
+  return c
+}
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;score=0;answered=0;
+  renderQuestion()
+}
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+  var box=document.getElementById("answers");
+  box.innerHTML="";
+  shuffle(item.a).forEach(function(choice){
+    var b=document.createElement("button");
+    b.className="answer";b.type="button";b.textContent=choice;
+    b.onclick=function(){answerQuestion(choice,item.c,item.e)};
+    box.appendChild(b)
+  });
+  var f=document.getElementById("quizFeedback");
+  f.style.display="none";f.innerHTML="";
+  document.getElementById("nextBtn").style.display="none";
+  updateScore()
+}
+function answerQuestion(choice,correct,exp){
+  document.querySelectorAll(".answer").forEach(function(b){b.disabled=true});
+  answered++;
+  var f=document.getElementById("quizFeedback");
+  f.style.display="block";
+  if(choice===correct){
+    score++;
+    f.style.background="#dcfce7";
+    f.style.color="#166534";
+    f.innerHTML="✅ Correct! "+exp
+  } else {
+    f.style.background="#fee2e2";
+    f.style.color="#991b1b";
+    f.innerHTML="❌ Correct answer: <strong>"+correct+"</strong><br>"+exp
+  }
+  updateScore();
+  document.getElementById("nextBtn").style.display="inline-block"
+}
+function nextQuestion(){
+  current++;
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quiz complete!</h3><p>You got <strong>"+score+" out of "+quizQuestions.length+
+      "</strong> correct.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Play again</button>";
+    return
+  }
+  renderQuestion()
+}
+function updateScore(){
+  document.getElementById("score").textContent="Poäng: "+score+" / "+answered
+}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 All goals checked!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" of "+goals.length+" goals. Great work.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" of "+goals.length+" goals. Keep practising.";
+  else r.textContent="👣 Start with prediction, main idea and finding details."
+}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
