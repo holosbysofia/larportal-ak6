@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teknikprojekt – Teknik åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --indigo:#4f46e5;--indigo2:#4338ca;--blue:#2563eb;--cyan:#0891b2;
+  --green:#16a34a;--orange:#ea580c;--red:#dc2626;--purple:#7c3aed;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#ede9fe;color:#5b21b6}
+.navlinks .home{background:var(--indigo);color:white}
+
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#4f46e5,#7c3aed,#0f172a);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#5b21b6;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card,.concept,.support,.checklist,.project-box{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0;color:#4c1d95}
+.fact{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:14px;padding:15px;font-weight:800;color:#5b21b6;margin:14px 0}
+.tip{background:#eef2ff;border-left:5px solid var(--indigo);padding:14px;border-radius:10px;margin-top:12px}
+.step{background:#f8fafc;border:1px solid var(--border);padding:13px;border-radius:12px;margin-top:10px}
+
+.process{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--purple)
+}
+.process strong{display:block;color:#6d28d9;margin-bottom:6px}
+.concept strong{display:block;color:#6d28d9;margin-bottom:5px}
+
+.challenge{
+  background:linear-gradient(135deg,#ede9fe,#dbeafe);
+  border-radius:22px;padding:24px
+}
+.challenge h3{margin-top:0;color:#4c1d95}
+
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#4f46e5,#4338ca)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:430px}
+.check{margin-top:9px;background:var(--purple);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#ede9fe}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+
+.problem{background:linear-gradient(135deg,#ede9fe,#cffafe);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea,.project-box textarea{
+  width:100%;min-height:120px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:10px
+}
+.reveal{margin-top:10px;border:none;background:#6d28d9;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+
+.project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.project-box h3{margin-top:0;color:#4c1d95}
+.project-box label{font-weight:800;display:block;margin-top:10px}
+.project-box input{
+  width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:9px;margin-top:6px
+}
+
+.rubric{overflow-x:auto;background:white;border-radius:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.rubric table{width:100%;border-collapse:collapse;min-width:760px}
+.rubric th,.rubric td{padding:14px;border-bottom:1px solid var(--border);vertical-align:top;text-align:left}
+.rubric th{background:#312e81;color:white}
+.rubric tr:last-child td{border-bottom:none}
+
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#5b21b6;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels,.project-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🛠️ Teknikprojekt – Teknik åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="teknik.html">🛠️ Teknik</a>
+    <a href="#process">Arbetsprocess</a>
+    <a href="#projekt">Projekt</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#check">Checklista</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Teknikprojekt</h1>
+      <p>
+        Nu använder du det du har lärt dig i teknik. Du ska identifiera ett behov,
+        utveckla idéer, göra skiss och ritning, välja material, bygga en prototyp,
+        testa, förbättra och förklara hur din tekniska lösning fungerar.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">💡📐🔧</div>
+      <h3>Från idé till fungerande lösning</h3>
+      <p>Behov → idé → skiss → bygg → testa → förbättra</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>💡 Behov</div>
+  <div>✏️ Idé</div>
+  <div>📐 Ritning</div>
+  <div>🔧 Prototyp</div>
+  <div>🔁 Förbättring</div>
+</div>
+
+<section>
+  <div class="section-head">
+    <h2>📘 Vad är ett teknikprojekt?</h2>
+    <p>Ett teknikprojekt handlar om att lösa ett problem genom en genomtänkt teknisk arbetsprocess.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Problem eller behov</h3><p>Projektet börjar med något som behöver förbättras, förenklas eller lösas.</p></div>
+    <div class="card"><h3>Teknisk lösning</h3><p>Du utvecklar en konstruktion, mekanism, modell eller ett system som svarar mot behovet.</p></div>
+    <div class="card"><h3>Utvärdering</h3><p>Du testar lösningen och använder resultatet för att förbättra den.</p></div>
+  </div>
+
+  <div class="fact">Det viktigaste är inte att första lösningen blir perfekt. Det viktiga är att du kan visa hur du utvecklar lösningen genom att testa och förbättra.</div>
+</section>
+
+<section id="process">
+  <div class="section-head"><h2>🔄 Den tekniska arbetsprocessen</h2><p>Följ processen från behov till utvärdering.</p></div>
+
+  <div class="grid-4">
+    <div class="process"><strong>1. Identifiera behov</strong><p>Vad är problemet? Vem har behovet? Vilka krav finns?</p></div>
+    <div class="process"><strong>2. Undersök</strong><p>Hur fungerar liknande lösningar? Vilka material och mekanismer kan användas?</p></div>
+    <div class="process"><strong>3. Utveckla idéer</strong><p>Gör flera förslag och jämför dem.</p></div>
+    <div class="process"><strong>4. Skissa</strong><p>Visa form, funktion, viktiga delar och mått.</p></div>
+    <div class="process"><strong>5. Planera</strong><p>Bestäm material, verktyg, arbetsordning och säkerhet.</p></div>
+    <div class="process"><strong>6. Bygg prototyp</strong><p>Tillverka en modell eller lösning som går att testa.</p></div>
+    <div class="process"><strong>7. Testa och förbättra</strong><p>Undersök vad som fungerar och vad som behöver ändras.</p></div>
+    <div class="process"><strong>8. Redovisa</strong><p>Förklara behov, lösning, ändringar, resultat och förbättringar.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🎯 Krav och kriterier</h2><p>Innan du bygger behöver du veta vad lösningen måste klara.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Funktionskrav</h3><p>Vad måste lösningen kunna göra?</p></div>
+    <div class="card"><h3>Begränsningar</h3><p>Hur mycket material, tid, plats eller pengar får användas?</p></div>
+    <div class="card"><h3>Säkerhet</h3><p>Hur ska konstruktionen användas utan onödiga risker?</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>💡 Idéutveckling</h2><p>Den första idén behöver inte vara den bästa.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Gör flera idéer</h3><p>Skissa minst två eller tre olika lösningar.</p></div>
+    <div class="card"><h3>Jämför</h3><p>Vilken idé uppfyller kraven bäst?</p></div>
+    <div class="card"><h3>Kombinera</h3><p>Ibland blir den bästa lösningen en kombination av flera idéer.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📐 Dokumentera med skiss och ritning</h2><p>Dokumentationen ska göra din lösning begriplig för andra.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Form</h3><p>Visa hur konstruktionen ser ut.</p></div>
+    <div class="card"><h3>Mått</h3><p>Markera viktiga längder, bredder och höjder.</p></div>
+    <div class="card"><h3>Material</h3><p>Skriv vilket material varje viktig del ska bestå av.</p></div>
+    <div class="card"><h3>Funktion</h3><p>Använd pilar och text för att visa hur lösningen fungerar.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧱 Material och konstruktion</h2><p>Material ska väljas utifrån funktion och egenskaper.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Hållfasthet</h3><p>Behöver materialet tåla tryck, drag eller böjning?</p></div>
+    <div class="card"><h3>Vikt</h3><p>Behöver konstruktionen vara lätt eller tung för att bli stabil?</p></div>
+    <div class="card"><h3>Bearbetning</h3><p>Går materialet att klippa, skära, vika, borra eller sammanfoga säkert?</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧪 Testa rätt sak</h2><p>Ett bra test ska visa om lösningen klarar de krav som sattes upp.</p></div>
+  <div class="grid-3">
+    <div class="process"><strong>Testfråga</strong><p>Vad vill du ta reda på?</p></div>
+    <div class="process"><strong>Testmetod</strong><p>Hur ska du testa på ett rättvist och säkert sätt?</p></div>
+    <div class="process"><strong>Resultat</strong><p>Vad visade testet och vad behöver förbättras?</p></div>
+  </div>
+
+  <div class="tip">Ändra helst en viktig sak i taget. Då blir det lättare att förstå varför resultatet blev bättre eller sämre.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔁 Förbättra prototypen</h2><p>Teknikutveckling sker genom återkommande tester och förändringar.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Observera</h3><p>Var böjs, fastnar, välter eller fungerar lösningen dåligt?</p></div>
+    <div class="card"><h3>Förklara</h3><p>Varför uppstod problemet?</p></div>
+    <div class="card"><h3>Ändra</h3><p>Förstärk, flytta, byt material eller ändra form.</p></div>
+    <div class="card"><h3>Testa igen</h3><p>Jämför med det tidigare resultatet.</p></div>
+  </div>
+</section>
+
+<section id="projekt">
+  <div class="section-head"><h2>🚀 Välj ett teknikprojekt</h2><p>Alla projekt följer samma arbetsprocess men tränar olika teknikområden.</p></div>
+
+  <div class="grid-3">
+    <div class="challenge">
+      <h3>🌉 Bro-utmaningen</h3>
+      <p>Bygg en bro av begränsad mängd papper eller kartong som klarar så stor belastning som möjligt.</p>
+      <strong>Tränar:</strong> konstruktion, hållfasthet, förstärkning, test.
+    </div>
+    <div class="challenge">
+      <h3>🏗️ Torn-utmaningen</h3>
+      <p>Bygg ett så högt fristående torn som möjligt med bestämda material.</p>
+      <strong>Tränar:</strong> stabilitet, tyngdpunkt, basyta, material.
+    </div>
+    <div class="challenge">
+      <h3>📱 Mobilställ</h3>
+      <p>Konstruera ett stabilt ställ som håller en mobil i en bestämd vinkel.</p>
+      <strong>Tränar:</strong> behov, skiss, mått, material, prototyp.
+    </div>
+    <div class="challenge">
+      <h3>🚗 Rullande fordon</h3>
+      <p>Bygg ett enkelt fordon som rullar så långt och rakt som möjligt.</p>
+      <strong>Tränar:</strong> hjul, axlar, friktion, konstruktion.
+    </div>
+    <div class="challenge">
+      <h3>⚙️ Rörlig leksak</h3>
+      <p>Skapa en enkel leksak där en vev, länk eller annan mekanism ger rörelse.</p>
+      <strong>Tränar:</strong> mekanismer, rörelse, sammanfogning.
+    </div>
+    <div class="challenge">
+      <h3>🌱 Hållbar lösning för skolan</h3>
+      <p>Identifiera ett vardagsproblem på skolan och skapa en modell av en mer hållbar teknisk lösning.</p>
+      <strong>Tränar:</strong> system, hållbarhet, användarbehov, utveckling.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📝 Min projektplan</h2><p>Fyll i innan du börjar bygga.</p></div>
+
+  <div class="project-grid">
+    <div class="project-box">
+      <h3>1. Behov och mål</h3>
+      <label>Vilket problem ska jag lösa?</label>
+      <textarea placeholder="Beskriv problemet..."></textarea>
+      <label>Vem är lösningen till för?</label>
+      <input type="text" placeholder="Användare/målgrupp">
+    </div>
+
+    <div class="project-box">
+      <h3>2. Krav</h3>
+      <label>Vad måste lösningen kunna?</label>
+      <textarea placeholder="Skriv minst tre krav..."></textarea>
+      <label>Vilka begränsningar finns?</label>
+      <input type="text" placeholder="Tid, material, storlek...">
+    </div>
+
+    <div class="project-box">
+      <h3>3. Idé och skiss</h3>
+      <label>Beskriv min valda idé</label>
+      <textarea placeholder="Beskriv form och funktion..."></textarea>
+      <label>Varför valde jag denna idé?</label>
+      <input type="text" placeholder="Motivering">
+    </div>
+
+    <div class="project-box">
+      <h3>4. Material</h3>
+      <label>Vilka material behöver jag?</label>
+      <textarea placeholder="Lista material..."></textarea>
+      <label>Varför passar materialet?</label>
+      <input type="text" placeholder="Egenskaper och funktion">
+    </div>
+
+    <div class="project-box">
+      <h3>5. Test</h3>
+      <label>Vad ska jag testa?</label>
+      <textarea placeholder="Testfråga och metod..."></textarea>
+      <label>Hur vet jag om lösningen lyckas?</label>
+      <input type="text" placeholder="Mätbart kriterium">
+    </div>
+
+    <div class="project-box">
+      <h3>6. Förbättring</h3>
+      <label>Vad visade testet?</label>
+      <textarea placeholder="Resultat..."></textarea>
+      <label>Vad ska jag ändra?</label>
+      <input type="text" placeholder="Förbättring">
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+  <div class="grid-4">
+    <div class="concept"><strong>Behov</strong>Något som en teknisk lösning ska hjälpa till att lösa.</div>
+    <div class="concept"><strong>Krav</strong>Villkor som lösningen måste uppfylla.</div>
+    <div class="concept"><strong>Skiss</strong>Snabb bild som visar en idé.</div>
+    <div class="concept"><strong>Prototyp</strong>En testversion av en teknisk lösning.</div>
+    <div class="concept"><strong>Materialegenskap</strong>En egenskap som påverkar hur materialet kan användas.</div>
+    <div class="concept"><strong>Test</strong>Undersökning av hur väl lösningen fungerar.</div>
+    <div class="concept"><strong>Utvärdering</strong>Bedömning av resultat och funktion.</div>
+    <div class="concept"><strong>Förbättring</strong>En ändring som gör lösningen bättre utifrån testresultat.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Vanliga missuppfattningar</h2></div>
+  <div class="grid-3">
+    <div class="mistake"><h3>Bygga först – tänka sedan</h3><p class="wrong">❌ Det snabbaste är att börja bygga direkt.</p><p class="right">✅ Planering, krav och skiss sparar ofta både tid och material.</p></div>
+    <div class="mistake"><h3>Första idén är bäst</h3><p class="wrong">❌ Jag behöver bara en idé.</p><p class="right">✅ Flera idéer gör det lättare att jämföra lösningar och välja bättre.</p></div>
+    <div class="mistake"><h3>Test är bara för att visa att det fungerar</h3><p class="wrong">❌ Om lösningen misslyckas i testet har projektet misslyckats.</p><p class="right">✅ Testets viktigaste uppgift är att visa vad som kan förbättras.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på arbetsprocessen</h2><p>Klicka på en nivå.</p></div>
+
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Nivå 1</h3><p>Ordning och begrepp.</p><button onclick="showLevel(1)">Öppna nivå 1</button></div>
+    <div class="level level2"><h3>🚀 Nivå 2</h3><p>Krav, material och test.</p><button onclick="showLevel(2)">Öppna nivå 2</button></div>
+    <div class="level level3"><h3>🏆 Nivå 3</h3><p>Utvärdering och förbättring.</p><button onclick="showLevel(3)">Öppna nivå 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Nivå 1</h3>
+    <div class="task"><label>1. Vad kallas en testversion av en teknisk lösning?</label><input id="a1"><br><button class="check" onclick="checkAnswer('a1',['prototyp','en prototyp'],'f1')">Kontrollera</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad bör komma före själva byggandet: planering eller utvärdering?</label><input id="a2"><br><button class="check" onclick="checkAnswer('a2',['planering','planeringen'],'f2')">Kontrollera</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Ska man dokumentera sin tekniska lösning?</label><input id="a3"><br><button class="check" onclick="checkAnswer('a3',['ja'],'f3')">Kontrollera</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Nivå 2</h3>
+    <div class="task"><label>1. Vad kallas villkor som lösningen måste uppfylla?</label><input id="b1"><br><button class="check" onclick="checkAnswer('b1',['krav','kriterier'],'g1')">Kontrollera</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad bör material väljas utifrån?</label><input id="b2"><br><button class="check" onclick="checkAnswer('b2',['funktion','egenskaper','materialegenskaper','funktion och egenskaper'],'g2')">Kontrollera</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Vad kallas undersökningen av hur väl prototypen fungerar?</label><input id="b3"><br><button class="check" onclick="checkAnswer('b3',['test','ett test','testning'],'g3')">Kontrollera</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Nivå 3</h3>
+    <div class="task"><label>1. Vad kallas bedömningen av hur väl lösningen fungerade?</label><input id="c1"><br><button class="check" onclick="checkAnswer('c1',['utvärdering','utvardering'],'h1')">Kontrollera</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad bör man göra efter att testet visat en svag del?</label><input id="c2"><br><button class="check" onclick="checkAnswer('c2',['förbättra','forbattra','förbättra konstruktionen','ändra','andra'],'h2')">Kontrollera</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Är ett misslyckat test användbart i ett teknikprojekt?</label><input id="c3"><br><button class="check" onclick="checkAnswer('c3',['ja'],'h3')">Kontrollera</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Teknikprojekt-quiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Nästa fråga →</button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📊 Bedöm ditt projekt</h2><p>Använd tabellen som stöd när du utvärderar ditt arbete.</p></div>
+
+  <div class="rubric">
+    <table>
+      <thead>
+        <tr>
+          <th>Del</th>
+          <th>På väg</th>
+          <th>God nivå</th>
+          <th>Utvecklad nivå</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Behov och idé</strong></td>
+          <td>Jag beskriver problemet.</td>
+          <td>Jag beskriver behov och motiverar min idé.</td>
+          <td>Jag jämför flera idéer och motiverar mitt val utifrån krav.</td>
+        </tr>
+        <tr>
+          <td><strong>Skiss och ritning</strong></td>
+          <td>Jag visar huvudformen.</td>
+          <td>Jag visar viktiga delar, mått och funktion.</td>
+          <td>Min dokumentation är tydlig nog för att någon annan ska förstå eller bygga lösningen.</td>
+        </tr>
+        <tr>
+          <td><strong>Konstruktion</strong></td>
+          <td>Jag bygger en enkel prototyp.</td>
+          <td>Jag väljer material och lösningar som passar funktionen.</td>
+          <td>Jag motiverar material, konstruktion och tekniska principer.</td>
+        </tr>
+        <tr>
+          <td><strong>Test</strong></td>
+          <td>Jag provar om lösningen fungerar.</td>
+          <td>Jag testar utifrån tydliga krav.</td>
+          <td>Jag planerar ett rättvist test och använder resultatet systematiskt.</td>
+        </tr>
+        <tr>
+          <td><strong>Förbättring</strong></td>
+          <td>Jag gör någon ändring.</td>
+          <td>Jag förbättrar utifrån testresultatet.</td>
+          <td>Jag förklarar varför förändringen bör förbättra funktionen och jämför före och efter.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="section-head"><h2>💬 Resonera som en teknikutvecklare</h2><p>Använd hela arbetsprocessen.</p></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>🏫 Ett problem i klassrummet</h3>
+      <p>Chromebooks och laddkablar ligger ofta i oordning och kablarna går ibland sönder. Föreslå en teknisk lösning och beskriv arbetsprocessen.</p>
+      <textarea placeholder="Beskriv behov, idé, material, test och förbättring..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Visa lösningsförslag</button>
+      <div id="sol1" class="solution">
+        Behovet är säker och ordnad förvaring. En lösning kan vara en laddstation med separata fack och kabelhållare.
+        Gör skiss med mått, välj tåligt material och bygg en prototyp. Testa om datorerna får plats, om kablarna sitter stabilt och om lösningen är enkel att använda.
+        Förbättra till exempel fackens bredd, kabeldragningen eller stabiliteten utifrån testet.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🌱 Hållbar rastplats</h3>
+      <p>Skolgården behöver en plats där elever kan sitta, men lösningen ska vara hållbar och tåla väder. Hur skulle du utveckla den?</p>
+      <textarea placeholder="Skriv ditt resonemang..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Visa exempel</button>
+      <div id="sol2" class="solution">
+        Börja med behov och krav: antal användare, säkerhet, stabilitet, vädertålighet och materialåtgång.
+        Jämför flera konstruktioner och material. Gör ritning och modell. Testa stabilitet, belastning och användbarhet.
+        Utvärdera också underhåll, livslängd och om materialen kan repareras eller återvinnas.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+  <div class="grid-2">
+    <div class="support"><h3>🆘 Jag behöver hjälp</h3><ul><li>Börja med att skriva problemet i en mening.</li><li>Skriv tre krav på lösningen.</li><li>Gör minst två enkla skisser.</li><li>Välj material utifrån egenskaper.</li><li>Bestäm ett tydligt test innan du bygger klart.</li></ul></div>
+    <div class="support"><h3>🚀 Jag vill utmanas</h3><ul><li>Skapa flera prototyper och jämför dem.</li><li>Använd mätbara krav i testet.</li><li>Resonera om användare, säkerhet och hållbarhet.</li><li>Dokumentera varje förändring och förklara varför den gjordes.</li></ul></div>
+  </div>
+</section>
+
+<section id="check">
+  <div class="section-head"><h2>✅ Slutlig kunskapscheck</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> Jag kan identifiera ett tekniskt behov eller problem.</label>
+    <label><input class="goal" type="checkbox"> Jag kan formulera krav på en teknisk lösning.</label>
+    <label><input class="goal" type="checkbox"> Jag kan utveckla och jämföra flera idéer.</label>
+    <label><input class="goal" type="checkbox"> Jag kan göra skiss och ritning med viktiga detaljer.</label>
+    <label><input class="goal" type="checkbox"> Jag kan välja material utifrån egenskaper och funktion.</label>
+    <label><input class="goal" type="checkbox"> Jag kan bygga en prototyp.</label>
+    <label><input class="goal" type="checkbox"> Jag kan planera och genomföra ett relevant test.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förbättra en lösning utifrån testresultat.</label>
+    <label><input class="goal" type="checkbox"> Jag kan dokumentera och förklara min tekniska arbetsprocess.</label>
+    <label><input class="goal" type="checkbox"> Jag kan resonera om säkerhet och hållbarhet.</label>
+    <button class="goal-btn" onclick="checkGoals()">Se min progression</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer><strong>🛠️ Teknikprojekt • Teknik åk 6</strong><br>Behov • Idé • Skiss • Konstruktion • Prototyp • Test • Förbättring • Utvärdering</footer>
+
+<script>
+var quizQuestions=[
+{q:"Vad bör ett teknikprojekt börja med?",a:["Ett behov eller problem","Att köpa material","Att bygga direkt","Att välja färg"],c:"Ett behov eller problem",e:"Tekniska lösningar utvecklas för att möta behov eller lösa problem."},
+{q:"Vad är ett krav?",a:["Något lösningen måste uppfylla","En färg på prototypen","En slumpmässig idé","Enbart ett material"],c:"Något lösningen måste uppfylla",e:"Krav gör det möjligt att bedöma om lösningen fungerar."},
+{q:"Varför gör man flera idéer?",a:["För att kunna jämföra och välja en bättre lösning","För att slippa testa","För att använda mer papper","För att undvika krav"],c:"För att kunna jämföra och välja en bättre lösning",e:"Flera idéer ökar möjligheten att hitta en bra lösning."},
+{q:"Vad är en prototyp?",a:["En testversion av en teknisk lösning","En färdig produkt som aldrig ändras","Enbart ett problem","En användare"],c:"En testversion av en teknisk lösning",e:"Prototypen byggs för att kunna testas och förbättras."},
+{q:"Vad ska ett bra test undersöka?",a:["Om lösningen uppfyller viktiga krav","Vilken färg som är snyggast","Om eleven kan bygga fortast","Om mest material användes"],c:"Om lösningen uppfyller viktiga krav",e:"Testet ska kopplas till det lösningen förväntas klara."},
+{q:"Vad gör man efter ett test?",a:["Utvärderar resultatet och förbättrar lösningen","Kastar alltid prototypen","Ignorerar resultatet","Byter projekt utan anledning"],c:"Utvärderar resultatet och förbättrar lösningen",e:"Testresultat används för utveckling."},
+{q:"Varför dokumenterar man projektet?",a:["För att visa och förklara arbetsprocessen","Bara för att fylla ut tid","För att slippa bygga","För att undvika utvärdering"],c:"För att visa och förklara arbetsprocessen",e:"Skisser, ritningar och anteckningar gör utvecklingen tydlig."},
+{q:"Är ett test som visar att konstruktionen inte fungerar användbart?",a:["Ja","Nej","Bara om allt går sönder","Aldrig i teknik"],c:"Ja",e:"Ett misslyckat test kan ge viktig information om vad som behöver ändras."}
+];
+
+var order=[],current=0,score=0,answered=0;
+function normalize(v){return v.trim().toLowerCase().replace(/\s+/g," ")}
+function showLevel(n){
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  var s=document.getElementById("level"+n);s.classList.add("active");
+  s.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function checkAnswer(id,answers,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=answers.some(function(a){return value===normalize(a)});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Rätt! Bra jobbat.":"❌ Inte riktigt. Försök igen."
+}
+function toggleSolution(id){var b=document.getElementById(id);b.style.display=b.style.display==="block"?"none":"block"}
+function shuffle(a){var c=a.slice();for(var i=c.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=c[i];c[i]=c[j];c[j]=t}return c}
+function startQuiz(){order=shuffle([0,1,2,3,4,5,6,7]);current=0;score=0;answered=0;renderQuestion()}
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+  var box=document.getElementById("answers");box.innerHTML="";
+  shuffle(item.a).forEach(function(choice){
+    var b=document.createElement("button");b.className="answer";b.type="button";b.textContent=choice;
+    b.onclick=function(){answerQuestion(choice,item.c,item.e)};box.appendChild(b)
+  });
+  var f=document.getElementById("quizFeedback");f.style.display="none";f.innerHTML="";
+  document.getElementById("nextBtn").style.display="none";updateScore()
+}
+function answerQuestion(choice,correct,exp){
+  document.querySelectorAll(".answer").forEach(function(b){b.disabled=true});answered++;
+  var f=document.getElementById("quizFeedback");f.style.display="block";
+  if(choice===correct){score++;f.style.background="#dcfce7";f.style.color="#166534";f.innerHTML="✅ Rätt! "+exp}
+  else{f.style.background="#fee2e2";f.style.color="#991b1b";f.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+exp}
+  updateScore();document.getElementById("nextBtn").style.display="inline-block"
+}
+function nextQuestion(){
+  current++;
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML="<h3>🎉 Quizet är klart!</h3><p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return
+  }
+  renderQuestion()
+}
+function updateScore(){document.getElementById("score").textContent="Poäng: "+score+" / "+answered}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 Alla mål markerade – du har arbetat igenom hela teknikprocessen!";
+  else if(checked>=8)r.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  else if(checked>=5)r.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt utveckla projektet.";
+  else r.textContent="👣 Börja med behov, krav, skiss och prototyp."
+}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
