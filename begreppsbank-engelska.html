@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Begreppsbank – Engelska åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --blue:#2563eb;--cyan:#0891b2;--purple:#7c3aed;--green:#16a34a;
+  --orange:#ea580c;--red:#dc2626;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{text-decoration:none}
+button,input{font:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#dbeafe;color:#1d4ed8}
+.navlinks .home{background:var(--blue);color:white}
+
+.hero{
+  background:radial-gradient(circle at 85% 18%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#2563eb,#0891b2,#0f172a);
+  color:white;padding:68px 6% 94px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.6fr 1fr;gap:34px;align-items:center}
+.hero h1{margin:0 0 14px;font-size:clamp(3rem,7vw,5rem);line-height:1}
+.hero p{font-size:1.15rem;max-width:780px}
+.hero-card{background:white;color:#1d4ed8;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.quick{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-38px}
+.quick a{
+  background:white;padding:17px;border-radius:16px;text-align:center;font-weight:900;color:#1f2937;
+  box-shadow:0 10px 28px rgba(0,0,0,.09)
+}
+.quick a:hover{transform:translateY(-2px);color:#1d4ed8}
+
+section{margin-top:58px}
+.section-head h2{margin:0 0 7px;font-size:2rem;color:var(--dark)}
+.section-head p{margin:0;color:var(--muted)}
+
+.searchbox{
+  margin-top:22px;background:white;border-radius:20px;padding:20px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.searchbox input{
+  width:100%;padding:14px 16px;border:2px solid #cbd5e1;border-radius:12px;
+  font-size:1rem;outline:none
+}
+.searchbox input:focus{border-color:var(--blue)}
+.counter{margin-top:10px;color:var(--muted);font-weight:800}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+.term{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--blue)
+}
+.term h3{margin:0 0 4px;color:#1d4ed8;font-size:1.15rem}
+.term .sv{font-weight:800;color:#334155}
+.term p{margin:8px 0 0}
+.term .example{margin-top:10px;background:#f8fafc;padding:10px;border-radius:10px;color:#475569;font-style:italic}
+.term.hide{display:none}
+
+.category{
+  display:inline-block;margin-top:8px;padding:4px 9px;border-radius:999px;
+  background:#e0f2fe;color:#075985;font-size:.82rem;font-weight:900
+}
+
+.bank-actions{
+  display:flex;gap:10px;flex-wrap:wrap;margin-top:18px
+}
+.bank-actions button{
+  border:none;border-radius:10px;padding:10px 14px;font-weight:900;cursor:pointer
+}
+.primary{background:var(--blue);color:white}
+.secondary{background:#e2e8f0;color:#1f2937}
+
+.flash{
+  background:linear-gradient(135deg,#eef2ff,#ecfeff);border-radius:24px;padding:28px;margin-top:24px
+}
+.flash-card{
+  background:white;border-radius:20px;padding:28px;text-align:center;min-height:220px;
+  display:flex;flex-direction:column;justify-content:center;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.flash-word{font-size:2rem;font-weight:900;color:#1d4ed8}
+.flash-sv{font-size:1.2rem;font-weight:800;margin-top:10px}
+.flash-ex{margin-top:10px;color:#64748b}
+.flash-buttons{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px}
+.flash-buttons button{border:none;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+#showBtn{background:#facc15;color:#111827}
+#nextFlash{background:#2563eb;color:white}
+#prevFlash{background:#e2e8f0;color:#1f2937}
+
+.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06);margin-top:22px
+}
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#1d4ed8;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.quick{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.hero-inner,.quick,.grid{grid-template-columns:1fr}.hero-card{display:none}.quick{margin-top:-24px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">📚 Begreppsbank – Engelska åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="engelska.html">🇬🇧 Engelska</a>
+    <a href="#sprak">Språk</a>
+    <a href="#lasa">Läsa</a>
+    <a href="#skriva">Skriva</a>
+    <a href="#tala">Tala</a>
+    <a href="#flashcards">Flashcards</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Begreppsbank</h1>
+      <p>
+        Här finns centrala begrepp för engelska i årskurs 6. Eleverna kan söka,
+        repetera och använda begreppen när de arbetar med läsning, skrivning,
+        muntlig kommunikation, grammatik, ordförråd och språkstrategier.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">📚🧠🇬🇧</div>
+      <h3>Learn the language of learning</h3>
+      <p>Begrepp • förklaring • exempel</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="quick">
+  <a href="#sprak">🔤 Språk & grammatik</a>
+  <a href="#lasa">📖 Läsa & förstå</a>
+  <a href="#skriva">✍️ Skriva</a>
+  <a href="#tala">🗣️ Tala & lyssna</a>
+  <a href="#strategier">🛠️ Strategier</a>
+</div>
+
+<section>
+  <div class="section-head">
+    <h2>🔎 Sök i begreppsbanken</h2>
+    <p>Sök på engelska eller svenska.</p>
+  </div>
+  <div class="searchbox">
+    <input id="search" type="text" placeholder="Sök t.ex. verb, inference, sambandsord, accent..." oninput="filterTerms()">
+    <div id="counter" class="counter"></div>
+    <div class="bank-actions">
+      <button class="primary" onclick="showAll()">Visa alla</button>
+      <button class="secondary" onclick="clearSearch()">Rensa sökning</button>
+    </div>
+  </div>
+</section>
+
+<section id="sprak">
+  <div class="section-head"><h2>🔤 Språk & grammatik</h2><p>Begrepp för att förstå hur engelska är uppbyggd.</p></div>
+  <div class="grid">
+    <div class="term" data-search="noun substantiv person place thing"><h3>Noun</h3><div class="sv">Substantiv</div><p>Ord för personer, platser, saker eller idéer.</p><div class="example">book, teacher, London, happiness</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="verb handling action state tempus"><h3>Verb</h3><div class="sv">Verb</div><p>Ord som uttrycker handling, händelse eller tillstånd.</p><div class="example">run, write, be, know</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="adjective adjektiv beskriver noun"><h3>Adjective</h3><div class="sv">Adjektiv</div><p>Ett ord som beskriver ett substantiv.</p><div class="example">a tall building, a funny story</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="adverb adverb beskriver verb how when where"><h3>Adverb</h3><div class="sv">Adverb</div><p>Ett ord som ofta beskriver hur, när eller var något händer.</p><div class="example">quickly, often, yesterday</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="pronoun pronomen i you he she it we they"><h3>Pronoun</h3><div class="sv">Pronomen</div><p>Ett ord som ersätter ett namn eller substantiv.</p><div class="example">I, you, he, she, it, we, they</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="subject subjekt vem gör handling"><h3>Subject</h3><div class="sv">Subjekt</div><p>Vem eller vad meningen handlar om.</p><div class="example">Sara plays tennis. → Sara</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="object objekt handling påverkas"><h3>Object</h3><div class="sv">Objekt</div><p>Den eller det som påverkas av handlingen.</p><div class="example">Sara reads the book. → the book</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="sentence mening complete sentence"><h3>Sentence</h3><div class="sv">Mening</div><p>En fullständig språklig enhet som uttrycker en tanke.</p><div class="example">We walk to school every day.</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="word order ordföljd subject verb"><h3>Word order</h3><div class="sv">Ordföljd</div><p>Hur orden placeras i en mening.</p><div class="example">Subject + verb + information</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="tense tempus present past future time"><h3>Tense</h3><div class="sv">Tempus</div><p>Verbform som visar när något händer.</p><div class="example">play / is playing / played</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="present simple presens vana rutin"><h3>Present simple</h3><div class="sv">Enkel presens</div><p>Används bland annat för vanor och sådant som brukar vara sant.</p><div class="example">I walk to school every day.</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="present continuous pågående presens now ing"><h3>Present continuous</h3><div class="sv">Pågående presens</div><p>Används ofta för något som händer just nu.</p><div class="example">I am reading now.</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="past simple preteritum dåtid yesterday"><h3>Past simple</h3><div class="sv">Enkel dåtid</div><p>Används för avslutade händelser i det förflutna.</p><div class="example">We visited London last year.</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="regular verb regelbundet verb ed"><h3>Regular verb</h3><div class="sv">Regelbundet verb</div><p>Ett verb som ofta får -ed i past simple.</p><div class="example">play → played</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="irregular verb oregelbundet verb went saw ate"><h3>Irregular verb</h3><div class="sv">Oregelbundet verb</div><p>Ett verb som inte följer den vanliga -ed-regeln.</p><div class="example">go → went, see → saw</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="comparative komparativ jämföra två"><h3>Comparative</h3><div class="sv">Komparativ</div><p>Form som används när två saker jämförs.</p><div class="example">bigger, more interesting</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="superlative superlativ mest flest bäst"><h3>Superlative</h3><div class="sv">Superlativ</div><p>Form som visar högsta graden.</p><div class="example">biggest, most interesting</div><span class="category">Grammar</span></div>
+    <div class="term" data-search="linking word sambandsord and but because so"><h3>Linking word</h3><div class="sv">Sambandsord</div><p>Ord som binder ihop idéer och meningar.</p><div class="example">and, but, because, however</div><span class="category">Grammar</span></div>
+  </div>
+</section>
+
+<section id="lasa">
+  <div class="section-head"><h2>📖 Läsa & förstå</h2><p>Begrepp som används i läsförståelse.</p></div>
+  <div class="grid">
+    <div class="term" data-search="main idea huvudidé huvudsak"><h3>Main idea</h3><div class="sv">Huvudidé</div><p>Det viktigaste som en text handlar om.</p><div class="example">What is the text mainly about?</div><span class="category">Reading</span></div>
+    <div class="term" data-search="detail detalj information"><h3>Detail</h3><div class="sv">Detalj</div><p>En specifik uppgift i texten.</p><div class="example">time, place, name, number</div><span class="category">Reading</span></div>
+    <div class="term" data-search="prediction förutsägelse predict"><h3>Prediction</h3><div class="sv">Förutsägelse</div><p>En gissning om vad som kommer att hända eller vad texten handlar om.</p><div class="example">I think the story will be about...</div><span class="category">Reading</span></div>
+    <div class="term" data-search="inference inferens mellan raderna slutsats"><h3>Inference</h3><div class="sv">Inferens / slutsats</div><p>En slutsats som byggs av ledtrådar i texten och egna kunskaper.</p><div class="example">The text does not say it directly, but we can understand that...</div><span class="category">Reading</span></div>
+    <div class="term" data-search="skimming översiktsläsning huvudidé"><h3>Skimming</h3><div class="sv">Översiktsläsning</div><p>Att läsa snabbt för att få en överblick och hitta huvudidén.</p><span class="category">Reading</span></div>
+    <div class="term" data-search="scanning sökläsning leta specifik information"><h3>Scanning</h3><div class="sv">Sökläsning</div><p>Att leta efter en viss uppgift, till exempel ett datum eller namn.</p><span class="category">Reading</span></div>
+    <div class="term" data-search="context clue sammanhang ledtråd"><h3>Context clue</h3><div class="sv">Ledtråd i sammanhanget</div><p>Information runt ett okänt ord som hjälper dig förstå betydelsen.</p><span class="category">Reading</span></div>
+    <div class="term" data-search="summary sammanfattning egna ord"><h3>Summary</h3><div class="sv">Sammanfattning</div><p>En kort återgivning av textens viktigaste innehåll.</p><span class="category">Reading</span></div>
+    <div class="term" data-search="theme tema berättelse"><h3>Theme</h3><div class="sv">Tema</div><p>Ett större ämne eller idé som återkommer i en text.</p><div class="example">friendship, courage, identity</div><span class="category">Reading</span></div>
+    <div class="term" data-search="message budskap text"><h3>Message</h3><div class="sv">Budskap</div><p>Det texten vill säga eller få läsaren att fundera över.</p><span class="category">Reading</span></div>
+  </div>
+</section>
+
+<section id="skriva">
+  <div class="section-head"><h2>✍️ Skriva</h2><p>Begrepp för planering, struktur och bearbetning av text.</p></div>
+  <div class="grid">
+    <div class="term" data-search="purpose syfte skriva"><h3>Purpose</h3><div class="sv">Syfte</div><p>Varför texten skrivs.</p><div class="example">inform, describe, entertain, explain</div><span class="category">Writing</span></div>
+    <div class="term" data-search="reader audience mottagare läsare"><h3>Reader / audience</h3><div class="sv">Mottagare</div><p>Den eller de som ska läsa eller höra texten.</p><span class="category">Writing</span></div>
+    <div class="term" data-search="paragraph stycke huvudidé"><h3>Paragraph</h3><div class="sv">Stycke</div><p>En grupp meningar som hör ihop och utvecklar samma huvudidé.</p><span class="category">Writing</span></div>
+    <div class="term" data-search="draft utkast first version"><h3>Draft</h3><div class="sv">Utkast</div><p>En första version av en text som kan förbättras.</p><span class="category">Writing</span></div>
+    <div class="term" data-search="edit bearbeta förbättra text"><h3>Edit</h3><div class="sv">Bearbeta</div><p>Att förbättra innehåll, struktur och språk.</p><span class="category">Writing</span></div>
+    <div class="term" data-search="structure struktur text beginning middle end"><h3>Structure</h3><div class="sv">Struktur</div><p>Hur textens delar organiseras.</p><span class="category">Writing</span></div>
+    <div class="term" data-search="description beskrivning detaljer"><h3>Description</h3><div class="sv">Beskrivning</div><p>Språk som hjälper läsaren att föreställa sig person, plats, sak eller situation.</p><span class="category">Writing</span></div>
+    <div class="term" data-search="fact text faktatext information"><h3>Fact text</h3><div class="sv">Faktatext</div><p>En text som informerar och förklarar med fakta.</p><span class="category">Writing</span></div>
+    <div class="term" data-search="story berättelse narrative"><h3>Story / narrative</h3><div class="sv">Berättande text</div><p>En text med händelser, personer och ofta ett problem eller en utveckling.</p><span class="category">Writing</span></div>
+  </div>
+</section>
+
+<section id="tala">
+  <div class="section-head"><h2>🗣️ Tala & lyssna</h2><p>Begrepp för muntlig kommunikation.</p></div>
+  <div class="grid">
+    <div class="term" data-search="interaction interaktion samspel samtal"><h3>Interaction</h3><div class="sv">Interaktion</div><p>Hur människor kommunicerar och reagerar på varandra i ett samtal.</p><span class="category">Speaking</span></div>
+    <div class="term" data-search="response svar reaktion"><h3>Response</h3><div class="sv">Svar / reaktion</div><p>Det du säger eller gör som svar på någon annan.</p><span class="category">Speaking</span></div>
+    <div class="term" data-search="follow-up question följdfråga"><h3>Follow-up question</h3><div class="sv">Följdfråga</div><p>En fråga som bygger vidare på det någon redan har sagt.</p><div class="example">Really? Why? How often?</div><span class="category">Speaking</span></div>
+    <div class="term" data-search="fluency flyt tala"><h3>Fluency</h3><div class="sv">Flyt</div><p>Förmågan att hålla igång talet och uttrycka sig utan alltför många stopp.</p><span class="category">Speaking</span></div>
+    <div class="term" data-search="pronunciation uttal"><h3>Pronunciation</h3><div class="sv">Uttal</div><p>Hur ord och ljud uttalas.</p><span class="category">Speaking</span></div>
+    <div class="term" data-search="word stress betoning stavelse"><h3>Word stress</h3><div class="sv">Ordbetoning</div><p>Vilken stavelse i ett ord som betonas mest.</p><span class="category">Speaking</span></div>
+    <div class="term" data-search="tone tonfall känsla röst"><h3>Tone</h3><div class="sv">Tonfall</div><p>Hur rösten låter och vilka känslor eller attityder den kan signalera.</p><span class="category">Listening</span></div>
+    <div class="term" data-search="key word nyckelord lyssna"><h3>Key word</h3><div class="sv">Nyckelord</div><p>Ett ord som bär viktig information.</p><span class="category">Listening</span></div>
+    <div class="term" data-search="announcement meddelande"><h3>Announcement</h3><div class="sv">Meddelande</div><p>Information som ges till en grupp människor.</p><span class="category">Listening</span></div>
+  </div>
+</section>
+
+<section id="strategier">
+  <div class="section-head"><h2>🛠️ Kommunikations- och språkstrategier</h2><p>Begrepp för att lösa problem när språket inte räcker till direkt.</p></div>
+  <div class="grid">
+    <div class="term" data-search="communication strategy strategi kommunikation"><h3>Communication strategy</h3><div class="sv">Kommunikationsstrategi</div><p>Ett sätt att fortsätta kommunikationen när något är svårt.</p><span class="category">Strategy</span></div>
+    <div class="term" data-search="clarification förtydligande explain"><h3>Clarification</h3><div class="sv">Förtydligande</div><p>Att göra något tydligare eller be någon förklara.</p><span class="category">Strategy</span></div>
+    <div class="term" data-search="repetition upprepning repeat"><h3>Repetition</h3><div class="sv">Upprepning</div><p>Att säga eller höra något igen.</p><span class="category">Strategy</span></div>
+    <div class="term" data-search="paraphrase omskrivning andra ord"><h3>Paraphrase</h3><div class="sv">Omskrivning</div><p>Att uttrycka samma idé med andra ord.</p><span class="category">Strategy</span></div>
+    <div class="term" data-search="repair reparera missförstånd rätta"><h3>Repair</h3><div class="sv">Reparera kommunikationen</div><p>Att rätta till ett missförstånd eller formulera om sig.</p><span class="category">Strategy</span></div>
+    <div class="term" data-search="confirmation bekräftelse kontroll förstått"><h3>Confirmation</h3><div class="sv">Bekräftelse / kontroll</div><p>Att kontrollera att information har förståtts rätt.</p><div class="example">Do you mean…?</div><span class="category">Strategy</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌍 Språk & kultur</h2></div>
+  <div class="grid">
+    <div class="term" data-search="accent accent uttal"><h3>Accent</h3><div class="sv">Accent</div><p>Ett sätt att uttala ett språk.</p><span class="category">Culture</span></div>
+    <div class="term" data-search="dialect dialekt språkvariant"><h3>Dialect</h3><div class="sv">Dialekt</div><p>En språkvariant som kan skilja sig i uttal, ord och grammatik.</p><span class="category">Culture</span></div>
+    <div class="term" data-search="variety variant english language"><h3>Language variety</h3><div class="sv">Språkvariant</div><p>En etablerad variant av ett språk.</p><div class="example">British English, American English</div><span class="category">Culture</span></div>
+    <div class="term" data-search="culture kultur vanor traditioner"><h3>Culture</h3><div class="sv">Kultur</div><p>Idéer, uttryck, vanor och sätt att leva som delas och förändras i grupper och samhällen.</p><span class="category">Culture</span></div>
+    <div class="term" data-search="stereotype stereotyp förenklad bild"><h3>Stereotype</h3><div class="sv">Stereotyp</div><p>En förenklad föreställning om en grupp människor.</p><span class="category">Culture</span></div>
+    <div class="term" data-search="multilingual flerspråkig flera språk"><h3>Multilingual</h3><div class="sv">Flerspråkig</div><p>Att använda eller kunna flera språk.</p><span class="category">Culture</span></div>
+  </div>
+</section>
+
+<section id="flashcards">
+  <div class="section-head"><h2>🧠 Flashcards</h2><p>Repetera ett begrepp i taget.</p></div>
+  <div class="flash">
+    <div class="flash-card">
+      <div id="flashWord" class="flash-word">Main idea</div>
+      <div id="flashSv" class="flash-sv" style="display:none"></div>
+      <div id="flashEx" class="flash-ex" style="display:none"></div>
+    </div>
+    <div class="flash-buttons">
+      <button id="prevFlash" onclick="prevCard()">← Föregående</button>
+      <button id="showBtn" onclick="showAnswer()">Visa svar</button>
+      <button id="nextFlash" onclick="nextCard()">Nästa →</button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Min begreppscheck</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> Jag kan förklara skillnaden mellan noun, verb, adjective och adverb.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara present simple, present continuous och past simple.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara main idea, detail och inference.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara paragraph, structure och linking word.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara follow-up question, response och fluency.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara clarification, paraphrase och repair.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara accent, dialect och language variety.</label>
+    <label><input class="goal" type="checkbox"> Jag kan använda flera av begreppen när jag pratar om mitt eget lärande i engelska.</label>
+    <button class="goal-btn" onclick="checkGoals()">Se min progression</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>📚 Begreppsbank • Engelska åk 6</strong><br>
+  Grammatik • Läsning • Skrivning • Tala • Lyssna • Strategier • Språk & kultur
+</footer>
+
+<script>
+function filterTerms(){
+  var q=document.getElementById("search").value.toLowerCase().trim();
+  var terms=document.querySelectorAll(".term");
+  var visible=0;
+  terms.forEach(function(t){
+    var text=(t.textContent+" "+(t.getAttribute("data-search")||"")).toLowerCase();
+    if(text.indexOf(q)!==-1){t.classList.remove("hide");visible++}
+    else{t.classList.add("hide")}
+  });
+  document.getElementById("counter").textContent=visible+" begrepp visas";
+}
+
+function showAll(){
+  document.querySelectorAll(".term").forEach(function(t){t.classList.remove("hide")});
+  document.getElementById("counter").textContent=document.querySelectorAll(".term").length+" begrepp visas"
+}
+
+function clearSearch(){
+  document.getElementById("search").value="";
+  showAll()
+}
+
+var flashData=[
+["Noun","Substantiv","Person, place, thing or idea."],
+["Verb","Verb","Action, event or state."],
+["Adjective","Adjektiv","Describes a noun."],
+["Adverb","Adverb","Often describes how, when or where something happens."],
+["Main idea","Huvudidé","The most important overall idea in a text."],
+["Detail","Detalj","A specific piece of information."],
+["Inference","Inferens","A conclusion based on clues and prior knowledge."],
+["Summary","Sammanfattning","A short version of the most important content."],
+["Paragraph","Stycke","Sentences grouped around one main idea."],
+["Linking word","Sambandsord","Connects ideas, e.g. and, but, because."],
+["Follow-up question","Följdfråga","A question that continues the conversation."],
+["Fluency","Flyt","Ability to keep speaking without too many stops."],
+["Clarification","Förtydligande","Making meaning clearer."],
+["Paraphrase","Omskrivning","Expressing the same idea with different words."],
+["Repair","Reparera kommunikationen","Correcting a misunderstanding."],
+["Accent","Accent","A way of pronouncing a language."],
+["Dialect","Dialekt","A language variety with particular features."],
+["Stereotype","Stereotyp","An oversimplified idea about a group."]
+];
+var currentFlash=0;
+
+function renderFlash(){
+  var d=flashData[currentFlash];
+  document.getElementById("flashWord").textContent=d[0];
+  document.getElementById("flashSv").textContent=d[1];
+  document.getElementById("flashEx").textContent=d[2];
+  document.getElementById("flashSv").style.display="none";
+  document.getElementById("flashEx").style.display="none";
+  document.getElementById("showBtn").textContent="Visa svar";
+}
+
+function showAnswer(){
+  var sv=document.getElementById("flashSv");
+  var ex=document.getElementById("flashEx");
+  var visible=sv.style.display==="block";
+  sv.style.display=visible?"none":"block";
+  ex.style.display=visible?"none":"block";
+  document.getElementById("showBtn").textContent=visible?"Visa svar":"Dölj svar";
+}
+
+function nextCard(){
+  currentFlash=(currentFlash+1)%flashData.length;
+  renderFlash()
+}
+
+function prevCard(){
+  currentFlash=(currentFlash-1+flashData.length)%flashData.length;
+  renderFlash()
+}
+
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 Alla områden markerade – mycket god begreppskoll!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" av "+goals.length+" mål markerade.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" av "+goals.length+" mål markerade. Fortsätt repetera.";
+  else r.textContent="👣 Börja med grammatikbegreppen och begreppen för läsförståelse."
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  showAll();
+  renderFlash();
+});
+</script>
+
+</body>
+</html>
