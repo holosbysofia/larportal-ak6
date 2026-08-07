@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naturvetenskapliga undersökningar – NO åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --green:#16a34a;--green2:#15803d;--blue:#2563eb;--cyan:#0891b2;
+  --purple:#7c3aed;--orange:#ea580c;--red:#dc2626;--yellow:#eab308;
+  --border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{text-decoration:none}button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#dcfce7;color:#166534}
+.navlinks .home{background:var(--green);color:white}
+
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#16a34a,#0f766e,#0f172a);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,7vw,4.7rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#166534;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0}
+
+.fact{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:14px;padding:15px;font-weight:800;color:#166534;margin:14px 0}
+.tip{background:#eff6ff;border-left:5px solid var(--blue);padding:14px;border-radius:10px;margin-top:12px}
+.step{background:#f8fafc;border:1px solid var(--border);padding:13px;border-radius:12px;margin-top:10px}
+
+.process{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--green)
+}
+.process strong{display:block;color:#15803d;margin-bottom:6px}
+.concept strong{display:block;color:#15803d;margin-bottom:5px}
+
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:380px}
+.check{margin-top:9px;background:var(--green);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#dcfce7}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+
+.problem{background:linear-gradient(135deg,#dcfce7,#dbeafe);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:120px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#166534;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#15803d;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🔬 Naturvetenskapliga undersökningar – NO åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="no.html">🔬 NO</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Undersök</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Naturvetenskapliga undersökningar</h1>
+      <p>
+        Här lär du dig att planera, genomföra, dokumentera och utvärdera
+        naturvetenskapliga undersökningar. Du tränar på frågeställningar,
+        hypoteser, variabler, mätningar, tabeller, slutsatser och felkällor.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">🔬📋📊</div>
+      <h3>Arbeta som en naturvetare</h3>
+      <p>Fråga → Planera → Undersök → Analysera → Dra slutsats</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>❓ Fråga</div>
+  <div>💭 Hypotes</div>
+  <div>🧪 Metod</div>
+  <div>📊 Resultat</div>
+  <div>✅ Slutsats</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head">
+    <h2>📘 Vad är en naturvetenskaplig undersökning?</h2>
+    <p>En systematisk undersökning används för att ta reda på något om naturen eller om fysikaliska och kemiska fenomen.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Observera</h3><p>Se, mäta och dokumentera vad som händer.</p></div>
+    <div class="card"><h3>Jämföra</h3><p>Undersöka skillnader och likheter mellan olika situationer.</p></div>
+    <div class="card"><h3>Testa</h3><p>Ändra en faktor och undersöka hur resultatet påverkas.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧭 Arbetsgång</h2><p>En tydlig arbetsgång gör undersökningen lättare att följa och bedöma.</p></div>
+  <div class="grid-4">
+    <div class="process"><strong>1. Frågeställning</strong><p>Vad vill du ta reda på?</p></div>
+    <div class="process"><strong>2. Hypotes</strong><p>Vad tror du kommer att hända, och varför?</p></div>
+    <div class="process"><strong>3. Metod</strong><p>Hur ska undersökningen genomföras?</p></div>
+    <div class="process"><strong>4. Resultat</strong><p>Vad observerade och mätte du?</p></div>
+    <div class="process"><strong>5. Analys</strong><p>Vilka mönster eller samband ser du?</p></div>
+    <div class="process"><strong>6. Slutsats</strong><p>Vad visar resultatet?</p></div>
+    <div class="process"><strong>7. Felkällor</strong><p>Vad kan ha påverkat resultatet?</p></div>
+    <div class="process"><strong>8. Förbättring</strong><p>Hur kan undersökningen göras mer tillförlitlig?</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>❓ Bra frågeställningar</h2><p>Frågan ska gå att undersöka.</p></div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Bra exempel</h3>
+      <div class="step">Hur påverkar vattnets temperatur hur snabbt socker löser sig?</div>
+      <div class="step">Hur påverkar underlaget hur långt en leksaksbil rullar?</div>
+      <div class="step">Vilken plats på skolgården har flest olika växtarter?</div>
+    </div>
+    <div class="card">
+      <h3>Mindre bra exempel</h3>
+      <div class="step">Är vatten bra?</div>
+      <div class="step">Vilket djur är bäst?</div>
+      <div class="step">Varför är naturen fin?</div>
+      <div class="tip">En naturvetenskaplig fråga behöver gå att observera, mäta eller undersöka systematiskt.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>💭 Hypotes</h2><p>En hypotes är ett genomtänkt antagande om vad du tror kommer att hända.</p></div>
+  <div class="card">
+    <div class="fact">Exempel: Jag tror att socker löser sig snabbare i varmt vatten eftersom partiklarna rör sig snabbare när temperaturen är högre.</div>
+    <p>En hypotes behöver inte vara rätt. Det viktiga är att den går att pröva.</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🎛️ Variabler</h2><p>När du gör ett test behöver du veta vad som ändras och vad som hålls lika.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Oberoende variabel</h3><p>Den faktor du ändrar medvetet.</p><div class="step">Exempel: vattnets temperatur.</div></div>
+    <div class="card"><h3>Beroende variabel</h3><p>Det du mäter eller observerar.</p><div class="step">Exempel: tiden tills sockret löst sig.</div></div>
+    <div class="card"><h3>Kontrollerade variabler</h3><p>Det som ska hållas lika.</p><div class="step">Exempel: mängd vatten, mängd socker och omrörning.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📏 Mäta och dokumentera</h2><p>Resultat blir tydligare när mätningar skrivs med rätt enheter.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Längd</h3><p>mm, cm, m</p></div>
+    <div class="card"><h3>Tid</h3><p>s, min</p></div>
+    <div class="card"><h3>Temperatur</h3><p>°C</p></div>
+    <div class="card"><h3>Volym</h3><p>ml, dl, l</p></div>
+  </div>
+  <div class="tip">Skriv resultaten direkt. Lita inte på minnet efteråt.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📊 Tabeller och diagram</h2><p>Data kan organiseras så att mönster blir lättare att upptäcka.</p></div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Exempel på tabell</h3>
+      <div class="step">10 °C → 95 sekunder</div>
+      <div class="step">25 °C → 61 sekunder</div>
+      <div class="step">50 °C → 34 sekunder</div>
+    </div>
+    <div class="card">
+      <h3>Vad visar resultatet?</h3>
+      <p>I detta exempel minskar tiden när vattnets temperatur ökar.</p>
+      <div class="fact">Slutsatsen ska bygga på resultatet – inte på vad du önskade skulle hända.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Felkällor och tillförlitlighet</h2><p>Ingen undersökning är perfekt. Därför behöver resultatet granskas.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Mätfel</h3><p>Mätinstrument kan avläsas fel eller ha begränsad noggrannhet.</p></div>
+    <div class="card"><h3>Olika genomförande</h3><p>Om försöken görs på olika sätt blir jämförelsen sämre.</p></div>
+    <div class="card"><h3>För få försök</h3><p>Flera upprepningar kan göra resultatet mer tillförlitligt.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🛡️ Säkerhet och etik</h2><p>En undersökning ska vara säker för människor, djur och miljö.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>🥽 Skydd</h3><p>Använd rätt skyddsutrustning när det behövs.</p></div>
+    <div class="card"><h3>🌱 Naturen</h3><p>Undersök utan att skada växter, djur eller livsmiljöer.</p></div>
+    <div class="card"><h3>📋 Instruktioner</h3><p>Följ lärarens instruktioner och använd material på rätt sätt.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+  <div class="grid-4">
+    <div class="concept"><strong>Frågeställning</strong>Det du vill ta reda på.</div>
+    <div class="concept"><strong>Hypotes</strong>Ett prövbart antagande om resultatet.</div>
+    <div class="concept"><strong>Metod</strong>Beskrivning av hur undersökningen genomförs.</div>
+    <div class="concept"><strong>Variabel</strong>En faktor som kan förändras.</div>
+    <div class="concept"><strong>Resultat</strong>Det du observerar eller mäter.</div>
+    <div class="concept"><strong>Slutsats</strong>Vad resultatet visar i relation till frågan.</div>
+    <div class="concept"><strong>Felkälla</strong>Något som kan ha påverkat resultatet.</div>
+    <div class="concept"><strong>Tillförlitlighet</strong>Hur mycket man kan lita på resultatet.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Vanliga missuppfattningar</h2></div>
+  <div class="grid-3">
+    <div class="mistake"><h3>Hypotesen måste vara rätt</h3><p class="wrong">❌ En felaktig hypotes betyder att undersökningen misslyckades.</p><p class="right">✅ En hypotes får motbevisas. Det viktiga är vad resultatet visar.</p></div>
+    <div class="mistake"><h3>Slutsats = gissning</h3><p class="wrong">❌ Slutsatsen är vad jag tycker.</p><p class="right">✅ Slutsatsen ska stödjas av undersökningens resultat.</p></div>
+    <div class="mistake"><h3>Ett försök räcker alltid</h3><p class="wrong">❌ Ett enda mätvärde är alltid säkert.</p><p class="right">✅ Upprepningar kan öka tillförlitligheten.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Nivå 1</h3><p>Begrepp och arbetsgång.</p><button onclick="showLevel(1)">Öppna nivå 1</button></div>
+    <div class="level level2"><h3>🚀 Nivå 2</h3><p>Variabler och mätning.</p><button onclick="showLevel(2)">Öppna nivå 2</button></div>
+    <div class="level level3"><h3>🏆 Nivå 3</h3><p>Slutsats, felkällor och förbättring.</p><button onclick="showLevel(3)">Öppna nivå 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Nivå 1</h3>
+    <div class="task"><label>1. Vad kallas ett prövbart antagande om vad som kommer att hända?</label><input id="a1"><br><button class="check" onclick="checkAnswer('a1',['hypotes','en hypotes'],'f1')">Kontrollera</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kallas beskrivningen av hur undersökningen ska göras?</label><input id="a2"><br><button class="check" onclick="checkAnswer('a2',['metod','metoden'],'f2')">Kontrollera</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Vad kallas det du observerar eller mäter?</label><input id="a3"><br><button class="check" onclick="checkAnswer('a3',['resultat','resultatet'],'f3')">Kontrollera</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Nivå 2</h3>
+    <div class="task"><label>1. Vad kallas faktorn som du medvetet ändrar?</label><input id="b1"><br><button class="check" onclick="checkAnswer('b1',['oberoende variabel','den oberoende variabeln'],'g1')">Kontrollera</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kallas det du mäter som påverkas av förändringen?</label><input id="b2"><br><button class="check" onclick="checkAnswer('b2',['beroende variabel','den beroende variabeln'],'g2')">Kontrollera</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Vilken enhet passar för temperatur?</label><input id="b3"><br><button class="check" onclick="checkAnswer('b3',['°c','c','grader celsius','celsius'],'g3')">Kontrollera</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Nivå 3</h3>
+    <div class="task"><label>1. Vad kallas något som kan ha påverkat resultatet på ett oönskat sätt?</label><input id="c1"><br><button class="check" onclick="checkAnswer('c1',['felkälla','felkalla','en felkälla'],'h1')">Kontrollera</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kan man göra för att öka tillförlitligheten?</label><input id="c2"><br><button class="check" onclick="checkAnswer('c2',['upprepa försöket','upprepa forsoket','göra flera försök','gora flera forsok','flera mätningar','flera matningar'],'h2')">Kontrollera</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Ska slutsatsen bygga på resultatet?</label><input id="c3"><br><button class="check" onclick="checkAnswer('c3',['ja'],'h3')">Kontrollera</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Undersökningsquiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Nästa fråga →</button>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="section-head"><h2>🔬 Planera egna undersökningar</h2><p>Träna på hela den naturvetenskapliga arbetsgången.</p></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>🍬 Hur snabbt löser sig socker?</h3>
+      <p>Du ska undersöka hur vattnets temperatur påverkar hur snabbt socker löser sig. Skriv frågeställning, hypotes, variabler, metod och vilka resultat du behöver samla in.</p>
+      <textarea placeholder="Planera undersökningen..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Visa exempel</button>
+      <div id="sol1" class="solution">
+        Fråga: Hur påverkar vattnets temperatur tiden det tar för samma mängd socker att lösas?
+        Hypotes: Sockret löser sig snabbare i varmt vatten.
+        Oberoende variabel: temperatur.
+        Beroende variabel: tid tills sockret löst sig.
+        Kontrolleras: mängd vatten, mängd socker, glasens storlek och hur mycket man rör om.
+        Gör flera upprepningar vid varje temperatur och jämför resultaten.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🌱 Skolgårdens växter</h3>
+      <p>Du vill jämföra växtlivet på en solig och en skuggig plats. Hur kan du göra undersökningen rättvis och samtidigt undvika att skada naturen?</p>
+      <textarea placeholder="Skriv din plan..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Visa exempel</button>
+      <div id="sol2" class="solution">
+        Välj lika stora undersökningsytor på båda platserna. Räkna antalet arter eller individer på samma sätt och under ungefär samma tid. Upprepa på flera små ytor. Dokumentera utan att plocka eller skada växterna.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+  <div class="grid-2">
+    <div class="support"><h3>🆘 Jag behöver hjälp</h3><ul><li>Börja med en tydlig fråga.</li><li>Bestäm bara en sak som ska ändras.</li><li>Skriv vad som ska mätas.</li><li>Håll övriga faktorer så lika som möjligt.</li><li>Dokumentera allt i en tabell.</li></ul></div>
+    <div class="support"><h3>🚀 Jag vill utmanas</h3><ul><li>Planera en undersökning med minst tre mätserier.</li><li>Beräkna medelvärde av upprepade mätningar.</li><li>Diskutera minst tre möjliga felkällor.</li><li>Förklara hur metoden kan förbättras för högre tillförlitlighet.</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Kunskapscheck</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> Jag kan formulera en undersökningsbar frågeställning.</label>
+    <label><input class="goal" type="checkbox"> Jag kan skriva en prövbar hypotes.</label>
+    <label><input class="goal" type="checkbox"> Jag kan beskriva en tydlig metod.</label>
+    <label><input class="goal" type="checkbox"> Jag kan skilja mellan oberoende och beroende variabel.</label>
+    <label><input class="goal" type="checkbox"> Jag kan använda rätt måttenheter.</label>
+    <label><input class="goal" type="checkbox"> Jag kan dokumentera resultat i tabell eller diagram.</label>
+    <label><input class="goal" type="checkbox"> Jag kan dra en slutsats som bygger på resultatet.</label>
+    <label><input class="goal" type="checkbox"> Jag kan diskutera felkällor och förbättringar.</label>
+
+    <button class="goal-btn" onclick="checkGoals()">Se min progression</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer><strong>🔬 Naturvetenskapliga undersökningar • NO åk 6</strong><br>Fråga • Hypotes • Metod • Resultat • Slutsats • Felkällor</footer>
+
+<script>
+var quizQuestions=[
+{q:"Vad är en hypotes?",a:["Ett prövbart antagande","Ett färdigt facit","En mätsticka","En felkälla"],c:"Ett prövbart antagande",e:"Hypotesen beskriver vad du tror kommer att hända och ska kunna prövas."},
+{q:"Vad beskriver metoden?",a:["Hur undersökningen genomförs","Vad du tycker","Endast slutsatsen","Bara rubriken"],c:"Hur undersökningen genomförs",e:"Metoden ska vara så tydlig att någon annan kan förstå hur undersökningen gjordes."},
+{q:"Vad är den oberoende variabeln?",a:["Faktorn du ändrar","Det du alltid mäter","Slutsatsen","En felkälla"],c:"Faktorn du ändrar",e:"Den oberoende variabeln ändras medvetet."},
+{q:"Vad är den beroende variabeln?",a:["Det du mäter som påverkas","Det du ändrar medvetet","Rubriken","Säkerhetsregeln"],c:"Det du mäter som påverkas",e:"Den beroende variabeln är det resultat som mäts eller observeras."},
+{q:"Vad är en felkälla?",a:["Något som kan ha påverkat resultatet","Ett rätt svar","En tabell","Ett mått"],c:"Något som kan ha påverkat resultatet",e:"Felkällor kan minska undersökningens tillförlitlighet."},
+{q:"Vad kan öka tillförlitligheten?",a:["Upprepade mätningar","Att gissa resultatet","Att ändra flera saker samtidigt","Att hoppa över dokumentationen"],c:"Upprepade mätningar",e:"Flera upprepningar gör det lättare att upptäcka avvikande resultat."},
+{q:"Vad ska slutsatsen bygga på?",a:["Resultatet","Vad kompisen tycker","Hypotesen oavsett resultat","Vad man hoppades skulle hända"],c:"Resultatet",e:"Slutsatsen ska kopplas till data och frågeställning."},
+{q:"Vilken är en bra naturvetenskaplig fråga?",a:["Hur påverkar vattnets temperatur hur snabbt socker löser sig?","Vilken färg är finast?","Vilket djur är bäst?","Är naturen rolig?"],c:"Hur påverkar vattnets temperatur hur snabbt socker löser sig?",e:"Den frågan går att pröva systematiskt."}
+];
+
+var order=[],current=0,score=0,answered=0;
+function normalize(v){return v.trim().toLowerCase().replace(/\s+/g," ")}
+function showLevel(n){document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));var s=document.getElementById("level"+n);s.classList.add("active");s.scrollIntoView({behavior:"smooth",block:"start"})}
+function checkAnswer(id,answers,fid){var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);var ok=answers.some(a=>value===normalize(a));f.className=ok?"feedback good":"feedback bad";f.textContent=ok?"✅ Rätt! Bra jobbat.":"❌ Inte riktigt. Försök igen."}
+function toggleSolution(id){var b=document.getElementById(id);b.style.display=b.style.display==="block"?"none":"block"}
+function shuffle(a){var c=a.slice();for(var i=c.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));[c[i],c[j]]=[c[j],c[i]]}return c}
+function startQuiz(){order=shuffle([0,1,2,3,4,5,6,7]);current=0;score=0;answered=0;renderQuestion()}
+function renderQuestion(){var item=quizQuestions[order[current]];document.getElementById("question").textContent=(current+1)+". "+item.q;var box=document.getElementById("answers");box.innerHTML="";shuffle(item.a).forEach(choice=>{var b=document.createElement("button");b.className="answer";b.textContent=choice;b.onclick=()=>answerQuestion(choice,item.c,item.e);box.appendChild(b)});var f=document.getElementById("quizFeedback");f.style.display="none";f.innerHTML="";document.getElementById("nextBtn").style.display="none";updateScore()}
+function answerQuestion(choice,correct,exp){document.querySelectorAll(".answer").forEach(b=>b.disabled=true);answered++;var f=document.getElementById("quizFeedback");f.style.display="block";if(choice===correct){score++;f.style.background="#dcfce7";f.style.color="#166534";f.innerHTML="✅ Rätt! "+exp}else{f.style.background="#fee2e2";f.style.color="#991b1b";f.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+exp}updateScore();document.getElementById("nextBtn").style.display="inline-block"}
+function nextQuestion(){current++;if(current>=quizQuestions.length){document.getElementById("quizCard").innerHTML="<h3>🎉 Quizet är klart!</h3><p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";return}renderQuestion()}
+function updateScore(){document.getElementById("score").textContent="Poäng: "+score+" / "+answered}
+function checkGoals(){var goals=document.querySelectorAll(".goal"),checked=0;goals.forEach(g=>{if(g.checked)checked++});var r=document.getElementById("goalResult");if(checked===goals.length)r.textContent="🏆 Alla mål markerade!";else if(checked>=6)r.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";else if(checked>=3)r.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";else r.textContent="👣 Börja med frågeställning, hypotes, metod och resultat."}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
