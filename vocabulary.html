@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary – Engelska åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --blue:#2563eb;--blue2:#1d4ed8;--cyan:#0891b2;--purple:#7c3aed;
+  --green:#16a34a;--orange:#ea580c;--red:#dc2626;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#dbeafe;color:#1d4ed8}
+.navlinks .home{background:var(--blue);color:white}
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#2563eb,#0891b2,#0f172a);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#1d4ed8;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0;color:#1e40af}
+.fact{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:15px;font-weight:800;color:#1e3a8a;margin:14px 0}
+.tip{background:#ecfeff;border-left:5px solid var(--cyan);padding:14px;border-radius:10px;margin-top:12px}
+.wordbox{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--blue)
+}
+.wordbox strong{display:block;color:#1d4ed8;margin-bottom:6px}
+.concept strong{display:block;color:#1d4ed8;margin-bottom:5px}
+.example{
+  background:white;border-radius:22px;padding:26px;box-shadow:0 6px 22px rgba(0,0,0,.06);
+  border:1px solid #f1f5f9
+}
+.example h3{margin-top:0;color:#0f4c81}
+.word{background:#fef3c7;padding:2px 6px;border-radius:6px;font-weight:900}
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input,.task textarea{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:560px}
+.task textarea{min-height:110px}
+.check{margin-top:9px;background:var(--blue);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#dbeafe}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.problem{background:linear-gradient(135deg,#eff6ff,#ecfeff);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:130px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#1d4ed8;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#1d4ed8;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🧠 Vocabulary – Engelska åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="engelska.html">🇬🇧 Engelska</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#anvand">Använd</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Vocabulary</h1>
+      <p>
+        Ett större engelskt ordförråd gör det lättare att läsa, lyssna, tala och skriva.
+        Här tränar du på vardagsord, ämnesord, synonymer, motsatsord, ordens delar och strategier för nya ord.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">🧠🔤🌍</div>
+      <h3>Build your vocabulary</h3>
+      <p>Learn • understand • remember • use</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>🏠 Everyday words</div>
+  <div>🔄 Synonyms</div>
+  <div>↔️ Opposites</div>
+  <div>🧩 Word parts</div>
+  <div>📚 Topic words</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head">
+    <h2>📘 What does it mean to know a word?</h2>
+    <p>Du kan ett ord bättre när du både känner igen det, förstår det och kan använda det själv.</p>
+  </div>
+  <div class="grid-3">
+    <div class="card"><h3>Recognise</h3><p>Du känner igen ordet när du ser eller hör det.</p></div>
+    <div class="card"><h3>Understand</h3><p>Du vet ungefär eller exakt vad ordet betyder.</p></div>
+    <div class="card"><h3>Use</h3><p>Du kan använda ordet i en egen mening eller ett samtal.</p></div>
+  </div>
+  <div class="fact">Det är bättre att kunna använda 20 nya ord aktivt än att bara ha sett 100 ord en gång.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🏠 Everyday vocabulary</h2><p>Vanliga teman du behöver i vardaglig engelska.</p></div>
+  <div class="grid-4">
+    <div class="wordbox"><strong>Family</strong><p>mother, father, sister, brother, cousin, grandparents</p></div>
+    <div class="wordbox"><strong>School</strong><p>lesson, subject, homework, break, classroom, teacher</p></div>
+    <div class="wordbox"><strong>Food</strong><p>breakfast, lunch, dinner, vegetables, fruit, drink</p></div>
+    <div class="wordbox"><strong>Free time</strong><p>music, gaming, sports, reading, friends, hobbies</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔄 Synonyms</h2><p>Synonymer är ord med liknande betydelse.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>happy</h3><p>glad</p><p>glad, pleased</p></div>
+    <div class="card"><h3>big</h3><p>stor</p><p>large, huge</p></div>
+    <div class="card"><h3>small</h3><p>liten</p><p>little, tiny</p></div>
+    <div class="card"><h3>smart</h3><p>smart</p><p>clever, bright</p></div>
+  </div>
+  <div class="tip">Synonymer passar inte alltid i exakt samma situation. <strong>Big</strong>, <strong>large</strong> och <strong>huge</strong> uttrycker till exempel olika grader av storlek.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>↔️ Opposites</h2><p>Motsatsord hjälper dig att förstå och minnas ord.</p></div>
+  <div class="grid-4">
+    <div class="wordbox"><strong>hot ↔ cold</strong><p>varm ↔ kall</p></div>
+    <div class="wordbox"><strong>early ↔ late</strong><p>tidig ↔ sen</p></div>
+    <div class="wordbox"><strong>easy ↔ difficult</strong><p>lätt ↔ svår</p></div>
+    <div class="wordbox"><strong>cheap ↔ expensive</strong><p>billig ↔ dyr</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧩 Word families</h2><p>Ord som hör ihop kan hjälpa dig att bygga ordförråd snabbare.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>help</h3><p>help, helpful, helpless</p></div>
+    <div class="card"><h3>care</h3><p>care, careful, careless, carefully</p></div>
+    <div class="card"><h3>use</h3><p>use, useful, useless, user</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧱 Prefixes and suffixes</h2><p>Orddelar kan ge ledtrådar till betydelsen.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>un-</h3><p>unhappy, unfair, unusual</p><div class="tip">un- betyder ofta “inte”.</div></div>
+    <div class="card"><h3>-ful</h3><p>helpful, careful, useful</p><div class="tip">-ful betyder ofta “full av / med egenskapen”.</div></div>
+    <div class="card"><h3>-less</h3><p>careless, useless, hopeless</p><div class="tip">-less betyder ofta “utan”.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔎 Guess from context</h2><p>Sammanhanget kan hjälpa dig förstå ett okänt ord.</p></div>
+  <div class="example">
+    <h3>Example</h3>
+    <p>
+      “The room was <span class="word">freezing</span>. Everyone kept their coats on and rubbed their hands to stay warm.”
+    </p>
+    <div class="tip"><strong>Clue:</strong> De behåller jackorna på och försöker hålla sig varma. Då betyder <strong>freezing</strong> ungefär “väldigt kallt”.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Learn words in chunks</h2><p>Lär dig fraser, inte bara ensamma ord.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>make a mistake</h3><p>göra ett misstag</p></div>
+    <div class="card"><h3>have breakfast</h3><p>äta frukost</p></div>
+    <div class="card"><h3>take a break</h3><p>ta en paus</p></div>
+    <div class="card"><h3>do homework</h3><p>göra läxor</p></div>
+    <div class="card"><h3>catch a bus</h3><p>ta/hinna med bussen</p></div>
+    <div class="card"><h3>spend time</h3><p>tillbringa tid</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📚 Topic vocabulary</h2><p>Ord inom samma tema är lättare att lära tillsammans.</p></div>
+  <div class="grid-4">
+    <div class="wordbox"><strong>Weather</strong><p>sunny, cloudy, windy, rainy, stormy, temperature</p></div>
+    <div class="wordbox"><strong>Travel</strong><p>ticket, station, airport, luggage, journey, platform</p></div>
+    <div class="wordbox"><strong>Health</strong><p>healthy, exercise, sleep, headache, medicine, rest</p></div>
+    <div class="wordbox"><strong>Environment</strong><p>recycle, pollution, climate, energy, waste, nature</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Strategies for learning vocabulary</h2></div>
+  <div class="grid-4">
+    <div class="wordbox"><strong>1. Say it</strong><p>Säg ordet högt.</p></div>
+    <div class="wordbox"><strong>2. See it</strong><p>Koppla ordet till en bild eller situation.</p></div>
+    <div class="wordbox"><strong>3. Use it</strong><p>Skriv en egen mening.</p></div>
+    <div class="wordbox"><strong>4. Repeat it</strong><p>Återkom till ordet flera gånger.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+  <div class="grid-4">
+    <div class="concept"><strong>Vocabulary</strong>Ordförråd.</div>
+    <div class="concept"><strong>Synonym</strong>Ord med liknande betydelse.</div>
+    <div class="concept"><strong>Opposite</strong>Motsatsord.</div>
+    <div class="concept"><strong>Context</strong>Sammanhanget runt ett ord.</div>
+    <div class="concept"><strong>Word family</strong>Ord som bygger på samma grundord.</div>
+    <div class="concept"><strong>Prefix</strong>En del före grundordet, till exempel un-.</div>
+    <div class="concept"><strong>Suffix</strong>En del efter grundordet, till exempel -ful.</div>
+    <div class="concept"><strong>Chunk</strong>En fras eller ordgrupp som ofta används tillsammans.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Common mistakes</h2></div>
+  <div class="grid-3">
+    <div class="mistake"><h3>Translate every word</h3><p class="wrong">❌ Jag måste översätta varje ord direkt.</p><p class="right">✅ Försök först använda sammanhang, bilder och ordets delar.</p></div>
+    <div class="mistake"><h3>Learn words alone</h3><p class="wrong">❌ Jag lär bara ordet “break”.</p><p class="right">✅ Lär gärna frasen “take a break”.</p></div>
+    <div class="mistake"><h3>One repetition is enough</h3><p class="wrong">❌ Jag behöver bara läsa ordet en gång.</p><p class="right">✅ Ord behöver repeteras och användas flera gånger.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Level 1</h3><p>Everyday words and opposites.</p><button onclick="showLevel(1)">Open level 1</button></div>
+    <div class="level level2"><h3>🚀 Level 2</h3><p>Context and word families.</p><button onclick="showLevel(2)">Open level 2</button></div>
+    <div class="level level3"><h3>🏆 Level 3</h3><p>Use richer vocabulary.</p><button onclick="showLevel(3)">Open level 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Level 1</h3>
+    <div class="task"><label>1. What is the opposite of “hot”?</label><input id="a1"><br><button class="check" onclick="checkAnswer('a1',['cold'],'f1')">Check</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. What is the opposite of “early”?</label><input id="a2"><br><button class="check" onclick="checkAnswer('a2',['late'],'f2')">Check</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Write an English word for “lärare”.</label><input id="a3"><br><button class="check" onclick="checkAnswer('a3',['teacher'],'f3')">Check</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Level 2</h3>
+    <p><strong>Text:</strong> “Maya was exhausted after the long race. She sat down immediately and could hardly speak.”</p>
+    <div class="task"><label>1. What does “exhausted” probably mean?</label><input id="b1"><br><button class="check" onclick="checkContains('b1',['very tired','tired','extremely tired'],'g1')">Check</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Which word belongs to the same word family as “care”: careful or table?</label><input id="b2"><br><button class="check" onclick="checkAnswer('b2',['careful'],'g2')">Check</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. What does the prefix “un-” often mean?</label><input id="b3"><br><button class="check" onclick="checkContains('b3',['not','inte'],'g3')">Check</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Level 3</h3>
+    <div class="task"><label>1. Replace “very big” with one stronger word.</label><input id="c1"><br><button class="check" onclick="checkContains('c1',['huge','enormous','massive'],'h1')">Check</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Write a sentence with the phrase “take a break”.</label><textarea id="c2"></textarea><br><button class="check" onclick="checkContains('c2',['take a break'],'h2')">Check</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Write one synonym for “happy”.</label><input id="c3"><br><button class="check" onclick="checkContains('c3',['glad','pleased','cheerful'],'h3')">Check</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Vocabulary Quiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Next question →</button>
+    </div>
+  </div>
+</section>
+
+<section id="anvand">
+  <div class="section-head"><h2>💬 Use your vocabulary</h2><p>Ord fastnar bättre när du använder dem.</p></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>📝 Task 1: My word bank</h3>
+      <p>Välj ett tema, till exempel school, food, hobbies eller travel. Skriv minst 10 engelska ord och använd minst 5 av dem i egna meningar.</p>
+      <textarea placeholder="Write your words and sentences..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Show example</button>
+      <div id="sol1" class="solution">
+        Theme: Travel<br>
+        ticket, station, train, platform, luggage, journey, map, hotel, airport, passport.<br><br>
+        Example sentence: We waited for the train on platform four.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🔧 Task 2: Make the language richer</h3>
+      <p>Improve the sentence: “The dog was very big and very nice.”</p>
+      <textarea placeholder="Write a richer sentence..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Show example</button>
+      <div id="sol2" class="solution">
+        The dog was enormous but gentle and friendly.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+
+  <div class="grid-2">
+    <div class="support">
+      <h3>🆘 I need support</h3>
+      <ul>
+        <li>Learn 5 words at a time.</li>
+        <li>Use pictures and examples.</li>
+        <li>Say the words aloud.</li>
+        <li>Write one short sentence for each word.</li>
+        <li>Repeat the words on several days.</li>
+      </ul>
+    </div>
+
+    <div class="support">
+      <h3>🚀 I want a challenge</h3>
+      <ul>
+        <li>Learn synonyms instead of only one basic word.</li>
+        <li>Use prefixes and suffixes to guess meaning.</li>
+        <li>Create word families.</li>
+        <li>Use 8–10 new words in one connected text.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Knowledge check</h2></div>
+
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> I can use common everyday vocabulary.</label>
+    <label><input class="goal" type="checkbox"> I can give examples of synonyms.</label>
+    <label><input class="goal" type="checkbox"> I can give examples of opposites.</label>
+    <label><input class="goal" type="checkbox"> I can use context to guess a word's meaning.</label>
+    <label><input class="goal" type="checkbox"> I recognise some common prefixes and suffixes.</label>
+    <label><input class="goal" type="checkbox"> I can learn words in phrases or chunks.</label>
+    <label><input class="goal" type="checkbox"> I can organise words by topic.</label>
+    <label><input class="goal" type="checkbox"> I can use new words in my own sentences.</label>
+    <button class="goal-btn" onclick="checkGoals()">See my progress</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>🧠 Vocabulary • Engelska åk 6</strong><br>
+  Everyday words • Synonyms • Opposites • Word families • Context • Topic vocabulary
+</footer>
+
+<script>
+var quizQuestions=[
+{q:"What is the opposite of 'cheap'?",a:["expensive","small","easy","early"],c:"expensive",e:"Cheap and expensive are opposites."},
+{q:"Which word is a synonym for 'happy'?",a:["glad","angry","cold","late"],c:"glad",e:"Glad has a similar meaning to happy."},
+{q:"What does 'context' mean?",a:["The words and situation around a word","A spelling rule","A verb tense","A question word"],c:"The words and situation around a word",e:"Context gives clues to meaning."},
+{q:"Which word belongs to the word family of 'help'?",a:["helpful","table","winter","yellow"],c:"helpful",e:"Helpful is built from the base word help."},
+{q:"What does the prefix 'un-' often mean?",a:["not","very","again","before"],c:"not",e:"Un- often gives the opposite meaning, as in unhappy."},
+{q:"Which is a useful word chunk?",a:["take a break","break take","a take break","break a taking"],c:"take a break",e:"These words commonly occur together."},
+{q:"Which word is strongest?",a:["huge","big","small","tiny"],c:"huge",e:"Huge means very big."},
+{q:"What is a good way to remember a new word?",a:["Use it in your own sentence","Read it once and forget it","Never say it aloud","Only translate it"],c:"Use it in your own sentence",e:"Active use helps vocabulary stick."}
+];
+
+var order=[],current=0,score=0,answered=0;
+
+function normalize(v){
+  return v.trim().toLowerCase().replace(/[’']/g,"'").replace(/\s+/g," ")
+}
+function showLevel(n){
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  var s=document.getElementById("level"+n);
+  s.classList.add("active");
+  s.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function checkAnswer(id,answers,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=answers.some(function(a){return value===normalize(a)});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Correct!":"❌ Try again."
+}
+function checkContains(id,parts,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=parts.some(function(p){return value.indexOf(normalize(p))!==-1});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Good!":"❌ Try again."
+}
+function toggleSolution(id){
+  var b=document.getElementById(id);
+  b.style.display=b.style.display==="block"?"none":"block"
+}
+function shuffle(a){
+  var c=a.slice();
+  for(var i=c.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=c[i];c[i]=c[j];c[j]=t
+  }
+  return c
+}
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;score=0;answered=0;
+  renderQuestion()
+}
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+  var box=document.getElementById("answers");
+  box.innerHTML="";
+  shuffle(item.a).forEach(function(choice){
+    var b=document.createElement("button");
+    b.className="answer";b.type="button";b.textContent=choice;
+    b.onclick=function(){answerQuestion(choice,item.c,item.e)};
+    box.appendChild(b)
+  });
+  var f=document.getElementById("quizFeedback");
+  f.style.display="none";f.innerHTML="";
+  document.getElementById("nextBtn").style.display="none";
+  updateScore()
+}
+function answerQuestion(choice,correct,exp){
+  document.querySelectorAll(".answer").forEach(function(b){b.disabled=true});
+  answered++;
+  var f=document.getElementById("quizFeedback");
+  f.style.display="block";
+  if(choice===correct){
+    score++;
+    f.style.background="#dcfce7";
+    f.style.color="#166534";
+    f.innerHTML="✅ Correct! "+exp
+  } else {
+    f.style.background="#fee2e2";
+    f.style.color="#991b1b";
+    f.innerHTML="❌ Correct answer: <strong>"+correct+"</strong><br>"+exp
+  }
+  updateScore();
+  document.getElementById("nextBtn").style.display="inline-block"
+}
+function nextQuestion(){
+  current++;
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quiz complete!</h3><p>You got <strong>"+score+" out of "+quizQuestions.length+
+      "</strong> correct.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Play again</button>";
+    return
+  }
+  renderQuestion()
+}
+function updateScore(){
+  document.getElementById("score").textContent="Poäng: "+score+" / "+answered
+}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 All goals checked!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" of "+goals.length+" goals. Great work.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" of "+goals.length+" goals. Keep practising.";
+  else r.textContent="👣 Start with everyday words, synonyms and opposites."
+}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
