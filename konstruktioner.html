@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konstruktioner – Teknik åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --indigo:#4f46e5;--indigo2:#4338ca;--cyan:#0891b2;--green:#16a34a;
+  --orange:#ea580c;--red:#dc2626;--purple:#7c3aed;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#e0e7ff;color:#3730a3}
+.navlinks .home{background:var(--indigo);color:white}
+
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#4f46e5,#4338ca,#111827);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#3730a3;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0;color:#312e81}
+
+.fact{background:#eef2ff;border:1px solid #c7d2fe;border-radius:14px;padding:15px;font-weight:800;color:#3730a3;margin:14px 0}
+.tip{background:#eff6ff;border-left:5px solid var(--indigo);padding:14px;border-radius:10px;margin-top:12px}
+.step{background:#f8fafc;border:1px solid var(--border);padding:13px;border-radius:12px;margin-top:10px}
+
+.construct{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--indigo)
+}
+.construct strong{display:block;color:#4338ca;margin-bottom:6px}
+.concept strong{display:block;color:#4338ca;margin-bottom:5px}
+
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#4f46e5,#4338ca)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:390px}
+.check{margin-top:9px;background:var(--indigo);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#e0e7ff}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+
+.problem{background:linear-gradient(135deg,#e0e7ff,#cffafe);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:120px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#3730a3;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#4338ca;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🛠️ Konstruktioner – Teknik åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="teknik.html">🛠️ Teknik</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Konstruera</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Konstruktioner</h1>
+      <p>
+        Här lär du dig hur konstruktioner byggs för att bli starka, stabila och användbara.
+        Du undersöker former, material, sammanfogningar och förstärkningar och tränar på att
+        planera, bygga, testa och förbättra egna konstruktioner.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">🌉🏗️🧱</div>
+      <h3>Form + material + sammanfogning</h3>
+      <p>En bra konstruktion är anpassad efter sin funktion.</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>📐 Form</div>
+  <div>🧱 Material</div>
+  <div>🔩 Fogar</div>
+  <div>⚖️ Stabilitet</div>
+  <div>🔁 Testa</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head">
+    <h2>📘 Vad är en konstruktion?</h2>
+    <p>En konstruktion är något som är uppbyggt av flera delar för att fylla en funktion.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Funktion</h3><p>Vad ska konstruktionen göra? Bära, skydda, hålla ihop, transportera eller skapa ett utrymme?</p></div>
+    <div class="card"><h3>Form</h3><p>Formen påverkar hur krafter fördelas och hur stabil konstruktionen blir.</p></div>
+    <div class="card"><h3>Material</h3><p>Material väljs efter egenskaper som styrka, vikt, flexibilitet och hållbarhet.</p></div>
+  </div>
+
+  <div class="fact">Samma funktion kan lösas på flera olika sätt. Teknik handlar ofta om att jämföra olika lösningar.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔺 Formen spelar roll</h2><p>Vissa former används ofta eftersom de ger god stabilitet.</p></div>
+  <div class="grid-3">
+    <div class="construct"><strong>🔺 Triangel</strong><p>Trianglar ändrar inte form lika lätt och används ofta för förstärkning.</p></div>
+    <div class="construct"><strong>▭ Rektangel</strong><p>En rektangel kan deformeras om den inte förstärks.</p></div>
+    <div class="construct"><strong>🌉 Båge</strong><p>Bågar kan leda krafter åt sidorna och används i broar och byggnader.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧱 Material och funktion</h2><p>Olika material passar för olika typer av konstruktioner.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Trä</h3><p>Lätt att bearbeta och starkt i förhållande till sin vikt.</p></div>
+    <div class="card"><h3>Metall</h3><p>Kan vara mycket starkt och används ofta där stor belastning förekommer.</p></div>
+    <div class="card"><h3>Betong</h3><p>Tål tryck bra och används i byggnader, broar och fundament.</p></div>
+    <div class="card"><h3>Plast</h3><p>Kan formas på många sätt och kan vara lätt, tåligt eller flexibelt.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔩 Sammanfogningar</h2><p>Delarna måste kunna sitta ihop på ett sätt som passar konstruktionens funktion.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Skruv</h3><p>Kan ge en stark fog och går ofta att lossa igen.</p></div>
+    <div class="card"><h3>Spik</h3><p>Används ofta för att fästa trädelar snabbt.</p></div>
+    <div class="card"><h3>Lim</h3><p>Kan sammanfoga material över en större yta.</p></div>
+    <div class="card"><h3>Vikning och låsning</h3><p>Papper och tunn plast kan fogas utan extra fästdon.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚖️ Stabilitet</h2><p>En stabil konstruktion står eller fungerar utan att lätt välta, vika sig eller deformeras.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Bred bas</h3><p>En bred bas kan öka stabiliteten.</p></div>
+    <div class="card"><h3>Låg tyngdpunkt</h3><p>En låg tyngdpunkt gör ofta konstruktionen svårare att välta.</p></div>
+    <div class="card"><h3>Förstärkningar</h3><p>Diagonalstag och trianglar kan göra en ram styvare.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>💪 Belastning</h2><p>Konstruktioner utsätts för olika krafter.</p></div>
+  <div class="grid-3">
+    <div class="construct"><strong>Tryck</strong><p>Krafter pressar materialet samman.</p></div>
+    <div class="construct"><strong>Drag</strong><p>Krafter drar materialet åt olika håll.</p></div>
+    <div class="construct"><strong>Böjning</strong><p>Materialet påverkas så att det böjs.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌉 Broar som exempel</h2><p>Broar visar tydligt hur form, material och krafter samverkar.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Balkbro</h3><p>En horisontell balk bär lasten mellan stöd.</p></div>
+    <div class="card"><h3>Bågbro</h3><p>Bågens form leder krafter mot stöden.</p></div>
+    <div class="card"><h3>Fackverksbro</h3><p>Trianglar används för att skapa en stark men relativt lätt konstruktion.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔄 Konstruktionsprocessen</h2><p>Tekniskt arbete innebär att testa och förbättra, inte bara att bygga en gång.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>1. Behov</h3><p>Vad ska konstruktionen klara?</p></div>
+    <div class="card"><h3>2. Skiss</h3><p>Planera form, mått och material.</p></div>
+    <div class="card"><h3>3. Bygg och testa</h3><p>Konstruera och utsätt lösningen för relevanta tester.</p></div>
+    <div class="card"><h3>4. Förbättra</h3><p>Ändra utifrån vad testerna visade.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+  <div class="grid-4">
+    <div class="concept"><strong>Konstruktion</strong>Något som är uppbyggt för att fylla en funktion.</div>
+    <div class="concept"><strong>Stabilitet</strong>Hur väl konstruktionen står emot att välta eller deformeras.</div>
+    <div class="concept"><strong>Belastning</strong>Kraft som påverkar en konstruktion.</div>
+    <div class="concept"><strong>Förstärkning</strong>En lösning som gör konstruktionen starkare eller styvare.</div>
+    <div class="concept"><strong>Fog</strong>Stället där två delar sitter ihop.</div>
+    <div class="concept"><strong>Drag</strong>Kraft som drar isär ett material.</div>
+    <div class="concept"><strong>Tryck</strong>Kraft som pressar ihop ett material.</div>
+    <div class="concept"><strong>Prototyp</strong>En tidig modell som byggs för att testas och förbättras.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Vanliga missuppfattningar</h2></div>
+  <div class="grid-3">
+    <div class="mistake"><h3>Mer material är alltid bättre</h3><p class="wrong">❌ Ju mer material man använder, desto bättre konstruktion.</p><p class="right">✅ En bra konstruktion använder material på rätt plats och på ett effektivt sätt.</p></div>
+    <div class="mistake"><h3>Formen spelar ingen roll</h3><p class="wrong">❌ Alla former är lika stabila.</p><p class="right">✅ Form och förstärkningar påverkar hur krafter tas upp.</p></div>
+    <div class="mistake"><h3>Första modellen ska vara perfekt</h3><p class="wrong">❌ Om prototypen inte fungerar är projektet misslyckat.</p><p class="right">✅ Testresultat används för att förbättra konstruktionen.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Nivå 1</h3><p>Form, material och fogar.</p><button onclick="showLevel(1)">Öppna nivå 1</button></div>
+    <div class="level level2"><h3>🚀 Nivå 2</h3><p>Stabilitet och belastning.</p><button onclick="showLevel(2)">Öppna nivå 2</button></div>
+    <div class="level level3"><h3>🏆 Nivå 3</h3><p>Analysera och förbättra.</p><button onclick="showLevel(3)">Öppna nivå 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Nivå 1</h3>
+    <div class="task"><label>1. Vilken form används ofta för att förstärka konstruktioner?</label><input id="a1"><br><button class="check" onclick="checkAnswer('a1',['triangel','triangeln','trianglar'],'f1')">Kontrollera</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kallas stället där två delar sitter ihop?</label><input id="a2"><br><button class="check" onclick="checkAnswer('a2',['fog','en fog'],'f2')">Kontrollera</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Nämn ett material som används i konstruktioner.</label><input id="a3"><br><button class="check" onclick="checkAnswer('a3',['trä','tra','metall','betong','plast','stål','stal'],'f3')">Kontrollera</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Nivå 2</h3>
+    <div class="task"><label>1. Vad kan en bred bas göra med stabiliteten?</label><input id="b1"><br><button class="check" onclick="checkAnswer('b1',['öka den','oka den','öka stabiliteten','oka stabiliteten','göra den stabilare'],'g1')">Kontrollera</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kallas kraft som pressar ihop ett material?</label><input id="b2"><br><button class="check" onclick="checkAnswer('b2',['tryck'],'g2')">Kontrollera</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Vad kallas kraft som drar isär ett material?</label><input id="b3"><br><button class="check" onclick="checkAnswer('b3',['drag'],'g3')">Kontrollera</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Nivå 3</h3>
+    <div class="task"><label>1. Vad kallas en tidig modell som byggs för att testas?</label><input id="c1"><br><button class="check" onclick="checkAnswer('c1',['prototyp','en prototyp'],'h1')">Kontrollera</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad gör man efter ett test som visar en svag del?</label><input id="c2"><br><button class="check" onclick="checkAnswer('c2',['förbättrar','forbattrar','förstärker','forstarker','ändrar konstruktionen','andrar konstruktionen'],'h2')">Kontrollera</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Kan materialval påverka konstruktionens funktion?</label><input id="c3"><br><button class="check" onclick="checkAnswer('c3',['ja'],'h3')">Kontrollera</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Konstruktionsquiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Nästa fråga →</button>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="section-head"><h2>🛠️ Konstruera och resonera</h2><p>Planera lösningar och motivera dina val.</p></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>🌉 Bygg en pappersbro</h3>
+      <p>Du får använda två A4-papper och tejp. Bron ska klara så stor belastning som möjligt mellan två bord. Hur skulle du utforma bron?</p>
+      <textarea placeholder="Beskriv din idé, form och förstärkning..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Visa lösningsförslag</button>
+      <div id="sol1" class="solution">
+        Papperet kan vikas för att skapa balkar eller triangelformade förstärkningar. Vikning gör det svårare för papperet att böjas.
+        En bred och symmetrisk konstruktion kan fördela lasten bättre. Testa, hitta den svagaste delen och förstärk där.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🏗️ Ett högt torn</h3>
+      <p>Du ska bygga ett så högt torn som möjligt av sugrör och tejp. Hur kan du minska risken att tornet välter?</p>
+      <textarea placeholder="Skriv ditt resonemang..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Visa exempel</button>
+      <div id="sol2" class="solution">
+        Tornet kan få en bred bas, en relativt låg tyngdpunkt och diagonala stag som bildar trianglar.
+        Konstruktionen bör också vara symmetrisk och materialet fördelas så att toppen inte blir onödigt tung.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+  <div class="grid-2">
+    <div class="support"><h3>🆘 Jag behöver hjälp</h3><ul><li>Börja med konstruktionens funktion.</li><li>Rita en enkel skiss.</li><li>Markera var konstruktionen kan böjas eller välta.</li><li>Prova trianglar och diagonalstag.</li><li>Testa en sak i taget.</li></ul></div>
+    <div class="support"><h3>🚀 Jag vill utmanas</h3><ul><li>Bygg två olika lösningar med samma material.</li><li>Jämför vilken som klarar störst belastning.</li><li>Förklara var drag och tryck uppstår.</li><li>Förbättra konstruktionen utan att använda mer material.</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Kunskapscheck</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> Jag kan förklara vad en konstruktion är.</label>
+    <label><input class="goal" type="checkbox"> Jag kan beskriva hur form påverkar stabilitet.</label>
+    <label><input class="goal" type="checkbox"> Jag kan ge exempel på olika konstruktionsmaterial.</label>
+    <label><input class="goal" type="checkbox"> Jag kan beskriva olika sammanfogningsmetoder.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara drag, tryck och böjning.</label>
+    <label><input class="goal" type="checkbox"> Jag kan använda trianglar och stag som förstärkning.</label>
+    <label><input class="goal" type="checkbox"> Jag kan bygga och testa en prototyp.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förbättra en konstruktion utifrån testresultat.</label>
+    <button class="goal-btn" onclick="checkGoals()">Se min progression</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer><strong>🛠️ Konstruktioner • Teknik åk 6</strong><br>Form • Material • Fogar • Stabilitet • Belastning • Prototyp</footer>
+
+<script>
+var quizQuestions=[
+{q:"Vad är en konstruktion?",a:["Något som är uppbyggt för att fylla en funktion","Bara en ritning","Enbart ett material","Endast en maskin"],c:"Något som är uppbyggt för att fylla en funktion",e:"En konstruktion består av delar som tillsammans fyller en funktion."},
+{q:"Vilken form används ofta för förstärkning?",a:["Triangel","Oval","Cirkel utan stöd","Rektangel utan stag"],c:"Triangel",e:"Triangeln ändrar inte form lika lätt och används därför ofta i fackverk."},
+{q:"Vad kallas stället där två delar sitter ihop?",a:["Fog","Sensor","Flöde","Variabel"],c:"Fog",e:"En fog är en sammanfogning mellan två delar."},
+{q:"Vad kan en bred bas göra?",a:["Öka stabiliteten","Alltid minska styrkan","Göra allt tyngdlöst","Ta bort alla krafter"],c:"Öka stabiliteten",e:"En bred bas gör ofta en konstruktion svårare att välta."},
+{q:"Vad kallas kraft som pressar ihop ett material?",a:["Tryck","Drag","Ljud","Ström"],c:"Tryck",e:"Tryckkraft pressar materialet samman."},
+{q:"Vad kallas kraft som drar isär ett material?",a:["Drag","Tryck","Värme","Friktion"],c:"Drag",e:"Dragkraft drar i materialet åt olika håll."},
+{q:"Vad är en prototyp?",a:["En tidig modell som testas","En färdig byggnad som aldrig ändras","Enbart en idé i huvudet","Ett måttband"],c:"En tidig modell som testas",e:"En prototyp används för att prova och förbättra en lösning."},
+{q:"Vad är bäst efter att ett test visar en svag del?",a:["Förbättra konstruktionen","Ignorera resultatet","Använda samma lösning utan ändring","Sluta dokumentera"],c:"Förbättra konstruktionen",e:"Testresultat används för att utveckla tekniska lösningar."}
+];
+
+var order=[],current=0,score=0,answered=0;
+function normalize(v){return v.trim().toLowerCase().replace(/\s+/g," ")}
+function showLevel(n){
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  var s=document.getElementById("level"+n);s.classList.add("active");
+  s.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function checkAnswer(id,answers,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=answers.some(function(a){return value===normalize(a)});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Rätt! Bra jobbat.":"❌ Inte riktigt. Försök igen."
+}
+function toggleSolution(id){var b=document.getElementById(id);b.style.display=b.style.display==="block"?"none":"block"}
+function shuffle(a){var c=a.slice();for(var i=c.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=c[i];c[i]=c[j];c[j]=t}return c}
+function startQuiz(){order=shuffle([0,1,2,3,4,5,6,7]);current=0;score=0;answered=0;renderQuestion()}
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+  var box=document.getElementById("answers");box.innerHTML="";
+  shuffle(item.a).forEach(function(choice){
+    var b=document.createElement("button");b.className="answer";b.type="button";b.textContent=choice;
+    b.onclick=function(){answerQuestion(choice,item.c,item.e)};box.appendChild(b)
+  });
+  var f=document.getElementById("quizFeedback");f.style.display="none";f.innerHTML="";
+  document.getElementById("nextBtn").style.display="none";updateScore()
+}
+function answerQuestion(choice,correct,exp){
+  document.querySelectorAll(".answer").forEach(function(b){b.disabled=true});answered++;
+  var f=document.getElementById("quizFeedback");f.style.display="block";
+  if(choice===correct){score++;f.style.background="#dcfce7";f.style.color="#166534";f.innerHTML="✅ Rätt! "+exp}
+  else{f.style.background="#fee2e2";f.style.color="#991b1b";f.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+exp}
+  updateScore();document.getElementById("nextBtn").style.display="inline-block"
+}
+function nextQuestion(){
+  current++;
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML="<h3>🎉 Quizet är klart!</h3><p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return
+  }
+  renderQuestion()
+}
+function updateScore(){document.getElementById("score").textContent="Poäng: "+score+" / "+answered}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 Alla mål markerade!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  else r.textContent="👣 Börja med form, material, stabilitet och fogar."
+}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
