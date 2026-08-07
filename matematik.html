@@ -10,12 +10,11 @@
       --bg:#f5f7fb;
       --dark:#0f172a;
       --blue:#2563eb;
-      --blue2:#1d4ed8;
       --purple:#7c3aed;
       --green:#059669;
       --orange:#ea580c;
-      --yellow:#f59e0b;
       --red:#dc2626;
+      --cyan:#0891b2;
       --card:#ffffff;
       --text:#1f2937;
       --muted:#64748b;
@@ -84,8 +83,8 @@
 
     .hero{
       background:
-      radial-gradient(circle at 80% 20%,rgba(255,255,255,.18),transparent 25%),
-      linear-gradient(135deg,#1d4ed8,#2563eb,#4f46e5);
+        radial-gradient(circle at 80% 20%,rgba(255,255,255,.18),transparent 25%),
+        linear-gradient(135deg,#1d4ed8,#2563eb,#4f46e5);
       color:white;
       padding:75px 6%;
     }
@@ -184,9 +183,9 @@
 
     .topic:nth-child(2){border-top-color:#7c3aed}
     .topic:nth-child(3){border-top-color:#059669}
-    .topic:nth-child(4){border-top-color:#ea580c}
+    .topic:nth-child(4){border-top-color:#0891b2}
     .topic:nth-child(5){border-top-color:#dc2626}
-    .topic:nth-child(6){border-top-color:#0891b2}
+    .topic:nth-child(6){border-top-color:#ea580c}
     .topic:nth-child(7){border-top-color:#ca8a04}
     .topic:nth-child(8){border-top-color:#9333ea}
     .topic:nth-child(9){border-top-color:#0f766e}
@@ -220,19 +219,24 @@
 
     .topic-button{
       display:inline-block;
-      border:none;
       background:#eff6ff;
       color:#1d4ed8;
       padding:10px 15px;
       border-radius:10px;
       font-weight:800;
-      cursor:pointer;
       text-decoration:none;
-      font-size:.9rem;
+      border:none;
+      cursor:pointer;
     }
 
     .topic-button:hover{
       background:#dbeafe;
+    }
+
+    .coming{
+      background:#f8fafc;
+      color:#64748b;
+      cursor:default;
     }
 
     .learn-grid{
@@ -257,69 +261,6 @@
 
     .learn-card h3{
       font-size:1rem;
-    }
-
-    .example{
-      background:white;
-      border-radius:26px;
-      overflow:hidden;
-      box-shadow:0 8px 28px rgba(0,0,0,.08);
-    }
-
-    .example-head{
-      padding:25px 30px;
-      background:#e0e7ff;
-    }
-
-    .example-content{
-      padding:30px;
-    }
-
-    .problem{
-      font-size:1.25rem;
-      padding:20px;
-      background:#f8fafc;
-      border-radius:15px;
-      margin:20px 0;
-    }
-
-    .steps{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:12px;
-      margin-top:20px;
-    }
-
-    .step{
-      padding:18px;
-      border-radius:15px;
-      background:#eff6ff;
-    }
-
-    .step strong{
-      display:block;
-      margin-bottom:5px;
-      color:#1d4ed8;
-    }
-
-    .concepts{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:15px;
-    }
-
-    .concept{
-      background:white;
-      padding:20px;
-      border-radius:17px;
-      box-shadow:0 5px 17px rgba(0,0,0,.06);
-    }
-
-    .concept strong{
-      display:block;
-      color:#1d4ed8;
-      font-size:1.05rem;
-      margin-bottom:5px;
     }
 
     .practice-zone{
@@ -355,61 +296,6 @@
       font-size:.92rem;
     }
 
-    .practice-card button{
-      margin-top:14px;
-      border:none;
-      padding:9px 13px;
-      border-radius:9px;
-      cursor:pointer;
-      font-weight:800;
-    }
-
-    .challenge{
-      background:linear-gradient(135deg,#fef3c7,#fde68a);
-      border-radius:25px;
-      padding:32px;
-    }
-
-    .challenge h2{
-      margin-bottom:12px;
-    }
-
-    .challenge-box{
-      background:rgba(255,255,255,.65);
-      padding:25px;
-      border-radius:18px;
-      margin-top:20px;
-      font-size:1.1rem;
-    }
-
-    .support-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:22px;
-    }
-
-    .support{
-      background:white;
-      border-radius:22px;
-      padding:28px;
-      box-shadow:0 6px 20px rgba(0,0,0,.06);
-    }
-
-    .support h3{
-      margin-bottom:15px;
-    }
-
-    .support ul{
-      list-style:none;
-    }
-
-    .support li{
-      margin:9px 0;
-      padding:11px 13px;
-      background:#f8fafc;
-      border-radius:10px;
-    }
-
     footer{
       margin-top:70px;
       background:#020617;
@@ -434,10 +320,6 @@
       .practice-grid{
         grid-template-columns:repeat(2,1fr);
       }
-
-      .concepts{
-        grid-template-columns:repeat(2,1fr);
-      }
     }
 
     @media(max-width:700px){
@@ -450,10 +332,7 @@
       .intro-grid,
       .topic-grid,
       .learn-grid,
-      .steps,
-      .concepts,
-      .practice-grid,
-      .support-grid{
+      .practice-grid{
         grid-template-columns:1fr;
       }
 
@@ -476,10 +355,8 @@
   <div class="navlinks">
     <a class="home" href="index.html">🏠 Start</a>
     <a href="#omraden">Områden</a>
-    <a href="#lar">Lär dig</a>
-    <a href="#begrepp">Begrepp</a>
-    <a href="#traning">Träna</a>
-    <a href="#utmaning">Utmaning</a>
+    <a href="#arbetssatt">Så arbetar du</a>
+    <a href="#traning">Träning</a>
   </div>
 </nav>
 
@@ -510,7 +387,7 @@
     <div class="intro-card">
       <span>📘</span>
       <h3>Lär dig</h3>
-      <p>Korta förklaringar och tydliga exempel.</p>
+      <p>Tydliga förklaringar och visuella exempel.</p>
     </div>
 
     <div class="intro-card">
@@ -522,13 +399,13 @@
     <div class="intro-card">
       <span>💬</span>
       <h3>Resonera</h3>
-      <p>Förklara hur och varför.</p>
+      <p>Förklara hur du tänker och varför.</p>
     </div>
 
     <div class="intro-card">
       <span>🏆</span>
       <h3>Utmana dig</h3>
-      <p>Problemlösning med flera möjliga vägar.</p>
+      <p>Lös problem med flera möjliga vägar.</p>
     </div>
 
   </section>
@@ -547,38 +424,43 @@
         <div class="topic-icon">🔢</div>
         <h3>Taluppfattning</h3>
         <p>Förstå tal, platsvärde och hur tal hänger ihop.</p>
+
         <ul>
           <li>Heltal</li>
           <li>Negativa tal</li>
-          <li>Tal på tallinje</li>
+          <li>Tallinje</li>
           <li>Avrundning</li>
         </ul>
-        <button class="topic-button" onclick="showTopic('Taluppfattning')">
-          Öppna området
-        </button>
+
+        <span class="topic-button coming">Kommer snart</span>
       </article>
 
 
       <article class="topic">
         <div class="topic-icon">➕</div>
         <h3>De fyra räknesätten</h3>
-        <p>Räkna säkert med addition, subtraktion, multiplikation och division.</p>
+        <p>Addition, subtraktion, multiplikation och division.</p>
+
         <ul>
           <li>Huvudräkning</li>
           <li>Uppställning</li>
-          <li>Överslagsräkning</li>
-          <li>Rimlighetsbedömning</li>
+          <li>Överslag</li>
+          <li>Rimlighet</li>
         </ul>
-        <button class="topic-button" onclick="showTopic('De fyra räknesätten')">
-          Öppna området
-        </button>
+
+        <span class="topic-button coming">Kommer snart</span>
       </article>
 
 
       <article class="topic">
         <div class="topic-icon">🍕</div>
         <h3>Bråk</h3>
-        <p>Förstå delar av en helhet och relationen mellan olika bråk.</p>
+
+        <p>
+          Förstå delar av en helhet, likvärdiga bråk,
+          tallinje, procent och problemlösning.
+        </p>
+
         <ul>
           <li>Täljare och nämnare</li>
           <li>Förlänga och förkorta</li>
@@ -587,7 +469,7 @@
         </ul>
 
         <a class="topic-button" href="brak.html">
-          Öppna området →
+          Öppna Bråk →
         </a>
       </article>
 
@@ -595,162 +477,195 @@
       <article class="topic">
         <div class="topic-icon">🔟</div>
         <h3>Decimaltal</h3>
-        <p>Arbeta med tiondelar, hundradelar och tusendelar.</p>
+
+        <p>
+          Förstå tiondelar, hundradelar, platsvärde,
+          tallinje och beräkningar.
+        </p>
+
         <ul>
           <li>Platsvärde</li>
           <li>Jämföra tal</li>
-          <li>Räkna med decimaler</li>
-          <li>Bråk och decimalform</li>
+          <li>Avrundning</li>
+          <li>Bråk, decimal och procent</li>
         </ul>
-        <button class="topic-button" onclick="showTopic('Decimaltal')">
-          Öppna området
-        </button>
+
+        <a class="topic-button" href="decimaltal.html">
+          Öppna Decimaltal →
+        </a>
       </article>
 
 
       <article class="topic">
         <div class="topic-icon">💯</div>
         <h3>Procent</h3>
-        <p>Förstå hundradelar och använd procent i vardagen.</p>
+
+        <p>
+          Förstå hundradelar och använd procent i vardagen.
+        </p>
+
         <ul>
           <li>1 %, 10 %, 25 %, 50 %</li>
           <li>Procent av antal</li>
           <li>Rabatt</li>
           <li>Jämförelser</li>
         </ul>
-        <button class="topic-button" onclick="showTopic('Procent')">
-          Öppna området
-        </button>
+
+        <span class="topic-button coming">Kommer snart</span>
       </article>
 
 
       <article class="topic">
         <div class="topic-icon">🔠</div>
         <h3>Algebra</h3>
-        <p>Upptäck hur bokstäver kan representera tal.</p>
+
+        <p>
+          Upptäck hur bokstäver och symboler kan representera tal.
+        </p>
+
         <ul>
           <li>Uttryck</li>
           <li>Likheter</li>
-          <li>Enkla ekvationer</li>
+          <li>Ekvationer</li>
           <li>Obekanta tal</li>
         </ul>
-        <button class="topic-button" onclick="showTopic('Algebra')">
-          Öppna området
-        </button>
+
+        <span class="topic-button coming">Kommer snart</span>
       </article>
 
 
       <article class="topic">
         <div class="topic-icon">📐</div>
         <h3>Geometri</h3>
-        <p>Undersök former, vinklar, area, omkrets och volym.</p>
+
+        <p>
+          Undersök former, vinklar, area, omkrets och volym.
+        </p>
+
         <ul>
           <li>Vinklar</li>
           <li>Trianglar</li>
           <li>Fyrhörningar</li>
           <li>Area och omkrets</li>
         </ul>
-        <button class="topic-button" onclick="showTopic('Geometri')">
-          Öppna området
-        </button>
+
+        <span class="topic-button coming">Kommer snart</span>
       </article>
 
 
       <article class="topic">
         <div class="topic-icon">📊</div>
         <h3>Statistik</h3>
-        <p>Samla, visa och tolka data.</p>
+
+        <p>
+          Samla, visa, jämför och tolka data.
+        </p>
+
         <ul>
           <li>Tabeller</li>
           <li>Diagram</li>
           <li>Medelvärde</li>
           <li>Median och typvärde</li>
         </ul>
-        <button class="topic-button" onclick="showTopic('Statistik')">
-          Öppna området
-        </button>
+
+        <span class="topic-button coming">Kommer snart</span>
       </article>
 
 
       <article class="topic">
         <div class="topic-icon">🎲</div>
         <h3>Sannolikhet</h3>
-        <p>Undersök hur troligt något är.</p>
+
+        <p>
+          Undersök hur troligt något är.
+        </p>
+
         <ul>
           <li>Möjliga utfall</li>
           <li>Slump</li>
           <li>Bråk och sannolikhet</li>
           <li>Experiment</li>
         </ul>
-        <button class="topic-button" onclick="showTopic('Sannolikhet')">
-          Öppna området
-        </button>
+
+        <span class="topic-button coming">Kommer snart</span>
       </article>
 
 
       <article class="topic">
         <div class="topic-icon">🧩</div>
         <h3>Problemlösning</h3>
-        <p>Använd olika strategier och visa hur du tänker.</p>
+
+        <p>
+          Använd strategier och visa hur du tänker.
+        </p>
+
         <ul>
           <li>Rita bild</li>
           <li>Gör tabell</li>
           <li>Pröva systematiskt</li>
           <li>Arbeta baklänges</li>
         </ul>
-        <button class="topic-button" onclick="showTopic('Problemlösning')">
-          Öppna området
-        </button>
+
+        <span class="topic-button coming">Kommer snart</span>
       </article>
 
 
       <article class="topic">
         <div class="topic-icon">🔁</div>
         <h3>Mönster</h3>
-        <p>Upptäck regler och fortsätt matematiska mönster.</p>
+
+        <p>
+          Upptäck regler och matematiska samband.
+        </p>
+
         <ul>
           <li>Talföljder</li>
           <li>Figurmönster</li>
           <li>Regler</li>
           <li>Generalisering</li>
         </ul>
-        <button class="topic-button" onclick="showTopic('Mönster')">
-          Öppna området
-        </button>
+
+        <span class="topic-button coming">Kommer snart</span>
       </article>
 
 
       <article class="topic">
         <div class="topic-icon">📈</div>
         <h3>Samband och förändring</h3>
-        <p>Förstå hur två storheter kan hänga ihop.</p>
+
+        <p>
+          Förstå hur olika storheter kan hänga ihop.
+        </p>
+
         <ul>
           <li>Proportionalitet</li>
           <li>Skala</li>
           <li>Hastighet</li>
           <li>Tabeller och grafer</li>
         </ul>
-        <button class="topic-button" onclick="showTopic('Samband och förändring')">
-          Öppna området
-        </button>
+
+        <span class="topic-button coming">Kommer snart</span>
       </article>
 
     </div>
   </section>
 
 
-  <section class="section" id="lar">
+  <section class="section" id="arbetssatt">
 
     <div class="section-title">
-      <h2>👣 Så arbetar du med varje område</h2>
-      <p>Följ gärna ordningen från vänster till höger.</p>
+      <h2>👣 Så arbetar du</h2>
+
+      <p>
+        Varje färdigt område byggs på samma sätt så att du känner igen dig.
+      </p>
     </div>
 
     <div class="learn-grid">
 
       <div class="learn-card">
         <span>📘</span>
-        <h3>1. Lär dig</h3>
+        <h3>1. Förstå</h3>
       </div>
 
       <div class="learn-card">
@@ -774,128 +689,7 @@
       </div>
 
     </div>
-  </section>
 
-
-  <section class="section">
-
-    <div class="section-title">
-      <h2>💡 Exempel: problemlösning steg för steg</h2>
-    </div>
-
-    <div class="example">
-
-      <div class="example-head">
-        <h3>Strategi: förstå → planera → lösa → kontrollera</h3>
-      </div>
-
-      <div class="example-content">
-
-        <p class="problem">
-          En skolklass ska köpa 6 lådor pennor.
-          Varje låda kostar 48 kr.
-          Hur mycket kostar pennorna tillsammans?
-        </p>
-
-        <div class="steps">
-
-          <div class="step">
-            <strong>1. Förstå</strong>
-            Vad frågar uppgiften efter?
-          </div>
-
-          <div class="step">
-            <strong>2. Planera</strong>
-            6 lika stora grupper med 48 kr.
-          </div>
-
-          <div class="step">
-            <strong>3. Lös</strong>
-            6 × 48 = 288
-          </div>
-
-          <div class="step">
-            <strong>4. Kontrollera</strong>
-            6 × 50 ≈ 300, alltså är 288 rimligt.
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <section class="section" id="begrepp">
-
-    <div class="section-title">
-      <h2>🧠 Viktiga matematiska begrepp</h2>
-      <p>Förstå orden för att lättare förstå matematiken.</p>
-    </div>
-
-    <div class="concepts">
-
-      <div class="concept">
-        <strong>Summa</strong>
-        Svaret i en addition.
-      </div>
-
-      <div class="concept">
-        <strong>Differens</strong>
-        Svaret i en subtraktion.
-      </div>
-
-      <div class="concept">
-        <strong>Produkt</strong>
-        Svaret i en multiplikation.
-      </div>
-
-      <div class="concept">
-        <strong>Kvot</strong>
-        Svaret i en division.
-      </div>
-
-      <div class="concept">
-        <strong>Täljare</strong>
-        Talet ovanför bråkstrecket.
-      </div>
-
-      <div class="concept">
-        <strong>Nämnare</strong>
-        Talet under bråkstrecket.
-      </div>
-
-      <div class="concept">
-        <strong>Omkrets</strong>
-        Längden runt en figur.
-      </div>
-
-      <div class="concept">
-        <strong>Area</strong>
-        Storleken på en yta.
-      </div>
-
-      <div class="concept">
-        <strong>Medelvärde</strong>
-        Summan delad med antalet värden.
-      </div>
-
-      <div class="concept">
-        <strong>Median</strong>
-        Det mittersta värdet i storleksordning.
-      </div>
-
-      <div class="concept">
-        <strong>Procent</strong>
-        Hundradelar.
-      </div>
-
-      <div class="concept">
-        <strong>Variabel</strong>
-        En symbol, ofta en bokstav, som kan representera ett tal.
-      </div>
-
-    </div>
   </section>
 
 
@@ -904,102 +698,59 @@
     <div class="practice-zone">
 
       <div class="section-title">
-        <h2 style="color:white">🎮 Träna matematik</h2>
-        <p style="color:#cbd5e1">
-          Träna direkt och få återkoppling.
+        <h2 style="color:white;">🎮 Träna matematik</h2>
+
+        <p style="color:#cbd5e1;">
+          De färdiga områdena innehåller riktiga övningar,
+          självrättande quiz och problemlösning.
         </p>
       </div>
 
       <div class="practice-grid">
 
         <div class="practice-card">
-          <span>⚡</span>
-          <h3>Snabbträning</h3>
-          <p>Korta uppgifter med direkt återkoppling.</p>
-          <button onclick="quickQuiz()">Starta</button>
+          <span>🍕</span>
+          <h3>Bråk</h3>
+          <p>Modeller, tallinje, nivåträning och quiz.</p>
+
+          <a class="topic-button" href="brak.html" style="margin-top:14px;">
+            Träna bråk
+          </a>
         </div>
+
 
         <div class="practice-card">
-          <span>🧩</span>
-          <h3>Problemlösning</h3>
-          <p>Välj strategi och lös steg för steg.</p>
-          <button onclick="showProblem()">Starta</button>
+          <span>🔟</span>
+          <h3>Decimaltal</h3>
+          <p>Platsvärde, beräkningar, quiz och problemlösning.</p>
+
+          <a class="topic-button" href="decimaltal.html" style="margin-top:14px;">
+            Träna decimaltal
+          </a>
         </div>
+
 
         <div class="practice-card">
-          <span>💬</span>
-          <h3>Resonera</h3>
-          <p>Vilket svar är bäst och varför?</p>
-          <button onclick="reasonTask()">Starta</button>
+          <span>💯</span>
+          <h3>Procent</h3>
+          <p>Nästa område vi bygger.</p>
+
+          <span class="topic-button coming" style="margin-top:14px;">
+            Kommer snart
+          </span>
         </div>
+
 
         <div class="practice-card">
-          <span>🏆</span>
-          <h3>Matematikmästaren</h3>
-          <p>Blandade uppgifter från flera områden.</p>
-          <button onclick="masterTask()">Starta</button>
+          <span>📐</span>
+          <h3>Geometri</h3>
+          <p>Vinklar, area, omkrets och problemlösning.</p>
+
+          <span class="topic-button coming" style="margin-top:14px;">
+            Kommer snart
+          </span>
         </div>
 
-      </div>
-    </div>
-  </section>
-
-
-  <section class="section">
-
-    <div class="section-title">
-      <h2>🌱 Välj rätt nivå för dig</h2>
-    </div>
-
-    <div class="support-grid">
-
-      <div class="support">
-        <h3>🆘 Jag behöver stöd</h3>
-
-        <ul>
-          <li>👣 Visa steg för steg</li>
-          <li>🖼️ Visa med bild eller modell</li>
-          <li>💡 Ge mig ett liknande exempel</li>
-          <li>📖 Förklara orden först</li>
-          <li>🔁 Ge mig enklare träning</li>
-        </ul>
-      </div>
-
-      <div class="support">
-        <h3>🚀 Jag vill gå vidare</h3>
-
-        <ul>
-          <li>🧠 Ge mig en svårare uppgift</li>
-          <li>🔀 Hitta två olika lösningar</li>
-          <li>💬 Bevisa varför din lösning fungerar</li>
-          <li>🔎 Undersök om du kan hitta ett mönster</li>
-          <li>🏆 Skapa en egen problemlösning</li>
-        </ul>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <section class="section" id="utmaning">
-
-    <div class="challenge">
-
-      <h2>🏆 Veckans matematikutmaning</h2>
-
-      <p>
-        Lös problemet och försök visa mer än bara ett svar.
-      </p>
-
-      <div class="challenge-box">
-        En rektangel har omkretsen 36 cm.
-        <br><br>
-        Vilka olika heltalsmått kan rektangelns längd och bredd ha?
-        <br><br>
-        Vilken av rektanglarna får störst area?
-        <br><br>
-        <strong>Förklara hur du vet.</strong>
       </div>
 
     </div>
@@ -1010,70 +761,9 @@
 
 
 <footer>
-  <p>🔢 Matematik åk 6 • Lärportal</p>
+  <p><strong>🔢 Matematik åk 6 • Lärportal</strong></p>
   <p>Förstå • Träna • Resonera • Lösa problem</p>
 </footer>
-
-
-<script>
-
-function showTopic(topic){
-  alert(
-    "Du valde: " + topic +
-    "\n\nDen kompletta sidan för området byggs steg för steg."
-  );
-}
-
-function quickQuiz(){
-  const answer = prompt("Vad är 25 % av 200?");
-
-  if(answer === null){
-    return;
-  }
-
-  if(answer.trim() === "50"){
-    alert("✅ Rätt! 25 % är en fjärdedel och 200 ÷ 4 = 50.");
-  } else {
-    alert("❌ Försök igen. Tips: 25 % betyder en fjärdedel.");
-  }
-}
-
-function showProblem(){
-  const answer = prompt(
-    "En buss har 48 platser. Tre bussar är fulla. Hur många personer åker med?"
-  );
-
-  if(answer === null){
-    return;
-  }
-
-  if(answer.trim() === "144"){
-    alert("✅ Rätt! 48 × 3 = 144.");
-  } else {
-    alert("Fundera: du har tre grupper med 48 personer.");
-  }
-}
-
-function reasonTask(){
-  alert(
-    "💬 Resonera:\n\n" +
-    "Alex säger att 3/4 är större än 2/3 eftersom 4 är större än 3.\n\n" +
-    "Har Alex rätt?\n\n" +
-    "Förklara med bild, gemensam nämnare eller decimalform."
-  );
-}
-
-function masterTask(){
-  alert(
-    "🏆 Matematikmästaren\n\n" +
-    "Ett par skor kostar 800 kr. Priset sänks med 25 %.\n\n" +
-    "1. Hur stor är rabatten?\n" +
-    "2. Vad kostar skorna efter rabatten?\n" +
-    "3. Visa minst två sätt att räkna."
-  );
-}
-
-</script>
 
 </body>
 </html>
