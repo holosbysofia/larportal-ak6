@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geometri – Matematik åk 6</title>
+
+<style>
+:root{
+  --bg:#f6f8fb;
+  --dark:#0f172a;
+  --text:#1f2937;
+  --muted:#64748b;
+  --gold:#ca8a04;
+  --gold2:#a16207;
+  --blue:#2563eb;
+  --green:#059669;
+  --purple:#7c3aed;
+  --red:#dc2626;
+  --card:#ffffff;
+  --border:#e2e8f0;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:white;
+  padding:12px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{
+  color:#334155;
+  font-weight:800;
+  padding:8px 11px;
+  border-radius:10px;
+}
+.navlinks a:hover{background:#fef3c7;color:#92400e}
+.navlinks .home{background:var(--gold);color:white}
+
+.hero{
+  background:
+    radial-gradient(circle at 82% 18%,rgba(255,255,255,.18),transparent 24%),
+    linear-gradient(135deg,#ca8a04,#a16207,#78350f);
+  color:white;
+  padding:72px 6% 100px;
+}
+
+.hero-inner{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:35px;
+  align-items:center;
+}
+
+.hero h1{
+  margin:0 0 16px;
+  font-size:clamp(3rem,8vw,5.4rem);
+  line-height:1;
+}
+
+.hero p{
+  font-size:1.18rem;
+  max-width:720px;
+}
+
+.hero-card{
+  background:white;
+  color:#92400e;
+  border-radius:24px;
+  padding:28px;
+  box-shadow:0 18px 50px rgba(0,0,0,.2);
+  text-align:center;
+}
+
+.shape-demo{
+  width:180px;
+  height:120px;
+  margin:12px auto;
+  border:8px solid #ca8a04;
+  border-radius:10px;
+  position:relative;
+}
+
+.shape-demo::after{
+  content:"6 cm × 4 cm";
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  color:#92400e;
+}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+
+.overview{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-top:-42px;
+}
+
+.overview div{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:800;
+  box-shadow:0 10px 28px rgba(0,0,0,.09);
+}
+
+section{margin-top:62px}
+
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+
+.card h3{margin-top:0;color:var(--dark)}
+
+.formula{
+  background:#fffbeb;
+  border:1px solid #fde68a;
+  border-radius:14px;
+  padding:15px;
+  text-align:center;
+  font-size:1.6rem;
+  font-weight:900;
+  color:#92400e;
+  margin:14px 0;
+}
+
+.tip{
+  background:#fffbeb;
+  border-left:5px solid var(--gold);
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+
+.angle-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.angle-card{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 5px 18px rgba(0,0,0,.05);
+}
+
+.angle-visual{
+  height:130px;
+  position:relative;
+  margin:12px auto;
+  width:160px;
+}
+
+.ray{
+  position:absolute;
+  left:35px;
+  bottom:30px;
+  width:100px;
+  height:5px;
+  background:#ca8a04;
+  transform-origin:left center;
+  border-radius:3px;
+}
+
+.ray.one{transform:rotate(0deg)}
+.ray.acute{transform:rotate(-45deg)}
+.ray.right{transform:rotate(-90deg)}
+.ray.obtuse{transform:rotate(-130deg)}
+
+.dot{
+  position:absolute;
+  left:30px;
+  bottom:25px;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:#78350f;
+}
+
+.step{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  padding:13px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+.concept{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 5px 16px rgba(0,0,0,.05);
+}
+.concept strong{display:block;color:#92400e;margin-bottom:5px}
+
+.mistake{
+  background:white;
+  border-top:5px solid var(--red);
+  border-radius:16px;
+  padding:20px;
+}
+.wrong{color:#b91c1c;font-weight:800}
+.right{color:#166534;font-weight:800}
+
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.level{
+  color:white;
+  border-radius:22px;
+  padding:24px;
+}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#ca8a04,#a16207)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+
+.level button{
+  border:none;
+  background:white;
+  color:#111827;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.panel{
+  display:none;
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  margin-top:18px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+.panel.active{display:block}
+
+.task{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  margin:12px 0;
+}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input{
+  padding:10px;
+  border:1px solid #cbd5e1;
+  border-radius:9px;
+  width:100%;
+  max-width:280px;
+}
+
+.check{
+  margin-top:9px;
+  background:var(--gold);
+  color:white;
+  border:none;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.feedback{
+  display:none;
+  margin-top:9px;
+  padding:10px;
+  border-radius:9px;
+  font-weight:800;
+}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{
+  background:#0f172a;
+  color:white;
+  border-radius:24px;
+  padding:28px;
+}
+
+.quiz-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.score{
+  background:#1e293b;
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:900;
+}
+
+.quiz-card{
+  background:#1e293b;
+  border-radius:16px;
+  padding:22px;
+  margin-top:18px;
+}
+
+.answers{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.answer{
+  border:none;
+  background:white;
+  color:#1f2937;
+  padding:14px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  text-align:left;
+}
+
+.answer:hover{background:#fef3c7}
+.answer:disabled{opacity:.75;cursor:default}
+
+#quizFeedback{
+  display:none;
+  margin-top:14px;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+}
+
+#nextBtn{
+  display:none;
+  margin-top:12px;
+  border:none;
+  background:#facc15;
+  color:#111827;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.problem{
+  background:linear-gradient(135deg,#fef3c7,#dbeafe);
+  border-radius:24px;
+  padding:28px;
+}
+
+.problem-card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  margin-top:15px;
+}
+
+.problem textarea{
+  width:100%;
+  min-height:110px;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  resize:vertical;
+  margin-top:12px;
+}
+
+.reveal{
+  margin-top:10px;
+  border:none;
+  background:#92400e;
+  color:white;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.solution{
+  display:none;
+  background:#f8fafc;
+  border-radius:10px;
+  padding:14px;
+  margin-top:12px;
+}
+
+.support{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist label{
+  display:flex;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.checklist input{width:19px;height:19px}
+
+.goal-btn{
+  margin-top:16px;
+  border:none;
+  background:var(--gold2);
+  color:white;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{
+  background:#020617;
+  color:#cbd5e1;
+  padding:34px 20px;
+  text-align:center;
+  margin-top:60px;
+}
+
+@media(max-width:900px){
+  .overview,.grid-4,.angle-row{grid-template-columns:repeat(2,1fr)}
+  .grid-3,.levels{grid-template-columns:1fr}
+}
+
+@media(max-width:700px){
+  .hero-inner,.grid-2,.overview,.answers,.angle-row{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .overview{margin-top:-25px}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">📐 Geometri – Matematik åk 6</div>
+
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="matematik.html">🔢 Matematik</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Problem</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Geometri</h1>
+      <p>
+        Här lär du dig om vinklar, geometriska figurer, omkrets, area och volym.
+        Du får se modeller, träna steg för steg och lösa problem från vardagen.
+      </p>
+    </div>
+
+    <div class="hero-card">
+      <div style="font-size:2rem;">📏</div>
+      <div class="shape-demo"></div>
+      <strong>Area = 24 cm²</strong>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="overview">
+    <div>📐 Vinklar</div>
+    <div>🔺 Trianglar</div>
+    <div>⬛ Fyrhörningar</div>
+    <div>📏 Area & omkrets</div>
+    <div>🧊 Volym</div>
+  </div>
+
+  <section id="forsta">
+    <div class="section-head">
+      <h2>📐 Vinklar</h2>
+      <p>En vinkel beskriver hur mycket två linjer öppnar sig från varandra.</p>
+    </div>
+
+    <div class="angle-row">
+      <div class="angle-card">
+        <h3>Spetsig vinkel</h3>
+        <div class="angle-visual">
+          <div class="ray one"></div>
+          <div class="ray acute"></div>
+          <div class="dot"></div>
+        </div>
+        <p>Mindre än 90°.</p>
+      </div>
+
+      <div class="angle-card">
+        <h3>Rät vinkel</h3>
+        <div class="angle-visual">
+          <div class="ray one"></div>
+          <div class="ray right"></div>
+          <div class="dot"></div>
+        </div>
+        <p>Exakt 90°.</p>
+      </div>
+
+      <div class="angle-card">
+        <h3>Trubbig vinkel</h3>
+        <div class="angle-visual">
+          <div class="ray one"></div>
+          <div class="ray obtuse"></div>
+          <div class="dot"></div>
+        </div>
+        <p>Större än 90° men mindre än 180°.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🔺 Trianglar</h2>
+      <p>Alla trianglar har tre sidor och vinkelsumman är alltid 180°.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Liksidig triangel</h3>
+        <p>Alla tre sidor är lika långa.</p>
+        <div class="formula">60° + 60° + 60° = 180°</div>
+      </div>
+
+      <div class="card">
+        <h3>Likbent triangel</h3>
+        <p>Två sidor är lika långa.</p>
+        <div class="tip">De två basvinklarna är lika stora.</div>
+      </div>
+
+      <div class="card">
+        <h3>Rätvinklig triangel</h3>
+        <p>En av vinklarna är 90°.</p>
+        <div class="tip">De andra två vinklarna tillsammans är 90°.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>⬛ Fyrhörningar</h2>
+      <p>En fyrhörning har fyra sidor. Vinkelsumman är 360°.</p>
+    </div>
+
+    <div class="grid-4">
+      <div class="concept"><strong>Kvadrat</strong>Fyra lika långa sidor och fyra räta vinklar.</div>
+      <div class="concept"><strong>Rektangel</strong>Motstående sidor lika långa och fyra räta vinklar.</div>
+      <div class="concept"><strong>Parallellogram</strong>Motstående sidor är parallella.</div>
+      <div class="concept"><strong>Trapets</strong>Har minst ett par parallella sidor.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>📏 Omkrets</h2>
+      <p>Omkrets är längden runt en figur.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Rektangel 6 cm × 4 cm</h3>
+        <div class="formula">O = 6 + 4 + 6 + 4</div>
+        <div class="step">O = 20 cm</div>
+      </div>
+
+      <div class="card">
+        <h3>Kvadrat med sidan 5 cm</h3>
+        <div class="formula">O = 4 · 5</div>
+        <div class="step">O = 20 cm</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🟨 Area</h2>
+      <p>Area beskriver hur stor yta en figur täcker.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Rektangel</h3>
+        <div class="formula">A = längd · bredd</div>
+        <p>6 cm · 4 cm = 24 cm²</p>
+      </div>
+
+      <div class="card">
+        <h3>Kvadrat</h3>
+        <div class="formula">A = sida · sida</div>
+        <p>5 cm · 5 cm = 25 cm²</p>
+      </div>
+
+      <div class="card">
+        <h3>Triangel</h3>
+        <div class="formula">A = bas · höjd ÷ 2</div>
+        <p>8 cm · 5 cm ÷ 2 = 20 cm²</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🧊 Volym</h2>
+      <p>Volym beskriver hur mycket en tredimensionell kropp rymmer.</p>
+    </div>
+
+    <div class="card">
+      <h3>Rätblock</h3>
+      <div class="formula">V = längd · bredd · höjd</div>
+      <p>Exempel: 5 cm · 3 cm · 4 cm = 60 cm³.</p>
+      <div class="tip">Kom ihåg: volym mäts i kubikenheter, till exempel cm³.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🧠 Begreppsbank</h2>
+    </div>
+
+    <div class="grid-4">
+      <div class="concept"><strong>Vinkel</strong>Hur mycket två linjer öppnar sig.</div>
+      <div class="concept"><strong>Grad</strong>Enhet för vinklar, skrivs °.</div>
+      <div class="concept"><strong>Omkrets</strong>Längden runt en figur.</div>
+      <div class="concept"><strong>Area</strong>Storleken på en yta.</div>
+      <div class="concept"><strong>Volym</strong>Hur mycket en kropp rymmer.</div>
+      <div class="concept"><strong>Parallella</strong>Linjer som aldrig möts.</div>
+      <div class="concept"><strong>Bas</strong>En vald sida i en figur.</div>
+      <div class="concept"><strong>Höjd</strong>Det vinkelräta avståndet från basen.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>⚠️ Vanliga missuppfattningar</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="mistake">
+        <h3>Area och omkrets</h3>
+        <p class="wrong">❌ Area är längden runt figuren.</p>
+        <p class="right">✅ Omkrets är runt. Area är ytan.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Areaenheter</h3>
+        <p class="wrong">❌ 24 cm</p>
+        <p class="right">✅ Area skrivs exempelvis 24 cm².</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Volymenheter</h3>
+        <p class="wrong">❌ 60 cm²</p>
+        <p class="right">✅ Volym skrivs exempelvis 60 cm³.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="traning">
+    <div class="section-head">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>Klicka på en nivå så öppnas uppgifterna.</p>
+    </div>
+
+    <div class="levels">
+      <div class="level level1">
+        <h3>🌱 Nivå 1</h3>
+        <p>Vinklar och enkla figurer.</p>
+        <button type="button" onclick="showLevel(1)">Öppna nivå 1</button>
+      </div>
+
+      <div class="level level2">
+        <h3>🚀 Nivå 2</h3>
+        <p>Omkrets och area.</p>
+        <button type="button" onclick="showLevel(2)">Öppna nivå 2</button>
+      </div>
+
+      <div class="level level3">
+        <h3>🏆 Nivå 3</h3>
+        <p>Volym och problemlösning.</p>
+        <button type="button" onclick="showLevel(3)">Öppna nivå 3</button>
+      </div>
+    </div>
+
+    <div id="level1" class="panel">
+      <h3>🌱 Nivå 1</h3>
+
+      <div class="task">
+        <label>1. Hur många grader är en rät vinkel?</label>
+        <input id="a1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a1',['90','90°'],'f1')">Kontrollera</button>
+        <div id="f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Hur många sidor har en triangel?</label>
+        <input id="a2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a2',['3'],'f2')">Kontrollera</button>
+        <div id="f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Hur stor är vinkelsumman i en triangel?</label>
+        <input id="a3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a3',['180','180°'],'f3')">Kontrollera</button>
+        <div id="f3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level2" class="panel">
+      <h3>🚀 Nivå 2</h3>
+
+      <div class="task">
+        <label>1. En rektangel är 8 cm lång och 3 cm bred. Vad är omkretsen?</label>
+        <input id="b1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b1',['22','22 cm'],'g1')">Kontrollera</button>
+        <div id="g1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Samma rektangel: vad är arean?</label>
+        <input id="b2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b2',['24','24 cm2','24 cm²'],'g2')">Kontrollera</button>
+        <div id="g2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. En kvadrat har sidan 6 cm. Vad är arean?</label>
+        <input id="b3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b3',['36','36 cm2','36 cm²'],'g3')">Kontrollera</button>
+        <div id="g3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level3" class="panel">
+      <h3>🏆 Nivå 3</h3>
+
+      <div class="task">
+        <label>1. Ett rätblock är 5 cm långt, 4 cm brett och 3 cm högt. Vad är volymen?</label>
+        <input id="c1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c1',['60','60 cm3','60 cm³'],'h1')">Kontrollera</button>
+        <div id="h1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. En triangel har basen 10 cm och höjden 6 cm. Vad är arean?</label>
+        <input id="c2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c2',['30','30 cm2','30 cm²'],'h2')">Kontrollera</button>
+        <div id="h2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. En triangel har vinklarna 50° och 60°. Hur stor är den tredje vinkeln?</label>
+        <input id="c3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c3',['70','70°'],'h3')">Kontrollera</button>
+        <div id="h3" class="feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quiz">
+    <div class="quiz">
+      <div class="quiz-top">
+        <div>
+          <h2>🎮 Geometriquiz</h2>
+          <p>Åtta frågor. Svarsalternativen blandas.</p>
+        </div>
+        <div id="score" class="score">Poäng: 0 / 0</div>
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+        <h3 id="question"></h3>
+        <div id="answers" class="answers"></div>
+        <div id="quizFeedback"></div>
+        <button id="nextBtn" type="button" onclick="nextQuestion()">Nästa fråga →</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="section-head">
+      <h2>🧩 Problemlösning</h2>
+      <p>Använd rätt begrepp och visa hur du räknar.</p>
+    </div>
+
+    <div class="problem">
+      <div class="problem-card">
+        <h3>🌱 Skolgården</h3>
+        <p>
+          En rektangulär plantering är 12 meter lång och 5 meter bred.
+          Hur stor area har planteringen och hur lång kant behövs runt hela planteringen?
+        </p>
+
+        <textarea placeholder="Skriv hur du tänker och räknar..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol1')">
+          Visa lösningsförslag
+        </button>
+
+        <div id="sol1" class="solution">
+          Area: 12 · 5 = 60 m².<br><br>
+          Omkrets: 12 + 5 + 12 + 5 = 34 m.<br><br>
+          <strong>Svar: Arean är 60 m² och det behövs 34 m kant.</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🌱 Stöd och utmaning</h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="support">
+        <h3>🆘 Jag behöver hjälp</h3>
+        <ul>
+          <li>Rita figuren innan du räknar.</li>
+          <li>Skriv ut måtten i bilden.</li>
+          <li>Fråga: ska jag räkna runt, ytan eller hur mycket den rymmer?</li>
+          <li>Kontrollera enheten: cm, cm² eller cm³.</li>
+        </ul>
+      </div>
+
+      <div class="support">
+        <h3>🚀 Jag vill utmanas</h3>
+        <ul>
+          <li>Skapa två rektanglar med samma area men olika omkrets.</li>
+          <li>Rita en figur som består av flera rektanglar och beräkna arean.</li>
+          <li>Skapa ett eget problem med triangelarea.</li>
+          <li>Förklara skillnaden mellan area och volym med egna ord.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>✅ Kunskapscheck</h2>
+    </div>
+
+    <div class="checklist">
+      <label><input class="goal" type="checkbox"> Jag kan känna igen spetsig, rät och trubbig vinkel.</label>
+      <label><input class="goal" type="checkbox"> Jag vet att vinkelsumman i en triangel är 180°.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beskriva vanliga fyrhörningar.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beräkna omkrets.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beräkna area av rektangel och kvadrat.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beräkna area av triangel.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beräkna volym av ett rätblock.</label>
+      <label><input class="goal" type="checkbox"> Jag använder rätt enhet: cm, cm² eller cm³.</label>
+
+      <button class="goal-btn" type="button" onclick="checkGoals()">Se min progression</button>
+      <div id="goalResult"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <strong>📐 Geometri • Matematik åk 6</strong><br>
+  Förstå • Träna • Resonera • Lösa problem
+</footer>
+
+<script>
+var quizQuestions = [
+  {q:"Hur stor är en rät vinkel?",a:["45°","90°","120°","180°"],c:"90°",e:"En rät vinkel är exakt 90°."},
+  {q:"Hur stor är vinkelsumman i en triangel?",a:["90°","180°","270°","360°"],c:"180°",e:"Alla trianglar har vinkelsumman 180°."},
+  {q:"En rektangel är 7 cm lång och 4 cm bred. Vad är arean?",a:["11 cm²","22 cm²","28 cm²","35 cm²"],c:"28 cm²",e:"7 · 4 = 28 cm²."},
+  {q:"Samma rektangel: vad är omkretsen?",a:["11 cm","18 cm","22 cm","28 cm"],c:"22 cm",e:"7 + 4 + 7 + 4 = 22 cm."},
+  {q:"Vilken enhet passar bäst för area?",a:["cm","cm²","cm³","grader"],c:"cm²",e:"Area mäts i kvadratenheter."},
+  {q:"Vilken enhet passar bäst för volym?",a:["cm","cm²","cm³","m/s"],c:"cm³",e:"Volym mäts i kubikenheter."},
+  {q:"En triangel har basen 8 cm och höjden 5 cm. Vad är arean?",a:["13 cm²","20 cm²","40 cm²","80 cm²"],c:"20 cm²",e:"8 · 5 ÷ 2 = 20 cm²."},
+  {q:"Ett rätblock är 2 cm × 3 cm × 4 cm. Vad är volymen?",a:["9 cm³","12 cm³","18 cm³","24 cm³"],c:"24 cm³",e:"2 · 3 · 4 = 24 cm³."}
+];
+
+var order=[];
+var current=0;
+var score=0;
+var answered=0;
+
+function normalize(value){
+  return value.trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function showLevel(number){
+  document.querySelectorAll(".panel").forEach(function(panel){
+    panel.classList.remove("active");
+  });
+
+  var selected=document.getElementById("level"+number);
+  selected.classList.add("active");
+  selected.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function checkAnswer(inputId,correctAnswers,feedbackId){
+  var value=normalize(document.getElementById(inputId).value);
+  var feedback=document.getElementById(feedbackId);
+
+  var correct=correctAnswers.some(function(answer){
+    return value===normalize(answer);
+  });
+
+  if(correct){
+    feedback.className="feedback good";
+    feedback.textContent="✅ Rätt! Bra jobbat.";
+  }else{
+    feedback.className="feedback bad";
+    feedback.textContent="❌ Inte riktigt. Försök igen.";
+  }
+}
+
+function toggleSolution(id){
+  var box=document.getElementById(id);
+  box.style.display=box.style.display==="block" ? "none" : "block";
+}
+
+function shuffle(array){
+  var copy=array.slice();
+  for(var i=copy.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var temp=copy[i];
+    copy[i]=copy[j];
+    copy[j]=temp;
+  }
+  return copy;
+}
+
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;
+  score=0;
+  answered=0;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+
+  var answerBox=document.getElementById("answers");
+  answerBox.innerHTML="";
+
+  shuffle(item.a).forEach(function(choice){
+    var button=document.createElement("button");
+    button.type="button";
+    button.className="answer";
+    button.textContent=choice;
+    button.onclick=function(){
+      answerQuestion(choice,item.c,item.e);
+    };
+    answerBox.appendChild(button);
+  });
+
+  document.getElementById("quizFeedback").style.display="none";
+  document.getElementById("quizFeedback").innerHTML="";
+  document.getElementById("nextBtn").style.display="none";
+  updateScore();
+}
+
+function answerQuestion(choice,correct,explanation){
+  document.querySelectorAll(".answer").forEach(function(button){
+    button.disabled=true;
+  });
+
+  answered++;
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="block";
+
+  if(choice===correct){
+    score++;
+    feedback.style.background="#dcfce7";
+    feedback.style.color="#166534";
+    feedback.innerHTML="✅ Rätt! "+explanation;
+  }else{
+    feedback.style.background="#fee2e2";
+    feedback.style.color="#991b1b";
+    feedback.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+explanation;
+  }
+
+  updateScore();
+  document.getElementById("nextBtn").style.display="inline-block";
+}
+
+function nextQuestion(){
+  current++;
+
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quizet är klart!</h3>"+
+      "<p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p>"+
+      "<button type='button' style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return;
+  }
+
+  renderQuestion();
+}
+
+function updateScore(){
+  document.getElementById("score").textContent="Poäng: "+score+" / "+answered;
+}
+
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal");
+  var checked=0;
+
+  goals.forEach(function(goal){
+    if(goal.checked){checked++}
+  });
+
+  var result=document.getElementById("goalResult");
+
+  if(checked===goals.length){
+    result.textContent="🏆 Alla mål markerade!";
+  }else if(checked>=6){
+    result.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  }else if(checked>=3){
+    result.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  }else{
+    result.textContent="👣 Börja med vinklar och grundläggande figurer och arbeta vidare steg för steg.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  startQuiz();
+});
+</script>
+
+</body>
+</html>
