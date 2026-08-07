@@ -218,7 +218,8 @@
       margin-bottom:18px;
     }
 
-    .topic button{
+    .topic-button{
+      display:inline-block;
       border:none;
       background:#eff6ff;
       color:#1d4ed8;
@@ -226,6 +227,12 @@
       border-radius:10px;
       font-weight:800;
       cursor:pointer;
+      text-decoration:none;
+      font-size:.9rem;
+    }
+
+    .topic-button:hover{
+      background:#dbeafe;
     }
 
     .learn-grid{
@@ -546,8 +553,11 @@
           <li>Tal på tallinje</li>
           <li>Avrundning</li>
         </ul>
-        <button onclick="showTopic('Taluppfattning')">Öppna området</button>
+        <button class="topic-button" onclick="showTopic('Taluppfattning')">
+          Öppna området
+        </button>
       </article>
+
 
       <article class="topic">
         <div class="topic-icon">➕</div>
@@ -559,8 +569,11 @@
           <li>Överslagsräkning</li>
           <li>Rimlighetsbedömning</li>
         </ul>
-        <button onclick="showTopic('De fyra räknesätten')">Öppna området</button>
+        <button class="topic-button" onclick="showTopic('De fyra räknesätten')">
+          Öppna området
+        </button>
       </article>
+
 
       <article class="topic">
         <div class="topic-icon">🍕</div>
@@ -572,8 +585,12 @@
           <li>Jämföra bråk</li>
           <li>Bråk av antal</li>
         </ul>
-        <button onclick="showTopic('Bråk')">Öppna området</button>
+
+        <a class="topic-button" href="brak.html">
+          Öppna området →
+        </a>
       </article>
+
 
       <article class="topic">
         <div class="topic-icon">🔟</div>
@@ -585,8 +602,11 @@
           <li>Räkna med decimaler</li>
           <li>Bråk och decimalform</li>
         </ul>
-        <button onclick="showTopic('Decimaltal')">Öppna området</button>
+        <button class="topic-button" onclick="showTopic('Decimaltal')">
+          Öppna området
+        </button>
       </article>
+
 
       <article class="topic">
         <div class="topic-icon">💯</div>
@@ -598,8 +618,11 @@
           <li>Rabatt</li>
           <li>Jämförelser</li>
         </ul>
-        <button onclick="showTopic('Procent')">Öppna området</button>
+        <button class="topic-button" onclick="showTopic('Procent')">
+          Öppna området
+        </button>
       </article>
+
 
       <article class="topic">
         <div class="topic-icon">🔠</div>
@@ -611,8 +634,11 @@
           <li>Enkla ekvationer</li>
           <li>Obekanta tal</li>
         </ul>
-        <button onclick="showTopic('Algebra')">Öppna området</button>
+        <button class="topic-button" onclick="showTopic('Algebra')">
+          Öppna området
+        </button>
       </article>
+
 
       <article class="topic">
         <div class="topic-icon">📐</div>
@@ -624,8 +650,11 @@
           <li>Fyrhörningar</li>
           <li>Area och omkrets</li>
         </ul>
-        <button onclick="showTopic('Geometri')">Öppna området</button>
+        <button class="topic-button" onclick="showTopic('Geometri')">
+          Öppna området
+        </button>
       </article>
+
 
       <article class="topic">
         <div class="topic-icon">📊</div>
@@ -637,8 +666,11 @@
           <li>Medelvärde</li>
           <li>Median och typvärde</li>
         </ul>
-        <button onclick="showTopic('Statistik')">Öppna området</button>
+        <button class="topic-button" onclick="showTopic('Statistik')">
+          Öppna området
+        </button>
       </article>
+
 
       <article class="topic">
         <div class="topic-icon">🎲</div>
@@ -650,8 +682,11 @@
           <li>Bråk och sannolikhet</li>
           <li>Experiment</li>
         </ul>
-        <button onclick="showTopic('Sannolikhet')">Öppna området</button>
+        <button class="topic-button" onclick="showTopic('Sannolikhet')">
+          Öppna området
+        </button>
       </article>
+
 
       <article class="topic">
         <div class="topic-icon">🧩</div>
@@ -663,8 +698,11 @@
           <li>Pröva systematiskt</li>
           <li>Arbeta baklänges</li>
         </ul>
-        <button onclick="showTopic('Problemlösning')">Öppna området</button>
+        <button class="topic-button" onclick="showTopic('Problemlösning')">
+          Öppna området
+        </button>
       </article>
+
 
       <article class="topic">
         <div class="topic-icon">🔁</div>
@@ -676,8 +714,11 @@
           <li>Regler</li>
           <li>Generalisering</li>
         </ul>
-        <button onclick="showTopic('Mönster')">Öppna området</button>
+        <button class="topic-button" onclick="showTopic('Mönster')">
+          Öppna området
+        </button>
       </article>
+
 
       <article class="topic">
         <div class="topic-icon">📈</div>
@@ -689,7 +730,9 @@
           <li>Hastighet</li>
           <li>Tabeller och grafer</li>
         </ul>
-        <button onclick="showTopic('Samband och förändring')">Öppna området</button>
+        <button class="topic-button" onclick="showTopic('Samband och förändring')">
+          Öppna området
+        </button>
       </article>
 
     </div>
@@ -863,7 +906,7 @@
       <div class="section-title">
         <h2 style="color:white">🎮 Träna matematik</h2>
         <p style="color:#cbd5e1">
-          Här bygger vi sedan riktiga interaktiva övningar.
+          Träna direkt och få återkoppling.
         </p>
       </div>
 
@@ -872,7 +915,7 @@
         <div class="practice-card">
           <span>⚡</span>
           <h3>Snabbträning</h3>
-          <p>10 korta uppgifter med direkt återkoppling.</p>
+          <p>Korta uppgifter med direkt återkoppling.</p>
           <button onclick="quickQuiz()">Starta</button>
         </div>
 
@@ -977,7 +1020,7 @@
 function showTopic(topic){
   alert(
     "Du valde: " + topic +
-    "\n\nNästa steg är att bygga en komplett sida för detta område med genomgång, exempel, begrepp, träning, quiz och utmaningar."
+    "\n\nDen kompletta sidan för området byggs steg för steg."
   );
 }
 
