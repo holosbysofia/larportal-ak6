@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Begreppsbank – Lärportal åk 6</title>
+<style>
+:root{
+  --bg:#f5f7fb;--ink:#14213d;--muted:#64748b;--card:#fff;--line:#e5e7eb;
+  --blue:#2563eb;--green:#059669;--orange:#ea580c;--purple:#7c3aed;--red:#dc2626;--cyan:#0891b2
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+nav{
+  position:sticky;top:0;z-index:1000;background:#fff;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{padding:8px 11px;border-radius:10px;font-weight:800;color:#334155}
+.navlinks a:hover{background:#eef2ff;color:#3730a3}
+.navlinks .home{background:var(--blue);color:#fff}
+
+.hero{
+  background:radial-gradient(circle at 82% 20%,rgba(255,255,255,.16),transparent 22%),
+  linear-gradient(135deg,#1d4ed8,#6d28d9,#0891b2);
+  color:#fff;padding:70px 6% 95px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr .8fr;gap:32px;align-items:center}
+.hero h1{font-size:clamp(3rem,8vw,5.3rem);line-height:.95;margin:0 0 16px}
+.hero p{font-size:1.16rem;max-width:760px;margin:0}
+.hero-card{background:#fff;color:#1e3a8a;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.18)}
+.hero-card .big{font-size:5rem}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.subject-shortcuts{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-35px}
+.subject-shortcuts button{
+  border:0;background:#fff;border-radius:16px;padding:18px 12px;font-weight:900;cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,.08)
+}
+.subject-shortcuts button:hover{transform:translateY(-2px)}
+.subject-shortcuts button.active{outline:3px solid #93c5fd}
+
+section{margin-top:56px}
+.section-head h2{font-size:2rem;margin:0 0 7px}
+.section-head p{margin:0;color:var(--muted)}
+
+.search{
+  background:#fff;border-radius:20px;padding:20px;box-shadow:0 6px 20px rgba(0,0,0,.05)
+}
+.search input{
+  width:100%;border:2px solid #cbd5e1;border-radius:12px;padding:14px 16px;outline:none
+}
+.search input:focus{border-color:#2563eb}
+.counter{margin-top:10px;color:var(--muted);font-weight:800}
+
+.bank{margin-top:26px}
+.subject-section{margin-top:36px}
+.subject-title{
+  display:flex;align-items:center;gap:12px;margin-bottom:15px;padding:14px 18px;border-radius:16px;color:#fff
+}
+.subject-title.math{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.subject-title.no{background:linear-gradient(135deg,#059669,#0f766e)}
+.subject-title.tech{background:linear-gradient(135deg,#ea580c,#f59e0b)}
+.subject-title.sv{background:linear-gradient(135deg,#9333ea,#6d28d9)}
+.subject-title.en{background:linear-gradient(135deg,#dc2626,#be123c)}
+.subject-title h2{margin:0;font-size:1.55rem}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.term{
+  background:#fff;border-radius:18px;padding:19px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border:1px solid #eef2f7
+}
+.term.hide,.subject-section.hide{display:none}
+.term h3{margin:0 0 4px;color:#1d4ed8}
+.term .def{font-weight:800;color:#334155}
+.term p{margin:8px 0 0;color:#475569}
+.term .ex{margin-top:10px;background:#f8fafc;padding:10px;border-radius:10px;font-style:italic}
+.tag{display:inline-block;margin-top:9px;padding:4px 8px;border-radius:999px;background:#e0f2fe;color:#075985;font-size:.8rem;font-weight:900}
+
+.flash{
+  background:linear-gradient(135deg,#eef2ff,#ecfeff);border-radius:24px;padding:28px;margin-top:24px
+}
+.flash-card{
+  min-height:220px;background:#fff;border-radius:20px;padding:28px;text-align:center;
+  display:flex;flex-direction:column;justify-content:center;box-shadow:0 6px 22px rgba(0,0,0,.05)
+}
+.flash-word{font-size:2rem;font-weight:900;color:#1d4ed8}
+.flash-def{margin-top:10px;font-weight:800}
+.flash-ex{margin-top:10px;color:var(--muted)}
+.flash-buttons{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:15px}
+.flash-buttons button{border:0;border-radius:10px;padding:10px 14px;font-weight:900;cursor:pointer}
+.prev{background:#e2e8f0}.show{background:#facc15}.next{background:#2563eb;color:#fff}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.subject-shortcuts,.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.hero-inner,.subject-shortcuts,.grid{grid-template-columns:1fr}.hero-card{display:none}.subject-shortcuts{margin-top:-22px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🧠 Begreppsbank – Åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="#sok">Sök</a>
+    <a href="#bank">Begrepp</a>
+    <a href="#flashcards">Flashcards</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Begreppsbank</h1>
+      <p>
+        Träna viktiga ämnesord i matematik, NO, teknik, svenska/SVA och engelska.
+        Sök efter ett ord, filtrera på ämne och repetera med flashcards.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="big">🧠📚✨</div>
+      <h3>Förstå orden – förstå ämnet</h3>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="subject-shortcuts">
+  <button class="active" onclick="filterSubject('alla',this)">🌟 Alla</button>
+  <button onclick="filterSubject('matematik',this)">🔢 Matematik</button>
+  <button onclick="filterSubject('no',this)">🔬 NO</button>
+  <button onclick="filterSubject('teknik',this)">⚙️ Teknik</button>
+  <button onclick="filterSubject('svenska',this)">📖 Svenska/SVA</button>
+  <button onclick="filterSubject('engelska',this)">🇬🇧 Engelska</button>
+</div>
+
+<section id="sok">
+  <div class="section-head">
+    <h2>🔎 Sök i begreppsbanken</h2>
+    <p>Sök på begrepp, förklaring eller exempel.</p>
+  </div>
+  <div class="search">
+    <input id="searchInput" type="text" placeholder="Sök t.ex. procent, fotosyntes, verb, konstruktion, inference..." oninput="applyFilters()">
+    <div id="counter" class="counter"></div>
+  </div>
+</section>
+
+<section id="bank" class="bank">
+
+  <div class="subject-section" data-subject="matematik">
+    <div class="subject-title math"><h2>🔢 Matematik</h2></div>
+    <div class="grid">
+      <div class="term" data-search="summa addition plus"><h3>Summa</h3><div class="def">Resultatet av en addition.</div><div class="ex">12 + 8 = 20 → summan är 20.</div></div>
+      <div class="term" data-search="differens subtraktion minus"><h3>Differens</h3><div class="def">Resultatet av en subtraktion.</div><div class="ex">15 − 9 = 6 → differensen är 6.</div></div>
+      <div class="term" data-search="produkt multiplikation gånger"><h3>Produkt</h3><div class="def">Resultatet av en multiplikation.</div><div class="ex">7 × 6 = 42 → produkten är 42.</div></div>
+      <div class="term" data-search="kvot division delat"><h3>Kvot</h3><div class="def">Resultatet av en division.</div><div class="ex">48 ÷ 6 = 8 → kvoten är 8.</div></div>
+      <div class="term" data-search="täljare bråk numerator"><h3>Täljare</h3><div class="def">Talet ovanför bråkstrecket.</div><div class="ex">I 3/5 är 3 täljaren.</div></div>
+      <div class="term" data-search="nämnare bråk denominator"><h3>Nämnare</h3><div class="def">Talet under bråkstrecket.</div><div class="ex">I 3/5 är 5 nämnaren.</div></div>
+      <div class="term" data-search="procent hundradel"><h3>Procent</h3><div class="def">Betyder hundradelar.</div><div class="ex">25 % = 25/100 = 0,25.</div></div>
+      <div class="term" data-search="decimalform decimal tal"><h3>Decimalform</h3><div class="def">Ett tal skrivet med decimaltecken.</div><div class="ex">0,75 är samma som 75 %.</div></div>
+      <div class="term" data-search="medelvärde statistik average"><h3>Medelvärde</h3><div class="def">Summan av värdena delad med antalet värden.</div><div class="ex">(4 + 6 + 8) ÷ 3 = 6.</div></div>
+      <div class="term" data-search="median statistik mitten"><h3>Median</h3><div class="def">Det mittersta värdet när talen ordnats.</div><div class="ex">2, 5, 9 → medianen är 5.</div></div>
+      <div class="term" data-search="typvärde statistik vanligaste"><h3>Typvärde</h3><div class="def">Det värde som förekommer flest gånger.</div><div class="ex">2, 2, 3, 4 → typvärdet är 2.</div></div>
+      <div class="term" data-search="variabel algebra bokstav"><h3>Variabel</h3><div class="def">En symbol, ofta en bokstav, som kan representera ett tal.</div><div class="ex">x + 4 = 9.</div></div>
+      <div class="term" data-search="omkrets geometri perimeter"><h3>Omkrets</h3><div class="def">Längden runt en figur.</div></div>
+      <div class="term" data-search="area yta geometri"><h3>Area</h3><div class="def">Storleken på en yta.</div></div>
+      <div class="term" data-search="proportionalitet förhållande samband"><h3>Proportionalitet</h3><div class="def">När två storheter förändras i samma förhållande.</div></div>
+    </div>
+  </div>
+
+  <div class="subject-section" data-subject="no">
+    <div class="subject-title no"><h2>🔬 NO</h2></div>
+    <div class="grid">
+      <div class="term" data-search="cell biologi kroppen"><h3>Cell</h3><div class="def">Kroppens och andra organismers minsta levande byggsten.</div></div>
+      <div class="term" data-search="organ kropp biologi"><h3>Organ</h3><div class="def">En del av kroppen med en särskild uppgift.</div><div class="ex">Hjärta, lungor och njurar är organ.</div></div>
+      <div class="term" data-search="organsystem kropp"><h3>Organsystem</h3><div class="def">Flera organ som samarbetar.</div></div>
+      <div class="term" data-search="puls hjärta blod"><h3>Puls</h3><div class="def">Hur många gånger hjärtat slår per minut.</div></div>
+      <div class="term" data-search="ekosystem natur miljö"><h3>Ekosystem</h3><div class="def">Organismer och deras miljö som samspelar.</div></div>
+      <div class="term" data-search="producent växt ekologi"><h3>Producent</h3><div class="def">En organism som kan tillverka energirik näring, till exempel en grön växt.</div></div>
+      <div class="term" data-search="konsument djur ekologi"><h3>Konsument</h3><div class="def">En organism som får energi genom att äta andra organismer.</div></div>
+      <div class="term" data-search="nedbrytare ekologi"><h3>Nedbrytare</h3><div class="def">Organismer som bryter ner dött organiskt material.</div></div>
+      <div class="term" data-search="näringskedja ekologi energi"><h3>Näringskedja</h3><div class="def">Visar vem som äter vem och hur energi förs vidare.</div></div>
+      <div class="term" data-search="fotosyntes växt koldioxid syre"><h3>Fotosyntes</h3><div class="def">Process där växter använder ljusenergi, vatten och koldioxid för att bilda energirik näring.</div></div>
+      <div class="term" data-search="energi fysik omvandling"><h3>Energi</h3><div class="def">Förmåga att orsaka förändring eller utföra arbete.</div></div>
+      <div class="term" data-search="kraft newton fysik"><h3>Kraft</h3><div class="def">En påverkan som kan ändra rörelse eller form.</div></div>
+      <div class="term" data-search="friktion fysik kraft"><h3>Friktion</h3><div class="def">En kraft som ofta motverkar rörelse mellan ytor.</div></div>
+      <div class="term" data-search="materia kemi ämne"><h3>Materia</h3><div class="def">Allt som har massa och tar plats.</div></div>
+      <div class="term" data-search="lösning kemi blandning"><h3>Lösning</h3><div class="def">En homogen blandning där ett ämne lösts i ett annat.</div></div>
+      <div class="term" data-search="kemisk reaktion kemi"><h3>Kemisk reaktion</h3><div class="def">När ämnen omvandlas och nya ämnen bildas.</div></div>
+    </div>
+  </div>
+
+  <div class="subject-section" data-subject="teknik">
+    <div class="subject-title tech"><h2>⚙️ Teknik</h2></div>
+    <div class="grid">
+      <div class="term" data-search="teknisk lösning behov"><h3>Teknisk lösning</h3><div class="def">En lösning skapad för att möta ett behov eller lösa ett problem.</div></div>
+      <div class="term" data-search="funktion teknik"><h3>Funktion</h3><div class="def">Vad en teknisk lösning är tänkt att göra.</div></div>
+      <div class="term" data-search="konstruktion bygga teknik"><h3>Konstruktion</h3><div class="def">Något som är uppbyggt av delar för att få en viss funktion.</div></div>
+      <div class="term" data-search="hållfasthet konstruktion"><h3>Hållfasthet</h3><div class="def">Förmågan att tåla belastning utan att gå sönder.</div></div>
+      <div class="term" data-search="stabilitet konstruktion"><h3>Stabilitet</h3><div class="def">Förmågan att stå stadigt utan att välta eller deformeras.</div></div>
+      <div class="term" data-search="mekanism teknik"><h3>Mekanism</h3><div class="def">Delar som samarbetar för att överföra eller förändra rörelse och kraft.</div></div>
+      <div class="term" data-search="komponent del system"><h3>Komponent</h3><div class="def">En del i ett tekniskt system.</div></div>
+      <div class="term" data-search="tekniskt system delar flöde"><h3>Tekniskt system</h3><div class="def">Flera delar som samverkar för en funktion.</div></div>
+      <div class="term" data-search="sensor programmering styrning"><h3>Sensor</h3><div class="def">En komponent som känner av något i omgivningen.</div></div>
+      <div class="term" data-search="algoritm programmering instruktion"><h3>Algoritm</h3><div class="def">En tydlig följd av instruktioner för att lösa en uppgift.</div></div>
+      <div class="term" data-search="prototyp modell teknik"><h3>Prototyp</h3><div class="def">En tidig modell som byggs för att testas och förbättras.</div></div>
+      <div class="term" data-search="skiss ritning design"><h3>Skiss</h3><div class="def">En enkel bild som visar en idé eller konstruktion.</div></div>
+    </div>
+  </div>
+
+  <div class="subject-section" data-subject="svenska">
+    <div class="subject-title sv"><h2>📖 Svenska / SVA</h2></div>
+    <div class="grid">
+      <div class="term" data-search="huvudidé text läsning"><h3>Huvudidé</h3><div class="def">Det viktigaste som en text handlar om.</div></div>
+      <div class="term" data-search="inferens mellan raderna läsförståelse"><h3>Inferens</h3><div class="def">En slutsats som görs med hjälp av textens ledtrådar och egna kunskaper.</div></div>
+      <div class="term" data-search="budskap tema text"><h3>Budskap</h3><div class="def">Det texten vill säga eller få läsaren att fundera över.</div></div>
+      <div class="term" data-search="tema skönlitteratur"><h3>Tema</h3><div class="def">Ett större ämne eller idé som återkommer i en text.</div></div>
+      <div class="term" data-search="sammanfatta sammanfattning"><h3>Sammanfatta</h3><div class="def">Att återge det viktigaste kort och med egna ord.</div></div>
+      <div class="term" data-search="stycke text struktur"><h3>Stycke</h3><div class="def">En grupp meningar som hör ihop innehållsmässigt.</div></div>
+      <div class="term" data-search="sambandsord text skriva"><h3>Sambandsord</h3><div class="def">Ord som binder ihop idéer och meningar.</div><div class="ex">eftersom, därför, dessutom, men</div></div>
+      <div class="term" data-search="argument åsikt"><h3>Argument</h3><div class="def">Ett skäl som stödjer en åsikt eller tes.</div></div>
+      <div class="term" data-search="tes argumenterande text"><h3>Tes</h3><div class="def">Den ståndpunkt som en argumenterande text driver.</div></div>
+      <div class="term" data-search="substantiv ordklass"><h3>Substantiv</h3><div class="def">Ord för personer, platser, saker, djur eller företeelser.</div></div>
+      <div class="term" data-search="verb ordklass handling"><h3>Verb</h3><div class="def">Ord som uttrycker handling, händelse eller tillstånd.</div></div>
+      <div class="term" data-search="adjektiv ordklass beskriver"><h3>Adjektiv</h3><div class="def">Ord som beskriver egenskaper hos substantiv.</div></div>
+      <div class="term" data-search="källa källkritik"><h3>Källa</h3><div class="def">Något som information hämtas från.</div></div>
+      <div class="term" data-search="avsändare källkritik"><h3>Avsändare</h3><div class="def">Den person eller organisation som står bakom informationen.</div></div>
+    </div>
+  </div>
+
+  <div class="subject-section" data-subject="engelska">
+    <div class="subject-title en"><h2>🇬🇧 Engelska</h2></div>
+    <div class="grid">
+      <div class="term" data-search="noun substantiv english"><h3>Noun</h3><div class="def">Substantiv</div><div class="ex">book, teacher, London</div></div>
+      <div class="term" data-search="verb english handling"><h3>Verb</h3><div class="def">Verb</div><div class="ex">run, write, be</div></div>
+      <div class="term" data-search="adjective adjektiv english"><h3>Adjective</h3><div class="def">Adjektiv</div><div class="ex">happy, tall, interesting</div></div>
+      <div class="term" data-search="adverb english"><h3>Adverb</h3><div class="def">Adverb</div><div class="ex">quickly, often, yesterday</div></div>
+      <div class="term" data-search="pronoun pronomen english"><h3>Pronoun</h3><div class="def">Pronomen</div><div class="ex">I, you, he, she, it, we, they</div></div>
+      <div class="term" data-search="tense tempus english"><h3>Tense</h3><div class="def">Tempus</div><p>Visar när något händer.</p></div>
+      <div class="term" data-search="main idea huvudidé reading"><h3>Main idea</h3><div class="def">Huvudidé</div></div>
+      <div class="term" data-search="detail detalj reading"><h3>Detail</h3><div class="def">Detalj</div></div>
+      <div class="term" data-search="inference inferens reading"><h3>Inference</h3><div class="def">Inferens / slutsats</div></div>
+      <div class="term" data-search="summary sammanfattning reading"><h3>Summary</h3><div class="def">Sammanfattning</div></div>
+      <div class="term" data-search="paragraph stycke writing"><h3>Paragraph</h3><div class="def">Stycke</div></div>
+      <div class="term" data-search="linking word sambandsord writing"><h3>Linking word</h3><div class="def">Sambandsord</div><div class="ex">and, but, because, however</div></div>
+      <div class="term" data-search="follow-up question följdfråga speaking"><h3>Follow-up question</h3><div class="def">Följdfråga</div></div>
+      <div class="term" data-search="clarification förtydligande strategy"><h3>Clarification</h3><div class="def">Förtydligande</div></div>
+      <div class="term" data-search="paraphrase omskrivning strategy"><h3>Paraphrase</h3><div class="def">Omskrivning med andra ord</div></div>
+      <div class="term" data-search="accent uttal culture"><h3>Accent</h3><div class="def">Sätt att uttala ett språk.</div></div>
+    </div>
+  </div>
+
+</section>
+
+<section id="flashcards">
+  <div class="section-head">
+    <h2>🧠 Flashcards</h2>
+    <p>Repetera ett begrepp i taget från blandade ämnen.</p>
+  </div>
+  <div class="flash">
+    <div class="flash-card">
+      <div id="flashWord" class="flash-word"></div>
+      <div id="flashDef" class="flash-def" style="display:none"></div>
+      <div id="flashEx" class="flash-ex" style="display:none"></div>
+    </div>
+    <div class="flash-buttons">
+      <button class="prev" onclick="prevCard()">← Föregående</button>
+      <button class="show" id="showBtn" onclick="showAnswer()">Visa svar</button>
+      <button class="next" onclick="nextCard()">Nästa →</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>🧠 Begreppsbank • Lärportal åk 6</strong><br>
+  Matematik • NO • Teknik • Svenska/SVA • Engelska
+</footer>
+
+<script>
+let subjectFilter="alla";
+
+function filterSubject(subject,btn){
+  subjectFilter=subject;
+  document.querySelectorAll('.subject-shortcuts button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function applyFilters(){
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  let visible=0;
+
+  document.querySelectorAll('.subject-section').forEach(section=>{
+    const sectionSubject=section.dataset.subject;
+    const subjectMatch=subjectFilter==="alla" || sectionSubject===subjectFilter;
+    let sectionVisible=0;
+
+    section.querySelectorAll('.term').forEach(term=>{
+      const text=(term.textContent+" "+(term.dataset.search||"")).toLowerCase();
+      const match=subjectMatch && text.includes(q);
+      term.classList.toggle('hide',!match);
+      if(match){visible++;sectionVisible++}
+    });
+
+    section.classList.toggle('hide',sectionVisible===0);
+  });
+
+  document.getElementById('counter').textContent=visible+" begrepp visas";
+}
+
+const flashData=[
+["Summa","Resultatet av en addition.","12 + 8 = 20"],
+["Kvot","Resultatet av en division.","48 ÷ 6 = 8"],
+["Procent","Hundradelar.","25 % = 25/100"],
+["Median","Det mittersta värdet när talen ordnats.","2, 5, 9 → median 5"],
+["Ekosystem","Organismer och deras miljö som samspelar.","Skog, sjö eller äng."],
+["Fotosyntes","Process där växter använder ljusenergi, vatten och koldioxid för att bilda energirik näring.",""],
+["Friktion","Kraft som ofta motverkar rörelse mellan ytor.",""],
+["Kemisk reaktion","När ämnen omvandlas och nya ämnen bildas.",""],
+["Funktion","Vad en teknisk lösning är tänkt att göra.",""],
+["Komponent","En del i ett tekniskt system.",""],
+["Prototyp","En tidig modell som byggs för att testas och förbättras.",""],
+["Algoritm","En tydlig följd av instruktioner.",""],
+["Inferens","En slutsats utifrån textens ledtrådar och egna kunskaper.",""],
+["Budskap","Det texten vill säga eller väcka tankar om.",""],
+["Argument","Ett skäl som stödjer en åsikt.",""],
+["Avsändare","Den som står bakom informationen.",""],
+["Main idea","Huvudidé.",""],
+["Follow-up question","Följdfråga.","What about you? Why? How often?"],
+["Paraphrase","Omskrivning med andra ord.",""],
+["Linking word","Sambandsord.","and, but, because, however"]
+];
+
+let flashIndex=0;
+
+function renderFlash(){
+  const d=flashData[flashIndex];
+  document.getElementById('flashWord').textContent=d[0];
+  document.getElementById('flashDef').textContent=d[1];
+  document.getElementById('flashEx').textContent=d[2];
+  document.getElementById('flashDef').style.display='none';
+  document.getElementById('flashEx').style.display='none';
+  document.getElementById('showBtn').textContent='Visa svar';
+}
+
+function showAnswer(){
+  const def=document.getElementById('flashDef');
+  const ex=document.getElementById('flashEx');
+  const open=def.style.display==='block';
+  def.style.display=open?'none':'block';
+  ex.style.display=open?'none':'block';
+  document.getElementById('showBtn').textContent=open?'Visa svar':'Dölj svar';
+}
+
+function nextCard(){flashIndex=(flashIndex+1)%flashData.length;renderFlash()}
+function prevCard(){flashIndex=(flashIndex-1+flashData.length)%flashData.length;renderFlash()}
+
+document.addEventListener('DOMContentLoaded',()=>{applyFilters();renderFlash()});
+</script>
+
+</body>
+</html>
