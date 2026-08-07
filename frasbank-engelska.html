@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frasbank – Engelska åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --blue:#2563eb;--cyan:#0891b2;--purple:#7c3aed;--green:#16a34a;
+  --orange:#ea580c;--red:#dc2626;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{text-decoration:none}
+button,input{font:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:#fff;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#dbeafe;color:#1d4ed8}
+.navlinks .home{background:var(--blue);color:white}
+
+.hero{
+  background:radial-gradient(circle at 85% 18%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#2563eb,#0891b2,#0f172a);
+  color:white;padding:68px 6% 94px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.55fr 1fr;gap:34px;align-items:center}
+.hero h1{margin:0 0 14px;font-size:clamp(3rem,7vw,5rem);line-height:1}
+.hero p{font-size:1.15rem;max-width:780px}
+.hero-card{background:white;color:#1d4ed8;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.quick{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-38px}
+.quick a{
+  background:white;padding:17px;border-radius:16px;text-align:center;font-weight:900;color:#1f2937;
+  box-shadow:0 10px 28px rgba(0,0,0,.09)
+}
+.quick a:hover{transform:translateY(-2px);color:#1d4ed8}
+
+section{margin-top:58px}
+.section-head h2{margin:0 0 7px;font-size:2rem;color:var(--dark)}
+.section-head p{margin:0;color:var(--muted)}
+
+.searchbox{
+  margin-top:22px;background:white;border-radius:20px;padding:20px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.searchbox input{
+  width:100%;padding:14px 16px;border:2px solid #cbd5e1;border-radius:12px;
+  font-size:1rem;outline:none
+}
+.searchbox input:focus{border-color:var(--blue)}
+.counter{margin-top:10px;color:var(--muted);font-weight:800}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+.phrase{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--blue)
+}
+.phrase h3{margin:0 0 6px;color:#1d4ed8;font-size:1.08rem}
+.sv{font-weight:800;color:#334155}
+.example{margin-top:10px;background:#f8fafc;padding:10px;border-radius:10px;color:#475569;font-style:italic}
+.tag{display:inline-block;margin-top:9px;padding:4px 9px;border-radius:999px;background:#e0f2fe;color:#075985;font-size:.82rem;font-weight:900}
+.phrase.hide{display:none}
+
+.supportbox{
+  background:linear-gradient(135deg,#eff6ff,#ecfeff);border-radius:24px;padding:28px;margin-top:22px
+}
+.supportgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.mini{background:white;border-radius:16px;padding:18px}
+.mini h3{margin-top:0;color:#1e40af}
+
+.flash{
+  background:linear-gradient(135deg,#eef2ff,#ecfeff);border-radius:24px;padding:28px;margin-top:24px
+}
+.flash-card{
+  background:white;border-radius:20px;padding:28px;text-align:center;min-height:220px;
+  display:flex;flex-direction:column;justify-content:center;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.flash-en{font-size:1.8rem;font-weight:900;color:#1d4ed8}
+.flash-sv{font-size:1.15rem;font-weight:800;margin-top:10px}
+.flash-ex{margin-top:10px;color:#64748b}
+.flash-buttons{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px}
+.flash-buttons button{border:none;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+#showBtn{background:#facc15;color:#111827}
+#nextFlash{background:#2563eb;color:white}
+#prevFlash{background:#e2e8f0;color:#1f2937}
+
+.challenge{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06);margin-top:20px
+}
+.challenge p{margin-bottom:8px}
+.challenge textarea{
+  width:100%;min-height:130px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical
+}
+.reveal{margin-top:10px;border:none;background:#1d4ed8;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+
+.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06);margin-top:22px
+}
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#1d4ed8;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.quick{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.hero-inner,.quick,.grid,.supportgrid{grid-template-columns:1fr}.hero-card{display:none}.quick{margin-top:-24px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">💬 Frasbank – Engelska åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="engelska.html">🇬🇧 Engelska</a>
+    <a href="#klassrum">Klassrum</a>
+    <a href="#samtal">Samtal</a>
+    <a href="#skriva">Skriva</a>
+    <a href="#strategier">Strategier</a>
+    <a href="#flashcards">Flashcards</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Frasbank</h1>
+      <p>
+        Här finns färdiga engelska fraser som eleverna kan använda i klassrummet,
+        i samtal, vid muntliga presentationer, när de skriver och när kommunikationen blir svår.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">💬🧠🇬🇧</div>
+      <h3>Useful English every day</h3>
+      <p>Ask • answer • explain • compare • continue</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="quick">
+  <a href="#klassrum">🏫 Klassrumsengelska</a>
+  <a href="#samtal">💬 Samtal</a>
+  <a href="#asikter">🎯 Åsikter</a>
+  <a href="#skriva">✍️ Skriva</a>
+  <a href="#strategier">🛠️ Strategier</a>
+</div>
+
+<section>
+  <div class="section-head"><h2>🔎 Sök efter en fras</h2><p>Sök på engelska eller svenska.</p></div>
+  <div class="searchbox">
+    <input id="search" type="text" placeholder="Sök t.ex. hjälp, åsikt, jämföra, repeat, because..." oninput="filterPhrases()">
+    <div id="counter" class="counter"></div>
+  </div>
+</section>
+
+<section id="klassrum">
+  <div class="section-head"><h2>🏫 Klassrumsengelska</h2><p>Fraser för att klara vardagen på engelskalektionen.</p></div>
+  <div class="grid">
+    <div class="phrase" data-search="hjälp help class classroom"><h3>Can you help me, please?</h3><div class="sv">Kan du hjälpa mig?</div><span class="tag">Classroom</span></div>
+    <div class="phrase" data-search="förstå understand"><h3>I don't understand.</h3><div class="sv">Jag förstår inte.</div><span class="tag">Classroom</span></div>
+    <div class="phrase" data-search="upprepa repeat"><h3>Can you repeat that, please?</h3><div class="sv">Kan du upprepa det?</div><span class="tag">Classroom</span></div>
+    <div class="phrase" data-search="långsammare slowly"><h3>Could you speak more slowly?</h3><div class="sv">Kan du prata långsammare?</div><span class="tag">Classroom</span></div>
+    <div class="phrase" data-search="ord betyder meaning word"><h3>What does this word mean?</h3><div class="sv">Vad betyder det här ordet?</div><span class="tag">Classroom</span></div>
+    <div class="phrase" data-search="säga engelska how say"><h3>How do you say … in English?</h3><div class="sv">Hur säger man … på engelska?</div><span class="tag">Classroom</span></div>
+    <div class="phrase" data-search="sida page"><h3>What page are we on?</h3><div class="sv">Vilken sida är vi på?</div><span class="tag">Classroom</span></div>
+    <div class="phrase" data-search="klar finished"><h3>I'm finished. What should I do next?</h3><div class="sv">Jag är klar. Vad ska jag göra nu?</div><span class="tag">Classroom</span></div>
+    <div class="phrase" data-search="tid time more"><h3>Can I have a little more time?</h3><div class="sv">Kan jag få lite mer tid?</div><span class="tag">Classroom</span></div>
+  </div>
+</section>
+
+<section id="samtal">
+  <div class="section-head"><h2>💬 Starta och hålla igång samtal</h2></div>
+  <div class="grid">
+    <div class="phrase" data-search="start conversation hej"><h3>Hi! How are you?</h3><div class="sv">Hej! Hur mår du?</div><span class="tag">Conversation</span></div>
+    <div class="phrase" data-search="vad tycker think"><h3>What do you think?</h3><div class="sv">Vad tycker du?</div><span class="tag">Conversation</span></div>
+    <div class="phrase" data-search="verkligen really"><h3>Really?</h3><div class="sv">Verkligen?</div><span class="tag">Conversation</span></div>
+    <div class="phrase" data-search="varför why"><h3>Why?</h3><div class="sv">Varför?</div><span class="tag">Conversation</span></div>
+    <div class="phrase" data-search="hur ofta how often"><h3>How often do you do that?</h3><div class="sv">Hur ofta gör du det?</div><span class="tag">Conversation</span></div>
+    <div class="phrase" data-search="vad hände sen next happened"><h3>What happened next?</h3><div class="sv">Vad hände sedan?</div><span class="tag">Conversation</span></div>
+    <div class="phrase" data-search="du då what about you"><h3>What about you?</h3><div class="sv">Hur är det med dig?</div><span class="tag">Conversation</span></div>
+    <div class="phrase" data-search="berätta mer tell me more"><h3>Tell me more.</h3><div class="sv">Berätta mer.</div><span class="tag">Conversation</span></div>
+    <div class="phrase" data-search="intressant interesting"><h3>That's interesting!</h3><div class="sv">Det är intressant!</div><span class="tag">Conversation</span></div>
+  </div>
+</section>
+
+<section id="asikter">
+  <div class="section-head"><h2>🎯 Åsikter, argument och resonemang</h2></div>
+  <div class="grid">
+    <div class="phrase" data-search="åsikt opinion"><h3>I think that …</h3><div class="sv">Jag tycker att …</div><span class="tag">Opinion</span></div>
+    <div class="phrase" data-search="min åsikt in my opinion"><h3>In my opinion …</h3><div class="sv">Enligt min åsikt …</div><span class="tag">Opinion</span></div>
+    <div class="phrase" data-search="håller med agree"><h3>I agree because …</h3><div class="sv">Jag håller med eftersom …</div><span class="tag">Opinion</span></div>
+    <div class="phrase" data-search="håller inte med disagree"><h3>I disagree because …</h3><div class="sv">Jag håller inte med eftersom …</div><span class="tag">Opinion</span></div>
+    <div class="phrase" data-search="poäng point men but"><h3>I see your point, but …</h3><div class="sv">Jag förstår din poäng, men …</div><span class="tag">Opinion</span></div>
+    <div class="phrase" data-search="anledning reason"><h3>One reason is that …</h3><div class="sv">En anledning är att …</div><span class="tag">Reasoning</span></div>
+    <div class="phrase" data-search="exempel example"><h3>For example …</h3><div class="sv">Till exempel …</div><span class="tag">Reasoning</span></div>
+    <div class="phrase" data-search="därför therefore so"><h3>Therefore …</h3><div class="sv">Därför …</div><span class="tag">Reasoning</span></div>
+    <div class="phrase" data-search="slutsats conclusion"><h3>In conclusion …</h3><div class="sv">Sammanfattningsvis …</div><span class="tag">Reasoning</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>↔️ Jämföra och beskriva</h2></div>
+  <div class="grid">
+    <div class="phrase" data-search="båda both similar"><h3>Both … and …</h3><div class="sv">Både … och …</div><span class="tag">Compare</span></div>
+    <div class="phrase" data-search="liknande similar"><h3>They are similar because …</h3><div class="sv">De är lika eftersom …</div><span class="tag">Compare</span></div>
+    <div class="phrase" data-search="skillnad different"><h3>One difference is …</h3><div class="sv">En skillnad är …</div><span class="tag">Compare</span></div>
+    <div class="phrase" data-search="däremot however contrast"><h3>However …</h3><div class="sv">Däremot …</div><span class="tag">Compare</span></div>
+    <div class="phrase" data-search="jämfört med compared with"><h3>Compared with …</h3><div class="sv">Jämfört med …</div><span class="tag">Compare</span></div>
+    <div class="phrase" data-search="större mindre bigger smaller"><h3>… is bigger/smaller than …</h3><div class="sv">… är större/mindre än …</div><span class="tag">Compare</span></div>
+  </div>
+</section>
+
+<section id="skriva">
+  <div class="section-head"><h2>✍️ Fraser för skrivande</h2></div>
+  <div class="grid">
+    <div class="phrase" data-search="börja text first introduction"><h3>First of all …</h3><div class="sv">Först och främst …</div><span class="tag">Writing</span></div>
+    <div class="phrase" data-search="sedan then next"><h3>Then …</h3><div class="sv">Sedan …</div><span class="tag">Writing</span></div>
+    <div class="phrase" data-search="nästa next"><h3>Next …</h3><div class="sv">Därefter …</div><span class="tag">Writing</span></div>
+    <div class="phrase" data-search="efter det after that"><h3>After that …</h3><div class="sv">Efter det …</div><span class="tag">Writing</span></div>
+    <div class="phrase" data-search="slutligen finally"><h3>Finally …</h3><div class="sv">Slutligen …</div><span class="tag">Writing</span></div>
+    <div class="phrase" data-search="eftersom because reason"><h3>… because …</h3><div class="sv">… eftersom …</div><span class="tag">Writing</span></div>
+    <div class="phrase" data-search="men but contrast"><h3>… but …</h3><div class="sv">… men …</div><span class="tag">Writing</span></div>
+    <div class="phrase" data-search="också also"><h3>Also …</h3><div class="sv">Dessutom / också …</div><span class="tag">Writing</span></div>
+    <div class="phrase" data-search="sammanfattningsvis to sum up"><h3>To sum up …</h3><div class="sv">Sammanfattningsvis …</div><span class="tag">Writing</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📖 Läsförståelse och textsamtal</h2></div>
+  <div class="grid">
+    <div class="phrase" data-search="text handlar om text about"><h3>The text is mainly about …</h3><div class="sv">Texten handlar huvudsakligen om …</div><span class="tag">Reading</span></div>
+    <div class="phrase" data-search="huvudidé main idea"><h3>The main idea is …</h3><div class="sv">Huvudidén är …</div><span class="tag">Reading</span></div>
+    <div class="phrase" data-search="jag tror think predict"><h3>I think … because …</h3><div class="sv">Jag tror … eftersom …</div><span class="tag">Reading</span></div>
+    <div class="phrase" data-search="ledtråd clue"><h3>One clue is …</h3><div class="sv">En ledtråd är …</div><span class="tag">Reading</span></div>
+    <div class="phrase" data-search="texten säger text says evidence"><h3>The text says …</h3><div class="sv">I texten står det …</div><span class="tag">Reading</span></div>
+    <div class="phrase" data-search="sammanfatta summary"><h3>In short …</h3><div class="sv">Kort sammanfattat …</div><span class="tag">Reading</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🎤 Muntlig presentation</h2></div>
+  <div class="grid">
+    <div class="phrase" data-search="presentation idag today talk about"><h3>Today I'm going to talk about …</h3><div class="sv">Idag ska jag prata om …</div><span class="tag">Presentation</span></div>
+    <div class="phrase" data-search="först first presentation"><h3>First, I will explain …</h3><div class="sv">Först ska jag förklara …</div><span class="tag">Presentation</span></div>
+    <div class="phrase" data-search="nästa punkt next point"><h3>My next point is …</h3><div class="sv">Min nästa punkt är …</div><span class="tag">Presentation</span></div>
+    <div class="phrase" data-search="bild picture slide"><h3>As you can see here …</h3><div class="sv">Som ni kan se här …</div><span class="tag">Presentation</span></div>
+    <div class="phrase" data-search="avslutning end presentation"><h3>To finish …</h3><div class="sv">Avslutningsvis …</div><span class="tag">Presentation</span></div>
+    <div class="phrase" data-search="frågor questions presentation"><h3>Do you have any questions?</h3><div class="sv">Har ni några frågor?</div><span class="tag">Presentation</span></div>
+  </div>
+</section>
+
+<section id="strategier">
+  <div class="section-head"><h2>🛠️ Kommunikationsstrategier</h2></div>
+  <div class="grid">
+    <div class="phrase" data-search="tänka think time"><h3>Let me think …</h3><div class="sv">Låt mig tänka …</div><span class="tag">Strategy</span></div>
+    <div class="phrase" data-search="osäker not sure"><h3>I'm not sure, but …</h3><div class="sv">Jag är inte säker, men …</div><span class="tag">Strategy</span></div>
+    <div class="phrase" data-search="menar mean clarify"><h3>Do you mean …?</h3><div class="sv">Menar du …?</div><span class="tag">Strategy</span></div>
+    <div class="phrase" data-search="jag menar i mean repair"><h3>Sorry, I mean …</h3><div class="sv">Förlåt, jag menar …</div><span class="tag">Strategy</span></div>
+    <div class="phrase" data-search="sak något används till something use"><h3>It's something you use for …</h3><div class="sv">Det är något man använder för …</div><span class="tag">Strategy</span></div>
+    <div class="phrase" data-search="ser ut looks like describe"><h3>It looks like …</h3><div class="sv">Det ser ut som …</div><span class="tag">Strategy</span></div>
+    <div class="phrase" data-search="exempel example strategy"><h3>For example …</h3><div class="sv">Till exempel …</div><span class="tag">Strategy</span></div>
+    <div class="phrase" data-search="förstått rätt understood correctly"><h3>Have I understood correctly?</h3><div class="sv">Har jag förstått rätt?</div><span class="tag">Strategy</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Stöd för elever</h2></div>
+  <div class="supportbox">
+    <div class="supportgrid">
+      <div class="mini">
+        <h3>🌱 När du behöver stöd</h3>
+        <p>Välj 3–5 fraser från ett område och använd samma fraser flera gånger tills de känns naturliga.</p>
+      </div>
+      <div class="mini">
+        <h3>🚀 När du vill utveckla språket</h3>
+        <p>Byt ut enkla fraser mot mer utvecklade: “I think” → “In my opinion” → “One reason is that …”</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="flashcards">
+  <div class="section-head"><h2>🧠 Flashcards</h2><p>Träna en fras i taget.</p></div>
+  <div class="flash">
+    <div class="flash-card">
+      <div id="flashEn" class="flash-en"></div>
+      <div id="flashSv" class="flash-sv" style="display:none"></div>
+      <div id="flashEx" class="flash-ex" style="display:none"></div>
+    </div>
+    <div class="flash-buttons">
+      <button id="prevFlash" onclick="prevCard()">← Föregående</button>
+      <button id="showBtn" onclick="showAnswer()">Visa svar</button>
+      <button id="nextFlash" onclick="nextCard()">Nästa →</button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✍️ Träna fraser i sammanhang</h2></div>
+
+  <div class="challenge">
+    <h3>1. Samtal</h3>
+    <p>Skriv ett kort samtal med minst fyra fraser från frasbanken.</p>
+    <textarea placeholder="A: What do you think about...?"></textarea><br>
+    <button class="reveal" onclick="toggleSolution('s1')">Visa exempel</button>
+    <div id="s1" class="solution">
+      A: What do you think about school uniforms?<br>
+      B: In my opinion, they can be useful.<br>
+      A: Really? Why?<br>
+      B: One reason is that everyone wears similar clothes. What about you?
+    </div>
+  </div>
+
+  <div class="challenge">
+    <h3>2. Textrespons</h3>
+    <p>Använd fraserna “The text is mainly about …”, “One clue is …” och “I think … because …”.</p>
+    <textarea placeholder="Write your response..."></textarea><br>
+    <button class="reveal" onclick="toggleSolution('s2')">Visa exempel</button>
+    <div id="s2" class="solution">
+      The text is mainly about friendship. One clue is that the characters help each other. I think the message is that good friends support each other because they stay together when things become difficult.
+    </div>
+  </div>
+
+  <div class="challenge">
+    <h3>3. Presentation</h3>
+    <p>Skriv en mini-inledning och ett avslut till en muntlig presentation.</p>
+    <textarea placeholder="Today I'm going to talk about..."></textarea><br>
+    <button class="reveal" onclick="toggleSolution('s3')">Visa exempel</button>
+    <div id="s3" class="solution">
+      Today I'm going to talk about Australia. First, I will explain where it is and then I will talk about wildlife. To finish, I will share one interesting fact. Do you have any questions?
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Min frascheck</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> Jag kan be om hjälp på engelska.</label>
+    <label><input class="goal" type="checkbox"> Jag kan be någon upprepa eller förklara.</label>
+    <label><input class="goal" type="checkbox"> Jag kan starta och hålla igång ett samtal.</label>
+    <label><input class="goal" type="checkbox"> Jag kan uttrycka och motivera en åsikt.</label>
+    <label><input class="goal" type="checkbox"> Jag kan jämföra två saker eller idéer.</label>
+    <label><input class="goal" type="checkbox"> Jag kan använda sambandsfraser när jag skriver.</label>
+    <label><input class="goal" type="checkbox"> Jag kan använda fraser för läsförståelse och textrespons.</label>
+    <label><input class="goal" type="checkbox"> Jag kan använda strategifraser när jag saknar ett ord.</label>
+    <button class="goal-btn" onclick="checkGoals()">Se min progression</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>💬 Frasbank • Engelska åk 6</strong><br>
+  Klassrum • Samtal • Åsikter • Jämförelser • Skrivande • Presentation • Strategier
+</footer>
+
+<script>
+function filterPhrases(){
+  var q=document.getElementById("search").value.toLowerCase().trim();
+  var items=document.querySelectorAll(".phrase");
+  var visible=0;
+  items.forEach(function(p){
+    var text=(p.textContent+" "+(p.getAttribute("data-search")||"")).toLowerCase();
+    if(text.indexOf(q)!==-1){p.classList.remove("hide");visible++}
+    else{p.classList.add("hide")}
+  });
+  document.getElementById("counter").textContent=visible+" fraser visas";
+}
+function showAll(){
+  document.querySelectorAll(".phrase").forEach(function(p){p.classList.remove("hide")});
+  document.getElementById("counter").textContent=document.querySelectorAll(".phrase").length+" fraser visas";
+}
+
+var flashData=[
+["Can you repeat that, please?","Kan du upprepa det?","Use it when you did not hear or understand."],
+["What does this word mean?","Vad betyder det här ordet?","Use it when a word is unfamiliar."],
+["What do you think?","Vad tycker du?","Use it to invite another person's opinion."],
+["I agree because …","Jag håller med eftersom …","Add a reason after because."],
+["I disagree because …","Jag håller inte med eftersom …","Disagree and explain why."],
+["One reason is that …","En anledning är att …","Useful in speaking and writing."],
+["For example …","Till exempel …","Use it to support an idea."],
+["The text is mainly about …","Texten handlar huvudsakligen om …","Useful in reading comprehension."],
+["One clue is …","En ledtråd är …","Use evidence from a text."],
+["Today I'm going to talk about …","Idag ska jag prata om …","Useful opening for a presentation."],
+["Let me think …","Låt mig tänka …","Gives you time to prepare your answer."],
+["Do you mean …?","Menar du …?","Checks understanding."],
+["Sorry, I mean …","Förlåt, jag menar …","Repairs a misunderstanding."],
+["It's something you use for …","Det är något man använder för …","Describe a word you do not know."],
+["What about you?","Hur är det med dig?","Keeps a conversation going."]
+];
+var currentFlash=0;
+
+function renderFlash(){
+  var d=flashData[currentFlash];
+  document.getElementById("flashEn").textContent=d[0];
+  document.getElementById("flashSv").textContent=d[1];
+  document.getElementById("flashEx").textContent=d[2];
+  document.getElementById("flashSv").style.display="none";
+  document.getElementById("flashEx").style.display="none";
+  document.getElementById("showBtn").textContent="Visa svar";
+}
+function showAnswer(){
+  var sv=document.getElementById("flashSv");
+  var ex=document.getElementById("flashEx");
+  var visible=sv.style.display==="block";
+  sv.style.display=visible?"none":"block";
+  ex.style.display=visible?"none":"block";
+  document.getElementById("showBtn").textContent=visible?"Visa svar":"Dölj svar";
+}
+function nextCard(){currentFlash=(currentFlash+1)%flashData.length;renderFlash()}
+function prevCard(){currentFlash=(currentFlash-1+flashData.length)%flashData.length;renderFlash()}
+function toggleSolution(id){
+  var s=document.getElementById(id);
+  s.style.display=s.style.display==="block"?"none":"block";
+}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 Alla delar markerade – mycket god fraskoll!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" av "+goals.length+" mål markerade.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" av "+goals.length+" mål markerade. Fortsätt använda fraserna aktivt.";
+  else r.textContent="👣 Börja med klassrumsfraser, samtalsfraser och strategifraser.";
+}
+document.addEventListener("DOMContentLoaded",function(){showAll();renderFlash()});
+</script>
+
+</body>
+</html>
