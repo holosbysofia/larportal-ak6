@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teknik och hållbar utveckling – Teknik åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --green:#16a34a;--green2:#15803d;--teal:#0f766e;--blue:#2563eb;
+  --orange:#ea580c;--red:#dc2626;--purple:#7c3aed;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#dcfce7;color:#166534}
+.navlinks .home{background:var(--green2);color:white}
+
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#16a34a,#0f766e,#0f172a);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#166534;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0;color:#166534}
+.fact{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:14px;padding:15px;font-weight:800;color:#166534;margin:14px 0}
+.tip{background:#f0fdf4;border-left:5px solid var(--green);padding:14px;border-radius:10px;margin-top:12px}
+.step{background:#f8fafc;border:1px solid var(--border);padding:13px;border-radius:12px;margin-top:10px}
+
+.sustain{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--green)
+}
+.sustain strong{display:block;color:#15803d;margin-bottom:6px}
+.concept strong{display:block;color:#15803d;margin-bottom:5px}
+
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#16a34a,#15803d)}
+.level2{background:linear-gradient(135deg,#0f766e,#115e59)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:390px}
+.check{margin-top:9px;background:var(--green2);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#dcfce7}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+
+.problem{background:linear-gradient(135deg,#dcfce7,#ccfbf1);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:120px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#15803d;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#15803d;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🌍 Teknik och hållbar utveckling – Teknik åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="teknik.html">🛠️ Teknik</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Resonera</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Teknik och hållbar utveckling</h1>
+      <p>
+        Här lär du dig hur tekniska lösningar påverkar människor, samhälle och miljö.
+        Du tränar på att jämföra material, energi, livslängd, återvinning och funktion
+        och att föreslå tekniska lösningar som kan bli mer hållbara.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">🌍♻️⚙️</div>
+      <h3>Teknik formar framtiden</h3>
+      <p>Funktion + resurser + livslängd + konsekvenser</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>🌱 Miljö</div>
+  <div>👥 Människor</div>
+  <div>💰 Ekonomi</div>
+  <div>♻️ Cirkularitet</div>
+  <div>⚡ Energi</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head">
+    <h2>📘 Vad betyder hållbar utveckling i teknik?</h2>
+    <p>En teknisk lösning behöver fungera bra utan att skapa onödigt stora problem för framtiden.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Ekologisk hållbarhet</h3><p>Hur påverkas natur, klimat, råvaror, vatten och energi?</p></div>
+    <div class="card"><h3>Social hållbarhet</h3><p>Är lösningen säker, tillgänglig och användbar för människor?</p></div>
+    <div class="card"><h3>Ekonomisk hållbarhet</h3><p>Är lösningen rimlig att tillverka, använda, underhålla och reparera?</p></div>
+  </div>
+
+  <div class="fact">Hållbar teknik handlar om att väga flera krav mot varandra – inte bara om att välja det som verkar mest miljövänligt vid första anblick.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔄 Produktens livscykel</h2><p>En produkts påverkan börjar långt innan vi köper den och fortsätter efter att vi slutat använda den.</p></div>
+  <div class="grid-4">
+    <div class="sustain"><strong>1. Råvara</strong><p>Vilka material behövs och var kommer de ifrån?</p></div>
+    <div class="sustain"><strong>2. Tillverkning</strong><p>Hur mycket energi, vatten och andra resurser används?</p></div>
+    <div class="sustain"><strong>3. Användning</strong><p>Hur mycket energi krävs och hur länge fungerar produkten?</p></div>
+    <div class="sustain"><strong>4. Slutskede</strong><p>Kan produkten återanvändas, repareras eller återvinnas?</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>♻️ Cirkulär teknik</h2><p>I en cirkulär modell försöker man behålla material och produkter i användning så länge som möjligt.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Reparera</h3><p>Laga istället för att kasta.</p></div>
+    <div class="card"><h3>Återanvända</h3><p>Låt produkten användas igen av samma eller en ny användare.</p></div>
+    <div class="card"><h3>Uppgradera</h3><p>Byt en del istället för hela produkten.</p></div>
+    <div class="card"><h3>Återvinna</h3><p>Ta tillvara material när produkten inte längre kan användas.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧱 Materialval</h2><p>Material påverkar både funktion och miljöpåverkan.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Rätt material</h3><p>Ett lätt och starkt material kan minska materialmängden men kan vara energikrävande att tillverka.</p></div>
+    <div class="card"><h3>Livslängd</h3><p>Ett material som håller länge kan minska behovet av nya produkter.</p></div>
+    <div class="card"><h3>Återvinning</h3><p>Vissa material är lättare att separera och återvinna än andra.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚡ Energi i tekniska lösningar</h2><p>Teknik behöver ofta energi både vid tillverkning och användning.</p></div>
+  <div class="grid-3">
+    <div class="sustain"><strong>Energieffektivitet</strong><p>Hur mycket nytta får man av den energi som används?</p></div>
+    <div class="sustain"><strong>Förnybar energi</strong><p>Sol, vind och vatten kan användas för att minska beroendet av fossila bränslen.</p></div>
+    <div class="sustain"><strong>Smart styrning</strong><p>Sensorer och programmering kan minska onödig energianvändning.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🏠 Exempel: ett energieffektivt hus</h2><p>Många tekniska lösningar kan tillsammans minska energibehovet.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Isolering</h3><p>Minskar värmeförluster.</p></div>
+    <div class="card"><h3>Fönster</h3><p>Moderna fönster kan minska värmeförlust och samtidigt släppa in dagsljus.</p></div>
+    <div class="card"><h3>Värmepump</h3><p>Flyttar värme och kan ge hög energieffektivitet.</p></div>
+    <div class="card"><h3>Styrning</h3><p>Termostater och sensorer kan anpassa värme och ventilation efter behov.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🚲 Exempel: transporter</h2><p>Transportteknik påverkar både samhälle, resurser och utsläpp.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Cykel</h3><p>Kräver liten energitillförsel under användning och relativt lite material.</p></div>
+    <div class="card"><h3>Kollektivtrafik</h3><p>Många personer kan transporteras med samma fordon.</p></div>
+    <div class="card"><h3>Elfordon</h3><p>Har inga lokala avgasutsläpp men kräver el, batterier och laddinfrastruktur.</p></div>
+  </div>
+
+  <div class="tip">Ingen transportlösning är helt utan påverkan. Därför behöver man jämföra hela system och hela livscykler.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📱 Exempel: mobiltelefon</h2><p>En liten produkt kan innehålla många material från olika delar av världen.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Råvaror</h3><p>Metaller, glas, plast och batterimaterial behövs.</p></div>
+    <div class="card"><h3>Tillverkning</h3><p>Kräver energi, avancerade fabriker och transporter.</p></div>
+    <div class="card"><h3>Användning</h3><p>Telefonen laddas och använder nätverk och datacenter.</p></div>
+    <div class="card"><h3>Slutskede</h3><p>Reparation och återvinning kan förlänga nyttan av material och komponenter.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>👥 Teknik och människor</h2><p>Hållbar teknik behöver också fungera socialt.</p></div>
+  <div class="grid-3">
+    <div class="sustain"><strong>Tillgänglighet</strong><p>Kan människor med olika behov använda lösningen?</p></div>
+    <div class="sustain"><strong>Säkerhet</strong><p>Är lösningen säker att använda och underhålla?</p></div>
+    <div class="sustain"><strong>Arbetsvillkor</strong><p>Hur påverkas människor som tillverkar, använder och återvinner produkten?</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔧 Design för lång livslängd</h2><p>Hur en produkt konstrueras påverkar om den går att reparera och använda länge.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Utbytbara delar</h3><p>En trasig del kan bytas utan att hela produkten kasseras.</p></div>
+    <div class="card"><h3>Standarddelar</h3><p>Vanliga skruvar och komponenter kan göra reparation lättare.</p></div>
+    <div class="card"><h3>Robust konstruktion</h3><p>Produkten tål slitage och håller längre.</p></div>
+    <div class="card"><h3>Dokumentation</h3><p>Ritningar och instruktioner gör service enklare.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+  <div class="grid-4">
+    <div class="concept"><strong>Hållbar utveckling</strong>Utveckling som möter dagens behov utan att förstöra framtida möjligheter.</div>
+    <div class="concept"><strong>Livscykel</strong>Produktens väg från råvara till slutskede.</div>
+    <div class="concept"><strong>Cirkulär ekonomi</strong>Att behålla produkter och material i användning så länge som möjligt.</div>
+    <div class="concept"><strong>Energieffektivitet</strong>Att få stor nytta av den energi som används.</div>
+    <div class="concept"><strong>Återanvändning</strong>Att använda en produkt igen.</div>
+    <div class="concept"><strong>Återvinning</strong>Att ta tillvara material för ny användning.</div>
+    <div class="concept"><strong>Reparation</strong>Att laga en produkt så att den kan fortsätta användas.</div>
+    <div class="concept"><strong>Resurs</strong>Något som används för att skapa eller driva en teknisk lösning.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Vanliga missuppfattningar</h2></div>
+  <div class="grid-3">
+    <div class="mistake"><h3>Återvinning löser allt</h3><p class="wrong">❌ Det spelar ingen roll hur mycket vi köper bara allt återvinns.</p><p class="right">✅ Att minska, reparera och återanvända kan ofta spara mer resurser än att enbart återvinna.</p></div>
+    <div class="mistake"><h3>El är alltid utsläppsfritt</h3><p class="wrong">❌ Elektriska produkter har ingen miljöpåverkan.</p><p class="right">✅ Påverkan beror bland annat på hur elen produceras och hur produkten tillverkas.</p></div>
+    <div class="mistake"><h3>Hållbarhet handlar bara om miljö</h3><p class="wrong">❌ Bara natur och klimat räknas.</p><p class="right">✅ Hållbar utveckling omfattar även sociala och ekonomiska frågor.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Nivå 1</h3><p>Grundbegrepp.</p><button onclick="showLevel(1)">Öppna nivå 1</button></div>
+    <div class="level level2"><h3>🚀 Nivå 2</h3><p>Livscykel och energi.</p><button onclick="showLevel(2)">Öppna nivå 2</button></div>
+    <div class="level level3"><h3>🏆 Nivå 3</h3><p>Jämför tekniska lösningar.</p><button onclick="showLevel(3)">Öppna nivå 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Nivå 1</h3>
+    <div class="task"><label>1. Vad kallas det när en trasig produkt lagas så att den kan användas igen?</label><input id="a1"><br><button class="check" onclick="checkAnswer('a1',['reparation','reparera'],'f1')">Kontrollera</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kallas det när material tas tillvara för att användas igen?</label><input id="a2"><br><button class="check" onclick="checkAnswer('a2',['återvinning','atervinning'],'f2')">Kontrollera</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Är hållbar utveckling bara en miljöfråga?</label><input id="a3"><br><button class="check" onclick="checkAnswer('a3',['nej'],'f3')">Kontrollera</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Nivå 2</h3>
+    <div class="task"><label>1. Vad kallas produktens väg från råvara till slutskede?</label><input id="b1"><br><button class="check" onclick="checkAnswer('b1',['livscykel','produktens livscykel'],'g1')">Kontrollera</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kallas att få stor nytta av den energi som används?</label><input id="b2"><br><button class="check" onclick="checkAnswer('b2',['energieffektivitet'],'g2')">Kontrollera</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Kan sensorer hjälpa till att minska energianvändningen?</label><input id="b3"><br><button class="check" onclick="checkAnswer('b3',['ja'],'g3')">Kontrollera</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Nivå 3</h3>
+    <div class="task"><label>1. Vad kallas en modell där produkter och material hålls i användning så länge som möjligt?</label><input id="c1"><br><button class="check" onclick="checkAnswer('c1',['cirkulär ekonomi','cirkular ekonomi','cirkulär modell'],'h1')">Kontrollera</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Kan en produkt med längre livslängd ibland vara mer hållbar även om den använder mer material?</label><input id="c2"><br><button class="check" onclick="checkAnswer('c2',['ja'],'h2')">Kontrollera</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Bör man jämföra hela livscykeln när två tekniska lösningar bedöms?</label><input id="c3"><br><button class="check" onclick="checkAnswer('c3',['ja'],'h3')">Kontrollera</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Hållbar teknik-quiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Nästa fråga →</button>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="section-head"><h2>💬 Resonera om hållbar teknik</h2><p>Jämför tekniska lösningar utifrån flera perspektiv.</p></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>📱 Ny mobil eller reparera?</h3>
+      <p>Din mobil har fått ett trasigt batteri men fungerar i övrigt bra. Vad är mest hållbart: köpa ny eller byta batteri?</p>
+      <textarea placeholder="Skriv ditt resonemang..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Visa lösningsförslag</button>
+      <div id="sol1" class="solution">
+        Om mobilen i övrigt fungerar kan ett batteribyte förlänga livslängden och minska behovet av nya råvaror och ny tillverkning.
+        Men man behöver också väga in kostnad, säkerhet och om reservdelar finns.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🏫 Skolans belysning</h3>
+      <p>Skolan vill minska energianvändningen. Föreslå en teknisk lösning för belysningen och motivera den.</p>
+      <textarea placeholder="Skriv din lösning..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Visa exempel</button>
+      <div id="sol2" class="solution">
+        LED-belysning kan kombineras med rörelse- och ljussensorer. Lamporna kan då vara släckta när rummet är tomt och anpassas efter dagsljuset.
+        Det minskar onödig energianvändning, men systemet behöver vara enkelt att använda och underhålla.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+  <div class="grid-2">
+    <div class="support"><h3>🆘 Jag behöver hjälp</h3><ul><li>Börja med produktens funktion.</li><li>Fundera på material och energi.</li><li>Fråga hur länge produkten håller.</li><li>Undersök om den går att reparera.</li><li>Nämn minst en fördel och en nackdel.</li></ul></div>
+    <div class="support"><h3>🚀 Jag vill utmanas</h3><ul><li>Jämför två produkter under hela livscykeln.</li><li>Ta med ekologiska, sociala och ekonomiska perspektiv.</li><li>Föreslå hur produkten kan göras mer cirkulär.</li><li>Designa en teknisk lösning för skolan som minskar resursanvändningen.</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Kunskapscheck</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> Jag kan förklara hållbar utveckling ur ekologiskt, socialt och ekonomiskt perspektiv.</label>
+    <label><input class="goal" type="checkbox"> Jag kan beskriva en produkts livscykel.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara cirkulär ekonomi.</label>
+    <label><input class="goal" type="checkbox"> Jag kan resonera om materialval och livslängd.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara energieffektivitet.</label>
+    <label><input class="goal" type="checkbox"> Jag kan ge exempel på hur sensorer och styrning kan spara energi.</label>
+    <label><input class="goal" type="checkbox"> Jag kan resonera om reparation, återanvändning och återvinning.</label>
+    <label><input class="goal" type="checkbox"> Jag kan jämföra tekniska lösningar ur ett hållbarhetsperspektiv.</label>
+    <button class="goal-btn" onclick="checkGoals()">Se min progression</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer><strong>🌍 Teknik och hållbar utveckling • Teknik åk 6</strong><br>Livscykel • Energi • Material • Cirkularitet • Reparation • Återvinning</footer>
+
+<script>
+var quizQuestions=[
+{q:"Vad ingår i hållbar utveckling?",a:["Ekologiska, sociala och ekonomiska perspektiv","Bara miljö","Bara ekonomi","Bara teknik"],c:"Ekologiska, sociala och ekonomiska perspektiv",e:"Hållbar utveckling handlar om att väga flera perspektiv mot varandra."},
+{q:"Vad är en produkts livscykel?",a:["Vägen från råvara till slutskede","Bara tiden i butiken","Bara tillverkningen","Bara återvinningen"],c:"Vägen från råvara till slutskede",e:"Livscykeln omfattar råvara, tillverkning, användning och slutskede."},
+{q:"Vad betyder energieffektivitet?",a:["Att få stor nytta av den energi som används","Att alltid använda mer energi","Att inte använda teknik","Att bara använda batterier"],c:"Att få stor nytta av den energi som används",e:"Energieffektivitet handlar om att minska onödiga energiförluster."},
+{q:"Vad är cirkulär ekonomi?",a:["Att hålla produkter och material i användning så länge som möjligt","Att kasta produkter snabbare","Att bara köpa nytt","Att använda fler engångsprodukter"],c:"Att hålla produkter och material i användning så länge som möjligt",e:"Reparation, återanvändning och återvinning är viktiga delar."},
+{q:"Vilket kan förlänga en produkts livslängd?",a:["Reparation","Att kasta den direkt","Att göra den svårare att öppna","Att ta bort reservdelar"],c:"Reparation",e:"Reparation kan göra att produkten används under längre tid."},
+{q:"Hur kan sensorer minska energianvändning?",a:["Genom att styra teknik efter behov","Genom att alltid slå på allt","Genom att göra lampor större","Genom att ta bort styrning"],c:"Genom att styra teknik efter behov",e:"Sensorer kan till exempel släcka belysning när ingen är i rummet."},
+{q:"Är elfordon helt utan miljöpåverkan?",a:["Nej","Ja, alltid","Bara på vintern","Bara i städer"],c:"Nej",e:"Batterier, elproduktion, material och tillverkning påverkar också miljön."},
+{q:"Vad är bäst när två tekniska lösningar jämförs?",a:["Att jämföra hela livscykeln och flera konsekvenser","Att bara titta på färgen","Att bara titta på inköpspriset","Att alltid välja den nyaste"],c:"Att jämföra hela livscykeln och flera konsekvenser",e:"En helhetsbedömning ger en bättre bild av hållbarheten."}
+];
+
+var order=[],current=0,score=0,answered=0;
+function normalize(v){return v.trim().toLowerCase().replace(/\s+/g," ")}
+function showLevel(n){
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  var s=document.getElementById("level"+n);s.classList.add("active");
+  s.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function checkAnswer(id,answers,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=answers.some(function(a){return value===normalize(a)});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Rätt! Bra jobbat.":"❌ Inte riktigt. Försök igen."
+}
+function toggleSolution(id){var b=document.getElementById(id);b.style.display=b.style.display==="block"?"none":"block"}
+function shuffle(a){var c=a.slice();for(var i=c.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=c[i];c[i]=c[j];c[j]=t}return c}
+function startQuiz(){order=shuffle([0,1,2,3,4,5,6,7]);current=0;score=0;answered=0;renderQuestion()}
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+  var box=document.getElementById("answers");box.innerHTML="";
+  shuffle(item.a).forEach(function(choice){
+    var b=document.createElement("button");b.className="answer";b.type="button";b.textContent=choice;
+    b.onclick=function(){answerQuestion(choice,item.c,item.e)};box.appendChild(b)
+  });
+  var f=document.getElementById("quizFeedback");f.style.display="none";f.innerHTML="";
+  document.getElementById("nextBtn").style.display="none";updateScore()
+}
+function answerQuestion(choice,correct,exp){
+  document.querySelectorAll(".answer").forEach(function(b){b.disabled=true});answered++;
+  var f=document.getElementById("quizFeedback");f.style.display="block";
+  if(choice===correct){score++;f.style.background="#dcfce7";f.style.color="#166534";f.innerHTML="✅ Rätt! "+exp}
+  else{f.style.background="#fee2e2";f.style.color="#991b1b";f.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+exp}
+  updateScore();document.getElementById("nextBtn").style.display="inline-block"
+}
+function nextQuestion(){
+  current++;
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML="<h3>🎉 Quizet är klart!</h3><p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return
+  }
+  renderQuestion()
+}
+function updateScore(){document.getElementById("score").textContent="Poäng: "+score+" / "+answered}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 Alla mål markerade!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  else r.textContent="👣 Börja med livscykel, material, energi och återvinning."
+}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
