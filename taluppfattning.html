@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taluppfattning – Matematik åk 6</title>
+
+<style>
+:root{
+  --bg:#f6f8fb;
+  --dark:#0f172a;
+  --text:#1f2937;
+  --muted:#64748b;
+  --blue:#2563eb;
+  --blue2:#1d4ed8;
+  --cyan:#0891b2;
+  --green:#059669;
+  --orange:#ea580c;
+  --purple:#7c3aed;
+  --red:#dc2626;
+  --card:#ffffff;
+  --border:#e2e8f0;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:white;
+  padding:12px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{
+  color:#334155;
+  font-weight:800;
+  padding:8px 11px;
+  border-radius:10px;
+}
+.navlinks a:hover{background:#dbeafe;color:#1d4ed8}
+.navlinks .home{background:var(--blue);color:white}
+
+.hero{
+  background:
+    radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+    linear-gradient(135deg,#2563eb,#1d4ed8,#1e3a8a);
+  color:white;
+  padding:72px 6% 100px;
+}
+
+.hero-inner{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:35px;
+  align-items:center;
+}
+
+.hero h1{
+  margin:0 0 16px;
+  font-size:clamp(3rem,8vw,5.2rem);
+  line-height:1;
+}
+
+.hero p{font-size:1.18rem;max-width:740px}
+
+.hero-card{
+  background:white;
+  color:#1e3a8a;
+  border-radius:24px;
+  padding:28px;
+  box-shadow:0 18px 50px rgba(0,0,0,.2);
+  text-align:center;
+}
+
+.place-value{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:6px;
+  margin:18px 0;
+}
+.place-value div{
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+  border-radius:10px;
+  padding:10px 6px;
+  font-weight:900;
+}
+.place-value small{
+  display:block;
+  font-size:.72rem;
+  color:#64748b;
+}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+
+.overview{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-top:-42px;
+}
+
+.overview div{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:800;
+  box-shadow:0 10px 28px rgba(0,0,0,.09);
+}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+.card h3{margin-top:0;color:var(--dark)}
+
+.formula{
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+  border-radius:14px;
+  padding:15px;
+  text-align:center;
+  font-size:1.45rem;
+  font-weight:900;
+  color:#1e3a8a;
+  margin:14px 0;
+}
+
+.tip{
+  background:#eff6ff;
+  border-left:5px solid var(--blue);
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+
+.step{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  padding:13px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+.numberline{
+  position:relative;
+  height:110px;
+  margin:20px 0 5px;
+  padding-top:40px;
+}
+.numberline::before{
+  content:"";
+  position:absolute;
+  left:4%;
+  right:4%;
+  top:58px;
+  height:4px;
+  background:#334155;
+}
+.tick{
+  position:absolute;
+  top:50px;
+  width:3px;
+  height:18px;
+  background:#334155;
+}
+.tick span{
+  position:absolute;
+  top:22px;
+  transform:translateX(-50%);
+  font-weight:800;
+  white-space:nowrap;
+}
+.t1{left:5%}
+.t2{left:27.5%}
+.t3{left:50%}
+.t4{left:72.5%}
+.t5{left:95%}
+
+.concept{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 5px 16px rgba(0,0,0,.05);
+}
+.concept strong{display:block;color:#1d4ed8;margin-bottom:5px}
+
+.mistake{
+  background:white;
+  border-top:5px solid var(--red);
+  border-radius:16px;
+  padding:20px;
+}
+.wrong{color:#b91c1c;font-weight:800}
+.right{color:#166534;font-weight:800}
+
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.level{
+  color:white;
+  border-radius:22px;
+  padding:24px;
+}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{
+  border:none;
+  background:white;
+  color:#111827;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.panel{
+  display:none;
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  margin-top:18px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+.panel.active{display:block}
+
+.task{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  margin:12px 0;
+}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input{
+  padding:10px;
+  border:1px solid #cbd5e1;
+  border-radius:9px;
+  width:100%;
+  max-width:320px;
+}
+.check{
+  margin-top:9px;
+  background:var(--blue);
+  color:white;
+  border:none;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+.feedback{
+  display:none;
+  margin-top:9px;
+  padding:10px;
+  border-radius:9px;
+  font-weight:800;
+}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{
+  background:#0f172a;
+  color:white;
+  border-radius:24px;
+  padding:28px;
+}
+.quiz-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.score{
+  background:#1e293b;
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:900;
+}
+.quiz-card{
+  background:#1e293b;
+  border-radius:16px;
+  padding:22px;
+  margin-top:18px;
+}
+.answers{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.answer{
+  border:none;
+  background:white;
+  color:#1f2937;
+  padding:14px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  text-align:left;
+}
+.answer:hover{background:#dbeafe}
+.answer:disabled{opacity:.75;cursor:default}
+
+#quizFeedback{
+  display:none;
+  margin-top:14px;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+}
+#nextBtn{
+  display:none;
+  margin-top:12px;
+  border:none;
+  background:#facc15;
+  color:#111827;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.problem{
+  background:linear-gradient(135deg,#dbeafe,#cffafe);
+  border-radius:24px;
+  padding:28px;
+}
+.problem-card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  margin-top:15px;
+}
+.problem textarea{
+  width:100%;
+  min-height:115px;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  resize:vertical;
+  margin-top:12px;
+}
+.reveal{
+  margin-top:10px;
+  border:none;
+  background:#1d4ed8;
+  color:white;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+.solution{
+  display:none;
+  background:#f8fafc;
+  border-radius:10px;
+  padding:14px;
+  margin-top:12px;
+}
+
+.support{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+.checklist label{
+  display:flex;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+.checklist input{width:19px;height:19px}
+.goal-btn{
+  margin-top:16px;
+  border:none;
+  background:var(--blue2);
+  color:white;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{
+  background:#020617;
+  color:#cbd5e1;
+  padding:34px 20px;
+  text-align:center;
+  margin-top:60px;
+}
+
+@media(max-width:900px){
+  .overview,.grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-3,.levels{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .overview{margin-top:-25px}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">🔢 Taluppfattning – Matematik åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="matematik.html">🔢 Matematik</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Problem</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Taluppfattning</h1>
+      <p>
+        Här tränar du på att förstå talens storlek, platsvärde, negativa tal,
+        tallinje, jämförelser, avrundning och hur olika tal kan delas upp och beskrivas.
+      </p>
+    </div>
+
+    <div class="hero-card">
+      <h3>🔎 Vilket värde har siffran?</h3>
+      <div class="place-value">
+        <div><small>Tiotusental</small>4</div>
+        <div><small>Tusental</small>7</div>
+        <div><small>Hundratal</small>3</div>
+        <div><small>Tiotal</small>2</div>
+        <div><small>Ental</small>5</div>
+      </div>
+      <strong>47 325</strong>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="overview">
+    <div>🔟 Platsvärde</div>
+    <div>↔️ Tallinje</div>
+    <div>➖ Negativa tal</div>
+    <div>⚖️ Jämföra tal</div>
+    <div>🎯 Avrundning</div>
+  </div>
+
+  <section id="forsta">
+    <div class="section-head">
+      <h2>📘 Vad är taluppfattning?</h2>
+      <p>
+        Taluppfattning handlar om att förstå vad tal betyder, hur stora de är,
+        hur de är uppbyggda och hur de hänger ihop.
+      </p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Talets storlek</h3>
+        <div class="formula">4 582 &lt; 4 825</div>
+        <p>Vi jämför siffrorna från vänster.</p>
+      </div>
+
+      <div class="card">
+        <h3>Talets delar</h3>
+        <div class="formula">3 472 = 3 000 + 400 + 70 + 2</div>
+        <p>Ett tal kan delas upp efter platsvärde.</p>
+      </div>
+
+      <div class="card">
+        <h3>Talets position</h3>
+        <div class="formula">7 i 7 432 = 7 000</div>
+        <p>Siffrans position bestämmer dess värde.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🔟 Platsvärde</h2>
+      <p>Samma siffra kan ha olika värde beroende på var den står.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Exempel: 56 348</h3>
+        <div class="step">5 = 50 000</div>
+        <div class="step">6 = 6 000</div>
+        <div class="step">3 = 300</div>
+        <div class="step">4 = 40</div>
+        <div class="step">8 = 8</div>
+      </div>
+
+      <div class="card">
+        <h3>Utvecklad form</h3>
+        <div class="formula">56 348</div>
+        <div class="step">50 000 + 6 000 + 300 + 40 + 8</div>
+        <div class="tip">Platsvärde hjälper dig att förstå hur talet är uppbyggt.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>↔️ Tallinjen</h2>
+      <p>På tallinjen ökar talen åt höger och minskar åt vänster.</p>
+    </div>
+
+    <div class="card">
+      <div class="numberline">
+        <div class="tick t1"><span>-10</span></div>
+        <div class="tick t2"><span>-5</span></div>
+        <div class="tick t3"><span>0</span></div>
+        <div class="tick t4"><span>5</span></div>
+        <div class="tick t5"><span>10</span></div>
+      </div>
+      <div class="tip">Tal längre åt höger är större.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>➖ Negativa tal</h2>
+      <p>Negativa tal är mindre än noll och skrivs med minustecken.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Temperatur</h3>
+        <div class="formula">-4 °C</div>
+        <p>Fyra grader under noll.</p>
+      </div>
+
+      <div class="card">
+        <h3>Jämförelse</h3>
+        <div class="formula">-2 &gt; -7</div>
+        <p>-2 ligger längre åt höger på tallinjen än -7.</p>
+      </div>
+
+      <div class="card">
+        <h3>Avstånd till noll</h3>
+        <div class="formula">-6 → 6 steg till 0</div>
+        <p>Avståndet till noll är alltid positivt.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>⚖️ Jämföra tal</h2>
+      <p>Använd tecknen &lt;, &gt; och =.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Mindre än</h3>
+        <div class="formula">3 499 &lt; 3 500</div>
+      </div>
+      <div class="card">
+        <h3>Större än</h3>
+        <div class="formula">8 120 &gt; 8 102</div>
+      </div>
+      <div class="card">
+        <h3>Lika med</h3>
+        <div class="formula">5 000 = 5 000</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🎯 Avrundning</h2>
+      <p>Avrundning används när ett ungefärligt värde räcker.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Till närmaste tiotal</h3>
+        <div class="formula">47 ≈ 50</div>
+        <p>Entalssiffran är 7, därför avrundar vi uppåt.</p>
+      </div>
+
+      <div class="card">
+        <h3>Till närmaste hundratal</h3>
+        <div class="formula">3 462 ≈ 3 500</div>
+        <p>Tiotalssiffran är 6, därför avrundar vi uppåt.</p>
+      </div>
+
+      <div class="card">
+        <h3>Till närmaste tusental</h3>
+        <div class="formula">7 420 ≈ 7 000</div>
+        <p>Hundratalssiffran är 4, därför avrundar vi nedåt.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🧮 Dela upp tal smart</h2>
+      <p>Att dela upp tal gör huvudräkning enklare.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Exempel</h3>
+        <div class="formula">398 + 27</div>
+        <div class="step">398 + 2 = 400</div>
+        <div class="step">27 − 2 = 25</div>
+        <div class="step">400 + 25 = 425</div>
+      </div>
+
+      <div class="card">
+        <h3>Rimlighetsbedömning</h3>
+        <div class="formula">398 + 27 ≈ 400 + 30 = 430</div>
+        <p>Det exakta svaret 425 ligger nära överslaget 430.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🧠 Begreppsbank</h2>
+    </div>
+
+    <div class="grid-4">
+      <div class="concept"><strong>Platsvärde</strong>Värdet en siffra får beroende på sin position.</div>
+      <div class="concept"><strong>Heltal</strong>Tal utan decimaldel, till exempel -3, 0 och 25.</div>
+      <div class="concept"><strong>Negativt tal</strong>Ett tal mindre än noll.</div>
+      <div class="concept"><strong>Tallinje</strong>En linje där tal placeras i storleksordning.</div>
+      <div class="concept"><strong>Avrundning</strong>Att ersätta ett tal med ett närliggande enklare tal.</div>
+      <div class="concept"><strong>Överslag</strong>En ungefärlig beräkning.</div>
+      <div class="concept"><strong>Rimlighet</strong>Om ett svar verkar logiskt och möjligt.</div>
+      <div class="concept"><strong>Utvecklad form</strong>Ett tal uppdelat efter platsvärden.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>⚠️ Vanliga missuppfattningar</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="mistake">
+        <h3>Negativa tal</h3>
+        <p class="wrong">❌ -8 är större än -3 eftersom 8 är större än 3.</p>
+        <p class="right">✅ -8 är mindre än -3 eftersom det ligger längre åt vänster.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Platsvärde</h3>
+        <p class="wrong">❌ Siffran 5 betyder alltid fem.</p>
+        <p class="right">✅ I 5 000 betyder siffran 5 fem tusen.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Avrundning</h3>
+        <p class="wrong">❌ 3 449 till närmaste hundratal blir 3 500.</p>
+        <p class="right">✅ Det blir 3 400 eftersom tiotalssiffran är 4.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="traning">
+    <div class="section-head">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>Klicka på en nivå. Uppgifterna öppnas direkt.</p>
+    </div>
+
+    <div class="levels">
+      <div class="level level1">
+        <h3>🌱 Nivå 1</h3>
+        <p>Platsvärde och jämförelser.</p>
+        <button type="button" onclick="showLevel(1)">Öppna nivå 1</button>
+      </div>
+
+      <div class="level level2">
+        <h3>🚀 Nivå 2</h3>
+        <p>Negativa tal och avrundning.</p>
+        <button type="button" onclick="showLevel(2)">Öppna nivå 2</button>
+      </div>
+
+      <div class="level level3">
+        <h3>🏆 Nivå 3</h3>
+        <p>Överslag, resonemang och problemlösning.</p>
+        <button type="button" onclick="showLevel(3)">Öppna nivå 3</button>
+      </div>
+    </div>
+
+    <div id="level1" class="panel">
+      <h3>🌱 Nivå 1</h3>
+
+      <div class="task">
+        <label>1. Vilket värde har siffran 7 i talet 47 325?</label>
+        <input id="a1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a1',['7000','7 000'],'f1')">Kontrollera</button>
+        <div id="f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vilket tal är störst: 5 609 eller 5 690?</label>
+        <input id="a2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a2',['5690','5 690'],'f2')">Kontrollera</button>
+        <div id="f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Skriv 4 306 i utvecklad form utan plustecken, bara som taldelar: 4000 300 6</label>
+        <input id="a3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a3',['4000 300 6','4 000 300 6'],'f3')">Kontrollera</button>
+        <div id="f3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level2" class="panel">
+      <h3>🚀 Nivå 2</h3>
+
+      <div class="task">
+        <label>1. Vilket tal är störst: -4 eller -9?</label>
+        <input id="b1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b1',['-4'],'g1')">Kontrollera</button>
+        <div id="g1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Avrunda 6 748 till närmaste hundratal.</label>
+        <input id="b2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b2',['6700','6 700'],'g2')">Kontrollera</button>
+        <div id="g2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Avrunda 9 650 till närmaste tusental.</label>
+        <input id="b3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b3',['10000','10 000'],'g3')">Kontrollera</button>
+        <div id="g3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level3" class="panel">
+      <h3>🏆 Nivå 3</h3>
+
+      <div class="task">
+        <label>1. Gör ett överslag: 398 + 205. Svara med närmaste hundratal.</label>
+        <input id="c1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c1',['600'],'h1')">Kontrollera</button>
+        <div id="h1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Temperaturen stiger från -6 °C till 3 °C. Hur många grader stiger den?</label>
+        <input id="c2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c2',['9','9 grader','9°','9 °c'],'h2')">Kontrollera</button>
+        <div id="h2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vilket tal ligger mitt emellan 4 000 och 5 000?</label>
+        <input id="c3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c3',['4500','4 500'],'h3')">Kontrollera</button>
+        <div id="h3" class="feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quiz">
+    <div class="quiz">
+      <div class="quiz-top">
+        <div>
+          <h2>🎮 Taluppfattningsquiz</h2>
+          <p>Åtta frågor. Svarsalternativen blandas.</p>
+        </div>
+        <div id="score" class="score">Poäng: 0 / 0</div>
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+        <h3 id="question"></h3>
+        <div id="answers" class="answers"></div>
+        <div id="quizFeedback"></div>
+        <button id="nextBtn" type="button" onclick="nextQuestion()">Nästa fråga →</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="section-head">
+      <h2>🧩 Problemlösning</h2>
+      <p>Använd taluppfattning för att uppskatta, jämföra och resonera.</p>
+    </div>
+
+    <div class="problem">
+      <div class="problem-card">
+        <h3>🎟️ Skolutflykten</h3>
+        <p>
+          En klass har 4 875 kr i klasskassan.
+          Bussresan kostar 2 640 kr och entrén kostar 1 795 kr.
+          Räcker pengarna? Hur mycket blir kvar?
+        </p>
+
+        <textarea placeholder="Skriv hur du tänker och räknar..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol1')">
+          Visa lösningsförslag
+        </button>
+
+        <div id="sol1" class="solution">
+          Totalkostnad: 2 640 + 1 795 = 4 435 kr.<br><br>
+          4 875 − 4 435 = 440 kr.<br><br>
+          <strong>Ja, pengarna räcker. 440 kr blir kvar.</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>💬 Resonemangsutmaning</h2>
+    </div>
+
+    <div class="problem">
+      <div class="problem-card">
+        <p>
+          Elev A säger att -10 är större än -2 eftersom 10 är större än 2.
+          Elev B säger att -2 är större.
+        </p>
+
+        <p><strong>Vem har rätt? Förklara med hjälp av tallinjen.</strong></p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol2')">
+          Visa ledtråd
+        </button>
+
+        <div id="sol2" class="solution">
+          Elev B har rätt. På tallinjen ligger -2 längre åt höger än -10.
+          Tal längre åt höger är större.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🌱 Stöd och utmaning</h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="support">
+        <h3>🆘 Jag behöver hjälp</h3>
+        <ul>
+          <li>Läs tal från vänster när du jämför storlek.</li>
+          <li>Skriv tal i utvecklad form.</li>
+          <li>Använd tallinjen för negativa tal.</li>
+          <li>Vid avrundning: titta på siffran direkt till höger.</li>
+          <li>Gör ett överslag innan du räknar exakt.</li>
+        </ul>
+      </div>
+
+      <div class="support">
+        <h3>🚀 Jag vill utmanas</h3>
+        <ul>
+          <li>Skapa tre olika tal som avrundas till 5 000.</li>
+          <li>Placera fem negativa och positiva tal på en tallinje.</li>
+          <li>Skapa ett tal med värdet 70 000 på siffran 7.</li>
+          <li>Förklara varför -3 är större än -8.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>✅ Kunskapscheck</h2>
+    </div>
+
+    <div class="checklist">
+      <label><input class="goal" type="checkbox"> Jag kan förklara platsvärde.</label>
+      <label><input class="goal" type="checkbox"> Jag kan skriva tal i utvecklad form.</label>
+      <label><input class="goal" type="checkbox"> Jag kan jämföra stora tal.</label>
+      <label><input class="goal" type="checkbox"> Jag kan använda en tallinje.</label>
+      <label><input class="goal" type="checkbox"> Jag kan jämföra negativa tal.</label>
+      <label><input class="goal" type="checkbox"> Jag kan avrunda till tiotal, hundratal och tusental.</label>
+      <label><input class="goal" type="checkbox"> Jag kan göra överslag.</label>
+      <label><input class="goal" type="checkbox"> Jag kan bedöma om ett svar är rimligt.</label>
+
+      <button class="goal-btn" type="button" onclick="checkGoals()">Se min progression</button>
+      <div id="goalResult"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <strong>🔢 Taluppfattning • Matematik åk 6</strong><br>
+  Förstå • Jämföra • Placera • Avrunda • Resonera
+</footer>
+
+<script>
+var quizQuestions = [
+  {q:"Vilket värde har siffran 6 i talet 36 214?",a:["6","60","600","6 000"],c:"6 000",e:"6 står på tusentalsplatsen."},
+  {q:"Vilket tal är störst?",a:["4 905","4 950","4 590","4 509"],c:"4 950",e:"Jämför siffrorna från vänster."},
+  {q:"Vilket tal är störst: -3 eller -8?",a:["-8","-3","De är lika","Det går inte att veta"],c:"-3",e:"-3 ligger längre åt höger på tallinjen."},
+  {q:"Avrunda 7 462 till närmaste hundratal.",a:["7 400","7 500","7 000","8 000"],c:"7 500",e:"Tiotalssiffran är 6, så vi avrundar uppåt."},
+  {q:"Avrunda 3 420 till närmaste tusental.",a:["3 000","3 400","4 000","3 500"],c:"3 000",e:"Hundratalssiffran är 4, så vi avrundar nedåt."},
+  {q:"Vilket tal ligger mitt emellan 2 000 och 3 000?",a:["2 250","2 400","2 500","2 750"],c:"2 500",e:"Halvvägs mellan 2 000 och 3 000 är 2 500."},
+  {q:"Vilket är ett rimligt överslag för 498 + 203?",a:["300","500","700","900"],c:"700",e:"500 + 200 ≈ 700."},
+  {q:"Vilken utvecklad form passar 5 308?",a:["5 000 + 300 + 8","500 + 30 + 8","5 000 + 30 + 8","5 300 + 80"],c:"5 000 + 300 + 8",e:"5 308 består av 5 tusental, 3 hundratal och 8 ental."}
+];
+
+var order=[];
+var current=0;
+var score=0;
+var answered=0;
+
+function normalize(value){
+  return value.trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function showLevel(number){
+  document.querySelectorAll(".panel").forEach(function(panel){
+    panel.classList.remove("active");
+  });
+
+  var selected=document.getElementById("level"+number);
+  selected.classList.add("active");
+  selected.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function checkAnswer(inputId,correctAnswers,feedbackId){
+  var value=normalize(document.getElementById(inputId).value);
+  var feedback=document.getElementById(feedbackId);
+
+  var correct=correctAnswers.some(function(answer){
+    return value===normalize(answer);
+  });
+
+  if(correct){
+    feedback.className="feedback good";
+    feedback.textContent="✅ Rätt! Bra jobbat.";
+  }else{
+    feedback.className="feedback bad";
+    feedback.textContent="❌ Inte riktigt. Försök igen.";
+  }
+}
+
+function toggleSolution(id){
+  var box=document.getElementById(id);
+  box.style.display=box.style.display==="block" ? "none" : "block";
+}
+
+function shuffle(array){
+  var copy=array.slice();
+  for(var i=copy.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var temp=copy[i];
+    copy[i]=copy[j];
+    copy[j]=temp;
+  }
+  return copy;
+}
+
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;
+  score=0;
+  answered=0;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+
+  var answerBox=document.getElementById("answers");
+  answerBox.innerHTML="";
+
+  shuffle(item.a).forEach(function(choice){
+    var button=document.createElement("button");
+    button.type="button";
+    button.className="answer";
+    button.textContent=choice;
+
+    button.onclick=function(){
+      answerQuestion(choice,item.c,item.e);
+    };
+
+    answerBox.appendChild(button);
+  });
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="none";
+  feedback.innerHTML="";
+
+  document.getElementById("nextBtn").style.display="none";
+  updateScore();
+}
+
+function answerQuestion(choice,correct,explanation){
+  document.querySelectorAll(".answer").forEach(function(button){
+    button.disabled=true;
+  });
+
+  answered++;
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="block";
+
+  if(choice===correct){
+    score++;
+    feedback.style.background="#dcfce7";
+    feedback.style.color="#166534";
+    feedback.innerHTML="✅ Rätt! "+explanation;
+  }else{
+    feedback.style.background="#fee2e2";
+    feedback.style.color="#991b1b";
+    feedback.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+explanation;
+  }
+
+  updateScore();
+  document.getElementById("nextBtn").style.display="inline-block";
+}
+
+function nextQuestion(){
+  current++;
+
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quizet är klart!</h3>"+
+      "<p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p>"+
+      "<button type='button' style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return;
+  }
+
+  renderQuestion();
+}
+
+function updateScore(){
+  document.getElementById("score").textContent="Poäng: "+score+" / "+answered;
+}
+
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal");
+  var checked=0;
+
+  goals.forEach(function(goal){
+    if(goal.checked){checked++}
+  });
+
+  var result=document.getElementById("goalResult");
+
+  if(checked===goals.length){
+    result.textContent="🏆 Alla mål markerade!";
+  }else if(checked>=6){
+    result.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  }else if(checked>=3){
+    result.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  }else{
+    result.textContent="👣 Börja med platsvärde och tallinjen och arbeta vidare steg för steg.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  startQuiz();
+});
+</script>
+
+</body>
+</html>
