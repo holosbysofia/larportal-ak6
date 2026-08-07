@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Statistik – Matematik åk 6</title>
+
+<style>
+:root{
+  --bg:#f7f8fc;
+  --dark:#0f172a;
+  --text:#1f2937;
+  --muted:#64748b;
+  --purple:#9333ea;
+  --purple2:#7e22ce;
+  --blue:#2563eb;
+  --green:#059669;
+  --orange:#ea580c;
+  --red:#dc2626;
+  --card:#ffffff;
+  --border:#e2e8f0;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:white;
+  padding:12px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{
+  color:#334155;
+  font-weight:800;
+  padding:8px 11px;
+  border-radius:10px;
+}
+.navlinks a:hover{background:#f3e8ff;color:#7e22ce}
+.navlinks .home{background:var(--purple);color:white}
+
+.hero{
+  background:
+    radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+    linear-gradient(135deg,#9333ea,#7e22ce,#581c87);
+  color:white;
+  padding:72px 6% 100px;
+}
+.hero-inner{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:35px;
+  align-items:center;
+}
+.hero h1{
+  margin:0 0 16px;
+  font-size:clamp(3rem,8vw,5.4rem);
+  line-height:1;
+}
+.hero p{font-size:1.18rem;max-width:720px}
+
+.hero-card{
+  background:white;
+  color:#6b21a8;
+  border-radius:24px;
+  padding:26px;
+  box-shadow:0 18px 50px rgba(0,0,0,.2);
+}
+.mini-bars{
+  height:180px;
+  display:flex;
+  align-items:flex-end;
+  gap:12px;
+  justify-content:center;
+  padding:15px 0;
+}
+.mini-bars div{
+  width:34px;
+  background:#9333ea;
+  border-radius:7px 7px 0 0;
+}
+.mini-bars div:nth-child(1){height:55px}
+.mini-bars div:nth-child(2){height:95px}
+.mini-bars div:nth-child(3){height:135px}
+.mini-bars div:nth-child(4){height:75px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+
+.overview{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-top:-42px;
+}
+.overview div{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:800;
+  box-shadow:0 10px 28px rgba(0,0,0,.09);
+}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+.card h3{margin-top:0;color:var(--dark)}
+
+.tip{
+  background:#faf5ff;
+  border-left:5px solid var(--purple);
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+
+.table-wrap{overflow-x:auto}
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  border-radius:14px;
+  overflow:hidden;
+}
+th,td{
+  padding:12px 14px;
+  border-bottom:1px solid var(--border);
+  text-align:center;
+}
+th{background:#f3e8ff;color:#6b21a8}
+
+.bar-chart{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 5px 18px rgba(0,0,0,.05);
+}
+.bar-row{
+  display:grid;
+  grid-template-columns:90px 1fr 45px;
+  align-items:center;
+  gap:12px;
+  margin:12px 0;
+}
+.bar-track{
+  background:#f1f5f9;
+  height:26px;
+  border-radius:999px;
+  overflow:hidden;
+}
+.bar-fill{
+  height:100%;
+  background:linear-gradient(90deg,#a855f7,#7e22ce);
+  border-radius:999px;
+}
+
+.formula{
+  background:#faf5ff;
+  border:1px solid #e9d5ff;
+  border-radius:14px;
+  padding:15px;
+  text-align:center;
+  font-size:1.35rem;
+  font-weight:900;
+  color:#6b21a8;
+  margin:14px 0;
+}
+
+.step{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  padding:13px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+.concept{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 5px 16px rgba(0,0,0,.05);
+}
+.concept strong{display:block;color:#7e22ce;margin-bottom:5px}
+
+.mistake{
+  background:white;
+  border-top:5px solid var(--red);
+  border-radius:16px;
+  padding:20px;
+}
+.wrong{color:#b91c1c;font-weight:800}
+.right{color:#166534;font-weight:800}
+
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.level{
+  color:white;
+  border-radius:22px;
+  padding:24px;
+}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#9333ea,#7e22ce)}
+.level3{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.level button{
+  border:none;
+  background:white;
+  color:#111827;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.panel{
+  display:none;
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  margin-top:18px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+.panel.active{display:block}
+
+.task{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  margin:12px 0;
+}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input{
+  padding:10px;
+  border:1px solid #cbd5e1;
+  border-radius:9px;
+  width:100%;
+  max-width:280px;
+}
+.check{
+  margin-top:9px;
+  background:var(--purple);
+  color:white;
+  border:none;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+.feedback{
+  display:none;
+  margin-top:9px;
+  padding:10px;
+  border-radius:9px;
+  font-weight:800;
+}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{
+  background:#0f172a;
+  color:white;
+  border-radius:24px;
+  padding:28px;
+}
+.quiz-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.score{
+  background:#1e293b;
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:900;
+}
+.quiz-card{
+  background:#1e293b;
+  border-radius:16px;
+  padding:22px;
+  margin-top:18px;
+}
+.answers{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.answer{
+  border:none;
+  background:white;
+  color:#1f2937;
+  padding:14px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  text-align:left;
+}
+.answer:hover{background:#f3e8ff}
+.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{
+  display:none;
+  margin-top:14px;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+}
+#nextBtn{
+  display:none;
+  margin-top:12px;
+  border:none;
+  background:#facc15;
+  color:#111827;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.problem{
+  background:linear-gradient(135deg,#f3e8ff,#dbeafe);
+  border-radius:24px;
+  padding:28px;
+}
+.problem-card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  margin-top:15px;
+}
+.problem textarea{
+  width:100%;
+  min-height:110px;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  resize:vertical;
+  margin-top:12px;
+}
+.reveal{
+  margin-top:10px;
+  border:none;
+  background:#6b21a8;
+  color:white;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+.solution{
+  display:none;
+  background:#f8fafc;
+  border-radius:10px;
+  padding:14px;
+  margin-top:12px;
+}
+
+.support{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+.checklist label{
+  display:flex;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+.checklist input{width:19px;height:19px}
+.goal-btn{
+  margin-top:16px;
+  border:none;
+  background:var(--purple2);
+  color:white;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{
+  background:#020617;
+  color:#cbd5e1;
+  padding:34px 20px;
+  text-align:center;
+  margin-top:60px;
+}
+
+@media(max-width:900px){
+  .overview,.grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-3,.levels{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .overview{margin-top:-25px}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">📊 Statistik – Matematik åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="matematik.html">🔢 Matematik</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Problem</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Statistik</h1>
+      <p>
+        Här lär du dig att samla in, ordna, visa och tolka data.
+        Du tränar tabeller, diagram, medelvärde, median, typvärde och matematiska resonemang.
+      </p>
+    </div>
+
+    <div class="hero-card">
+      <h3>📊 Exempel på stapeldiagram</h3>
+      <div class="mini-bars">
+        <div></div><div></div><div></div><div></div>
+      </div>
+      <strong>Data blir lättare att förstå när den visas tydligt.</strong>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="overview">
+    <div>📋 Tabeller</div>
+    <div>📊 Diagram</div>
+    <div>➗ Medelvärde</div>
+    <div>↔️ Median</div>
+    <div>⭐ Typvärde</div>
+  </div>
+
+  <section id="forsta">
+    <div class="section-head">
+      <h2>📘 Vad är statistik?</h2>
+      <p>Statistik handlar om att samla in information, ordna den och dra slutsatser.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>1. Samla data</h3>
+        <p>Exempel: fråga elever hur de tar sig till skolan.</p>
+        <div class="tip">Data är den information vi samlar in.</div>
+      </div>
+
+      <div class="card">
+        <h3>2. Ordna data</h3>
+        <p>Skriv informationen i en tabell så att den blir lätt att läsa.</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Tolka data</h3>
+        <p>Jämför värden och förklara vad informationen visar.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>📋 Tabeller</h2>
+      <p>En tabell gör det lättare att jämföra data.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Färdsätt</th>
+            <th>Antal elever</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Går</td><td>6</td></tr>
+          <tr><td>Cyklar</td><td>4</td></tr>
+          <tr><td>Buss</td><td>8</td></tr>
+          <tr><td>Bil</td><td>2</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip">Totalt antal elever: 6 + 4 + 8 + 2 = 20.</div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>📊 Stapeldiagram</h2>
+      <p>Stapeldiagram passar bra när vi jämför olika kategorier.</p>
+    </div>
+
+    <div class="bar-chart">
+      <div class="bar-row">
+        <strong>Går</strong>
+        <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
+        <span>6</span>
+      </div>
+
+      <div class="bar-row">
+        <strong>Cyklar</strong>
+        <div class="bar-track"><div class="bar-fill" style="width:40%"></div></div>
+        <span>4</span>
+      </div>
+
+      <div class="bar-row">
+        <strong>Buss</strong>
+        <div class="bar-track"><div class="bar-fill" style="width:80%"></div></div>
+        <span>8</span>
+      </div>
+
+      <div class="bar-row">
+        <strong>Bil</strong>
+        <div class="bar-track"><div class="bar-fill" style="width:20%"></div></div>
+        <span>2</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>➗ Medelvärde</h2>
+      <p>Medelvärde får du genom att lägga ihop alla värden och dela med antalet värden.</p>
+    </div>
+
+    <div class="card">
+      <h3>Exempel: 4, 6, 8, 10</h3>
+      <div class="formula">(4 + 6 + 8 + 10) ÷ 4 = 7</div>
+      <div class="step"><strong>Medelvärdet är 7.</strong></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>↔️ Median</h2>
+      <p>Medianen är talet i mitten när talen först ordnas i storleksordning.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Udda antal värden</h3>
+        <div class="formula">2, 4, 7, 9, 12</div>
+        <p>Talet i mitten är 7.</p>
+        <div class="step"><strong>Median = 7</strong></div>
+      </div>
+
+      <div class="card">
+        <h3>Jämnt antal värden</h3>
+        <div class="formula">2, 4, 8, 10</div>
+        <p>De två mittersta talen är 4 och 8.</p>
+        <div class="step">(4 + 8) ÷ 2 = 6</div>
+        <div class="step"><strong>Median = 6</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>⭐ Typvärde</h2>
+      <p>Typvärdet är det värde som förekommer flest gånger.</p>
+    </div>
+
+    <div class="card">
+      <div class="formula">3, 4, 4, 5, 6, 6, 6, 8</div>
+      <p>Talet 6 förekommer flest gånger.</p>
+      <div class="step"><strong>Typvärde = 6</strong></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🧠 Begreppsbank</h2>
+    </div>
+
+    <div class="grid-4">
+      <div class="concept"><strong>Data</strong>Information som samlas in.</div>
+      <div class="concept"><strong>Tabell</strong>Data ordnad i rader och kolumner.</div>
+      <div class="concept"><strong>Diagram</strong>En bild som visar data.</div>
+      <div class="concept"><strong>Medelvärde</strong>Summan av värdena delat med antalet värden.</div>
+      <div class="concept"><strong>Median</strong>Mittenvärdet när talen är ordnade.</div>
+      <div class="concept"><strong>Typvärde</strong>Det värde som förekommer flest gånger.</div>
+      <div class="concept"><strong>Frekvens</strong>Hur många gånger något förekommer.</div>
+      <div class="concept"><strong>Kategori</strong>En grupp som data delas in i.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>⚠️ Vanliga missuppfattningar</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="mistake">
+        <h3>Median</h3>
+        <p class="wrong">❌ Ta talet i mitten utan att sortera.</p>
+        <p class="right">✅ Sortera alltid talen först.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Medelvärde</h3>
+        <p class="wrong">❌ Lägg ihop talen och stanna där.</p>
+        <p class="right">✅ Dela också summan med antalet värden.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Typvärde</h3>
+        <p class="wrong">❌ Det största talet är typvärdet.</p>
+        <p class="right">✅ Typvärdet är det vanligaste värdet.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="traning">
+    <div class="section-head">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>Klicka på en nivå. Uppgifterna öppnas direkt.</p>
+    </div>
+
+    <div class="levels">
+      <div class="level level1">
+        <h3>🌱 Nivå 1</h3>
+        <p>Läsa tabeller och diagram.</p>
+        <button type="button" onclick="showLevel(1)">Öppna nivå 1</button>
+      </div>
+
+      <div class="level level2">
+        <h3>🚀 Nivå 2</h3>
+        <p>Medelvärde, median och typvärde.</p>
+        <button type="button" onclick="showLevel(2)">Öppna nivå 2</button>
+      </div>
+
+      <div class="level level3">
+        <h3>🏆 Nivå 3</h3>
+        <p>Tolka och resonera om data.</p>
+        <button type="button" onclick="showLevel(3)">Öppna nivå 3</button>
+      </div>
+    </div>
+
+    <div id="level1" class="panel">
+      <h3>🌱 Nivå 1</h3>
+
+      <div class="task">
+        <label>1. I tabellen ovan åker 8 elever buss. Hur många fler åker buss än bil?</label>
+        <input id="a1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a1',['6'],'f1')">Kontrollera</button>
+        <div id="f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Hur många elever finns totalt i tabellen?</label>
+        <input id="a2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a2',['20'],'f2')">Kontrollera</button>
+        <div id="f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vilket färdsätt är vanligast?</label>
+        <input id="a3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a3',['buss'],'f3')">Kontrollera</button>
+        <div id="f3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level2" class="panel">
+      <h3>🚀 Nivå 2</h3>
+
+      <div class="task">
+        <label>1. Vad är medelvärdet av 4, 6, 8 och 10?</label>
+        <input id="b1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b1',['7'],'g1')">Kontrollera</button>
+        <div id="g1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad är medianen av 2, 5, 7, 9, 12?</label>
+        <input id="b2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b2',['7'],'g2')">Kontrollera</button>
+        <div id="g2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vad är typvärdet i 2, 3, 3, 3, 5, 7?</label>
+        <input id="b3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b3',['3'],'g3')">Kontrollera</button>
+        <div id="g3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level3" class="panel">
+      <h3>🏆 Nivå 3</h3>
+
+      <div class="task">
+        <label>1. Talen är 3, 5, 7, 9, 11. Vad är medelvärdet?</label>
+        <input id="c1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c1',['7'],'h1')">Kontrollera</button>
+        <div id="h1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Talen är 2, 4, 8, 10. Vad är medianen?</label>
+        <input id="c2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c2',['6'],'h2')">Kontrollera</button>
+        <div id="h2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. En klass har resultat 6, 7, 7, 8, 12. Vilket är typvärdet?</label>
+        <input id="c3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c3',['7'],'h3')">Kontrollera</button>
+        <div id="h3" class="feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quiz">
+    <div class="quiz">
+      <div class="quiz-top">
+        <div>
+          <h2>🎮 Statistikquiz</h2>
+          <p>Åtta frågor. Svarsalternativen blandas.</p>
+        </div>
+        <div id="score" class="score">Poäng: 0 / 0</div>
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+        <h3 id="question"></h3>
+        <div id="answers" class="answers"></div>
+        <div id="quizFeedback"></div>
+        <button id="nextBtn" type="button" onclick="nextQuestion()">Nästa fråga →</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="section-head">
+      <h2>🧩 Problemlösning</h2>
+      <p>Visa hur du räknar och förklara vad svaret betyder.</p>
+    </div>
+
+    <div class="problem">
+      <div class="problem-card">
+        <h3>🏃 Resultat på en löprunda</h3>
+        <p>
+          Fem elever springer en bana på tiderna 12, 10, 11, 9 och 13 minuter.
+          Beräkna medelvärdet och medianen.
+        </p>
+
+        <textarea placeholder="Skriv hur du tänker och räknar..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol1')">
+          Visa lösningsförslag
+        </button>
+
+        <div id="sol1" class="solution">
+          Medelvärde:<br>
+          12 + 10 + 11 + 9 + 13 = 55<br>
+          55 ÷ 5 = 11 minuter.<br><br>
+
+          Median:<br>
+          Sortera talen: 9, 10, 11, 12, 13.<br>
+          Talet i mitten är 11.<br><br>
+
+          <strong>Svar: Medelvärdet är 11 minuter och medianen är 11 minuter.</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🌱 Stöd och utmaning</h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="support">
+        <h3>🆘 Jag behöver hjälp</h3>
+        <ul>
+          <li>Sortera talen innan du söker medianen.</li>
+          <li>Räkna hur många värden som finns innan du beräknar medelvärde.</li>
+          <li>Leta efter det värde som förekommer flest gånger för typvärdet.</li>
+          <li>Läs alltid rubriker och axlar i ett diagram.</li>
+        </ul>
+      </div>
+
+      <div class="support">
+        <h3>🚀 Jag vill utmanas</h3>
+        <ul>
+          <li>Skapa en egen undersökning i klassen.</li>
+          <li>Visa samma data med både tabell och diagram.</li>
+          <li>Skapa en talserie där medelvärde och median är olika.</li>
+          <li>Förklara vilket lägesmått som passar bäst i olika situationer.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>✅ Kunskapscheck</h2>
+    </div>
+
+    <div class="checklist">
+      <label><input class="goal" type="checkbox"> Jag kan läsa en tabell.</label>
+      <label><input class="goal" type="checkbox"> Jag kan tolka ett stapeldiagram.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beräkna medelvärde.</label>
+      <label><input class="goal" type="checkbox"> Jag kan hitta median.</label>
+      <label><input class="goal" type="checkbox"> Jag kan hitta typvärde.</label>
+      <label><input class="goal" type="checkbox"> Jag kan förklara skillnaden mellan medelvärde, median och typvärde.</label>
+      <label><input class="goal" type="checkbox"> Jag kan jämföra data och dra slutsatser.</label>
+      <label><input class="goal" type="checkbox"> Jag kan använda statistik i problemlösning.</label>
+
+      <button class="goal-btn" type="button" onclick="checkGoals()">Se min progression</button>
+      <div id="goalResult"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <strong>📊 Statistik • Matematik åk 6</strong><br>
+  Samla • Visa • Tolka • Resonera
+</footer>
+
+<script>
+var quizQuestions = [
+  {q:"Vad är medelvärdet av 2, 4, 6 och 8?",a:["4","5","6","20"],c:"5",e:"2 + 4 + 6 + 8 = 20 och 20 ÷ 4 = 5."},
+  {q:"Vad är medianen av 1, 3, 5, 7, 9?",a:["3","5","7","9"],c:"5",e:"5 ligger i mitten."},
+  {q:"Vad är typvärdet i 2, 4, 4, 5, 6?",a:["2","4","5","6"],c:"4",e:"4 förekommer flest gånger."},
+  {q:"Vad måste du göra innan du hittar medianen?",a:["Sortera talen","Multiplicera talen","Rita en cirkel","Dela alla tal med 2"],c:"Sortera talen",e:"Medianen bestäms först när talen är ordnade."},
+  {q:"Vilket diagram passar bra för att jämföra kategorier?",a:["Stapeldiagram","Tallinje","Vinkelmätare","Bråkcirkel"],c:"Stapeldiagram",e:"Stapeldiagram gör det lätt att jämföra kategorier."},
+  {q:"Vad betyder frekvens?",a:["Hur många gånger något förekommer","Det största talet","Mittenvärdet","Skillnaden mellan två tal"],c:"Hur många gånger något förekommer",e:"Frekvens beskriver hur ofta något förekommer."},
+  {q:"Medianen av 2, 4, 8, 10 är ...",a:["4","5","6","8"],c:"6",e:"De mittersta talen är 4 och 8. (4 + 8) ÷ 2 = 6."},
+  {q:"Talen är 3, 3, 5, 7, 12. Vad är typvärdet?",a:["3","5","7","12"],c:"3",e:"3 förekommer två gånger och övriga en gång."}
+];
+
+var order=[];
+var current=0;
+var score=0;
+var answered=0;
+
+function normalize(value){
+  return value.trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function showLevel(number){
+  document.querySelectorAll(".panel").forEach(function(panel){
+    panel.classList.remove("active");
+  });
+  var selected=document.getElementById("level"+number);
+  selected.classList.add("active");
+  selected.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function checkAnswer(inputId,correctAnswers,feedbackId){
+  var value=normalize(document.getElementById(inputId).value);
+  var feedback=document.getElementById(feedbackId);
+
+  var correct=correctAnswers.some(function(answer){
+    return value===normalize(answer);
+  });
+
+  if(correct){
+    feedback.className="feedback good";
+    feedback.textContent="✅ Rätt! Bra jobbat.";
+  }else{
+    feedback.className="feedback bad";
+    feedback.textContent="❌ Inte riktigt. Försök igen.";
+  }
+}
+
+function toggleSolution(id){
+  var box=document.getElementById(id);
+  box.style.display=box.style.display==="block" ? "none" : "block";
+}
+
+function shuffle(array){
+  var copy=array.slice();
+  for(var i=copy.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var temp=copy[i];
+    copy[i]=copy[j];
+    copy[j]=temp;
+  }
+  return copy;
+}
+
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;
+  score=0;
+  answered=0;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+
+  var answerBox=document.getElementById("answers");
+  answerBox.innerHTML="";
+
+  shuffle(item.a).forEach(function(choice){
+    var button=document.createElement("button");
+    button.type="button";
+    button.className="answer";
+    button.textContent=choice;
+    button.onclick=function(){
+      answerQuestion(choice,item.c,item.e);
+    };
+    answerBox.appendChild(button);
+  });
+
+  document.getElementById("quizFeedback").style.display="none";
+  document.getElementById("quizFeedback").innerHTML="";
+  document.getElementById("nextBtn").style.display="none";
+  updateScore();
+}
+
+function answerQuestion(choice,correct,explanation){
+  document.querySelectorAll(".answer").forEach(function(button){
+    button.disabled=true;
+  });
+
+  answered++;
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="block";
+
+  if(choice===correct){
+    score++;
+    feedback.style.background="#dcfce7";
+    feedback.style.color="#166534";
+    feedback.innerHTML="✅ Rätt! "+explanation;
+  }else{
+    feedback.style.background="#fee2e2";
+    feedback.style.color="#991b1b";
+    feedback.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+explanation;
+  }
+
+  updateScore();
+  document.getElementById("nextBtn").style.display="inline-block";
+}
+
+function nextQuestion(){
+  current++;
+
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quizet är klart!</h3>"+
+      "<p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p>"+
+      "<button type='button' style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return;
+  }
+
+  renderQuestion();
+}
+
+function updateScore(){
+  document.getElementById("score").textContent="Poäng: "+score+" / "+answered;
+}
+
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal");
+  var checked=0;
+
+  goals.forEach(function(goal){
+    if(goal.checked){checked++}
+  });
+
+  var result=document.getElementById("goalResult");
+
+  if(checked===goals.length){
+    result.textContent="🏆 Alla mål markerade!";
+  }else if(checked>=6){
+    result.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  }else if(checked>=3){
+    result.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  }else{
+    result.textContent="👣 Börja med tabeller och diagram och arbeta vidare steg för steg.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  startQuiz();
+});
+</script>
+
+</body>
+</html>
