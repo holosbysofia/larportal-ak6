@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verbs & Tenses – Engelska åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --blue:#2563eb;--blue2:#1d4ed8;--cyan:#0891b2;--purple:#7c3aed;
+  --green:#16a34a;--orange:#ea580c;--red:#dc2626;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#dbeafe;color:#1d4ed8}
+.navlinks .home{background:var(--blue);color:white}
+
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#2563eb,#0891b2,#0f172a);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#1d4ed8;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0;color:#1e40af}
+.fact{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:15px;font-weight:800;color:#1e3a8a;margin:14px 0}
+.tip{background:#ecfeff;border-left:5px solid var(--cyan);padding:14px;border-radius:10px;margin-top:12px}
+
+.grammar{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--blue)
+}
+.grammar strong{display:block;color:#1d4ed8;margin-bottom:6px}
+.concept strong{display:block;color:#1d4ed8;margin-bottom:5px}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:white;border-radius:18px;overflow:hidden;box-shadow:0 5px 18px rgba(0,0,0,.05)}
+th,td{padding:14px;border-bottom:1px solid #e2e8f0;text-align:left}
+th{background:#dbeafe;color:#1e3a8a}
+
+.example{
+  background:white;border-radius:22px;padding:26px;box-shadow:0 6px 22px rgba(0,0,0,.06);
+  border:1px solid #f1f5f9
+}
+.example h3{margin-top:0;color:#0f4c81}
+
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input,.task textarea{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:560px}
+.task textarea{min-height:110px}
+.check{margin-top:9px;background:var(--blue);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#dbeafe}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+
+.problem{background:linear-gradient(135deg,#eff6ff,#ecfeff);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:130px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#1d4ed8;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#1d4ed8;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🏃 Verbs & Tenses – Engelska åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="engelska.html">🇬🇧 Engelska</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#anvand">Använd</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Verbs & Tenses</h1>
+      <p>
+        Här tränar du på engelska verb och vanliga tempus. Du lär dig skillnaden mellan
+        present simple, present continuous och past simple samt hur vanliga oregelbundna verb fungerar.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">🏃⏰🔤</div>
+      <h3>When does it happen?</h3>
+      <p>usually • now • yesterday • every day • last week</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>🔤 Verb</div>
+  <div>🔁 Present simple</div>
+  <div>⏳ Present continuous</div>
+  <div>🕒 Past simple</div>
+  <div>⚡ Irregular verbs</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head"><h2>📘 What is a verb?</h2><p>Verb beskriver handlingar, händelser eller tillstånd.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Action</h3><p>run, write, play, eat</p></div>
+    <div class="card"><h3>Event</h3><p>happen, begin, change</p></div>
+    <div class="card"><h3>State</h3><p>be, know, like, understand</p></div>
+  </div>
+  <div class="fact">Verb ändrar ofta form beroende på vem som gör något och när det händer.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔁 Present simple</h2><p>Används ofta för vanor, rutiner och sådant som brukar vara sant.</p></div>
+
+  <div class="grid-3">
+    <div class="grammar"><strong>I/You/We/They play.</strong><p>Grundformen används oftast.</p></div>
+    <div class="grammar"><strong>He/She/It plays.</strong><p>Lägg ofta till -s.</p></div>
+    <div class="grammar"><strong>Every day / usually / often</strong><p>Vanliga tidsord.</p></div>
+  </div>
+
+  <div class="example">
+    <h3>Examples</h3>
+    <p>I walk to school every day.</p>
+    <p>She plays tennis on Fridays.</p>
+    <p>They usually eat dinner at six.</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>❌ Negatives in present simple</h2></div>
+
+  <div class="grid-2">
+    <div class="card"><h3>I/You/We/They</h3><p><strong>do not / don't + verb</strong></p><p>I don't like coffee.</p></div>
+    <div class="card"><h3>He/She/It</h3><p><strong>does not / doesn't + verb</strong></p><p>He doesn't play football.</p></div>
+  </div>
+
+  <div class="tip">Efter <strong>doesn't</strong> används grundformen: He doesn't <strong>play</strong>, inte “doesn't plays”.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>❓ Questions in present simple</h2></div>
+
+  <div class="grid-2">
+    <div class="card"><h3>Do + I/you/we/they …?</h3><p>Do you like music?</p><p>Do they live here?</p></div>
+    <div class="card"><h3>Does + he/she/it …?</h3><p>Does she speak English?</p><p>Does he walk to school?</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⏳ Present continuous</h2><p>Används ofta för något som händer just nu eller omkring nu.</p></div>
+
+  <div class="grid-3">
+    <div class="grammar"><strong>I am + verb-ing</strong><p>I am reading.</p></div>
+    <div class="grammar"><strong>He/She/It is + verb-ing</strong><p>She is sleeping.</p></div>
+    <div class="grammar"><strong>You/We/They are + verb-ing</strong><p>They are playing.</p></div>
+  </div>
+
+  <div class="example">
+    <h3>Examples</h3>
+    <p>Look! It is raining.</p>
+    <p>We are working on a project right now.</p>
+    <p>Tom is talking to his teacher.</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔁 Present simple or present continuous?</h2></div>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Present simple</th><th>Present continuous</th></tr>
+      <tr><td>I play football every Tuesday.</td><td>I am playing football now.</td></tr>
+      <tr><td>She usually walks to school.</td><td>She is taking the bus today.</td></tr>
+      <tr><td>They live in London.</td><td>They are staying in Paris this week.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🕒 Past simple</h2><p>Används för avslutade händelser i det förflutna.</p></div>
+
+  <div class="grid-3">
+    <div class="grammar"><strong>Regular verbs</strong><p>play → played<br>walk → walked<br>visit → visited</p></div>
+    <div class="grammar"><strong>Time words</strong><p>yesterday, last week, last year, two days ago</p></div>
+    <div class="grammar"><strong>Finished action</strong><p>We visited our grandparents yesterday.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚡ Irregular verbs</h2><p>Vissa verb får en helt annan form i past simple.</p></div>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Base form</th><th>Past simple</th><th>Example</th></tr>
+      <tr><td>go</td><td>went</td><td>We went home.</td></tr>
+      <tr><td>see</td><td>saw</td><td>I saw a fox.</td></tr>
+      <tr><td>eat</td><td>ate</td><td>She ate breakfast.</td></tr>
+      <tr><td>have</td><td>had</td><td>They had fun.</td></tr>
+      <tr><td>do</td><td>did</td><td>He did his homework.</td></tr>
+      <tr><td>come</td><td>came</td><td>My friend came early.</td></tr>
+      <tr><td>take</td><td>took</td><td>I took the bus.</td></tr>
+      <tr><td>get</td><td>got</td><td>We got home late.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>❌ Negatives in past simple</h2></div>
+
+  <div class="example">
+    <p><strong>did not / didn't + base form</strong></p>
+    <p>I didn't go to school yesterday.</p>
+    <p>She didn't see the message.</p>
+    <p>They didn't play football.</p>
+  </div>
+
+  <div class="tip">Efter <strong>didn't</strong> används grundformen: didn't <strong>go</strong>, inte “didn't went”.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>❓ Questions in past simple</h2></div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Did you …?</h3><p>Did you watch the film?</p></div>
+    <div class="card"><h3>Where did …?</h3><p>Where did they go?</p></div>
+    <div class="card"><h3>What did …?</h3><p>What did she eat?</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Time clues</h2><p>Tidsord kan hjälpa dig välja rätt tempus.</p></div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Present simple</h3><p>always, often, usually, sometimes, every day</p></div>
+    <div class="card"><h3>Present continuous</h3><p>now, right now, at the moment, today</p></div>
+    <div class="card"><h3>Past simple</h3><p>yesterday, last week, ago, in 2024</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+
+  <div class="grid-4">
+    <div class="concept"><strong>Verb</strong>Ett ord som beskriver handling, händelse eller tillstånd.</div>
+    <div class="concept"><strong>Base form</strong>Verbets grundform, till exempel play.</div>
+    <div class="concept"><strong>Present simple</strong>Tempus för vanor och sådant som brukar vara sant.</div>
+    <div class="concept"><strong>Present continuous</strong>Tempus för något som händer nu.</div>
+    <div class="concept"><strong>Past simple</strong>Tempus för avslutade händelser i dåtid.</div>
+    <div class="concept"><strong>Regular verb</strong>Ett verb som ofta får -ed i past simple.</div>
+    <div class="concept"><strong>Irregular verb</strong>Ett verb med oregelbunden dåtidsform.</div>
+    <div class="concept"><strong>Auxiliary verb</strong>Hjälpverb, till exempel do, does, did, am, is, are.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Common mistakes</h2></div>
+
+  <div class="grid-3">
+    <div class="mistake"><h3>He play</h3><p class="wrong">❌ He play football.</p><p class="right">✅ He plays football.</p></div>
+    <div class="mistake"><h3>Doesn't plays</h3><p class="wrong">❌ She doesn't likes pizza.</p><p class="right">✅ She doesn't like pizza.</p></div>
+    <div class="mistake"><h3>Didn't went</h3><p class="wrong">❌ We didn't went home.</p><p class="right">✅ We didn't go home.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Level 1</h3><p>Present simple.</p><button onclick="showLevel(1)">Open level 1</button></div>
+    <div class="level level2"><h3>🚀 Level 2</h3><p>Present continuous and past simple.</p><button onclick="showLevel(2)">Open level 2</button></div>
+    <div class="level level3"><h3>🏆 Level 3</h3><p>Choose and explain tense.</p><button onclick="showLevel(3)">Open level 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Level 1</h3>
+    <div class="task"><label>1. Complete: “She ___ football every Friday.” (play)</label><input id="a1"><br><button class="check" onclick="checkAnswer('a1',['plays'],'f1')">Check</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. Complete: “They ___ to school every day.” (walk)</label><input id="a2"><br><button class="check" onclick="checkAnswer('a2',['walk'],'f2')">Check</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Make negative: “He likes milk.”</label><input id="a3"><br><button class="check" onclick="checkContains('a3',['doesn’t like','doesnt like','does not like'],'f3')">Check</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Level 2</h3>
+    <div class="task"><label>1. Complete: “Look! The dog ___.” (run)</label><input id="b1"><br><button class="check" onclick="checkContains('b1',['is running'],'g1')">Check</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Complete: “Yesterday we ___ to the cinema.” (go)</label><input id="b2"><br><button class="check" onclick="checkAnswer('b2',['went'],'g2')">Check</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Complete: “She ___ breakfast at seven yesterday.” (eat)</label><input id="b3"><br><button class="check" onclick="checkAnswer('b3',['ate'],'g3')">Check</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Level 3</h3>
+    <div class="task"><label>1. Choose: “I usually ___ the bus, but today I ___.” (take / walk)</label><textarea id="c1"></textarea><br><button class="check" onclick="checkContains('c1',['take','am walking'],'h1')">Check</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Correct the sentence: “He didn't went to school.”</label><input id="c2"><br><button class="check" onclick="checkContains('c2',['didn’t go','didnt go','did not go'],'h2')">Check</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Explain why “She is reading now” uses present continuous.</label><textarea id="c3"></textarea><br><button class="check" onclick="checkContains('c3',['now','happening now','right now','just nu'],'h3')">Check</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Verbs & Tenses Quiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Next question →</button>
+    </div>
+  </div>
+</section>
+
+<section id="anvand">
+  <div class="section-head"><h2>📝 Use the tenses</h2><p>Skriv med flera tempus och visa att du kan skilja dem åt.</p></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>🔁 Task 1: My routine</h3>
+      <p>Write 5 sentences about what you usually do on a school day. Use present simple.</p>
+      <textarea placeholder="I usually get up at..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Show support</button>
+      <div id="sol1" class="solution">
+        I get up at seven. I usually eat breakfast at home. I walk to school. School starts at eight thirty. I do my homework in the afternoon.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>⏳ Task 2: Right now</h3>
+      <p>Write 4 sentences about what people are doing right now. Use present continuous.</p>
+      <textarea placeholder="My teacher is... My classmates are..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Show support</button>
+      <div id="sol2" class="solution">
+        My teacher is talking. Two students are writing. Someone is opening a book. I am working on this task.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🕒 Task 3: Yesterday</h3>
+      <p>Write 5 sentences about yesterday. Use at least two irregular past forms.</p>
+      <textarea placeholder="Yesterday I went..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol3')">Show support</button>
+      <div id="sol3" class="solution">
+        Yesterday I went to school. I saw my friends. We had lunch together. After school, I walked home and did my homework.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+
+  <div class="grid-2">
+    <div class="support">
+      <h3>🆘 I need support</h3>
+      <ul>
+        <li>Circle the time word first.</li>
+        <li>Ask: habit, now or finished past?</li>
+        <li>Remember he/she/it + -s in present simple.</li>
+        <li>Use am/is/are + -ing for actions happening now.</li>
+        <li>Make an irregular verb list and practise a few at a time.</li>
+      </ul>
+    </div>
+
+    <div class="support">
+      <h3>🚀 I want a challenge</h3>
+      <ul>
+        <li>Write a paragraph that switches correctly between routine and what is happening today.</li>
+        <li>Use both regular and irregular past forms.</li>
+        <li>Create your own grammar correction quiz.</li>
+        <li>Explain why each tense is used in a short text.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Knowledge check</h2></div>
+
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> I can identify verbs in English sentences.</label>
+    <label><input class="goal" type="checkbox"> I can use present simple for routines and habits.</label>
+    <label><input class="goal" type="checkbox"> I remember -s with he, she and it in present simple.</label>
+    <label><input class="goal" type="checkbox"> I can make present simple questions and negatives.</label>
+    <label><input class="goal" type="checkbox"> I can use present continuous for actions happening now.</label>
+    <label><input class="goal" type="checkbox"> I can use past simple for finished past events.</label>
+    <label><input class="goal" type="checkbox"> I know several common irregular past forms.</label>
+    <label><input class="goal" type="checkbox"> I can use time clues to choose a suitable tense.</label>
+    <button class="goal-btn" onclick="checkGoals()">See my progress</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>🏃 Verbs & Tenses • Engelska åk 6</strong><br>
+  Present simple • Present continuous • Past simple • Regular & irregular verbs
+</footer>
+
+<script>
+var quizQuestions=[
+{q:"Which sentence is correct?",a:["She plays football every Friday.","She play football every Friday.","She playing football every Friday.","She plays football now every Friday."],c:"She plays football every Friday.",e:"He, she and it usually take -s in present simple."},
+{q:"Which tense is best for something happening right now?",a:["Present continuous","Present simple","Past simple","Past perfect"],c:"Present continuous",e:"Present continuous is commonly used for actions happening now."},
+{q:"Which sentence is correct?",a:["They are watching TV now.","They watch TV now at the moment.","They is watching TV.","They watching TV are."],c:"They are watching TV now.",e:"Use are + verb-ing with they."},
+{q:"What is the past simple of 'go'?",a:["went","goed","goes","going"],c:"went",e:"Go is irregular: go → went."},
+{q:"Which sentence is correct?",a:["He doesn't like milk.","He doesn't likes milk.","He don't likes milk.","He not like milk."],c:"He doesn't like milk.",e:"After doesn't, use the base form."},
+{q:"Which sentence is correct?",a:["We didn't see the film.","We didn't saw the film.","We don't saw the film.","We not saw the film."],c:"We didn't see the film.",e:"After didn't, use the base form."},
+{q:"Which time word usually suggests past simple?",a:["yesterday","usually","now","every day"],c:"yesterday",e:"Yesterday refers to a finished time in the past."},
+{q:"Which sentence describes a routine?",a:["I walk to school every day.","I am walking to school right now.","I walked to school yesterday.","I will walk tomorrow."],c:"I walk to school every day.",e:"Present simple is used for routines and habits."}
+];
+
+var order=[],current=0,score=0,answered=0;
+function normalize(v){return v.trim().toLowerCase().replace(/[’']/g,"'").replace(/\s+/g," ")}
+function showLevel(n){
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  var s=document.getElementById("level"+n);s.classList.add("active");
+  s.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function checkAnswer(id,answers,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=answers.some(function(a){return value===normalize(a)});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Correct!":"❌ Try again."
+}
+function checkContains(id,parts,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=parts.some(function(p){return value.indexOf(normalize(p))!==-1});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Good!":"❌ Try again and look at the tense rules above."
+}
+function toggleSolution(id){
+  var b=document.getElementById(id);
+  b.style.display=b.style.display==="block"?"none":"block"
+}
+function shuffle(a){
+  var c=a.slice();
+  for(var i=c.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=c[i];c[i]=c[j];c[j]=t
+  }
+  return c
+}
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;score=0;answered=0;
+  renderQuestion()
+}
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+  var box=document.getElementById("answers");box.innerHTML="";
+  shuffle(item.a).forEach(function(choice){
+    var b=document.createElement("button");b.className="answer";b.type="button";b.textContent=choice;
+    b.onclick=function(){answerQuestion(choice,item.c,item.e)};box.appendChild(b)
+  });
+  var f=document.getElementById("quizFeedback");f.style.display="none";f.innerHTML="";
+  document.getElementById("nextBtn").style.display="none";updateScore()
+}
+function answerQuestion(choice,correct,exp){
+  document.querySelectorAll(".answer").forEach(function(b){b.disabled=true});answered++;
+  var f=document.getElementById("quizFeedback");f.style.display="block";
+  if(choice===correct){score++;f.style.background="#dcfce7";f.style.color="#166534";f.innerHTML="✅ Correct! "+exp}
+  else{f.style.background="#fee2e2";f.style.color="#991b1b";f.innerHTML="❌ Correct answer: <strong>"+correct+"</strong><br>"+exp}
+  updateScore();document.getElementById("nextBtn").style.display="inline-block"
+}
+function nextQuestion(){
+  current++;
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML="<h3>🎉 Quiz complete!</h3><p>You got <strong>"+score+" out of "+quizQuestions.length+"</strong> correct.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Play again</button>";
+    return
+  }
+  renderQuestion()
+}
+function updateScore(){document.getElementById("score").textContent="Poäng: "+score+" / "+answered}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 All goals checked!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" of "+goals.length+" goals. Great work.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" of "+goals.length+" goals. Keep practising.";
+  else r.textContent="👣 Start with present simple, present continuous and common past forms."
+}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
