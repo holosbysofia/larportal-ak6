@@ -305,7 +305,9 @@
       margin-bottom:14px;
     }
 
-    .quick button{
+    .quick button,
+    .quick-link{
+      display:inline-block;
       border:none;
       background:#e0e7ff;
       color:#3730a3;
@@ -313,6 +315,7 @@
       border-radius:10px;
       font-weight:800;
       cursor:pointer;
+      text-decoration:none;
     }
 
     /* SPEL */
@@ -723,18 +726,18 @@
         <div class="icon">🧠</div>
         <h3>Begreppsbank</h3>
         <p>Träna viktiga ord och uttryck.</p>
-        <button onclick="window.location.href='begreppsbank.html'">
-          Öppna
-        </button>
+        <a class="quick-link" href="begreppsbank.html">
+          Öppna begreppsbanken →
+        </a>
       </div>
 
       <div class="quick">
         <div class="icon">✍️</div>
         <h3>Träna</h3>
         <p>Övningar från lätt till utmanande.</p>
-        <button onclick="window.location.href='traning.html'">
-          Börja träna
-        </button>
+        <a class="quick-link" href="traning.html">
+          Börja träna →
+        </a>
       </div>
 
       <div class="quick">
