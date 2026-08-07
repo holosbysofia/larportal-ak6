@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ekosystem – NO åk 6</title>
+
+<style>
+:root{
+  --bg:#f7faf8;
+  --dark:#0f172a;
+  --text:#1f2937;
+  --muted:#64748b;
+  --green:#16a34a;
+  --green2:#15803d;
+  --teal:#0f766e;
+  --blue:#2563eb;
+  --orange:#ea580c;
+  --red:#dc2626;
+  --card:#ffffff;
+  --border:#e2e8f0;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:white;
+  padding:12px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{
+  color:#334155;
+  font-weight:800;
+  padding:8px 11px;
+  border-radius:10px;
+}
+.navlinks a:hover{background:#dcfce7;color:#166534}
+.navlinks .home{background:var(--green);color:white}
+
+.hero{
+  background:
+    radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+    linear-gradient(135deg,#16a34a,#15803d,#14532d);
+  color:white;
+  padding:72px 6% 100px;
+}
+
+.hero-inner{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:35px;
+  align-items:center;
+}
+
+.hero h1{
+  margin:0 0 16px;
+  font-size:clamp(3rem,8vw,5.2rem);
+  line-height:1;
+}
+
+.hero p{font-size:1.18rem;max-width:760px}
+
+.hero-card{
+  background:white;
+  color:#166534;
+  border-radius:24px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 18px 50px rgba(0,0,0,.2);
+}
+
+.foodchain{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  font-size:1.8rem;
+  margin:16px 0;
+}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+
+.overview{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-top:-42px;
+}
+
+.overview div{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:800;
+  box-shadow:0 10px 28px rgba(0,0,0,.09);
+}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+.card h3{margin-top:0;color:var(--dark)}
+
+.fact{
+  background:#f0fdf4;
+  border:1px solid #bbf7d0;
+  border-radius:14px;
+  padding:15px;
+  font-weight:800;
+  color:#166534;
+  margin:14px 0;
+}
+
+.tip{
+  background:#f0fdf4;
+  border-left:5px solid var(--green);
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+
+.step{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  padding:13px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+.role{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--green);
+}
+.role strong{display:block;color:#166534;margin-bottom:6px}
+
+.concept{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 5px 16px rgba(0,0,0,.05);
+}
+.concept strong{display:block;color:#15803d;margin-bottom:5px}
+
+.mistake{
+  background:white;
+  border-top:5px solid var(--red);
+  border-radius:16px;
+  padding:20px;
+}
+.wrong{color:#b91c1c;font-weight:800}
+.right{color:#166534;font-weight:800}
+
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.level{
+  color:white;
+  border-radius:22px;
+  padding:24px;
+}
+
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#16a34a,#15803d)}
+.level3{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+
+.level button{
+  border:none;
+  background:white;
+  color:#111827;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.panel{
+  display:none;
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  margin-top:18px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+.panel.active{display:block}
+
+.task{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  margin:12px 0;
+}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input{
+  padding:10px;
+  border:1px solid #cbd5e1;
+  border-radius:9px;
+  width:100%;
+  max-width:340px;
+}
+
+.check{
+  margin-top:9px;
+  background:var(--green);
+  color:white;
+  border:none;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.feedback{
+  display:none;
+  margin-top:9px;
+  padding:10px;
+  border-radius:9px;
+  font-weight:800;
+}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{
+  background:#0f172a;
+  color:white;
+  border-radius:24px;
+  padding:28px;
+}
+.quiz-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.score{
+  background:#1e293b;
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:900;
+}
+.quiz-card{
+  background:#1e293b;
+  border-radius:16px;
+  padding:22px;
+  margin-top:18px;
+}
+.answers{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.answer{
+  border:none;
+  background:white;
+  color:#1f2937;
+  padding:14px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  text-align:left;
+}
+.answer:hover{background:#dcfce7}
+.answer:disabled{opacity:.75;cursor:default}
+
+#quizFeedback{
+  display:none;
+  margin-top:14px;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+}
+#nextBtn{
+  display:none;
+  margin-top:12px;
+  border:none;
+  background:#facc15;
+  color:#111827;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.problem{
+  background:linear-gradient(135deg,#dcfce7,#dbeafe);
+  border-radius:24px;
+  padding:28px;
+}
+.problem-card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  margin-top:15px;
+}
+.problem textarea{
+  width:100%;
+  min-height:115px;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  resize:vertical;
+  margin-top:12px;
+}
+.reveal{
+  margin-top:10px;
+  border:none;
+  background:#166534;
+  color:white;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+.solution{
+  display:none;
+  background:#f8fafc;
+  border-radius:10px;
+  padding:14px;
+  margin-top:12px;
+}
+
+.support{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+.checklist label{
+  display:flex;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+.checklist input{width:19px;height:19px}
+.goal-btn{
+  margin-top:16px;
+  border:none;
+  background:var(--green2);
+  color:white;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{
+  background:#020617;
+  color:#cbd5e1;
+  padding:34px 20px;
+  text-align:center;
+  margin-top:60px;
+}
+
+@media(max-width:900px){
+  .overview,.grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-3,.levels{grid-template-columns:1fr}
+}
+
+@media(max-width:700px){
+  .hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .overview{margin-top:-25px}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">🌳 Ekosystem – NO åk 6</div>
+
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="no.html">🔬 NO</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Resonera</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+
+    <div>
+      <h1>Ekosystem</h1>
+
+      <p>
+        Här lär du dig hur organismer och miljö samspelar.
+        Du arbetar med näringskedjor, producenter, konsumenter,
+        nedbrytare, livsmiljöer och hur förändringar påverkar hela ekosystem.
+      </p>
+    </div>
+
+    <div class="hero-card">
+      <h3>🌿 En enkel näringskedja</h3>
+      <div class="foodchain">
+        <span>☀️</span><span>→</span><span>🌱</span><span>→</span><span>🐇</span><span>→</span><span>🦊</span>
+      </div>
+      <strong>Energi förs vidare mellan organismer.</strong>
+    </div>
+
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="overview">
+    <div>🌿 Producenter</div>
+    <div>🐇 Konsumenter</div>
+    <div>🍄 Nedbrytare</div>
+    <div>🔗 Näringskedjor</div>
+    <div>🏞️ Livsmiljöer</div>
+  </div>
+
+  <section id="forsta">
+
+    <div class="section-head">
+      <h2>📘 Vad är ett ekosystem?</h2>
+      <p>
+        Ett ekosystem består av alla levande organismer i ett område och den miljö de lever i.
+      </p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>🌱 Levande delar</h3>
+        <p>Växter, djur, svampar och mikroorganismer.</p>
+      </div>
+
+      <div class="card">
+        <h3>💧 Icke-levande delar</h3>
+        <p>Vatten, ljus, temperatur, luft och jord.</p>
+      </div>
+
+      <div class="card">
+        <h3>🔗 Samspel</h3>
+        <p>Organismer påverkar varandra och sin omgivning.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🌿 Producenter</h2>
+      <p>Producenter tillverkar själva energirik näring med hjälp av solljus.</p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Fotosyntes</h3>
+        <div class="fact">
+          Gröna växter använder ljusenergi, vatten och koldioxid för att bilda druvsocker och syre.
+        </div>
+        <div class="tip">
+          Växter är grunden i många näringskedjor.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Exempel på producenter</h3>
+        <div class="step">🌾 Gräs</div>
+        <div class="step">🌳 Träd</div>
+        <div class="step">🌿 Alger</div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🐇 Konsumenter</h2>
+      <p>Konsumenter får energi genom att äta andra organismer.</p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="role">
+        <strong>🌿 Växtätare</strong>
+        <p>Äter växter, till exempel hare och rådjur.</p>
+      </div>
+
+      <div class="role">
+        <strong>🦊 Köttätare</strong>
+        <p>Äter andra djur, till exempel räv.</p>
+      </div>
+
+      <div class="role">
+        <strong>🐻 Allätare</strong>
+        <p>Äter både växter och djur.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🍄 Nedbrytare</h2>
+      <p>Nedbrytare bryter ner döda organismer och för tillbaka näringsämnen till marken.</p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Exempel</h3>
+        <p>Svampar, bakterier och små markdjur kan fungera som nedbrytare.</p>
+      </div>
+
+      <div class="card">
+        <h3>Varför behövs de?</h3>
+        <p>
+          Utan nedbrytare skulle dött material samlas och näringsämnen inte återföras lika effektivt till kretsloppet.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🔗 Näringskedjor</h2>
+      <p>En näringskedja visar vem som äter vem och hur energi förs vidare.</p>
+    </div>
+
+    <div class="card">
+      <div class="foodchain">
+        <span>☀️</span><span>→</span><span>🌱</span><span>→</span><span>🐛</span><span>→</span><span>🐦</span><span>→</span><span>🦅</span>
+      </div>
+      <div class="tip">
+        Pilen visar åt vilket håll energin förs.
+      </div>
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🕸️ Näringsvävar</h2>
+      <p>I naturen ingår organismer ofta i flera näringskedjor samtidigt.</p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Flera samband</h3>
+        <p>
+          En mus kan äta både frön och växtdelar och kan i sin tur ätas av både uggla och räv.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Stabilitet</h3>
+        <p>
+          Ett ekosystem med många olika arter kan ha fler alternativa samband om en art minskar.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🏞️ Livsmiljöer</h2>
+      <p>Olika arter är anpassade till olika miljöer.</p>
+    </div>
+
+    <div class="grid-4">
+
+      <div class="card">
+        <h3>🌲 Skog</h3>
+        <p>Träd, fåglar, insekter, svampar och däggdjur samspelar.</p>
+      </div>
+
+      <div class="card">
+        <h3>🌊 Sjö</h3>
+        <p>Fiskar, alger, plankton och vattenväxter ingår i ekosystemet.</p>
+      </div>
+
+      <div class="card">
+        <h3>🌾 Äng</h3>
+        <p>Blommor, gräs, pollinatörer och smådjur påverkar varandra.</p>
+      </div>
+
+      <div class="card">
+        <h3>🪨 Fjäll</h3>
+        <p>Kyla, vind och kort växtsäsong påverkar vilka arter som kan leva där.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>⚖️ Balans och förändring</h2>
+      <p>En förändring i ett ekosystem kan påverka flera arter samtidigt.</p>
+    </div>
+
+    <div class="card">
+      <h3>Exempel</h3>
+      <div class="step">Om antalet växter minskar får växtätare mindre mat.</div>
+      <div class="step">Om växtätare minskar kan rovdjur få mindre föda.</div>
+      <div class="step">Om rovdjur minskar kan vissa bytesdjur öka.</div>
+      <div class="tip">
+        Ekosystem består av många kopplade samband.
+      </div>
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🧠 Begreppsbank</h2>
+    </div>
+
+    <div class="grid-4">
+      <div class="concept"><strong>Ekosystem</strong>Levande organismer och den miljö de lever i.</div>
+      <div class="concept"><strong>Producent</strong>En organism som tillverkar energirik näring, ofta genom fotosyntes.</div>
+      <div class="concept"><strong>Konsument</strong>En organism som får energi genom att äta andra organismer.</div>
+      <div class="concept"><strong>Nedbrytare</strong>Organism som bryter ner dött material.</div>
+      <div class="concept"><strong>Näringskedja</strong>Visar vem som äter vem.</div>
+      <div class="concept"><strong>Näringsväv</strong>Flera sammanlänkade näringskedjor.</div>
+      <div class="concept"><strong>Livsmiljö</strong>Den miljö där en organism lever.</div>
+      <div class="concept"><strong>Population</strong>Alla individer av samma art i ett område.</div>
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>⚠️ Vanliga missuppfattningar</h2>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="mistake">
+        <h3>Pilarnas riktning</h3>
+        <p class="wrong">❌ Pilen pekar mot det som blir uppätet.</p>
+        <p class="right">✅ Pilen visar åt vilket håll energin förs.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Växter</h3>
+        <p class="wrong">❌ Växter får sin energi från jorden.</p>
+        <p class="right">✅ Växter använder ljusenergi i fotosyntesen.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Nedbrytare</h3>
+        <p class="wrong">❌ Nedbrytare är bara skadedjur.</p>
+        <p class="right">✅ Nedbrytare har en viktig roll i kretsloppet av näringsämnen.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="traning">
+
+    <div class="section-head">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>Klicka på en nivå. Uppgifterna öppnas direkt.</p>
+    </div>
+
+    <div class="levels">
+
+      <div class="level level1">
+        <h3>🌱 Nivå 1</h3>
+        <p>Grundläggande begrepp.</p>
+        <button type="button" onclick="showLevel(1)">Öppna nivå 1</button>
+      </div>
+
+      <div class="level level2">
+        <h3>🚀 Nivå 2</h3>
+        <p>Näringskedjor och roller.</p>
+        <button type="button" onclick="showLevel(2)">Öppna nivå 2</button>
+      </div>
+
+      <div class="level level3">
+        <h3>🏆 Nivå 3</h3>
+        <p>Samband och förändringar.</p>
+        <button type="button" onclick="showLevel(3)">Öppna nivå 3</button>
+      </div>
+
+    </div>
+
+    <div id="level1" class="panel">
+      <h3>🌱 Nivå 1</h3>
+
+      <div class="task">
+        <label>1. Vad kallas en organism som tillverkar sin egen energirika näring med hjälp av ljus?</label>
+        <input id="a1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a1',['producent','en producent'],'f1')">Kontrollera</button>
+        <div id="f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad kallas en organism som äter andra organismer?</label>
+        <input id="a2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a2',['konsument','en konsument'],'f2')">Kontrollera</button>
+        <div id="f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Nämn en typ av nedbrytare.</label>
+        <input id="a3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a3',['svamp','svampar','bakterie','bakterier'],'f3')">Kontrollera</button>
+        <div id="f3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level2" class="panel">
+      <h3>🚀 Nivå 2</h3>
+
+      <div class="task">
+        <label>1. I kedjan gräs → hare → räv, vilken organism är producent?</label>
+        <input id="b1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b1',['gräs','gras'],'g1')">Kontrollera</button>
+        <div id="g1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad kallas flera sammanlänkade näringskedjor?</label>
+        <input id="b2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b2',['näringsväv','naringsvav','en näringsväv'],'g2')">Kontrollera</button>
+        <div id="g2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vad visar pilen i en näringskedja?</label>
+        <input id="b3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b3',['energin','energi','energiflödet','energiflodet'],'g3')">Kontrollera</button>
+        <div id="g3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level3" class="panel">
+      <h3>🏆 Nivå 3</h3>
+
+      <div class="task">
+        <label>1. Om antalet harar minskar kraftigt, vilket djur kan få mindre föda i kedjan gräs → hare → räv?</label>
+        <input id="c1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c1',['räv','raven','räven','rav'],'h1')">Kontrollera</button>
+        <div id="h1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad kallas alla individer av samma art i ett område?</label>
+        <input id="c2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c2',['population','en population'],'h2')">Kontrollera</button>
+        <div id="h2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vilken process gör att gröna växter kan använda ljusenergi?</label>
+        <input id="c3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c3',['fotosyntes','fotosyntesen'],'h3')">Kontrollera</button>
+        <div id="h3" class="feedback"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="quiz">
+
+    <div class="quiz">
+      <div class="quiz-top">
+        <div>
+          <h2>🎮 Ekosystemquiz</h2>
+          <p>Åtta frågor. Svarsalternativen blandas.</p>
+        </div>
+        <div id="score" class="score">Poäng: 0 / 0</div>
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+        <h3 id="question"></h3>
+        <div id="answers" class="answers"></div>
+        <div id="quizFeedback"></div>
+        <button id="nextBtn" type="button" onclick="nextQuestion()">Nästa fråga →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="problem">
+
+    <div class="section-head">
+      <h2>💬 Resonera om ekosystem</h2>
+      <p>Använd begreppen producent, konsument, näringskedja och population.</p>
+    </div>
+
+    <div class="problem">
+
+      <div class="problem-card">
+        <h3>🦊 Vad händer om rävarna minskar?</h3>
+
+        <p>
+          I ett område finns gräs, harar och rävar.
+          Under några år minskar antalet rävar kraftigt.
+          Hur skulle det kunna påverka harar och växter?
+        </p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol1')">
+          Visa lösningsförslag
+        </button>
+
+        <div id="sol1" class="solution">
+          Om rävarna minskar kan fler harar överleva eftersom färre blir uppätna.
+          Om harpopulationen ökar kan fler växter ätas upp.
+          Då kan mängden gräs och andra växter minska. Detta visar hur en förändring
+          i en del av näringskedjan kan påverka andra delar av ekosystemet.
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <h3>🌊 Förändring i en sjö</h3>
+
+        <p>
+          Ett ämne hamnar i en sjö och gör att många vattenväxter dör.
+          Hur kan det påverka djuren i sjön?
+        </p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol2')">
+          Visa exempel
+        </button>
+
+        <div id="sol2" class="solution">
+          Om vattenväxter minskar får växtätare mindre föda.
+          Då kan deras populationer minska, vilket i sin tur kan påverka rovdjur.
+          Förändringen kan alltså spridas genom näringsväven.
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🌱 Stöd och utmaning</h2>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="support">
+        <h3>🆘 Jag behöver hjälp</h3>
+        <ul>
+          <li>Börja med att hitta producenten.</li>
+          <li>Rita pilar i den riktning energin förs.</li>
+          <li>Fråga: Vem äter vem?</li>
+          <li>Använd orden producent, konsument och nedbrytare.</li>
+          <li>Rita en enkel näringskedja.</li>
+        </ul>
+      </div>
+
+      <div class="support">
+        <h3>🚀 Jag vill utmanas</h3>
+        <ul>
+          <li>Skapa en näringsväv med minst fem arter.</li>
+          <li>Förklara vad som händer om en art försvinner.</li>
+          <li>Jämför två olika livsmiljöer.</li>
+          <li>Förklara varför nedbrytare är viktiga i ett ekosystem.</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>✅ Kunskapscheck</h2>
+    </div>
+
+    <div class="checklist">
+      <label><input class="goal" type="checkbox"> Jag kan förklara vad ett ekosystem är.</label>
+      <label><input class="goal" type="checkbox"> Jag kan förklara producent, konsument och nedbrytare.</label>
+      <label><input class="goal" type="checkbox"> Jag kan läsa och skapa en enkel näringskedja.</label>
+      <label><input class="goal" type="checkbox"> Jag vet vad en näringsväv är.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beskriva en livsmiljö.</label>
+      <label><input class="goal" type="checkbox"> Jag kan förklara vad population betyder.</label>
+      <label><input class="goal" type="checkbox"> Jag kan resonera om hur en förändring påverkar flera arter.</label>
+      <label><input class="goal" type="checkbox"> Jag kan använda naturvetenskapliga begrepp i mina förklaringar.</label>
+
+      <button class="goal-btn" type="button" onclick="checkGoals()">Se min progression</button>
+      <div id="goalResult"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <strong>🌳 Ekosystem • NO åk 6</strong><br>
+  Producenter • Konsumenter • Näringskedjor • Livsmiljöer • Samband
+</footer>
+
+<script>
+var quizQuestions = [
+  {
+    q:"Vad är en producent?",
+    a:["En organism som tillverkar energirik näring","Ett rovdjur","En nedbrytare","Ett dött djur"],
+    c:"En organism som tillverkar energirik näring",
+    e:"Producenter är ofta gröna växter som använder fotosyntes."
+  },
+  {
+    q:"Vilken organism är producent i kedjan gräs → hare → räv?",
+    a:["Gräs","Hare","Räv","Alla tre"],
+    c:"Gräs",
+    e:"Gräset är producent eftersom det använder ljusenergi."
+  },
+  {
+    q:"Vad kallas en organism som äter andra organismer?",
+    a:["Konsument","Producent","Mineral","Nedbrytning"],
+    c:"Konsument",
+    e:"Konsumenter får energi genom att äta andra organismer."
+  },
+  {
+    q:"Vad visar pilen i en näringskedja?",
+    a:["Åt vilket håll energin förs","Vilket djur som är störst","Var solen går upp","Vilken art som lever längst"],
+    c:"Åt vilket håll energin förs",
+    e:"Pilen visar energins riktning genom kedjan."
+  },
+  {
+    q:"Vad är en näringsväv?",
+    a:["Flera sammanlänkade näringskedjor","En enda växt","En typ av jord","En grupp nedbrytare"],
+    c:"Flera sammanlänkade näringskedjor",
+    e:"I naturen ingår arter ofta i flera näringskedjor samtidigt."
+  },
+  {
+    q:"Vilket är ett exempel på en nedbrytare?",
+    a:["Svamp","Hare","Räv","Gran"],
+    c:"Svamp",
+    e:"Svampar och bakterier kan bryta ner dött material."
+  },
+  {
+    q:"Vad betyder population?",
+    a:["Alla individer av samma art i ett område","Alla arter på jorden","Alla rovdjur","Alla växter i ett land"],
+    c:"Alla individer av samma art i ett område",
+    e:"Population beskriver individer av samma art i ett visst område."
+  },
+  {
+    q:"Vad kan hända om en viktig producent minskar kraftigt?",
+    a:["Konsumenter kan få mindre föda","Alla rovdjur ökar alltid","Ingenting påverkas","Nedbrytare försvinner direkt"],
+    c:"Konsumenter kan få mindre föda",
+    e:"Producenter är ofta basen i näringskedjor."
+  }
+];
+
+var order=[];
+var current=0;
+var score=0;
+var answered=0;
+
+function normalize(value){
+  return value.trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function showLevel(number){
+  document.querySelectorAll(".panel").forEach(function(panel){
+    panel.classList.remove("active");
+  });
+
+  var selected=document.getElementById("level"+number);
+  selected.classList.add("active");
+  selected.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function checkAnswer(inputId,correctAnswers,feedbackId){
+  var value=normalize(document.getElementById(inputId).value);
+  var feedback=document.getElementById(feedbackId);
+
+  var correct=correctAnswers.some(function(answer){
+    return value===normalize(answer);
+  });
+
+  if(correct){
+    feedback.className="feedback good";
+    feedback.textContent="✅ Rätt! Bra jobbat.";
+  }else{
+    feedback.className="feedback bad";
+    feedback.textContent="❌ Inte riktigt. Försök igen.";
+  }
+}
+
+function toggleSolution(id){
+  var box=document.getElementById(id);
+  box.style.display=box.style.display==="block" ? "none" : "block";
+}
+
+function shuffle(array){
+  var copy=array.slice();
+
+  for(var i=copy.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var temp=copy[i];
+    copy[i]=copy[j];
+    copy[j]=temp;
+  }
+
+  return copy;
+}
+
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;
+  score=0;
+  answered=0;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+
+  var answerBox=document.getElementById("answers");
+  answerBox.innerHTML="";
+
+  shuffle(item.a).forEach(function(choice){
+    var button=document.createElement("button");
+    button.type="button";
+    button.className="answer";
+    button.textContent=choice;
+
+    button.onclick=function(){
+      answerQuestion(choice,item.c,item.e);
+    };
+
+    answerBox.appendChild(button);
+  });
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="none";
+  feedback.innerHTML="";
+
+  document.getElementById("nextBtn").style.display="none";
+  updateScore();
+}
+
+function answerQuestion(choice,correct,explanation){
+  document.querySelectorAll(".answer").forEach(function(button){
+    button.disabled=true;
+  });
+
+  answered++;
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="block";
+
+  if(choice===correct){
+    score++;
+    feedback.style.background="#dcfce7";
+    feedback.style.color="#166534";
+    feedback.innerHTML="✅ Rätt! "+explanation;
+  }else{
+    feedback.style.background="#fee2e2";
+    feedback.style.color="#991b1b";
+    feedback.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+explanation;
+  }
+
+  updateScore();
+  document.getElementById("nextBtn").style.display="inline-block";
+}
+
+function nextQuestion(){
+  current++;
+
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quizet är klart!</h3>"+
+      "<p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p>"+
+      "<button type='button' style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return;
+  }
+
+  renderQuestion();
+}
+
+function updateScore(){
+  document.getElementById("score").textContent="Poäng: "+score+" / "+answered;
+}
+
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal");
+  var checked=0;
+
+  goals.forEach(function(goal){
+    if(goal.checked){checked++}
+  });
+
+  var result=document.getElementById("goalResult");
+
+  if(checked===goals.length){
+    result.textContent="🏆 Alla mål markerade!";
+  }else if(checked>=6){
+    result.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  }else if(checked>=3){
+    result.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  }else{
+    result.textContent="👣 Börja med producent, konsument och näringskedja.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  startQuiz();
+});
+</script>
+
+</body>
+</html>
