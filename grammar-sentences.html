@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentences & Word Order – Engelska åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --blue:#2563eb;--blue2:#1d4ed8;--cyan:#0891b2;--purple:#7c3aed;
+  --green:#16a34a;--orange:#ea580c;--red:#dc2626;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#dbeafe;color:#1d4ed8}
+.navlinks .home{background:var(--blue);color:white}
+
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#2563eb,#0891b2,#0f172a);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#1d4ed8;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0;color:#1e40af}
+.fact{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:15px;font-weight:800;color:#1e3a8a;margin:14px 0}
+.tip{background:#ecfeff;border-left:5px solid var(--cyan);padding:14px;border-radius:10px;margin-top:12px}
+
+.rule{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--blue)
+}
+.rule strong{display:block;color:#1d4ed8;margin-bottom:6px}
+.concept strong{display:block;color:#1d4ed8;margin-bottom:5px}
+
+.pattern{
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px
+}
+.part{
+  padding:8px 12px;border-radius:10px;font-weight:900;background:#e0f2fe;color:#0c4a6e
+}
+.arrow{font-weight:900;color:#64748b}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:white;border-radius:18px;overflow:hidden;box-shadow:0 5px 18px rgba(0,0,0,.05)}
+th,td{padding:14px;border-bottom:1px solid #e2e8f0;text-align:left}
+th{background:#dbeafe;color:#1e3a8a}
+
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input,.task textarea{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:600px}
+.task textarea{min-height:110px}
+.check{margin-top:9px;background:var(--blue);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#dbeafe}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+
+.problem{background:linear-gradient(135deg,#eff6ff,#ecfeff);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:130px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#1d4ed8;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#1d4ed8;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🔤 Sentences & Word Order – Engelska åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="engelska.html">🇬🇧 Engelska</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#anvand">Använd</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Sentences & Word Order</h1>
+      <p>
+        Här tränar du på engelsk ordföljd, påståenden, frågor, nekande meningar,
+        pronomen och vanliga meningsmönster.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">🔤🧩➡️</div>
+      <h3>Build clear sentences</h3>
+      <p>Subject → verb → information</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>👤 Subject</div>
+  <div>🏃 Verb</div>
+  <div>❓ Questions</div>
+  <div>❌ Negatives</div>
+  <div>🧩 Pronouns</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head"><h2>📘 Basic word order</h2><p>Engelska har ofta en tydlig grundordföljd.</p></div>
+
+  <div class="rule">
+    <strong>Subject + verb + information</strong>
+    <div class="pattern">
+      <span class="part">Emma</span><span class="arrow">→</span>
+      <span class="part">plays</span><span class="arrow">→</span>
+      <span class="part">football after school.</span>
+    </div>
+  </div>
+
+  <div class="fact">På engelska behöver en vanlig mening nästan alltid ett tydligt subjekt.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>👤 Subject</h2><p>Subjektet berättar vem eller vad meningen handlar om.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>I</h3><p>I read every evening.</p></div>
+    <div class="card"><h3>You</h3><p>You speak English.</p></div>
+    <div class="card"><h3>He / She / It</h3><p>She likes music.</p></div>
+    <div class="card"><h3>We / They</h3><p>They live in London.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧩 Subject pronouns</h2></div>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Pronoun</th><th>Svenska</th><th>Example</th></tr>
+      <tr><td>I</td><td>jag</td><td>I am ready.</td></tr>
+      <tr><td>you</td><td>du / ni</td><td>You are my friend.</td></tr>
+      <tr><td>he</td><td>han</td><td>He plays tennis.</td></tr>
+      <tr><td>she</td><td>hon</td><td>She reads a lot.</td></tr>
+      <tr><td>it</td><td>den / det</td><td>It is raining.</td></tr>
+      <tr><td>we</td><td>vi</td><td>We are tired.</td></tr>
+      <tr><td>they</td><td>de</td><td>They go to school here.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🎯 Object pronouns</h2><p>Objektspronomen används när personen eller saken tar emot handlingen.</p></div>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Subject</th><th>Object</th><th>Example</th></tr>
+      <tr><td>I</td><td>me</td><td>She called me.</td></tr>
+      <tr><td>you</td><td>you</td><td>I can help you.</td></tr>
+      <tr><td>he</td><td>him</td><td>We saw him.</td></tr>
+      <tr><td>she</td><td>her</td><td>I know her.</td></tr>
+      <tr><td>it</td><td>it</td><td>I found it.</td></tr>
+      <tr><td>we</td><td>us</td><td>He invited us.</td></tr>
+      <tr><td>they</td><td>them</td><td>I met them.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📍 Place and time</h2><p>Plats kommer ofta före tid i en vanlig engelsk mening.</p></div>
+
+  <div class="rule">
+    <strong>Subject + verb + place + time</strong>
+    <div class="pattern">
+      <span class="part">We</span><span class="arrow">→</span>
+      <span class="part">play football</span><span class="arrow">→</span>
+      <span class="part">in the park</span><span class="arrow">→</span>
+      <span class="part">on Saturdays.</span>
+    </div>
+  </div>
+
+  <div class="tip">Det finns variationer, men detta är ett bra grundmönster för åk 6.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>❓ Questions with do and does</h2></div>
+
+  <div class="grid-2">
+    <div class="rule">
+      <strong>Do + subject + verb …?</strong>
+      <p>Do you like football?</p>
+      <p>Do they live here?</p>
+    </div>
+    <div class="rule">
+      <strong>Does + subject + verb …?</strong>
+      <p>Does she like football?</p>
+      <p>Does he live here?</p>
+    </div>
+  </div>
+
+  <div class="fact">Efter <strong>does</strong> används verbets grundform: Does she <strong>play</strong>? Inte “Does she plays?”</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>❓ Question words</h2></div>
+
+  <div class="grid-4">
+    <div class="card"><h3>What</h3><p>What do you want?</p></div>
+    <div class="card"><h3>Where</h3><p>Where do you live?</p></div>
+    <div class="card"><h3>When</h3><p>When does school start?</p></div>
+    <div class="card"><h3>Why</h3><p>Why do you like it?</p></div>
+    <div class="card"><h3>Who</h3><p>Who is your teacher?</p></div>
+    <div class="card"><h3>How</h3><p>How do you get to school?</p></div>
+    <div class="card"><h3>Which</h3><p>Which book do you prefer?</p></div>
+    <div class="card"><h3>How often</h3><p>How often do you train?</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>❌ Negative sentences</h2></div>
+
+  <div class="grid-3">
+    <div class="card"><h3>don't</h3><p>I don't play tennis.</p><p>They don't understand.</p></div>
+    <div class="card"><h3>doesn't</h3><p>She doesn't like coffee.</p><p>He doesn't walk to school.</p></div>
+    <div class="card"><h3>isn't / aren't</h3><p>He isn't tired.</p><p>They aren't at home.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔄 Word order with adverbs</h2><p>Ord som always, usually, often, sometimes och never placeras ofta före huvudverbet.</p></div>
+
+  <div class="grid-3">
+    <div class="rule"><strong>Before the main verb</strong><p>I <strong>usually eat</strong> breakfast at seven.</p></div>
+    <div class="rule"><strong>Before the main verb</strong><p>She <strong>often walks</strong> to school.</p></div>
+    <div class="rule"><strong>After be</strong><p>He <strong>is always</strong> friendly.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧱 Longer sentences</h2><p>Du kan koppla ihop idéer med vanliga sambandsord.</p></div>
+
+  <div class="grid-4">
+    <div class="card"><h3>and</h3><p>I like music and I play the guitar.</p></div>
+    <div class="card"><h3>but</h3><p>I like football, but I don't like running.</p></div>
+    <div class="card"><h3>because</h3><p>I study English because I want to travel.</p></div>
+    <div class="card"><h3>so</h3><p>It was raining, so we stayed inside.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📌 There is / There are</h2></div>
+
+  <div class="grid-2">
+    <div class="rule"><strong>There is</strong><p>There is a book on the table.</p><p>En sak.</p></div>
+    <div class="rule"><strong>There are</strong><p>There are three books on the table.</p><p>Flera saker.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+
+  <div class="grid-4">
+    <div class="concept"><strong>Subject</strong>Vem eller vad meningen handlar om.</div>
+    <div class="concept"><strong>Verb</strong>Handling, händelse eller tillstånd.</div>
+    <div class="concept"><strong>Object</strong>Den eller det som påverkas av handlingen.</div>
+    <div class="concept"><strong>Pronoun</strong>Ord som ersätter ett namn eller substantiv.</div>
+    <div class="concept"><strong>Word order</strong>Ordens placering i meningen.</div>
+    <div class="concept"><strong>Auxiliary verb</strong>Hjälpverb, till exempel do, does, is och are.</div>
+    <div class="concept"><strong>Negative</strong>En nekande mening.</div>
+    <div class="concept"><strong>Question word</strong>Ett frågeord, till exempel what eller where.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Common mistakes</h2></div>
+
+  <div class="grid-3">
+    <div class="mistake"><h3>Wrong question order</h3><p class="wrong">❌ Where you live?</p><p class="right">✅ Where do you live?</p></div>
+    <div class="mistake"><h3>Wrong verb after does</h3><p class="wrong">❌ Does she likes football?</p><p class="right">✅ Does she like football?</p></div>
+    <div class="mistake"><h3>Missing subject</h3><p class="wrong">❌ Is raining.</p><p class="right">✅ It is raining.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Level 1</h3><p>Basic word order.</p><button onclick="showLevel(1)">Open level 1</button></div>
+    <div class="level level2"><h3>🚀 Level 2</h3><p>Questions and negatives.</p><button onclick="showLevel(2)">Open level 2</button></div>
+    <div class="level level3"><h3>🏆 Level 3</h3><p>Pronouns and sentence variation.</p><button onclick="showLevel(3)">Open level 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Level 1</h3>
+    <div class="task"><label>1. Put the words in order: “football / plays / Mia”.</label><input id="a1"><br><button class="check" onclick="checkContains('a1',['mia plays football'],'f1')">Check</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. Put the words in order: “every day / school / I / walk to”.</label><input id="a2"><br><button class="check" onclick="checkContains('a2',['i walk to school every day'],'f2')">Check</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Which is the subject in “Tom likes pizza”?</label><input id="a3"><br><button class="check" onclick="checkAnswer('a3',['tom'],'f3')">Check</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Level 2</h3>
+    <div class="task"><label>1. Correct the question: “Where you live?”</label><input id="b1"><br><button class="check" onclick="checkContains('b1',['where do you live'],'g1')">Check</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Make negative: “She likes maths.”</label><input id="b2"><br><button class="check" onclick="checkContains('b2',['she doesn’t like maths','she doesnt like maths','she does not like maths'],'g2')">Check</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Correct: “Does he plays tennis?”</label><input id="b3"><br><button class="check" onclick="checkContains('b3',['does he play tennis'],'g3')">Check</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Level 3</h3>
+    <div class="task"><label>1. Replace “Lisa” with a pronoun: “Lisa is my friend.”</label><input id="c1"><br><button class="check" onclick="checkContains('c1',['she is my friend'],'h1')">Check</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Replace “Peter and me” with an object pronoun: “She invited Peter and me.”</label><input id="c2"><br><button class="check" onclick="checkContains('c2',['she invited us'],'h2')">Check</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Rewrite with an adverb: “I am late.” Use “never”.</label><input id="c3"><br><button class="check" onclick="checkContains('c3',['i am never late'],'h3')">Check</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Sentences & Word Order Quiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Next question →</button>
+    </div>
+  </div>
+</section>
+
+<section id="anvand">
+  <div class="section-head"><h2>📝 Build and improve sentences</h2></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>🧩 Task 1: Build a sentence</h3>
+      <p>Write one sentence using this pattern: subject + verb + place + time.</p>
+      <textarea placeholder="Example: We play football in the park on Saturdays."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Show example</button>
+      <div id="sol1" class="solution">My sister studies English at home every evening.</div>
+    </div>
+
+    <div class="problem-card">
+      <h3>❓ Task 2: Turn statements into questions</h3>
+      <p>Change these into questions: “You like music.” “She lives in London.” “They play football.”</p>
+      <textarea placeholder="Write the three questions..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Show answers</button>
+      <div id="sol2" class="solution">
+        Do you like music?<br>
+        Does she live in London?<br>
+        Do they play football?
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🔧 Task 3: Improve the text</h3>
+      <p>Correct the word order: “My brother every day plays after school basketball.”</p>
+      <textarea placeholder="Write a clearer sentence..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol3')">Show example</button>
+      <div id="sol3" class="solution">My brother plays basketball after school every day.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+
+  <div class="grid-2">
+    <div class="support">
+      <h3>🆘 I need support</h3>
+      <ul>
+        <li>Find the subject first.</li>
+        <li>Then find the verb.</li>
+        <li>Use Do/Does before the subject in many present simple questions.</li>
+        <li>Remember: after does, use the base verb.</li>
+        <li>Use sentence frames when needed.</li>
+      </ul>
+    </div>
+
+    <div class="support">
+      <h3>🚀 I want a challenge</h3>
+      <ul>
+        <li>Write questions with several different question words.</li>
+        <li>Use subject and object pronouns correctly in one paragraph.</li>
+        <li>Vary where time expressions appear when the sentence still sounds natural.</li>
+        <li>Combine ideas with and, but, because and so.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Knowledge check</h2></div>
+
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> I can use basic subject + verb word order.</label>
+    <label><input class="goal" type="checkbox"> I can identify the subject in a sentence.</label>
+    <label><input class="goal" type="checkbox"> I can use subject pronouns correctly.</label>
+    <label><input class="goal" type="checkbox"> I can use common object pronouns.</label>
+    <label><input class="goal" type="checkbox"> I can form present simple questions with do and does.</label>
+    <label><input class="goal" type="checkbox"> I can form negative sentences.</label>
+    <label><input class="goal" type="checkbox"> I can place common frequency adverbs correctly.</label>
+    <label><input class="goal" type="checkbox"> I can combine simple ideas into longer sentences.</label>
+    <button class="goal-btn" onclick="checkGoals()">See my progress</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>🔤 Sentences & Word Order • Engelska åk 6</strong><br>
+  Subject • Verb • Pronouns • Questions • Negatives • Word order
+</footer>
+
+<script>
+var quizQuestions=[
+{q:"Which sentence has correct basic word order?",a:["Mia plays football after school.","Mia football plays after school.","Plays Mia football after school.","Football Mia after school plays."],c:"Mia plays football after school.",e:"A common pattern is subject + verb + information."},
+{q:"Which question is correct?",a:["Where do you live?","Where you live?","Where does you live?","Do where you live?"],c:"Where do you live?",e:"Use question word + do + subject + base verb."},
+{q:"Which sentence is correct?",a:["Does she like music?","Does she likes music?","Do she like music?","She does like music?"],c:"Does she like music?",e:"After does, use the base form."},
+{q:"Which negative sentence is correct?",a:["He doesn't play tennis.","He doesn't plays tennis.","He don't play tennis.","He not plays tennis."],c:"He doesn't play tennis.",e:"Use doesn't + base verb."},
+{q:"Which pronoun can replace 'Anna'?",a:["she","he","they","we"],c:"she",e:"She is the subject pronoun for one female person."},
+{q:"Which object pronoun replaces 'Tom and me'?",a:["us","we","them","him"],c:"us",e:"Us is the object form of we."},
+{q:"Which sentence places 'usually' naturally?",a:["I usually eat breakfast at seven.","I eat breakfast usually at seven always.","Usually I breakfast eat at seven.","I eat usually breakfast at seven."],c:"I usually eat breakfast at seven.",e:"Frequency adverbs often come before the main verb."},
+{q:"Which sentence is correct?",a:["There are three books on the table.","There is three books on the table.","There three books are on the table.","Are there three books on table is."],c:"There are three books on the table.",e:"Use there are with plural nouns."}
+];
+
+var order=[],current=0,score=0,answered=0;
+
+function normalize(v){
+  return v.trim().toLowerCase().replace(/[’']/g,"'").replace(/\s+/g," ")
+}
+function showLevel(n){
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  var s=document.getElementById("level"+n);
+  s.classList.add("active");
+  s.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function checkAnswer(id,answers,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=answers.some(function(a){return value===normalize(a)});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Correct!":"❌ Try again."
+}
+function checkContains(id,parts,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=parts.some(function(p){return value.indexOf(normalize(p))!==-1});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Good!":"❌ Try again and check the word-order pattern."
+}
+function toggleSolution(id){
+  var b=document.getElementById(id);
+  b.style.display=b.style.display==="block"?"none":"block"
+}
+function shuffle(a){
+  var c=a.slice();
+  for(var i=c.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=c[i];c[i]=c[j];c[j]=t
+  }
+  return c
+}
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;score=0;answered=0;
+  renderQuestion()
+}
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+  var box=document.getElementById("answers");
+  box.innerHTML="";
+  shuffle(item.a).forEach(function(choice){
+    var b=document.createElement("button");
+    b.className="answer";b.type="button";b.textContent=choice;
+    b.onclick=function(){answerQuestion(choice,item.c,item.e)};
+    box.appendChild(b)
+  });
+  var f=document.getElementById("quizFeedback");
+  f.style.display="none";f.innerHTML="";
+  document.getElementById("nextBtn").style.display="none";
+  updateScore()
+}
+function answerQuestion(choice,correct,exp){
+  document.querySelectorAll(".answer").forEach(function(b){b.disabled=true});
+  answered++;
+  var f=document.getElementById("quizFeedback");
+  f.style.display="block";
+  if(choice===correct){
+    score++;
+    f.style.background="#dcfce7";
+    f.style.color="#166534";
+    f.innerHTML="✅ Correct! "+exp
+  }else{
+    f.style.background="#fee2e2";
+    f.style.color="#991b1b";
+    f.innerHTML="❌ Correct answer: <strong>"+correct+"</strong><br>"+exp
+  }
+  updateScore();
+  document.getElementById("nextBtn").style.display="inline-block"
+}
+function nextQuestion(){
+  current++;
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quiz complete!</h3><p>You got <strong>"+score+" out of "+quizQuestions.length+
+      "</strong> correct.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Play again</button>";
+    return
+  }
+  renderQuestion()
+}
+function updateScore(){
+  document.getElementById("score").textContent="Poäng: "+score+" / "+answered
+}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 All goals checked!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" of "+goals.length+" goals. Great work.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" of "+goals.length+" goals. Keep practising.";
+  else r.textContent="👣 Start with subject + verb, questions and negatives."
+}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
