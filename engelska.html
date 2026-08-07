@@ -8,7 +8,7 @@
 :root{
   --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
   --blue:#2563eb;--cyan:#0891b2;--indigo:#4f46e5;--green:#16a34a;
-  --border:#e2e8f0;--white:#fff
+  --purple:#7c3aed;--pink:#db2777;--border:#e2e8f0;--white:#fff
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -41,33 +41,58 @@ nav{
 .hero-icon{font-size:5rem}
 
 .wrap{max-width:1180px;margin:auto;padding:0 20px 75px}
-
-.skills{
-  display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px
-}
+.skills{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
 .skill{
   background:white;border-radius:17px;padding:19px;text-align:center;font-weight:900;
   box-shadow:0 10px 28px rgba(0,0,0,.09)
 }
 
-section{margin-top:62px}
+section{margin-top:58px}
 .section-head{margin-bottom:22px}
 .section-head h2{margin:0 0 7px;font-size:2rem;color:var(--dark)}
 .section-head p{margin:0;color:var(--muted)}
 
-.intro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.intro-card{
-  background:white;border-radius:20px;padding:23px;box-shadow:0 6px 22px rgba(0,0,0,.06);
-  border-top:5px solid var(--blue)
+.resource-title{
+  text-align:center;
+  font-size:2.1rem;
+  margin:0 0 8px;
+  color:#0f172a;
 }
-.intro-card h3{margin-top:0;color:#1d4ed8}
-
-.strands{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.strand{
-  background:linear-gradient(135deg,#eff6ff,#ecfeff);
-  border-radius:20px;padding:24px
+.resource-sub{
+  text-align:center;
+  color:#64748b;
+  margin:0 0 22px;
 }
-.strand h3{margin-top:0;color:#0f4c81}
+.resource-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+.resource{
+  min-height:190px;
+  border-radius:24px;
+  padding:28px;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  box-shadow:0 12px 30px rgba(0,0,0,.12);
+  transition:.2s;
+}
+.resource:hover{transform:translateY(-4px)}
+.resource.bank{background:linear-gradient(135deg,#4f46e5,#2563eb)}
+.resource.phrases{background:linear-gradient(135deg,#0891b2,#0f766e)}
+.resource .r-icon{font-size:3rem}
+.resource h3{font-size:1.6rem;margin:10px 0 6px}
+.resource p{margin:0 0 16px;color:#e0f2fe}
+.resource .r-btn{
+  align-self:flex-start;
+  background:white;
+  color:#1e3a8a;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:900
+}
 
 .topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .topic{
@@ -83,49 +108,20 @@ section{margin-top:62px}
   font-weight:900
 }
 
-.tools{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:20px
-}
-.tool-card{
-  background:white;border-radius:22px;padding:26px;box-shadow:0 7px 24px rgba(0,0,0,.07);
-  border-left:6px solid var(--cyan)
-}
-.tool-card h3{margin-top:0;color:#0f4c81}
-.tool-card p{color:#64748b}
-.tool-btn{
-  display:inline-block;background:linear-gradient(135deg,#2563eb,#0891b2);
-  color:white;padding:11px 15px;border-radius:11px;font-weight:900
-}
-
-.process{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-.step{
-  background:white;border-radius:17px;padding:20px;text-align:center;
-  box-shadow:0 5px 18px rgba(0,0,0,.05)
-}
-.step b{display:block;color:#1d4ed8;margin-bottom:5px}
-
-.phrases{
-  background:white;border-radius:22px;padding:26px;box-shadow:0 6px 22px rgba(0,0,0,.06)
-}
-.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
-.chip{
-  background:#eff6ff;color:#1e40af;border-radius:999px;padding:8px 12px;font-weight:800
-}
-
-.support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.support{
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.info{
   background:white;border-radius:20px;padding:22px;box-shadow:0 5px 18px rgba(0,0,0,.05)
 }
-.support h3{margin-top:0;color:#1e40af}
+.info h3{margin-top:0;color:#1e40af}
 
 footer{background:#020617;color:#cbd5e1;padding:36px 20px;text-align:center}
 
 @media(max-width:900px){
-  .skills,.intro-grid,.topic-grid,.process{grid-template-columns:repeat(2,1fr)}
-  .strands,.support-grid{grid-template-columns:1fr}
+  .skills,.topic-grid{grid-template-columns:repeat(2,1fr)}
+  .info-grid{grid-template-columns:1fr}
 }
 @media(max-width:700px){
-  .hero-inner,.skills,.intro-grid,.topic-grid,.tools,.process{grid-template-columns:1fr}
+  .hero-inner,.skills,.resource-grid,.topic-grid{grid-template-columns:1fr}
   .hero-card{display:none}
   .skills{margin-top:-25px}
 }
@@ -137,10 +133,8 @@ footer{background:#020617;color:#cbd5e1;padding:36px 20px;text-align:center}
   <div class="logo">🇬🇧 Engelska – åk 6</div>
   <div class="navlinks">
     <a class="home" href="index.html">🏠 Start</a>
+    <a href="#verktyg">Begreppsbank & Frasbank</a>
     <a href="#omraden">Områden</a>
-    <a href="#verktyg">Begrepp & fraser</a>
-    <a href="#arbetsgang">Arbetsgång</a>
-    <a href="#sprakstod">Språkstöd</a>
   </div>
 </nav>
 
@@ -150,8 +144,7 @@ footer{background:#020617;color:#cbd5e1;padding:36px 20px;text-align:center}
       <h1>Engelska</h1>
       <p>
         Träna på att förstå, tala, läsa och skriva engelska.
-        Här finns tydliga genomgångar, exempel, interaktiva övningar,
-        quiz och stöd som hjälper dig att använda engelska i verkliga situationer.
+        Här finns genomgångar, övningar, quiz och stödmaterial.
       </p>
     </div>
     <div class="hero-card">
@@ -172,216 +165,59 @@ footer{background:#020617;color:#cbd5e1;padding:36px 20px;text-align:center}
   <div class="skill">🧠 Understand</div>
 </div>
 
-<section>
-  <div class="section-head">
-    <h2>🚀 Fyra vägar in i engelskan</h2>
-    <p>Du utvecklar språket genom att både förstå och själv använda engelska.</p>
-  </div>
+<section id="verktyg">
+  <h2 class="resource-title">🧰 Begreppsbank & Frasbank</h2>
+  <p class="resource-sub">De ligger direkt här högst upp på engelskasidan.</p>
 
-  <div class="intro-grid">
-    <div class="intro-card">
-      <h3>🎧 Listen</h3>
-      <p>Förstå huvudidé, detaljer, tonfall och viktig information när du lyssnar.</p>
-    </div>
-    <div class="intro-card">
-      <h3>🗣️ Speak</h3>
-      <p>Våga tala, ställa frågor, ge åsikter och hålla igång samtal.</p>
-    </div>
-    <div class="intro-card">
-      <h3>📖 Read</h3>
-      <p>Använd strategier för att förstå olika slags engelska texter.</p>
-    </div>
-    <div class="intro-card">
-      <h3>✍️ Write</h3>
-      <p>Planera, skriva, utveckla och förbättra texter för olika syften.</p>
-    </div>
-  </div>
-</section>
+  <div class="resource-grid">
+    <a class="resource bank" href="begreppsbank-engelska.html">
+      <div>
+        <div class="r-icon">📚</div>
+        <h3>Begreppsbank</h3>
+        <p>Engelska begrepp med svenska förklaringar, exempel, sökning och flashcards.</p>
+      </div>
+      <span class="r-btn">Öppna begreppsbanken →</span>
+    </a>
 
-<section>
-  <div class="section-head">
-    <h2>🧭 Engelska består av flera delar</h2>
-  </div>
-
-  <div class="strands">
-    <div class="strand">
-      <h3>Reception</h3>
-      <p>Att lyssna och läsa samt förstå innehåll, detaljer och budskap.</p>
-    </div>
-    <div class="strand">
-      <h3>Produktion och interaktion</h3>
-      <p>Att tala, skriva, samtala och anpassa språket efter situation och mottagare.</p>
-    </div>
-    <div class="strand">
-      <h3>Språk och kultur</h3>
-      <p>Ord, grammatik, strategier och kunskaper om sammanhang där engelska används.</p>
-    </div>
+    <a class="resource phrases" href="frasbank-engelska.html">
+      <div>
+        <div class="r-icon">💬</div>
+        <h3>Frasbank</h3>
+        <p>Fraser för klassrummet, samtal, skrivande, åsikter, resonemang och språkstrategier.</p>
+      </div>
+      <span class="r-btn">Öppna frasbanken →</span>
+    </a>
   </div>
 </section>
 
 <section id="omraden">
   <div class="section-head">
     <h2>📚 Områden i engelska</h2>
-    <p>Klicka på ett område för att öppna hela elevsidan.</p>
+    <p>Klicka på ett område för att öppna elevsidan.</p>
   </div>
 
   <div class="topic-grid">
-
-    <a class="topic" href="everyday-english.html">
-      <div class="icon">💬</div><h3>Everyday English</h3>
-      <p>Vardagliga samtal, hälsningsfraser, frågor och praktisk engelska.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="vocabulary.html">
-      <div class="icon">🧠</div><h3>Vocabulary</h3>
-      <p>Ord, word families, synonyms, opposites, chunks och strategier.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="reading-english.html">
-      <div class="icon">📖</div><h3>Reading</h3>
-      <p>Lässtrategier, main idea, details, inference och sammanfattning.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="listening-english.html">
-      <div class="icon">🎧</div><h3>Listening</h3>
-      <p>Lyssna efter huvudidé, nyckelord, detaljer och sammanhang.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="speaking-english.html">
-      <div class="icon">🗣️</div><h3>Speaking</h3>
-      <p>Samtal, följdfrågor, åsikter, uttal och muntlig interaktion.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="writing-english.html">
-      <div class="icon">✍️</div><h3>Writing</h3>
-      <p>Meningar, stycken, sambandsord, texttyper och bearbetning.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="grammar-verbs.html">
-      <div class="icon">🏃</div><h3>Verbs & Tenses</h3>
-      <p>Present simple, present continuous, past simple och verbformer.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="grammar-sentences.html">
-      <div class="icon">🔤</div><h3>Sentences & Word Order</h3>
-      <p>Subjekt, verb, frågor, nekande meningar och engelsk ordföljd.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="adjectives-adverbs.html">
-      <div class="icon">🎨</div><h3>Adjectives & Adverbs</h3>
-      <p>Beskrivande språk, comparative, superlative och adverbs.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="questions-answers.html">
-      <div class="icon">❓</div><h3>Questions & Answers</h3>
-      <p>Question words, do/does/did, short answers och följdfrågor.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="english-speaking-world.html">
-      <div class="icon">🌍</div><h3>English-speaking World</h3>
-      <p>Engelska i världen, språkvariation, kultur och vardagsliv.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="communication-strategies.html">
-      <div class="icon">🛠️</div><h3>Communication Strategies</h3>
-      <p>Strategier när du inte förstår, saknar ord eller vill hålla igång kommunikationen.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-  </div>
-</section>
-
-<section id="verktyg">
-  <div class="section-head">
-    <h2>🧰 Begrepp, fraser och språkstöd</h2>
-    <p>Här samlas stödmaterial som används i flera av områdena ovan.</p>
-  </div>
-
-  <div class="tools">
-    <div class="tool-card">
-      <h3>📚 Begreppsbank</h3>
-      <p>
-        Sökbara engelskbegrepp med svenska förklaringar, exempel,
-        grammatik, läsning, skrivning, tal, lyssning, strategier och flashcards.
-      </p>
-      <a class="tool-btn" href="begreppsbank-engelska.html">Öppna begreppsbanken →</a>
-    </div>
-
-    <div class="tool-card">
-      <h3>💬 Frasbank</h3>
-      <p>
-        Färdiga fraser för klassrummet, samtal, åsikter, resonemang,
-        skrivande, presentationer, textrespons och kommunikationsstrategier.
-      </p>
-      <a class="tool-btn" href="frasbank-engelska.html">Öppna frasbanken →</a>
-    </div>
-  </div>
-</section>
-
-<section id="arbetsgang">
-  <div class="section-head">
-    <h2>🔄 Arbetsgång i engelska</h2>
-    <p>En enkel modell som återkommer i portalens olika delar.</p>
-  </div>
-
-  <div class="process">
-    <div class="step"><b>1. Listen / Read</b>Ta in engelska i ett sammanhang.</div>
-    <div class="step"><b>2. Notice</b>Upptäck ord, fraser och språkstrukturer.</div>
-    <div class="step"><b>3. Practise</b>Träna i mindre steg.</div>
-    <div class="step"><b>4. Use</b>Använd språket i en verklig uppgift.</div>
-    <div class="step"><b>5. Improve</b>Bearbeta och utveckla språket.</div>
-  </div>
-</section>
-
-<section id="sprakstod">
-  <div class="section-head">
-    <h2>💡 Useful classroom English</h2>
-    <p>Fraser du kan börja använda direkt.</p>
-  </div>
-
-  <div class="phrases">
-    <div class="chips">
-      <span class="chip">Can you repeat that, please?</span>
-      <span class="chip">What does this word mean?</span>
-      <span class="chip">How do you say … in English?</span>
-      <span class="chip">I think that …</span>
-      <span class="chip">I agree because …</span>
-      <span class="chip">I disagree because …</span>
-      <span class="chip">For example …</span>
-      <span class="chip">What about you?</span>
-      <span class="chip">Let me think …</span>
-      <span class="chip">Do you mean …?</span>
-    </div>
+    <a class="topic" href="everyday-english.html"><div class="icon">💬</div><h3>Everyday English</h3><p>Vardagliga samtal och praktisk engelska.</p><span class="open">Öppna →</span></a>
+    <a class="topic" href="vocabulary.html"><div class="icon">🧠</div><h3>Vocabulary</h3><p>Ord, word families, synonyms och chunks.</p><span class="open">Öppna →</span></a>
+    <a class="topic" href="reading-english.html"><div class="icon">📖</div><h3>Reading</h3><p>Lässtrategier, main idea, details och inference.</p><span class="open">Öppna →</span></a>
+    <a class="topic" href="listening-english.html"><div class="icon">🎧</div><h3>Listening</h3><p>Lyssna efter huvudidé, nyckelord och detaljer.</p><span class="open">Öppna →</span></a>
+    <a class="topic" href="speaking-english.html"><div class="icon">🗣️</div><h3>Speaking</h3><p>Samtal, följdfrågor, åsikter och uttal.</p><span class="open">Öppna →</span></a>
+    <a class="topic" href="writing-english.html"><div class="icon">✍️</div><h3>Writing</h3><p>Meningar, stycken, texttyper och bearbetning.</p><span class="open">Öppna →</span></a>
+    <a class="topic" href="grammar-verbs.html"><div class="icon">🏃</div><h3>Verbs & Tenses</h3><p>Present simple, continuous och past simple.</p><span class="open">Öppna →</span></a>
+    <a class="topic" href="grammar-sentences.html"><div class="icon">🔤</div><h3>Sentences & Word Order</h3><p>Ordföljd, frågor, nekande meningar och pronomen.</p><span class="open">Öppna →</span></a>
+    <a class="topic" href="adjectives-adverbs.html"><div class="icon">🎨</div><h3>Adjectives & Adverbs</h3><p>Beskrivande språk, comparative och superlative.</p><span class="open">Öppna →</span></a>
+    <a class="topic" href="questions-answers.html"><div class="icon">❓</div><h3>Questions & Answers</h3><p>Question words, do/does/did och följdfrågor.</p><span class="open">Öppna →</span></a>
+    <a class="topic" href="english-speaking-world.html"><div class="icon">🌍</div><h3>English-speaking World</h3><p>Engelska i världen, kultur och språkvariation.</p><span class="open">Öppna →</span></a>
+    <a class="topic" href="communication-strategies.html"><div class="icon">🛠️</div><h3>Communication Strategies</h3><p>Strategier för att förstå och göra sig förstådd.</p><span class="open">Öppna →</span></a>
   </div>
 </section>
 
 <section>
-  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
-
-  <div class="support-grid">
-    <div class="support">
-      <h3>👀 Visuellt stöd</h3>
-      <p>Rubriker, modeller, exempel och tydliga steg gör det lättare att förstå uppgiften.</p>
-    </div>
-    <div class="support">
-      <h3>🗣️ Språkstöd</h3>
-      <p>Använd begreppsbanken och frasbanken när du behöver ord, fraser eller meningsstarter.</p>
-    </div>
-    <div class="support">
-      <h3>🚀 Utmaning</h3>
-      <p>Utveckla svar, motivera åsikter, variera språk och försök kommunicera mer självständigt.</p>
-    </div>
+  <div class="section-head"><h2>🌱 Stöd i engelska</h2></div>
+  <div class="info-grid">
+    <div class="info"><h3>📚 Begrepp</h3><p>Använd begreppsbanken när du behöver förstå ämnesord och grammatiska begrepp.</p></div>
+    <div class="info"><h3>💬 Fraser</h3><p>Använd frasbanken när du behöver stöd för samtal, skrivande och resonemang.</p></div>
+    <div class="info"><h3>🚀 Utmaning</h3><p>Utveckla svaren, motivera dina tankar och försök använda engelskan mer självständigt.</p></div>
   </div>
 </section>
 
@@ -389,402 +225,7 @@ footer{background:#020617;color:#cbd5e1;padding:36px 20px;text-align:center}
 
 <footer>
   <strong>🇬🇧 Engelska • Lärportal åk 6</strong><br>
-  Listen • Speak • Read • Write • Vocabulary • Grammar • Communication
-</footer>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="sv">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Engelska – Lärportal åk 6</title>
-<style>
-:root{
-  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
-  --blue:#2563eb;--cyan:#0891b2;--indigo:#4f46e5;--green:#16a34a;
-  --border:#e2e8f0;--white:#fff
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-a{text-decoration:none;color:inherit}
-nav{
-  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
-  display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
-  box-shadow:0 2px 12px rgba(0,0,0,.08)
-}
-.logo{font-weight:900;color:var(--dark);font-size:1.05rem}
-.navlinks{display:flex;gap:8px;flex-wrap:wrap}
-.navlinks a{font-weight:800;color:#334155;padding:8px 11px;border-radius:10px}
-.navlinks a:hover{background:#dbeafe;color:#1d4ed8}
-.navlinks .home{background:var(--blue);color:white}
-
-.hero{
-  background:
-    radial-gradient(circle at 85% 18%,rgba(255,255,255,.18),transparent 25%),
-    linear-gradient(135deg,#2563eb,#0891b2,#0f172a);
-  color:white;padding:76px 6% 104px
-}
-.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.55fr 1fr;gap:35px;align-items:center}
-.hero h1{margin:0 0 14px;font-size:clamp(3.3rem,8vw,5.6rem);line-height:.95}
-.hero p{font-size:1.18rem;max-width:760px}
-.hero-card{
-  background:white;color:#1d4ed8;border-radius:25px;padding:30px;text-align:center;
-  box-shadow:0 18px 50px rgba(0,0,0,.2)
-}
-.hero-icon{font-size:5rem}
-
-.wrap{max-width:1180px;margin:auto;padding:0 20px 75px}
-
-.skills{
-  display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px
-}
-.skill{
-  background:white;border-radius:17px;padding:19px;text-align:center;font-weight:900;
-  box-shadow:0 10px 28px rgba(0,0,0,.09)
-}
-
-section{margin-top:62px}
-.section-head{margin-bottom:22px}
-.section-head h2{margin:0 0 7px;font-size:2rem;color:var(--dark)}
-.section-head p{margin:0;color:var(--muted)}
-
-.intro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.intro-card{
-  background:white;border-radius:20px;padding:23px;box-shadow:0 6px 22px rgba(0,0,0,.06);
-  border-top:5px solid var(--blue)
-}
-.intro-card h3{margin-top:0;color:#1d4ed8}
-
-.strands{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.strand{
-  background:linear-gradient(135deg,#eff6ff,#ecfeff);
-  border-radius:20px;padding:24px
-}
-.strand h3{margin-top:0;color:#0f4c81}
-
-.topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.topic{
-  background:white;border-radius:20px;padding:23px;box-shadow:0 6px 22px rgba(0,0,0,.06);
-  transition:.2s;border:1px solid #eef2f7
-}
-.topic:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.1)}
-.topic .icon{font-size:2.1rem}
-.topic h3{margin:10px 0 7px;color:#1e40af}
-.topic p{margin:0 0 16px;color:#64748b}
-.open{
-  display:inline-block;background:#2563eb;color:white;padding:9px 13px;border-radius:10px;
-  font-weight:900
-}
-
-.tools{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:20px
-}
-.tool-card{
-  background:white;border-radius:22px;padding:26px;box-shadow:0 7px 24px rgba(0,0,0,.07);
-  border-left:6px solid var(--cyan)
-}
-.tool-card h3{margin-top:0;color:#0f4c81}
-.tool-card p{color:#64748b}
-.tool-btn{
-  display:inline-block;background:linear-gradient(135deg,#2563eb,#0891b2);
-  color:white;padding:11px 15px;border-radius:11px;font-weight:900
-}
-
-.process{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-.step{
-  background:white;border-radius:17px;padding:20px;text-align:center;
-  box-shadow:0 5px 18px rgba(0,0,0,.05)
-}
-.step b{display:block;color:#1d4ed8;margin-bottom:5px}
-
-.phrases{
-  background:white;border-radius:22px;padding:26px;box-shadow:0 6px 22px rgba(0,0,0,.06)
-}
-.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
-.chip{
-  background:#eff6ff;color:#1e40af;border-radius:999px;padding:8px 12px;font-weight:800
-}
-
-.support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.support{
-  background:white;border-radius:20px;padding:22px;box-shadow:0 5px 18px rgba(0,0,0,.05)
-}
-.support h3{margin-top:0;color:#1e40af}
-
-footer{background:#020617;color:#cbd5e1;padding:36px 20px;text-align:center}
-
-@media(max-width:900px){
-  .skills,.intro-grid,.topic-grid,.process{grid-template-columns:repeat(2,1fr)}
-  .strands,.support-grid{grid-template-columns:1fr}
-}
-@media(max-width:700px){
-  .hero-inner,.skills,.intro-grid,.topic-grid,.tools,.process{grid-template-columns:1fr}
-  .hero-card{display:none}
-  .skills{margin-top:-25px}
-}
-</style>
-</head>
-<body>
-
-<nav>
-  <div class="logo">🇬🇧 Engelska – åk 6</div>
-  <div class="navlinks">
-    <a class="home" href="index.html">🏠 Start</a>
-    <a href="#omraden">Områden</a>
-    <a href="#verktyg">Begrepp & fraser</a>
-    <a href="#arbetsgang">Arbetsgång</a>
-    <a href="#sprakstod">Språkstöd</a>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="hero-inner">
-    <div>
-      <h1>Engelska</h1>
-      <p>
-        Träna på att förstå, tala, läsa och skriva engelska.
-        Här finns tydliga genomgångar, exempel, interaktiva övningar,
-        quiz och stöd som hjälper dig att använda engelska i verkliga situationer.
-      </p>
-    </div>
-    <div class="hero-card">
-      <div class="hero-icon">🎧🗣️📖✍️</div>
-      <h3>Use English to communicate</h3>
-      <p>Listen • Speak • Read • Write • Understand</p>
-    </div>
-  </div>
-</header>
-
-<main class="wrap">
-
-<div class="skills">
-  <div class="skill">🎧 Listen</div>
-  <div class="skill">🗣️ Speak</div>
-  <div class="skill">📖 Read</div>
-  <div class="skill">✍️ Write</div>
-  <div class="skill">🧠 Understand</div>
-</div>
-
-<section>
-  <div class="section-head">
-    <h2>🚀 Fyra vägar in i engelskan</h2>
-    <p>Du utvecklar språket genom att både förstå och själv använda engelska.</p>
-  </div>
-
-  <div class="intro-grid">
-    <div class="intro-card">
-      <h3>🎧 Listen</h3>
-      <p>Förstå huvudidé, detaljer, tonfall och viktig information när du lyssnar.</p>
-    </div>
-    <div class="intro-card">
-      <h3>🗣️ Speak</h3>
-      <p>Våga tala, ställa frågor, ge åsikter och hålla igång samtal.</p>
-    </div>
-    <div class="intro-card">
-      <h3>📖 Read</h3>
-      <p>Använd strategier för att förstå olika slags engelska texter.</p>
-    </div>
-    <div class="intro-card">
-      <h3>✍️ Write</h3>
-      <p>Planera, skriva, utveckla och förbättra texter för olika syften.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="section-head">
-    <h2>🧭 Engelska består av flera delar</h2>
-  </div>
-
-  <div class="strands">
-    <div class="strand">
-      <h3>Reception</h3>
-      <p>Att lyssna och läsa samt förstå innehåll, detaljer och budskap.</p>
-    </div>
-    <div class="strand">
-      <h3>Produktion och interaktion</h3>
-      <p>Att tala, skriva, samtala och anpassa språket efter situation och mottagare.</p>
-    </div>
-    <div class="strand">
-      <h3>Språk och kultur</h3>
-      <p>Ord, grammatik, strategier och kunskaper om sammanhang där engelska används.</p>
-    </div>
-  </div>
-</section>
-
-<section id="omraden">
-  <div class="section-head">
-    <h2>📚 Områden i engelska</h2>
-    <p>Klicka på ett område för att öppna hela elevsidan.</p>
-  </div>
-
-  <div class="topic-grid">
-
-    <a class="topic" href="everyday-english.html">
-      <div class="icon">💬</div><h3>Everyday English</h3>
-      <p>Vardagliga samtal, hälsningsfraser, frågor och praktisk engelska.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="vocabulary.html">
-      <div class="icon">🧠</div><h3>Vocabulary</h3>
-      <p>Ord, word families, synonyms, opposites, chunks och strategier.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="reading-english.html">
-      <div class="icon">📖</div><h3>Reading</h3>
-      <p>Lässtrategier, main idea, details, inference och sammanfattning.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="listening-english.html">
-      <div class="icon">🎧</div><h3>Listening</h3>
-      <p>Lyssna efter huvudidé, nyckelord, detaljer och sammanhang.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="speaking-english.html">
-      <div class="icon">🗣️</div><h3>Speaking</h3>
-      <p>Samtal, följdfrågor, åsikter, uttal och muntlig interaktion.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="writing-english.html">
-      <div class="icon">✍️</div><h3>Writing</h3>
-      <p>Meningar, stycken, sambandsord, texttyper och bearbetning.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="grammar-verbs.html">
-      <div class="icon">🏃</div><h3>Verbs & Tenses</h3>
-      <p>Present simple, present continuous, past simple och verbformer.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="grammar-sentences.html">
-      <div class="icon">🔤</div><h3>Sentences & Word Order</h3>
-      <p>Subjekt, verb, frågor, nekande meningar och engelsk ordföljd.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="adjectives-adverbs.html">
-      <div class="icon">🎨</div><h3>Adjectives & Adverbs</h3>
-      <p>Beskrivande språk, comparative, superlative och adverbs.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="questions-answers.html">
-      <div class="icon">❓</div><h3>Questions & Answers</h3>
-      <p>Question words, do/does/did, short answers och följdfrågor.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="english-speaking-world.html">
-      <div class="icon">🌍</div><h3>English-speaking World</h3>
-      <p>Engelska i världen, språkvariation, kultur och vardagsliv.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-    <a class="topic" href="communication-strategies.html">
-      <div class="icon">🛠️</div><h3>Communication Strategies</h3>
-      <p>Strategier när du inte förstår, saknar ord eller vill hålla igång kommunikationen.</p>
-      <span class="open">Öppna →</span>
-    </a>
-
-  </div>
-</section>
-
-<section id="verktyg">
-  <div class="section-head">
-    <h2>🧰 Begrepp, fraser och språkstöd</h2>
-    <p>Här samlas stödmaterial som används i flera av områdena ovan.</p>
-  </div>
-
-  <div class="tools">
-    <div class="tool-card">
-      <h3>📚 Begreppsbank</h3>
-      <p>
-        Sökbara engelskbegrepp med svenska förklaringar, exempel,
-        grammatik, läsning, skrivning, tal, lyssning, strategier och flashcards.
-      </p>
-      <a class="tool-btn" href="begreppsbank-engelska.html">Öppna begreppsbanken →</a>
-    </div>
-
-    <div class="tool-card">
-      <h3>💬 Frasbank</h3>
-      <p>
-        Färdiga fraser för klassrummet, samtal, åsikter, resonemang,
-        skrivande, presentationer, textrespons och kommunikationsstrategier.
-      </p>
-      <a class="tool-btn" href="frasbank-engelska.html">Öppna frasbanken →</a>
-    </div>
-  </div>
-</section>
-
-<section id="arbetsgang">
-  <div class="section-head">
-    <h2>🔄 Arbetsgång i engelska</h2>
-    <p>En enkel modell som återkommer i portalens olika delar.</p>
-  </div>
-
-  <div class="process">
-    <div class="step"><b>1. Listen / Read</b>Ta in engelska i ett sammanhang.</div>
-    <div class="step"><b>2. Notice</b>Upptäck ord, fraser och språkstrukturer.</div>
-    <div class="step"><b>3. Practise</b>Träna i mindre steg.</div>
-    <div class="step"><b>4. Use</b>Använd språket i en verklig uppgift.</div>
-    <div class="step"><b>5. Improve</b>Bearbeta och utveckla språket.</div>
-  </div>
-</section>
-
-<section id="sprakstod">
-  <div class="section-head">
-    <h2>💡 Useful classroom English</h2>
-    <p>Fraser du kan börja använda direkt.</p>
-  </div>
-
-  <div class="phrases">
-    <div class="chips">
-      <span class="chip">Can you repeat that, please?</span>
-      <span class="chip">What does this word mean?</span>
-      <span class="chip">How do you say … in English?</span>
-      <span class="chip">I think that …</span>
-      <span class="chip">I agree because …</span>
-      <span class="chip">I disagree because …</span>
-      <span class="chip">For example …</span>
-      <span class="chip">What about you?</span>
-      <span class="chip">Let me think …</span>
-      <span class="chip">Do you mean …?</span>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
-
-  <div class="support-grid">
-    <div class="support">
-      <h3>👀 Visuellt stöd</h3>
-      <p>Rubriker, modeller, exempel och tydliga steg gör det lättare att förstå uppgiften.</p>
-    </div>
-    <div class="support">
-      <h3>🗣️ Språkstöd</h3>
-      <p>Använd begreppsbanken och frasbanken när du behöver ord, fraser eller meningsstarter.</p>
-    </div>
-    <div class="support">
-      <h3>🚀 Utmaning</h3>
-      <p>Utveckla svar, motivera åsikter, variera språk och försök kommunicera mer självständigt.</p>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <strong>🇬🇧 Engelska • Lärportal åk 6</strong><br>
-  Listen • Speak • Read • Write • Vocabulary • Grammar • Communication
+  Begreppsbank • Frasbank • Listen • Speak • Read • Write • Grammar
 </footer>
 
 </body>
