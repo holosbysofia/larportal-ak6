@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hållbar utveckling – NO åk 6</title>
+
+<style>
+:root{
+  --bg:#f7faf8;
+  --dark:#0f172a;
+  --text:#1f2937;
+  --muted:#64748b;
+  --green:#15803d;
+  --green2:#166534;
+  --teal:#0f766e;
+  --blue:#2563eb;
+  --orange:#ea580c;
+  --red:#dc2626;
+  --yellow:#ca8a04;
+  --card:#ffffff;
+  --border:#e2e8f0;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:white;
+  padding:12px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+
+.navlinks a{
+  color:#334155;
+  font-weight:800;
+  padding:8px 11px;
+  border-radius:10px;
+}
+
+.navlinks a:hover{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.navlinks .home{
+  background:var(--green);
+  color:white;
+}
+
+.hero{
+  background:
+    radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+    linear-gradient(135deg,#15803d,#0f766e,#115e59);
+  color:white;
+  padding:72px 6% 100px;
+}
+
+.hero-inner{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:35px;
+  align-items:center;
+}
+
+.hero h1{
+  margin:0 0 16px;
+  font-size:clamp(3rem,8vw,5.2rem);
+  line-height:1;
+}
+
+.hero p{
+  font-size:1.18rem;
+  max-width:760px;
+}
+
+.hero-card{
+  background:white;
+  color:#166534;
+  border-radius:24px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 18px 50px rgba(0,0,0,.2);
+}
+
+.hero-icon{
+  font-size:5rem;
+  margin-bottom:8px;
+}
+
+.wrap{
+  max-width:1180px;
+  margin:auto;
+  padding:0 20px 70px;
+}
+
+.overview{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-top:-42px;
+}
+
+.overview div{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:800;
+  box-shadow:0 10px 28px rgba(0,0,0,.09);
+}
+
+section{margin-top:62px}
+
+.section-head{margin-bottom:22px}
+
+.section-head h2{
+  margin:0 0 8px;
+  color:var(--dark);
+  font-size:2rem;
+}
+
+.section-head p{
+  margin:0;
+  color:var(--muted);
+}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.grid-4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+
+.card h3{
+  margin-top:0;
+  color:var(--dark);
+}
+
+.fact{
+  background:#f0fdf4;
+  border:1px solid #bbf7d0;
+  border-radius:14px;
+  padding:15px;
+  font-weight:800;
+  color:#166534;
+  margin:14px 0;
+}
+
+.tip{
+  background:#f0fdf4;
+  border-left:5px solid var(--green);
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+
+.step{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  padding:13px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+.dimension{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 5px 18px rgba(0,0,0,.05);
+}
+
+.dimension.green{border-top:5px solid #16a34a}
+.dimension.blue{border-top:5px solid #2563eb}
+.dimension.orange{border-top:5px solid #ea580c}
+
+.dimension strong{
+  display:block;
+  margin-bottom:6px;
+}
+
+.concept{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 5px 16px rgba(0,0,0,.05);
+}
+
+.concept strong{
+  display:block;
+  color:#166534;
+  margin-bottom:5px;
+}
+
+.mistake{
+  background:white;
+  border-top:5px solid var(--red);
+  border-radius:16px;
+  padding:20px;
+}
+
+.wrong{color:#b91c1c;font-weight:800}
+.right{color:#166534;font-weight:800}
+
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.level{
+  color:white;
+  border-radius:22px;
+  padding:24px;
+}
+
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#0f766e,#115e59)}
+.level3{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+
+.level button{
+  border:none;
+  background:white;
+  color:#111827;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.panel{
+  display:none;
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  margin-top:18px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+
+.panel.active{display:block}
+
+.task{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  margin:12px 0;
+}
+
+.task label{
+  display:block;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.task input{
+  padding:10px;
+  border:1px solid #cbd5e1;
+  border-radius:9px;
+  width:100%;
+  max-width:360px;
+}
+
+.check{
+  margin-top:9px;
+  background:var(--green);
+  color:white;
+  border:none;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.feedback{
+  display:none;
+  margin-top:9px;
+  padding:10px;
+  border-radius:9px;
+  font-weight:800;
+}
+
+.feedback.good{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
+}
+
+.feedback.bad{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.quiz{
+  background:#0f172a;
+  color:white;
+  border-radius:24px;
+  padding:28px;
+}
+
+.quiz-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.score{
+  background:#1e293b;
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:900;
+}
+
+.quiz-card{
+  background:#1e293b;
+  border-radius:16px;
+  padding:22px;
+  margin-top:18px;
+}
+
+.answers{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.answer{
+  border:none;
+  background:white;
+  color:#1f2937;
+  padding:14px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  text-align:left;
+}
+
+.answer:hover{background:#dcfce7}
+.answer:disabled{opacity:.75;cursor:default}
+
+#quizFeedback{
+  display:none;
+  margin-top:14px;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+}
+
+#nextBtn{
+  display:none;
+  margin-top:12px;
+  border:none;
+  background:#facc15;
+  color:#111827;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.problem{
+  background:linear-gradient(135deg,#dcfce7,#dbeafe);
+  border-radius:24px;
+  padding:28px;
+}
+
+.problem-card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  margin-top:15px;
+}
+
+.problem textarea{
+  width:100%;
+  min-height:115px;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  resize:vertical;
+  margin-top:12px;
+}
+
+.reveal{
+  margin-top:10px;
+  border:none;
+  background:#166534;
+  color:white;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.solution{
+  display:none;
+  background:#f8fafc;
+  border-radius:10px;
+  padding:14px;
+  margin-top:12px;
+}
+
+.support{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist label{
+  display:flex;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.checklist input{
+  width:19px;
+  height:19px;
+}
+
+.goal-btn{
+  margin-top:16px;
+  border:none;
+  background:var(--green2);
+  color:white;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+#goalResult{
+  margin-top:12px;
+  font-weight:900;
+}
+
+footer{
+  background:#020617;
+  color:#cbd5e1;
+  padding:34px 20px;
+  text-align:center;
+  margin-top:60px;
+}
+
+@media(max-width:900px){
+  .overview,.grid-4{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .grid-3,.levels{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:700px){
+  .hero-inner,.grid-2,.overview,.answers{
+    grid-template-columns:1fr;
+  }
+
+  .hero-card{display:none}
+  .overview{margin-top:-25px}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">🌍 Hållbar utveckling – NO åk 6</div>
+
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="no.html">🔬 NO</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Resonera</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+
+    <div>
+      <h1>Hållbar utveckling</h1>
+
+      <p>
+        Här lär du dig hur människor använder jordens resurser och hur våra val
+        påverkar natur, klimat och samhälle. Du tränar på att se samband och
+        resonera om lösningar för en hållbar framtid.
+      </p>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-icon">🌍♻️🌱</div>
+      <h3>Tre perspektiv</h3>
+      <p>Ekologiskt • Socialt • Ekonomiskt</p>
+    </div>
+
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="overview">
+    <div>🌿 Naturresurser</div>
+    <div>🌡️ Klimat</div>
+    <div>♻️ Kretslopp</div>
+    <div>🛒 Konsumtion</div>
+    <div>💡 Lösningar</div>
+  </div>
+
+  <section id="forsta">
+
+    <div class="section-head">
+      <h2>📘 Vad betyder hållbar utveckling?</h2>
+      <p>
+        Hållbar utveckling handlar om att människor ska kunna leva bra idag
+        utan att förstöra möjligheterna för människor och natur i framtiden.
+      </p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="dimension green">
+        <strong>🌿 Ekologisk hållbarhet</strong>
+        <p>Handlar om natur, klimat, ekosystem, biologisk mångfald och resurser.</p>
+      </div>
+
+      <div class="dimension blue">
+        <strong>👥 Social hållbarhet</strong>
+        <p>Handlar om människors hälsa, rättigheter, trygghet och möjligheter.</p>
+      </div>
+
+      <div class="dimension orange">
+        <strong>💰 Ekonomisk hållbarhet</strong>
+        <p>Handlar om hur resurser och pengar används långsiktigt och ansvarsfullt.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🌿 Naturresurser</h2>
+      <p>Naturresurser är sådant från naturen som människor använder.</p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>🌲 Förnybara resurser</h3>
+        <p>Kan återbildas om de används på ett hållbart sätt.</p>
+        <div class="step">Exempel: skog, sol, vind och vatten.</div>
+      </div>
+
+      <div class="card">
+        <h3>⛏️ Icke-förnybara resurser</h3>
+        <p>Finns i begränsad mängd eller återbildas mycket långsamt.</p>
+        <div class="step">Exempel: olja, kol, naturgas och många metaller.</div>
+      </div>
+
+      <div class="card">
+        <h3>⚖️ Hållbar användning</h3>
+        <p>
+          En resurs behöver användas på ett sätt som tar hänsyn till både natur och människor.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🌡️ Klimat och växthuseffekt</h2>
+      <p>Växthuseffekten är naturlig och gör jorden tillräckligt varm för liv.</p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Den naturliga växthuseffekten</h3>
+        <div class="step">Solljus når jordytan.</div>
+        <div class="step">Jorden värms upp och avger värmestrålning.</div>
+        <div class="step">Växthusgaser håller kvar en del av värmen.</div>
+        <div class="tip">
+          Utan den naturliga växthuseffekten skulle jorden vara mycket kallare.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Förstärkt växthuseffekt</h3>
+        <p>
+          När halten av vissa växthusgaser ökar kan mer värme stanna kvar i atmosfären.
+          Det bidrar till global uppvärmning och klimatförändringar.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>♻️ Kretslopp och avfall</h2>
+      <p>I naturen cirkulerar ämnen. I samhället kan material återanvändas och återvinnas.</p>
+    </div>
+
+    <div class="grid-4">
+
+      <div class="card">
+        <h3>1. Minska</h3>
+        <p>Undvik onödig konsumtion och använd resurser sparsamt.</p>
+      </div>
+
+      <div class="card">
+        <h3>2. Återanvänd</h3>
+        <p>Använd produkter flera gånger eller ge dem vidare.</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Reparera</h3>
+        <p>Förläng livslängden på saker istället för att direkt köpa nytt.</p>
+      </div>
+
+      <div class="card">
+        <h3>4. Återvinn</h3>
+        <p>Material kan samlas in och användas som råvara igen.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🛒 Konsumtion och livscykel</h2>
+      <p>En produkt påverkar miljön under flera delar av sitt liv.</p>
+    </div>
+
+    <div class="card">
+      <div class="step">1. Råvaror tas från naturen.</div>
+      <div class="step">2. Produkten tillverkas.</div>
+      <div class="step">3. Produkten transporteras.</div>
+      <div class="step">4. Produkten används.</div>
+      <div class="step">5. Produkten återanvänds, återvinns eller blir avfall.</div>
+
+      <div class="tip">
+        När vi bedömer miljöpåverkan behöver vi ofta tänka på hela produktens livscykel.
+      </div>
+    </div>
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🐝 Biologisk mångfald</h2>
+      <p>Biologisk mångfald innebär variation av arter, gener och livsmiljöer.</p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>Varför är den viktig?</h3>
+        <p>
+          Olika arter har olika roller i ekosystem och kan bidra till exempelvis pollinering och nedbrytning.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Vad kan hota den?</h3>
+        <p>
+          Förlust av livsmiljöer, föroreningar, klimatförändringar och överutnyttjande kan påverka arter.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Vad kan hjälpa?</h3>
+        <p>
+          Skyddade områden, hållbart brukande och återställning av livsmiljöer är exempel.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>💡 Lösningar och val</h2>
+      <p>Hållbar utveckling kräver både individuella och gemensamma lösningar.</p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>🏠 Hemma</h3>
+        <p>Spara energi, minska matsvinn, sortera avfall och använda saker längre.</p>
+      </div>
+
+      <div class="card">
+        <h3>🏫 I skolan</h3>
+        <p>Minska onödigt material, återanvänd, planera smarta transporter och minska matsvinn.</p>
+      </div>
+
+      <div class="card">
+        <h3>🏙️ I samhället</h3>
+        <p>Utveckla energisystem, transporter, återvinning och stadsplanering med långsiktigt perspektiv.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🧠 Begreppsbank</h2>
+    </div>
+
+    <div class="grid-4">
+      <div class="concept"><strong>Hållbar utveckling</strong>Utveckling som tar hänsyn till både nutida och framtida behov.</div>
+      <div class="concept"><strong>Naturresurs</strong>Något från naturen som människor använder.</div>
+      <div class="concept"><strong>Förnybar</strong>Resurs som kan återbildas.</div>
+      <div class="concept"><strong>Icke-förnybar</strong>Resurs som finns i begränsad mängd eller återbildas mycket långsamt.</div>
+      <div class="concept"><strong>Växthusgas</strong>Gas som bidrar till att hålla kvar värme i atmosfären.</div>
+      <div class="concept"><strong>Biologisk mångfald</strong>Variation av arter, gener och livsmiljöer.</div>
+      <div class="concept"><strong>Återvinning</strong>När material tas till vara och används igen som råvara.</div>
+      <div class="concept"><strong>Livscykel</strong>Produktens väg från råvara till användning och avfall eller återvinning.</div>
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>⚠️ Vanliga missuppfattningar</h2>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="mistake">
+        <h3>Växthuseffekten</h3>
+        <p class="wrong">❌ Växthuseffekten är bara något dåligt.</p>
+        <p class="right">✅ Den naturliga växthuseffekten behövs, men en förstärkt växthuseffekt kan förändra klimatet.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Förnybart</h3>
+        <p class="wrong">❌ Förnybara resurser kan aldrig ta slut.</p>
+        <p class="right">✅ De behöver fortfarande användas på ett sätt som gör att de hinner återbildas.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Återvinning</h3>
+        <p class="wrong">❌ Återvinning är alltid det första och bästa valet.</p>
+        <p class="right">✅ Ofta är det bättre att först minska konsumtion, återanvända och reparera.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="traning">
+
+    <div class="section-head">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>Klicka på en nivå. Uppgifterna öppnas direkt.</p>
+    </div>
+
+    <div class="levels">
+
+      <div class="level level1">
+        <h3>🌱 Nivå 1</h3>
+        <p>Grundläggande begrepp.</p>
+        <button type="button" onclick="showLevel(1)">Öppna nivå 1</button>
+      </div>
+
+      <div class="level level2">
+        <h3>🚀 Nivå 2</h3>
+        <p>Resurser, klimat och kretslopp.</p>
+        <button type="button" onclick="showLevel(2)">Öppna nivå 2</button>
+      </div>
+
+      <div class="level level3">
+        <h3>🏆 Nivå 3</h3>
+        <p>Livscykel, biologisk mångfald och resonemang.</p>
+        <button type="button" onclick="showLevel(3)">Öppna nivå 3</button>
+      </div>
+
+    </div>
+
+    <div id="level1" class="panel">
+      <h3>🌱 Nivå 1</h3>
+
+      <div class="task">
+        <label>1. Vad kallas något från naturen som människor använder?</label>
+        <input id="a1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a1',['naturresurs','en naturresurs'],'f1')">Kontrollera</button>
+        <div id="f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Nämn en förnybar energikälla.</label>
+        <input id="a2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a2',['sol','solenergi','vind','vindkraft','vatten','vattenkraft'],'f2')">Kontrollera</button>
+        <div id="f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vad betyder återvinning?</label>
+        <input id="a3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a3',['material används igen','material anvands igen','återanvända material','ateranvanda material','göra nytt av gammalt material'],'f3')">Kontrollera</button>
+        <div id="f3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level2" class="panel">
+      <h3>🚀 Nivå 2</h3>
+
+      <div class="task">
+        <label>1. Är olja förnybar eller icke-förnybar?</label>
+        <input id="b1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b1',['icke-förnybar','icke fornybar','icke-förnybart','icke fornybart'],'g1')">Kontrollera</button>
+        <div id="g1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad kallas gaser som hjälper till att hålla kvar värme i atmosfären?</label>
+        <input id="b2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b2',['växthusgaser','vaxthusgaser','växthusgas','vaxthusgas'],'g2')">Kontrollera</button>
+        <div id="g2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vad är oftast bättre än att kasta en fungerande sak?</label>
+        <input id="b3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b3',['återanvända','ateranvanda','reparera','använda igen','anvanda igen'],'g3')">Kontrollera</button>
+        <div id="g3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level3" class="panel">
+      <h3>🏆 Nivå 3</h3>
+
+      <div class="task">
+        <label>1. Vad kallas variationen av arter, gener och livsmiljöer?</label>
+        <input id="c1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c1',['biologisk mångfald','biologisk mangfald'],'h1')">Kontrollera</button>
+        <div id="h1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad kallas en produkts väg från råvara till användning och avfall eller återvinning?</label>
+        <input id="c2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c2',['livscykel','produktens livscykel'],'h2')">Kontrollera</button>
+        <div id="h2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Nämn en åtgärd som kan minska matsvinn.</label>
+        <input id="c3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c3',['ta lagom mycket','äta rester','ata rester','planera inköp','planera mat','spara rester'],'h3')">Kontrollera</button>
+        <div id="h3" class="feedback"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="quiz">
+
+    <div class="quiz">
+      <div class="quiz-top">
+        <div>
+          <h2>🎮 Hållbarhetsquiz</h2>
+          <p>Åtta frågor. Svarsalternativen blandas.</p>
+        </div>
+
+        <div id="score" class="score">Poäng: 0 / 0</div>
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+        <h3 id="question"></h3>
+        <div id="answers" class="answers"></div>
+        <div id="quizFeedback"></div>
+        <button id="nextBtn" type="button" onclick="nextQuestion()">Nästa fråga →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="problem">
+
+    <div class="section-head">
+      <h2>💬 Resonera om hållbar utveckling</h2>
+      <p>Förklara fördelar, nackdelar och konsekvenser.</p>
+    </div>
+
+    <div class="problem">
+
+      <div class="problem-card">
+        <h3>👕 Ny tröja eller begagnad?</h3>
+
+        <p>
+          En elev behöver en tröja och kan välja mellan att köpa en ny eller en begagnad.
+          Resonera om vilka miljömässiga skillnader det kan finnas mellan valen.
+        </p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol1')">
+          Visa exempel
+        </button>
+
+        <div id="sol1" class="solution">
+          En begagnad tröja kan innebära att en redan tillverkad produkt används längre.
+          Då behövs inte lika snabbt nya råvaror och ny tillverkning för just det köpet.
+          En ny tröja kräver råvaror, energi, tillverkning och transport. Samtidigt kan olika
+          produkter och transportsätt ha olika påverkan, så man behöver se till hela livscykeln.
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <h3>🌲 Skogen</h3>
+
+        <p>
+          Ett skogsområde används både för virkesproduktion och som livsmiljö för många arter.
+          Hur kan man försöka ta hänsyn till båda behoven?
+        </p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol2')">
+          Visa exempel
+        </button>
+
+        <div id="sol2" class="solution">
+          Man kan planera skogsbruk så att vissa områden skyddas, lämna gamla träd och död ved,
+          undvika att avverka känsliga livsmiljöer och se till att ny skog växer upp.
+          Då försöker man förena användning av naturresurser med biologisk mångfald.
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🌱 Stöd och utmaning</h2>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="support">
+        <h3>🆘 Jag behöver hjälp</h3>
+        <ul>
+          <li>Fråga: Vilken resurs används?</li>
+          <li>Fundera på om resursen är förnybar eller icke-förnybar.</li>
+          <li>Tänk på hela produktens livscykel.</li>
+          <li>Använd orden orsak, konsekvens och lösning.</li>
+          <li>Jämför minst två olika alternativ.</li>
+        </ul>
+      </div>
+
+      <div class="support">
+        <h3>🚀 Jag vill utmanas</h3>
+        <ul>
+          <li>Analysera en vardagsprodukts hela livscykel.</li>
+          <li>Jämför två energikällor ur flera perspektiv.</li>
+          <li>Förklara en konflikt mellan naturresursanvändning och biologisk mångfald.</li>
+          <li>Skapa en handlingsplan för att göra skolan mer hållbar.</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>✅ Kunskapscheck</h2>
+    </div>
+
+    <div class="checklist">
+
+      <label><input class="goal" type="checkbox"> Jag kan förklara vad hållbar utveckling betyder.</label>
+      <label><input class="goal" type="checkbox"> Jag kan ge exempel på förnybara och icke-förnybara resurser.</label>
+      <label><input class="goal" type="checkbox"> Jag kan förklara den naturliga och förstärkta växthuseffekten på enkel nivå.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beskriva skillnaden mellan minska, återanvända och återvinna.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beskriva en produkts livscykel.</label>
+      <label><input class="goal" type="checkbox"> Jag kan förklara vad biologisk mångfald är.</label>
+      <label><input class="goal" type="checkbox"> Jag kan ge exempel på hållbara val.</label>
+      <label><input class="goal" type="checkbox"> Jag kan resonera om konsekvenser och lösningar.</label>
+
+      <button class="goal-btn" type="button" onclick="checkGoals()">
+        Se min progression
+      </button>
+
+      <div id="goalResult"></div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <strong>🌍 Hållbar utveckling • NO åk 6</strong><br>
+  Naturresurser • Klimat • Biologisk mångfald • Konsumtion • Lösningar
+</footer>
+
+<script>
+var quizQuestions = [
+  {
+    q:"Vad är en naturresurs?",
+    a:["Något från naturen som människor använder","Enbart pengar","Bara avfall","En maskin i en fabrik"],
+    c:"Något från naturen som människor använder",
+    e:"Naturresurser kan till exempel vara vatten, skog, metaller, sol och vind."
+  },
+  {
+    q:"Vilken är en förnybar energikälla?",
+    a:["Vind","Olja","Kol","Naturgas"],
+    c:"Vind",
+    e:"Vind är en förnybar energikälla."
+  },
+  {
+    q:"Vilken resurs är icke-förnybar?",
+    a:["Olja","Sol","Vind","Rinnande vatten"],
+    c:"Olja",
+    e:"Olja bildas mycket långsamt och finns i begränsad mängd."
+  },
+  {
+    q:"Vad gör växthusgaser?",
+    a:["De bidrar till att hålla kvar värme i atmosfären","De stoppar allt solljus","De gör havet sött","De skapar vind"],
+    c:"De bidrar till att hålla kvar värme i atmosfären",
+    e:"Växthusgaser är en del av den naturliga växthuseffekten."
+  },
+  {
+    q:"Vilket bör ofta komma före återvinning?",
+    a:["Minska konsumtion och återanvända","Kasta direkt","Köpa två nya","Använda mer material"],
+    c:"Minska konsumtion och återanvända",
+    e:"Att använda mindre och använda saker längre kan minska behovet av nya resurser."
+  },
+  {
+    q:"Vad betyder biologisk mångfald?",
+    a:["Variation av arter, gener och livsmiljöer","Bara antal träd","Bara antal djur","Att alla arter är lika"],
+    c:"Variation av arter, gener och livsmiljöer",
+    e:"Biologisk mångfald handlar om variation på flera nivåer."
+  },
+  {
+    q:"Vad är en produkts livscykel?",
+    a:["Vägen från råvara till användning och avfall eller återvinning","Hur länge affären är öppen","Produktens färg","Priset på produkten"],
+    c:"Vägen från råvara till användning och avfall eller återvinning",
+    e:"Livscykeln omfattar flera steg från råvara till slutet av produktens användning."
+  },
+  {
+    q:"Vilket är ett exempel på ett mer hållbart val?",
+    a:["Reparera en fungerande produkt","Kasta fungerande saker direkt","Öka matsvinn","Använda mer engångsmaterial"],
+    c:"Reparera en fungerande produkt",
+    e:"Att reparera kan förlänga produktens livslängd och minska behovet av nya resurser."
+  }
+];
+
+var order=[];
+var current=0;
+var score=0;
+var answered=0;
+
+function normalize(value){
+  return value.trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function showLevel(number){
+  document.querySelectorAll(".panel").forEach(function(panel){
+    panel.classList.remove("active");
+  });
+
+  var selected=document.getElementById("level"+number);
+  selected.classList.add("active");
+  selected.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function checkAnswer(inputId,correctAnswers,feedbackId){
+  var value=normalize(document.getElementById(inputId).value);
+  var feedback=document.getElementById(feedbackId);
+
+  var correct=correctAnswers.some(function(answer){
+    return value===normalize(answer);
+  });
+
+  if(correct){
+    feedback.className="feedback good";
+    feedback.textContent="✅ Rätt! Bra jobbat.";
+  }else{
+    feedback.className="feedback bad";
+    feedback.textContent="❌ Inte riktigt. Försök igen.";
+  }
+}
+
+function toggleSolution(id){
+  var box=document.getElementById(id);
+  box.style.display=box.style.display==="block" ? "none" : "block";
+}
+
+function shuffle(array){
+  var copy=array.slice();
+
+  for(var i=copy.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var temp=copy[i];
+    copy[i]=copy[j];
+    copy[j]=temp;
+  }
+
+  return copy;
+}
+
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;
+  score=0;
+  answered=0;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+
+  var answerBox=document.getElementById("answers");
+  answerBox.innerHTML="";
+
+  shuffle(item.a).forEach(function(choice){
+    var button=document.createElement("button");
+    button.type="button";
+    button.className="answer";
+    button.textContent=choice;
+
+    button.onclick=function(){
+      answerQuestion(choice,item.c,item.e);
+    };
+
+    answerBox.appendChild(button);
+  });
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="none";
+  feedback.innerHTML="";
+
+  document.getElementById("nextBtn").style.display="none";
+  updateScore();
+}
+
+function answerQuestion(choice,correct,explanation){
+  document.querySelectorAll(".answer").forEach(function(button){
+    button.disabled=true;
+  });
+
+  answered++;
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="block";
+
+  if(choice===correct){
+    score++;
+    feedback.style.background="#dcfce7";
+    feedback.style.color="#166534";
+    feedback.innerHTML="✅ Rätt! "+explanation;
+  }else{
+    feedback.style.background="#fee2e2";
+    feedback.style.color="#991b1b";
+    feedback.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+explanation;
+  }
+
+  updateScore();
+  document.getElementById("nextBtn").style.display="inline-block";
+}
+
+function nextQuestion(){
+  current++;
+
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quizet är klart!</h3>"+
+      "<p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p>"+
+      "<button type='button' style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return;
+  }
+
+  renderQuestion();
+}
+
+function updateScore(){
+  document.getElementById("score").textContent="Poäng: "+score+" / "+answered;
+}
+
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal");
+  var checked=0;
+
+  goals.forEach(function(goal){
+    if(goal.checked){checked++}
+  });
+
+  var result=document.getElementById("goalResult");
+
+  if(checked===goals.length){
+    result.textContent="🏆 Alla mål markerade!";
+  }else if(checked>=6){
+    result.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  }else if(checked>=3){
+    result.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  }else{
+    result.textContent="👣 Börja med naturresurser och hållbar utveckling och arbeta vidare steg för steg.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  startQuiz();
+});
+</script>
+
+</body>
+</html>
