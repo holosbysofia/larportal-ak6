@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blandningar och lösningar – NO åk 6</title>
+<style>
+:root{--bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;--red:#dc2626;--orange:#ea580c;--green:#16a34a;--purple:#7c3aed;--border:#e2e8f0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}a{text-decoration:none}button,input,textarea{font:inherit}
+nav{position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.logo{font-weight:900;color:var(--dark)}.navlinks{display:flex;gap:8px;flex-wrap:wrap}.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}.navlinks a:hover{background:#fee2e2;color:#991b1b}.navlinks .home{background:var(--red);color:white}
+.hero{background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),linear-gradient(135deg,#dc2626,#ea580c,#7c2d12);color:white;padding:72px 6% 100px}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}.hero p{font-size:1.18rem;max-width:760px}.hero-card{background:white;color:#991b1b;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}.hero-icon{font-size:5rem;margin-bottom:8px}
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+section{margin-top:62px}.section-head{margin-bottom:22px}.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}.section-head p{margin:0;color:var(--muted)}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card,.method,.concept,.support,.checklist{background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)}.card h3{margin-top:0}.fact{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:15px;font-weight:800;color:#9a3412;margin:14px 0}.tip{background:#fff7ed;border-left:5px solid var(--orange);padding:14px;border-radius:10px;margin-top:12px}.step{background:#f8fafc;border:1px solid var(--border);padding:13px;border-radius:12px;margin-top:10px}
+.method{border-top:5px solid var(--red)}.method strong,.concept strong{display:block;color:#b91c1c;margin-bottom:6px}.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.level{color:white;border-radius:22px;padding:24px}.level1{background:linear-gradient(135deg,#059669,#047857)}.level2{background:linear-gradient(135deg,#ea580c,#c2410c)}.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}.panel.active{display:block}.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}.task label{display:block;font-weight:800;margin-bottom:8px}.task input{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:360px}.check{margin-top:9px;background:var(--red);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}.feedback.good{display:block;background:#dcfce7;color:#166534}.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}.answer:hover{background:#fee2e2}.answer:disabled{opacity:.75;cursor:default}#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.problem{background:linear-gradient(135deg,#fee2e2,#ffedd5);border-radius:24px;padding:28px}.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}.problem textarea{width:100%;min-height:115px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}.reveal{margin-top:10px;border:none;background:#991b1b;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}.checklist input{width:19px;height:19px}.goal-btn{margin-top:16px;border:none;background:#991b1b;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}#goalResult{margin-top:12px;font-weight:900}
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🥣 Blandningar och lösningar – NO åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="no.html">🔬 NO</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Resonera</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Blandningar och lösningar</h1>
+      <p>Här lär du dig skillnaden mellan blandningar och lösningar och hur ämnen kan skiljas åt med filtrering, sedimentering, dekantering och avdunstning.</p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">🥣💧🧪</div>
+      <h3>Blanda • Lösa • Separera</h3>
+      <p>Ämnenas egenskaper avgör vilken metod som fungerar.</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>🧪 Blandning</div><div>💧 Lösning</div><div>🧻 Filtrering</div><div>🌡️ Avdunstning</div><div>⬇️ Sedimentering</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head"><h2>📘 Blandning och lösning</h2><p>Två centrala begrepp i kemi.</p></div>
+  <div class="grid-2">
+    <div class="card"><h3>Blandning</h3><p>Två eller flera ämnen finns tillsammans. Delarna kan ibland synas tydligt, som sand i vatten.</p></div>
+    <div class="card"><h3>Lösning</h3><p>Ett ämne har lösts och fördelats jämnt i ett annat, som salt i vatten.</p><div class="fact">Vatten = lösningsmedel. Salt = löst ämne.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧂 Löslighet</h2><p>Olika ämnen löser sig olika bra.</p></div>
+  <div class="grid-3">
+    <div class="method"><strong>Salt + vatten</strong><p>Saltet löser sig och bildar en lösning.</p></div>
+    <div class="method"><strong>Socker + vatten</strong><p>Socker kan också lösa sig i vatten.</p></div>
+    <div class="method"><strong>Sand + vatten</strong><p>Sanden löser sig inte utan finns kvar som fasta partiklar.</p></div>
+  </div>
+  <div class="tip">Temperatur kan påverka hur mycket av vissa fasta ämnen som kan lösas.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧻 Filtrering</h2><p>Filtrering används när ett fast ämne inte är löst i vätskan.</p></div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Så går det till</h3>
+      <div class="step">1. Häll blandningen genom ett filter.</div>
+      <div class="step">2. Fasta partiklar fastnar.</div>
+      <div class="step">3. Vätskan passerar igenom.</div>
+    </div>
+    <div class="card"><h3>Exempel</h3><p>Sand kan filtreras från vatten.</p><div class="fact">Löst salt passerar däremot genom vanligt filterpapper.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⬇️ Sedimentering och dekantering</h2><p>Partiklar kan få sjunka till botten innan vätskan hälls av.</p></div>
+  <div class="grid-2">
+    <div class="card"><h3>Sedimentering</h3><p>Tyngre fasta partiklar sjunker till botten och bildar sediment.</p></div>
+    <div class="card"><h3>Dekantering</h3><p>Vätskan ovanför sedimentet hälls försiktigt av.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌡️ Avdunstning</h2><p>Avdunstning kan skilja ett löst fast ämne från en vätska.</p></div>
+  <div class="grid-2">
+    <div class="card"><h3>Saltvatten</h3><p>När vattnet avdunstar blir saltet kvar.</p></div>
+    <div class="card"><h3>Vad händer?</h3><div class="step">Vattnet går över till gasform.</div><div class="step">Saltet stannar i behållaren.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔬 Välj rätt separationsmetod</h2></div>
+  <div class="grid-4">
+    <div class="card"><h3>Sand + vatten</h3><p><strong>Filtrering</strong></p></div>
+    <div class="card"><h3>Salt + vatten</h3><p><strong>Avdunstning</strong></p></div>
+    <div class="card"><h3>Lera + vatten</h3><p><strong>Sedimentering</strong></p></div>
+    <div class="card"><h3>Vätska över sediment</h3><p><strong>Dekantering</strong></p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+  <div class="grid-4">
+    <div class="concept"><strong>Blandning</strong>Två eller flera ämnen tillsammans.</div>
+    <div class="concept"><strong>Lösning</strong>En jämn blandning där ett ämne har lösts i ett annat.</div>
+    <div class="concept"><strong>Lösningsmedel</strong>Ämnet som löser ett annat ämne.</div>
+    <div class="concept"><strong>Löst ämne</strong>Ämnet som löses upp.</div>
+    <div class="concept"><strong>Filtrering</strong>Fasta partiklar skiljs från en vätska med filter.</div>
+    <div class="concept"><strong>Sedimentering</strong>Partiklar sjunker till botten.</div>
+    <div class="concept"><strong>Dekantering</strong>Vätska hälls av från sediment.</div>
+    <div class="concept"><strong>Avdunstning</strong>Vätska övergår till gas.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Vanliga missuppfattningar</h2></div>
+  <div class="grid-3">
+    <div class="mistake"><h3>Saltet försvinner</h3><p class="wrong">❌ Saltet försvinner när det löses.</p><p class="right">✅ Saltet finns kvar i lösningen även om det inte syns.</p></div>
+    <div class="mistake"><h3>Filter tar bort allt</h3><p class="wrong">❌ Filterpapper tar bort löst salt.</p><p class="right">✅ Löst salt följer med vattnet genom filtret.</p></div>
+    <div class="mistake"><h3>Alla blandningar är grumliga</h3><p class="wrong">❌ En blandning måste vara grumlig.</p><p class="right">✅ En lösning kan vara genomskinlig.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Nivå 1</h3><p>Blandningar och lösningar.</p><button onclick="showLevel(1)">Öppna nivå 1</button></div>
+    <div class="level level2"><h3>🚀 Nivå 2</h3><p>Separationsmetoder.</p><button onclick="showLevel(2)">Öppna nivå 2</button></div>
+    <div class="level level3"><h3>🏆 Nivå 3</h3><p>Välja metod och förklara.</p><button onclick="showLevel(3)">Öppna nivå 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Nivå 1</h3>
+    <div class="task"><label>1. Vad kallas salt och vatten när saltet har lösts?</label><input id="a1"><br><button class="check" onclick="checkAnswer('a1',['lösning','losning','saltlösning','saltlosning'],'f1')">Kontrollera</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad är lösningsmedlet i saltvatten?</label><input id="a2"><br><button class="check" onclick="checkAnswer('a2',['vatten','vattnet'],'f2')">Kontrollera</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Löser sig sand i vatten?</label><input id="a3"><br><button class="check" onclick="checkAnswer('a3',['nej'],'f3')">Kontrollera</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Nivå 2</h3>
+    <div class="task"><label>1. Bästa metoden för sand och vatten?</label><input id="b1"><br><button class="check" onclick="checkAnswer('b1',['filtrering'],'g1')">Kontrollera</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kallas det när partiklar sjunker till botten?</label><input id="b2"><br><button class="check" onclick="checkAnswer('b2',['sedimentering'],'g2')">Kontrollera</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Vad kallas det när vätska försiktigt hälls av från sediment?</label><input id="b3"><br><button class="check" onclick="checkAnswer('b3',['dekantering'],'g3')">Kontrollera</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Nivå 3</h3>
+    <div class="task"><label>1. Hur får man tillbaka salt ur saltvatten?</label><input id="c1"><br><button class="check" onclick="checkAnswer('c1',['avdunstning','låta vattnet avdunsta','lata vattnet avdunsta'],'h1')">Kontrollera</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Fastnar löst salt i vanligt filterpapper?</label><input id="c2"><br><button class="check" onclick="checkAnswer('c2',['nej'],'h2')">Kontrollera</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Vad kallas ämnet som löses upp?</label><input id="c3"><br><button class="check" onclick="checkAnswer('c3',['löst ämne','lost amne','det lösta ämnet'],'h3')">Kontrollera</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top"><div><h2>🎮 Blandningsquiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div><div id="score" class="score">Poäng: 0 / 0</div></div>
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Nästa fråga →</button>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="section-head"><h2>💬 Resonera och undersök</h2><p>Välj metod och förklara varför den fungerar.</p></div>
+  <div class="problem">
+    <div class="problem-card">
+      <h3>🏖️ Sand, salt och vatten</h3>
+      <p>Du har en blandning av sand, salt och vatten. Hur kan du skilja ämnena åt?</p>
+      <textarea placeholder="Skriv din plan steg för steg..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Visa lösningsförslag</button>
+      <div id="sol1" class="solution">Filtrera först bort sanden. Saltvattnet passerar filtret. Låt sedan vattnet avdunsta så att saltet blir kvar. Om vattnet också ska samlas in behöver vattenångan kylas och kondenseras.</div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🧪 Jord och vatten</h3>
+      <p>Ge två metoder som kan användas för att skilja jordpartiklar från vatten.</p>
+      <textarea placeholder="Skriv och förklara..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Visa exempel</button>
+      <div id="sol2" class="solution">Filtrering fungerar eftersom jordpartiklarna kan fastna i filtret. Man kan också låta partiklarna sedimentera och sedan dekantera vätskan.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+  <div class="grid-2">
+    <div class="support"><h3>🆘 Jag behöver hjälp</h3><ul><li>Fråga om ämnet är löst eller inte.</li><li>Synliga fasta partiklar: tänk filtrering eller sedimentering.</li><li>Löst fast ämne: tänk avdunstning.</li><li>Använd ämnesorden när du förklarar.</li></ul></div>
+    <div class="support"><h3>🚀 Jag vill utmanas</h3><ul><li>Planera en separation i flera steg.</li><li>Förklara varför salt passerar filterpapper.</li><li>Jämför filtrering och sedimentering.</li><li>Undersök hur dricksvatten kan renas.</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Kunskapscheck</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> Jag kan förklara vad en blandning är.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara vad en lösning är.</label>
+    <label><input class="goal" type="checkbox"> Jag vet vad lösningsmedel och löst ämne betyder.</label>
+    <label><input class="goal" type="checkbox"> Jag kan använda filtrering.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara sedimentering och dekantering.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara avdunstning som separationsmetod.</label>
+    <label><input class="goal" type="checkbox"> Jag kan välja separationsmetod efter ämnenas egenskaper.</label>
+    <label><input class="goal" type="checkbox"> Jag kan planera en enkel separation.</label>
+    <button class="goal-btn" onclick="checkGoals()">Se min progression</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer><strong>🥣 Blandningar och lösningar • NO åk 6</strong><br>Blandningar • Lösningar • Filtrering • Sedimentering • Avdunstning</footer>
+
+<script>
+var quizQuestions=[
+{q:"Vad är en blandning?",a:["Två eller flera ämnen tillsammans","Alltid ett rent ämne","Bara en gas","Enbart vatten"],c:"Två eller flera ämnen tillsammans",e:"En blandning innehåller minst två ämnen."},
+{q:"Vad är en lösning?",a:["En jämn blandning där ett ämne lösts i ett annat","Enbart sand och vatten","En fast metall","Ett tomt kärl"],c:"En jämn blandning där ett ämne lösts i ett annat",e:"I en lösning är det lösta ämnet jämnt fördelat."},
+{q:"Vad är lösningsmedlet i saltvatten?",a:["Vatten","Salt","Sand","Filterpapper"],c:"Vatten",e:"Vattnet löser saltet."},
+{q:"Vilken metod passar för sand och vatten?",a:["Filtrering","Smältning","Frysning","Kondensation"],c:"Filtrering",e:"Sanden fastnar i filtret."},
+{q:"Vad kallas det när partiklar sjunker till botten?",a:["Sedimentering","Avdunstning","Förbränning","Smältning"],c:"Sedimentering",e:"Partiklarna bildar sediment."},
+{q:"Vad betyder dekantering?",a:["Att hälla av vätska från sediment","Att frysa vätskan","Att blanda snabbare","Att filtrera gas"],c:"Att hälla av vätska från sediment",e:"Dekantering används ofta efter sedimentering."},
+{q:"Hur kan salt fås tillbaka ur saltvatten?",a:["Genom avdunstning","Genom vanligt filterpapper","Genom att skaka","Genom att lägga i sand"],c:"Genom avdunstning",e:"Vattnet övergår till gas och saltet blir kvar."},
+{q:"Vad händer med saltet när det löser sig?",a:["Det finns kvar i lösningen","Det upphör att finnas","Det blir gas","Det blir vatten"],c:"Det finns kvar i lösningen",e:"Saltet finns kvar även om kristallerna inte syns."}
+];
+
+var order=[],current=0,score=0,answered=0;
+function normalize(v){return v.trim().toLowerCase().replace(/\s+/g," ")}
+function showLevel(n){document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));var s=document.getElementById("level"+n);s.classList.add("active");s.scrollIntoView({behavior:"smooth",block:"start"})}
+function checkAnswer(id,answers,fid){var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);var ok=answers.some(a=>value===normalize(a));f.className=ok?"feedback good":"feedback bad";f.textContent=ok?"✅ Rätt! Bra jobbat.":"❌ Inte riktigt. Försök igen."}
+function toggleSolution(id){var b=document.getElementById(id);b.style.display=b.style.display==="block"?"none":"block"}
+function shuffle(a){var c=a.slice();for(var i=c.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));[c[i],c[j]]=[c[j],c[i]]}return c}
+function startQuiz(){order=shuffle([0,1,2,3,4,5,6,7]);current=0;score=0;answered=0;renderQuestion()}
+function renderQuestion(){var item=quizQuestions[order[current]];document.getElementById("question").textContent=(current+1)+". "+item.q;var box=document.getElementById("answers");box.innerHTML="";shuffle(item.a).forEach(choice=>{var b=document.createElement("button");b.className="answer";b.textContent=choice;b.onclick=()=>answerQuestion(choice,item.c,item.e);box.appendChild(b)});var f=document.getElementById("quizFeedback");f.style.display="none";f.innerHTML="";document.getElementById("nextBtn").style.display="none";updateScore()}
+function answerQuestion(choice,correct,exp){document.querySelectorAll(".answer").forEach(b=>b.disabled=true);answered++;var f=document.getElementById("quizFeedback");f.style.display="block";if(choice===correct){score++;f.style.background="#dcfce7";f.style.color="#166534";f.innerHTML="✅ Rätt! "+exp}else{f.style.background="#fee2e2";f.style.color="#991b1b";f.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+exp}updateScore();document.getElementById("nextBtn").style.display="inline-block"}
+function nextQuestion(){current++;if(current>=quizQuestions.length){document.getElementById("quizCard").innerHTML="<h3>🎉 Quizet är klart!</h3><p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";return}renderQuestion()}
+function updateScore(){document.getElementById("score").textContent="Poäng: "+score+" / "+answered}
+function checkGoals(){var goals=document.querySelectorAll(".goal"),checked=0;goals.forEach(g=>{if(g.checked)checked++});var r=document.getElementById("goalResult");if(checked===goals.length)r.textContent="🏆 Alla mål markerade!";else if(checked>=6)r.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";else if(checked>=3)r.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";else r.textContent="👣 Börja med skillnaden mellan blandning och lösning."}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+</body>
+</html>
