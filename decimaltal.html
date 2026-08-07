@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decimaltal – Matematik åk 6</title>
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --dark:#0f172a;
+      --text:#1f2937;
+      --muted:#64748b;
+      --blue:#2563eb;
+      --blue2:#1d4ed8;
+      --purple:#7c3aed;
+      --green:#059669;
+      --orange:#ea580c;
+      --yellow:#f59e0b;
+      --red:#dc2626;
+      --cyan:#0891b2;
+      --border:#e2e8f0;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    button,input,textarea{
+      font:inherit;
+    }
+
+    nav{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:white;
+      padding:13px 5%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      box-shadow:0 2px 14px rgba(0,0,0,.08);
+    }
+
+    .logo{
+      font-size:1.2rem;
+      font-weight:900;
+      color:var(--dark);
+    }
+
+    .navlinks{
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+    }
+
+    .navlinks a{
+      text-decoration:none;
+      color:#334155;
+      font-weight:800;
+      padding:8px 11px;
+      border-radius:10px;
+      font-size:.88rem;
+    }
+
+    .navlinks a:hover{
+      background:#ecfeff;
+      color:#0e7490;
+    }
+
+    .navlinks .home{
+      background:var(--cyan);
+      color:white;
+    }
+
+    .hero{
+      background:
+        radial-gradient(circle at 84% 18%,rgba(255,255,255,.18),transparent 22%),
+        linear-gradient(135deg,#0891b2,#0e7490 45%,#155e75);
+      color:white;
+      padding:80px 6% 110px;
+    }
+
+    .hero-inner{
+      max-width:1250px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:1.7fr 1fr;
+      align-items:center;
+      gap:45px;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:30px;
+      background:rgba(255,255,255,.15);
+      border:1px solid rgba(255,255,255,.25);
+      font-weight:800;
+      margin-bottom:18px;
+    }
+
+    .hero h1{
+      font-size:clamp(3rem,8vw,5.5rem);
+      line-height:1;
+      margin-bottom:18px;
+    }
+
+    .hero p{
+      font-size:1.2rem;
+      max-width:720px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:26px;
+    }
+
+    .hero-actions a{
+      text-decoration:none;
+      background:white;
+      color:#155e75;
+      padding:13px 18px;
+      border-radius:13px;
+      font-weight:900;
+    }
+
+    .hero-actions a.secondary{
+      background:rgba(255,255,255,.14);
+      color:white;
+      border:1px solid rgba(255,255,255,.28);
+    }
+
+    .hero-visual{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .decimal-board{
+      background:white;
+      color:#0f172a;
+      padding:30px;
+      border-radius:26px;
+      box-shadow:0 20px 60px rgba(0,0,0,.22);
+      min-width:280px;
+    }
+
+    .decimal-board h3{
+      margin-bottom:15px;
+      text-align:center;
+    }
+
+    .place-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:7px;
+    }
+
+    .place{
+      background:#ecfeff;
+      padding:14px 8px;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .place strong{
+      font-size:2rem;
+      display:block;
+    }
+
+    .place small{
+      color:#64748b;
+    }
+
+    .wrapper{
+      max-width:1250px;
+      margin:auto;
+      padding:0 22px 70px;
+    }
+
+    .overview{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:15px;
+      margin-top:-58px;
+      position:relative;
+      z-index:20;
+    }
+
+    .overview-card{
+      background:white;
+      padding:20px 15px;
+      border-radius:18px;
+      text-align:center;
+      box-shadow:0 12px 35px rgba(15,23,42,.12);
+    }
+
+    .overview-card span{
+      display:block;
+      font-size:2rem;
+      margin-bottom:6px;
+    }
+
+    .section{
+      margin-top:70px;
+    }
+
+    .section-head{
+      margin-bottom:26px;
+    }
+
+    .section-head h2{
+      font-size:2rem;
+      color:var(--dark);
+      margin-bottom:7px;
+    }
+
+    .section-head p{
+      color:var(--muted);
+      max-width:800px;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:22px;
+    }
+
+    .grid-4{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+    }
+
+    .card{
+      background:white;
+      padding:26px;
+      border-radius:22px;
+      box-shadow:0 7px 23px rgba(0,0,0,.07);
+    }
+
+    .card h3{
+      margin-bottom:10px;
+      color:var(--dark);
+    }
+
+    .card p{
+      color:#475569;
+    }
+
+    .callout{
+      margin-top:16px;
+      background:#ecfeff;
+      border-left:6px solid var(--cyan);
+      padding:18px;
+      border-radius:14px;
+    }
+
+    .number{
+      font-size:2.5rem;
+      font-weight:900;
+      margin:18px 0;
+      color:#0e7490;
+    }
+
+    .place-table{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:6px;
+      margin-top:18px;
+    }
+
+    .place-table div{
+      background:#f8fafc;
+      border:1px solid var(--border);
+      text-align:center;
+      padding:13px 6px;
+      border-radius:10px;
+    }
+
+    .place-table .head{
+      background:#cffafe;
+      font-weight:900;
+    }
+
+    .numberline{
+      position:relative;
+      height:100px;
+      margin-top:25px;
+    }
+
+    .line{
+      position:absolute;
+      top:35px;
+      left:5%;
+      right:5%;
+      height:4px;
+      background:#1f2937;
+    }
+
+    .tick{
+      position:absolute;
+      top:25px;
+      width:3px;
+      height:24px;
+      background:#1f2937;
+    }
+
+    .tick span{
+      position:absolute;
+      top:31px;
+      left:50%;
+      transform:translateX(-50%);
+      font-weight:800;
+      white-space:nowrap;
+      font-size:.88rem;
+    }
+
+    .d0{left:5%}
+    .d1{left:27.5%}
+    .d2{left:50%}
+    .d3{left:72.5%}
+    .d4{left:95%}
+
+    .point{
+      position:absolute;
+      top:27px;
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      background:var(--red);
+      border:3px solid white;
+      box-shadow:0 0 0 2px var(--red);
+      transform:translateX(-50%);
+      left:72.5%;
+    }
+
+    .step-list{
+      display:grid;
+      gap:13px;
+      margin-top:18px;
+    }
+
+    .step{
+      background:#f8fafc;
+      border:1px solid var(--border);
+      border-radius:13px;
+      padding:15px;
+    }
+
+    .step strong{
+      color:#0e7490;
+    }
+
+    .relation{
+      background:linear-gradient(135deg,#ecfeff,#eef2ff);
+      border-radius:25px;
+      padding:30px;
+      box-shadow:0 7px 22px rgba(0,0,0,.06);
+    }
+
+    .relation-row{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .relation-box{
+      background:white;
+      padding:20px;
+      min-width:170px;
+      text-align:center;
+      border-radius:18px;
+      box-shadow:0 5px 14px rgba(0,0,0,.06);
+    }
+
+    .relation-box strong{
+      display:block;
+      font-size:1.6rem;
+      color:#155e75;
+    }
+
+    .arrow{
+      font-size:2rem;
+      font-weight:900;
+      color:#0891b2;
+    }
+
+    .concept{
+      background:white;
+      padding:20px;
+      border-radius:18px;
+      box-shadow:0 5px 18px rgba(0,0,0,.06);
+    }
+
+    .concept strong{
+      display:block;
+      color:#0e7490;
+      margin-bottom:6px;
+    }
+
+    .mistakes{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .mistake{
+      background:white;
+      padding:22px;
+      border-radius:18px;
+      border-top:5px solid var(--red);
+      box-shadow:0 5px 18px rgba(0,0,0,.06);
+    }
+
+    .wrong{
+      color:#b91c1c;
+      font-weight:900;
+      margin:10px 0;
+    }
+
+    .right{
+      color:#047857;
+      font-weight:800;
+    }
+
+    .levels{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+
+    .level{
+      border-radius:25px;
+      padding:30px;
+      color:white;
+      min-height:330px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .level1{
+      background:linear-gradient(135deg,#059669,#0f766e);
+    }
+
+    .level2{
+      background:linear-gradient(135deg,#0891b2,#0e7490);
+    }
+
+    .level3{
+      background:linear-gradient(135deg,#7c3aed,#6d28d9);
+    }
+
+    .level h3{
+      font-size:1.5rem;
+      margin-bottom:8px;
+    }
+
+    .level ul{
+      padding-left:20px;
+      margin:16px 0;
+    }
+
+    .level button{
+      border:none;
+      background:white;
+      color:#111827;
+      padding:11px 16px;
+      border-radius:11px;
+      font-weight:900;
+      cursor:pointer;
+      width:max-content;
+    }
+
+    .training-panel{
+      margin-top:22px;
+      display:none;
+      background:white;
+      border-radius:22px;
+      padding:28px;
+      box-shadow:0 7px 24px rgba(0,0,0,.08);
+    }
+
+    .training-panel.active{
+      display:block;
+    }
+
+    .task{
+      background:#f8fafc;
+      border:1px solid var(--border);
+      padding:18px;
+      border-radius:14px;
+      margin-bottom:14px;
+    }
+
+    .task label{
+      display:block;
+      font-weight:800;
+      margin-bottom:8px;
+    }
+
+    .task input{
+      width:100%;
+      max-width:300px;
+      padding:11px;
+      border:1px solid #cbd5e1;
+      border-radius:10px;
+    }
+
+    .check-btn{
+      border:none;
+      background:var(--cyan);
+      color:white;
+      padding:10px 15px;
+      border-radius:10px;
+      font-weight:900;
+      cursor:pointer;
+      margin-top:10px;
+    }
+
+    .feedback{
+      margin-top:10px;
+      display:none;
+      padding:10px 12px;
+      border-radius:10px;
+      font-weight:800;
+    }
+
+    .feedback.good{
+      display:block;
+      background:#dcfce7;
+      color:#166534;
+    }
+
+    .feedback.bad{
+      display:block;
+      background:#fee2e2;
+      color:#991b1b;
+    }
+
+    .quiz-zone{
+      background:#0f172a;
+      color:white;
+      border-radius:28px;
+      padding:36px;
+    }
+
+    .quiz-top{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .score{
+      background:#1e293b;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:900;
+    }
+
+    .quiz-card{
+      margin-top:23px;
+      background:#1e293b;
+      padding:26px;
+      border-radius:20px;
+    }
+
+    .answer-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .answer-btn{
+      border:none;
+      background:white;
+      color:#1f2937;
+      padding:16px;
+      border-radius:13px;
+      font-weight:900;
+      cursor:pointer;
+      text-align:left;
+    }
+
+    .answer-btn:hover{
+      background:#cffafe;
+    }
+
+    .quiz-feedback{
+      display:none;
+      margin-top:18px;
+      padding:15px;
+      border-radius:12px;
+      font-weight:800;
+    }
+
+    .next-btn{
+      margin-top:15px;
+      border:none;
+      background:#facc15;
+      color:#111827;
+      padding:11px 16px;
+      border-radius:11px;
+      font-weight:900;
+      cursor:pointer;
+      display:none;
+    }
+
+    .problem-zone{
+      background:linear-gradient(135deg,#cffafe,#e0f2fe);
+      border-radius:28px;
+      padding:34px;
+    }
+
+    .problem-card{
+      background:rgba(255,255,255,.82);
+      padding:25px;
+      border-radius:18px;
+      margin-top:18px;
+    }
+
+    .problem-card textarea{
+      width:100%;
+      min-height:130px;
+      border:1px solid #cbd5e1;
+      border-radius:12px;
+      padding:14px;
+      margin-top:15px;
+      resize:vertical;
+    }
+
+    .reveal-btn{
+      margin-top:12px;
+      border:none;
+      background:#155e75;
+      color:white;
+      padding:10px 15px;
+      border-radius:10px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .solution{
+      display:none;
+      margin-top:16px;
+      background:white;
+      padding:16px;
+      border-radius:12px;
+    }
+
+    .support-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+    }
+
+    .support{
+      background:white;
+      padding:28px;
+      border-radius:22px;
+      box-shadow:0 6px 20px rgba(0,0,0,.06);
+    }
+
+    .support h3{
+      margin-bottom:15px;
+    }
+
+    .support ul{
+      list-style:none;
+    }
+
+    .support li{
+      margin:9px 0;
+      background:#f8fafc;
+      padding:12px;
+      border-radius:10px;
+    }
+
+    .checklist{
+      background:white;
+      border-radius:25px;
+      padding:30px;
+      box-shadow:0 7px 23px rgba(0,0,0,.06);
+    }
+
+    .checklist label{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:11px 0;
+      border-bottom:1px solid var(--border);
+      cursor:pointer;
+    }
+
+    .checklist input{
+      width:20px;
+      height:20px;
+      margin-top:2px;
+    }
+
+    .finish-box{
+      margin-top:22px;
+      background:#ecfeff;
+      border-radius:18px;
+      padding:20px;
+    }
+
+    .finish-box button{
+      border:none;
+      background:#0e7490;
+      color:white;
+      padding:11px 16px;
+      border-radius:10px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    #finishResult{
+      margin-top:12px;
+      font-weight:900;
+    }
+
+    footer{
+      margin-top:70px;
+      background:#020617;
+      color:#cbd5e1;
+      padding:38px 20px;
+      text-align:center;
+    }
+
+    @media(max-width:1050px){
+      .overview,.grid-4{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .grid-3,.levels,.mistakes{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media(max-width:760px){
+      nav{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .hero-inner,
+      .overview,
+      .grid-3,
+      .grid-2,
+      .grid-4,
+      .levels,
+      .mistakes,
+      .support-grid,
+      .answer-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-visual{
+        display:none;
+      }
+
+      .overview{
+        margin-top:-38px;
+      }
+
+      .relation-row{
+        flex-direction:column;
+      }
+
+      .arrow{
+        transform:rotate(90deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">🔟 Decimaltal – Matematik åk 6</div>
+
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="matematik.html">🔢 Matematik</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#begrepp">Begrepp</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Problem</a>
+  </div>
+</nav>
+
+<section class="hero">
+
+  <div class="hero-inner">
+
+    <div>
+      <div class="badge">Matematik åk 6 • Decimaltal</div>
+
+      <h1>Decimaltal</h1>
+
+      <p>
+        Lär dig förstå tiondelar, hundradelar och tusendelar.
+        Här arbetar du med platsvärde, tallinje, jämförelser,
+        räkning, avrundning och samband mellan decimaler, bråk och procent.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#forsta">📘 Börja lära</a>
+        <a class="secondary" href="#traning">✍️ Börja träna</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+
+      <div class="decimal-board">
+        <h3>3,472</h3>
+
+        <div class="place-grid">
+          <div class="place">
+            <strong>3</strong>
+            <small>ental</small>
+          </div>
+
+          <div class="place">
+            <strong>4</strong>
+            <small>tiondelar</small>
+          </div>
+
+          <div class="place">
+            <strong>7</strong>
+            <small>hundradelar</small>
+          </div>
+
+          <div class="place">
+            <strong>2</strong>
+            <small>tusendelar</small>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<main class="wrapper">
+
+  <section class="overview">
+
+    <div class="overview-card">
+      <span>🔢</span>
+      <strong>Platsvärde</strong>
+    </div>
+
+    <div class="overview-card">
+      <span>📏</span>
+      <strong>Tallinje</strong>
+    </div>
+
+    <div class="overview-card">
+      <span>⚖️</span>
+      <strong>Jämföra tal</strong>
+    </div>
+
+    <div class="overview-card">
+      <span>➕</span>
+      <strong>Räkna</strong>
+    </div>
+
+    <div class="overview-card">
+      <span>💯</span>
+      <strong>Bråk & procent</strong>
+    </div>
+
+  </section>
+
+
+  <section class="section" id="forsta">
+
+    <div class="section-head">
+      <h2>📘 1. Vad är ett decimaltal?</h2>
+      <p>
+        Ett decimaltal används när vi vill beskriva delar av ett helt tal.
+      </p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>🔟 Tiondelar</h3>
+
+        <div class="number">0,1</div>
+
+        <p>
+          En tiondel betyder att en helhet har delats i 10 lika stora delar.
+        </p>
+
+        <div class="callout">
+          0,1 = 1/10
+        </div>
+      </div>
+
+
+      <div class="card">
+        <h3>💯 Hundradelar</h3>
+
+        <div class="number">0,01</div>
+
+        <p>
+          En hundradel betyder att en helhet har delats i 100 lika stora delar.
+        </p>
+
+        <div class="callout">
+          0,01 = 1/100
+        </div>
+      </div>
+
+
+      <div class="card">
+        <h3>🔬 Tusendelar</h3>
+
+        <div class="number">0,001</div>
+
+        <p>
+          En tusendel betyder att en helhet har delats i 1000 lika stora delar.
+        </p>
+
+        <div class="callout">
+          0,001 = 1/1000
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-head">
+      <h2>🏠 Platsvärde</h2>
+      <p>
+        Varje siffra får sitt värde beroende på var den står.
+      </p>
+    </div>
+
+    <div class="card">
+
+      <div class="number">24,375</div>
+
+      <div class="place-table">
+
+        <div class="head">Tiotal</div>
+        <div class="head">Ental</div>
+        <div class="head">Tiondel</div>
+        <div class="head">Hundradel</div>
+        <div class="head">Tusendel</div>
+
+        <div>2</div>
+        <div>4</div>
+        <div>3</div>
+        <div>7</div>
+        <div>5</div>
+
+      </div>
+
+      <div class="callout">
+        24,375 = 20 + 4 + 0,3 + 0,07 + 0,005
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-head">
+      <h2>📏 Decimaltal på tallinjen</h2>
+      <p>
+        Tallinjen hjälper dig att se hur stora talen är.
+      </p>
+    </div>
+
+    <div class="card">
+
+      <p>
+        Den röda punkten visar <strong>0,75</strong>.
+      </p>
+
+      <div class="numberline">
+        <div class="line"></div>
+
+        <div class="tick d0"><span>0</span></div>
+        <div class="tick d1"><span>0,25</span></div>
+        <div class="tick d2"><span>0,5</span></div>
+        <div class="tick d3"><span>0,75</span></div>
+        <div class="tick d4"><span>1</span></div>
+
+        <div class="point"></div>
+      </div>
+
+      <div class="callout">
+        0,75 ligger mellan 0,5 och 1.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-head">
+      <h2>⚖️ Jämföra decimaltal</h2>
+      <p>
+        Börja alltid jämföra från vänster.
+      </p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>Jämför entalen</h3>
+
+        <div class="callout">
+          4,2 &gt; 3,99
+        </div>
+
+        <p style="margin-top:14px;">
+          4 hela är större än 3 hela.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Samma antal hela</h3>
+
+        <div class="callout">
+          2,7 &gt; 2,63
+        </div>
+
+        <p style="margin-top:14px;">
+          7 tiondelar är större än 6 tiondelar.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Nollor kan hjälpa</h3>
+
+        <div class="callout">
+          0,5 = 0,50
+        </div>
+
+        <p style="margin-top:14px;">
+          En extra nolla sist förändrar inte värdet.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-head">
+      <h2>🔄 Avrunda decimaltal</h2>
+      <p>
+        Titta på siffran direkt till höger om platsen du ska avrunda till.
+      </p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+
+        <h3>Avrunda till tiondel</h3>
+
+        <div class="step-list">
+
+          <div class="step">
+            <strong>Tal:</strong> 4,67
+          </div>
+
+          <div class="step">
+            <strong>Titta på hundradelen:</strong> 7
+          </div>
+
+          <div class="step">
+            <strong>7 är minst 5:</strong> höj tiondelen
+          </div>
+
+          <div class="step">
+            <strong>Svar:</strong> 4,7
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>Avrunda till heltal</h3>
+
+        <div class="step-list">
+
+          <div class="step">
+            <strong>Tal:</strong> 8,42
+          </div>
+
+          <div class="step">
+            <strong>Titta på tiondelen:</strong> 4
+          </div>
+
+          <div class="step">
+            <strong>4 är mindre än 5:</strong> behåll heltalet
+          </div>
+
+          <div class="step">
+            <strong>Svar:</strong> 8
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-head">
+      <h2>➕➖ Addition och subtraktion</h2>
+      <p>
+        Kommatecknen måste stå under varandra.
+      </p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+
+        <h3>Addition</h3>
+
+        <div class="callout">
+          3,45 + 2,7
+          <br><br>
+          Skriv 2,7 som 2,70.
+          <br><br>
+          3,45 + 2,70 = <strong>6,15</strong>
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>Subtraktion</h3>
+
+        <div class="callout">
+          5,2 − 1,37
+          <br><br>
+          Skriv 5,2 som 5,20.
+          <br><br>
+          5,20 − 1,37 = <strong>3,83</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-head">
+      <h2>✖️➗ Multiplicera och dividera med 10, 100 och 1000</h2>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>× 10</h3>
+        <div class="callout">
+          3,45 × 10 = 34,5
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>× 100</h3>
+        <div class="callout">
+          3,45 × 100 = 345
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>÷ 10</h3>
+        <div class="callout">
+          34,5 ÷ 10 = 3,45
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-head">
+      <h2>🍕 Bråk, decimal och procent</h2>
+      <p>
+        Samma tal kan skrivas på olika sätt.
+      </p>
+    </div>
+
+    <div class="relation">
+
+      <div class="relation-row">
+
+        <div class="relation-box">
+          <span>Bråk</span>
+          <strong>1/2</strong>
+        </div>
+
+        <div class="arrow">↔</div>
+
+        <div class="relation-box">
+          <span>Decimal</span>
+          <strong>0,5</strong>
+        </div>
+
+        <div class="arrow">↔</div>
+
+        <div class="relation-box">
+          <span>Procent</span>
+          <strong>50 %</strong>
+        </div>
+
+      </div>
+
+
+      <div class="relation-row">
+
+        <div class="relation-box">
+          <span>Bråk</span>
+          <strong>3/4</strong>
+        </div>
+
+        <div class="arrow">↔</div>
+
+        <div class="relation-box">
+          <span>Decimal</span>
+          <strong>0,75</strong>
+        </div>
+
+        <div class="arrow">↔</div>
+
+        <div class="relation-box">
+          <span>Procent</span>
+          <strong>75 %</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section" id="begrepp">
+
+    <div class="section-head">
+      <h2>🧠 Begreppsbank</h2>
+      <p>
+        Viktiga ord när du arbetar med decimaltal.
+      </p>
+    </div>
+
+    <div class="grid-4">
+
+      <div class="concept">
+        <strong>Decimaltal</strong>
+        Ett tal som innehåller decimaler.
+      </div>
+
+      <div class="concept">
+        <strong>Decimaltecken</strong>
+        Kommatecknet som skiljer heltal från decimaler.
+      </div>
+
+      <div class="concept">
+        <strong>Tiondel</strong>
+        En av tio lika stora delar.
+      </div>
+
+      <div class="concept">
+        <strong>Hundradel</strong>
+        En av hundra lika stora delar.
+      </div>
+
+      <div class="concept">
+        <strong>Tusendel</strong>
+        En av tusen lika stora delar.
+      </div>
+
+      <div class="concept">
+        <strong>Platsvärde</strong>
+        Värdet en siffra får beroende på sin plats.
+      </div>
+
+      <div class="concept">
+        <strong>Avrundning</strong>
+        Att ersätta ett tal med ett närliggande enklare tal.
+      </div>
+
+      <div class="concept">
+        <strong>Överslag</strong>
+        En ungefärlig beräkning för att kontrollera rimlighet.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-head">
+      <h2>⚠️ Vanliga missuppfattningar</h2>
+    </div>
+
+    <div class="mistakes">
+
+      <div class="mistake">
+        <h3>Fler siffror = större tal?</h3>
+
+        <div class="wrong">
+          ❌ 0,125 är större än 0,8 eftersom 125 är större än 8.
+        </div>
+
+        <div class="right">
+          ✅ Nej. 0,8 = 0,800 och är därför större.
+        </div>
+      </div>
+
+
+      <div class="mistake">
+        <h3>0,5 och 0,50</h3>
+
+        <div class="wrong">
+          ❌ 0,50 är större eftersom det har fler siffror.
+        </div>
+
+        <div class="right">
+          ✅ 0,5 och 0,50 har samma värde.
+        </div>
+      </div>
+
+
+      <div class="mistake">
+        <h3>Kommatecknet flyttar sig?</h3>
+
+        <div class="wrong">
+          ❌ Man bara flyttar kommatecknet utan att tänka på platsvärdet.
+        </div>
+
+        <div class="right">
+          ✅ Det är siffrornas platsvärden som förändras när vi multiplicerar eller dividerar med 10, 100 eller 1000.
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section" id="traning">
+
+    <div class="section-head">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>
+        Välj nivå och arbeta direkt på sidan.
+      </p>
+    </div>
+
+    <div class="levels">
+
+      <div class="level level1">
+
+        <div>
+          <h3>🌱 Nivå 1 – Grund</h3>
+
+          <p>Jag tränar på platsvärde och jämförelser.</p>
+
+          <ul>
+            <li>Tiondelar</li>
+            <li>Hundradelar</li>
+            <li>Platsvärde</li>
+            <li>Jämföra tal</li>
+          </ul>
+        </div>
+
+        <button onclick="openLevel(1)">Öppna nivå 1</button>
+
+      </div>
+
+
+      <div class="level level2">
+
+        <div>
+          <h3>🚀 Nivå 2 – Vidare</h3>
+
+          <p>Jag räknar och avrundar.</p>
+
+          <ul>
+            <li>Addition</li>
+            <li>Subtraktion</li>
+            <li>Avrundning</li>
+            <li>× och ÷ 10, 100, 1000</li>
+          </ul>
+        </div>
+
+        <button onclick="openLevel(2)">Öppna nivå 2</button>
+
+      </div>
+
+
+      <div class="level level3">
+
+        <div>
+          <h3>🏆 Nivå 3 – Utmaning</h3>
+
+          <p>Jag använder decimaltal i problemlösning.</p>
+
+          <ul>
+            <li>Flera steg</li>
+            <li>Pengar</li>
+            <li>Mätning</li>
+            <li>Bråk och procent</li>
+          </ul>
+        </div>
+
+        <button onclick="openLevel(3)">Öppna nivå 3</button>
+
+      </div>
+
+    </div>
+
+
+    <div id="level1Panel" class="training-panel">
+
+      <h3>🌱 Nivå 1</h3>
+
+      <div class="task">
+        <label>1. Vilken siffra står på tiondelsplatsen i 4,37?</label>
+        <input id="l1q1" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkText('l1q1','3','l1f1')">Kontrollera</button>
+        <div id="l1f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vilket tal är störst: 0,8 eller 0,75?</label>
+        <input id="l1q2" type="text" placeholder="Skriv talet">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l1q2',['0,8','0.8'],'l1f2')">Kontrollera</button>
+        <div id="l1f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Skriv fem tiondelar som decimaltal.</label>
+        <input id="l1q3" type="text" placeholder="Skriv svaret">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l1q3',['0,5','0.5'],'l1f3')">Kontrollera</button>
+        <div id="l1f3" class="feedback"></div>
+      </div>
+
+    </div>
+
+
+    <div id="level2Panel" class="training-panel">
+
+      <h3>🚀 Nivå 2</h3>
+
+      <div class="task">
+        <label>1. Beräkna 3,45 + 2,7.</label>
+        <input id="l2q1" type="text" placeholder="Skriv svaret">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l2q1',['6,15','6.15'],'l2f1')">Kontrollera</button>
+        <div id="l2f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Avrunda 4,67 till en decimal.</label>
+        <input id="l2q2" type="text" placeholder="Skriv svaret">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l2q2',['4,7','4.7'],'l2f2')">Kontrollera</button>
+        <div id="l2f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Beräkna 5,2 − 1,37.</label>
+        <input id="l2q3" type="text" placeholder="Skriv svaret">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l2q3',['3,83','3.83'],'l2f3')">Kontrollera</button>
+        <div id="l2f3" class="feedback"></div>
+      </div>
+
+    </div>
+
+
+    <div id="level3Panel" class="training-panel">
+
+      <h3>🏆 Nivå 3</h3>
+
+      <div class="task">
+        <label>1. Skriv 3/4 som decimaltal.</label>
+        <input id="l3q1" type="text" placeholder="Skriv svaret">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l3q1',['0,75','0.75'],'l3f1')">Kontrollera</button>
+        <div id="l3f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad är 0,35 i procent?</label>
+        <input id="l3q2" type="text" placeholder="Skriv t.ex. 35 %">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l3q2',['35','35%','35 %'],'l3f2')">Kontrollera</button>
+        <div id="l3f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Beräkna 2,45 × 10.</label>
+        <input id="l3q3" type="text" placeholder="Skriv svaret">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l3q3',['24,5','24.5'],'l3f3')">Kontrollera</button>
+        <div id="l3f3" class="feedback"></div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section" id="quiz">
+
+    <div class="quiz-zone">
+
+      <div class="quiz-top">
+
+        <div>
+          <h2>🎮 Decimaltalsquiz</h2>
+          <p style="color:#cbd5e1;">
+            Frågorna och svaren blandas.
+          </p>
+        </div>
+
+        <div id="scoreBox" class="score">
+          Poäng: 0 / 0
+        </div>
+
+      </div>
+
+      <div class="quiz-card">
+
+        <h3 id="quizQuestion">Laddar fråga...</h3>
+
+        <div id="quizAnswers" class="answer-grid"></div>
+
+        <div id="quizFeedback" class="quiz-feedback"></div>
+
+        <button id="nextButton" class="next-btn" onclick="nextQuizQuestion()">
+          Nästa fråga →
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section" id="problem">
+
+    <div class="section-head">
+      <h2>🧩 Problemlösning</h2>
+    </div>
+
+    <div class="problem-zone">
+
+      <h2>🛒 Handla smart</h2>
+
+      <div class="problem-card">
+
+        <p>
+          Sara köper tre saker:
+        </p>
+
+        <br>
+
+        <p>
+          • Juice: 18,90 kr<br>
+          • Bröd: 27,50 kr<br>
+          • Frukt: 34,75 kr
+        </p>
+
+        <br>
+
+        <p>
+          Hon betalar med en hundralapp.
+        </p>
+
+        <br>
+
+        <p>
+          <strong>Hur mycket får hon tillbaka?</strong>
+        </p>
+
+        <textarea placeholder="Skriv hur du räknar..."></textarea>
+
+        <button class="reveal-btn" onclick="toggleSolution('solution1')">
+          Visa lösningsförslag
+        </button>
+
+        <div id="solution1" class="solution">
+          18,90 + 27,50 + 34,75 = 81,15 kr
+          <br><br>
+          100 − 81,15 = 18,85 kr
+          <br><br>
+          <strong>Svar: Sara får 18,85 kr tillbaka.</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="problem-zone" style="background:linear-gradient(135deg,#ede9fe,#dbeafe);">
+
+      <h2>🏆 Resonemangsutmaning</h2>
+
+      <div class="problem-card">
+
+        <p style="font-size:1.2rem;font-weight:900;">
+          Leo säger: ”0,45 är större än 0,5 eftersom 45 är större än 5.”
+        </p>
+
+        <br>
+
+        <p>
+          Har Leo rätt?
+          Förklara gärna med platsvärde och tallinje.
+        </p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+
+        <button class="reveal-btn" onclick="toggleSolution('solution2')">
+          Visa ledtråd
+        </button>
+
+        <div id="solution2" class="solution">
+          Leo har fel.
+          <br><br>
+          0,5 kan skrivas som 0,50.
+          Då ser vi att 0,50 är större än 0,45.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-head">
+      <h2>🌱 Stöd och utmaning</h2>
+    </div>
+
+    <div class="support-grid">
+
+      <div class="support">
+
+        <h3>🆘 Jag behöver hjälp</h3>
+
+        <ul>
+          <li>🏠 Använd en platsvärdestabell.</li>
+          <li>📏 Placera talet på en tallinje.</li>
+          <li>0️⃣ Lägg till nollor sist, till exempel 0,5 = 0,50.</li>
+          <li>👀 Jämför en plats i taget från vänster.</li>
+          <li>🧮 Skriv kommatecknen under varandra när du räknar.</li>
+          <li>💡 Gör ett överslag först.</li>
+        </ul>
+
+      </div>
+
+
+      <div class="support">
+
+        <h3>🚀 Jag vill utmanas</h3>
+
+        <ul>
+          <li>🔀 Hitta tre tal mellan 0,4 och 0,5.</li>
+          <li>🧠 Förklara varför 0,70 = 0,7.</li>
+          <li>💯 Byt mellan bråk, decimal och procent.</li>
+          <li>🛒 Skapa ett eget pengaproblem.</li>
+          <li>📏 Använd decimaltal i längd, massa och volym.</li>
+          <li>🏆 Lös ett problem på två olika sätt.</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-head">
+      <h2>✅ Kunskapscheck</h2>
+      <p>Kryssa i det du känner att du kan.</p>
+    </div>
+
+    <div class="checklist">
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan förklara tiondelar och hundradelar.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan använda en platsvärdestabell.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan placera decimaltal på tallinjen.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan jämföra decimaltal.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan avrunda decimaltal.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan addera och subtrahera decimaltal.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan koppla decimaler till enkla bråk och procent.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan använda decimaltal i problemlösning.
+      </label>
+
+      <div class="finish-box">
+        <button onclick="checkGoals()">Se min progression</button>
+        <div id="finishResult"></div>
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+  <p><strong>🔟 Decimaltal • Matematik åk 6</strong></p>
+  <p>Förstå • Träna • Resonera • Lösa problem</p>
+</footer>
+
+
+<script>
+
+function normalize(value){
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g," ");
+}
+
+
+function checkText(inputId, correct, feedbackId){
+
+  const value = normalize(document.getElementById(inputId).value);
+  const feedback = document.getElementById(feedbackId);
+
+  if(value === normalize(correct)){
+    feedback.className = "feedback good";
+    feedback.textContent = "✅ Rätt! Bra jobbat.";
+  }else{
+    feedback.className = "feedback bad";
+    feedback.textContent = "❌ Inte riktigt ännu. Försök igen.";
+  }
+}
+
+
+function checkMulti(inputId, answers, feedbackId){
+
+  const value = normalize(document.getElementById(inputId).value);
+  const feedback = document.getElementById(feedbackId);
+
+  const correct = answers.some(answer =>
+    value === normalize(answer)
+  );
+
+  if(correct){
+    feedback.className = "feedback good";
+    feedback.textContent = "✅ Rätt! Bra jobbat.";
+  }else{
+    feedback.className = "feedback bad";
+    feedback.textContent = "❌ Inte riktigt ännu. Försök igen.";
+  }
+}
+
+
+function openLevel(level){
+
+  document.querySelectorAll(".training-panel").forEach(panel => {
+    panel.classList.remove("active");
+  });
+
+  const panel = document.getElementById("level" + level + "Panel");
+
+  panel.classList.add("active");
+
+  panel.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+}
+
+
+function toggleSolution(id){
+
+  const element = document.getElementById(id);
+
+  element.style.display =
+    element.style.display === "block" ? "none" : "block";
+}
+
+
+const quizQuestions = [
+
+  {
+    question:"Vilket tal är störst?",
+    answers:["0,8","0,75","0,68","0,79"],
+    correct:"0,8",
+    explanation:"0,8 kan skrivas 0,80 och är därför större än 0,79."
+  },
+
+  {
+    question:"Vilken siffra står på hundradelsplatsen i 3,472?",
+    answers:["3","4","7","2"],
+    correct:"7",
+    explanation:"Efter kommatecknet kommer tiondelar, hundradelar och tusendelar."
+  },
+
+  {
+    question:"Vad är 0,5 skrivet som bråk?",
+    answers:["1/2","1/5","5/100","2/5"],
+    correct:"1/2",
+    explanation:"0,5 betyder fem tiondelar, vilket är samma som 1/2."
+  },
+
+  {
+    question:"Vad är 0,75 i procent?",
+    answers:["7,5 %","25 %","75 %","750 %"],
+    correct:"75 %",
+    explanation:"0,75 = 75/100 = 75 %."
+  },
+
+  {
+    question:"Avrunda 6,84 till en decimal.",
+    answers:["6,8","6,9","7,0","6,84"],
+    correct:"6,8",
+    explanation:"Hundradelen är 4, alltså behåller vi tiondelen 8."
+  },
+
+  {
+    question:"Vad blir 2,4 × 10?",
+    answers:["0,24","2,40","24","240"],
+    correct:"24",
+    explanation:"När talet multipliceras med 10 blir varje siffra tio gånger mer värd."
+  },
+
+  {
+    question:"Vad är 4,2 − 1,75?",
+    answers:["2,45","3,55","2,35","3,45"],
+    correct:"2,45",
+    explanation:"4,20 − 1,75 = 2,45."
+  },
+
+  {
+    question:"Vilket tal är lika med 0,50?",
+    answers:["0,5","0,05","5,0","0,005"],
+    correct:"0,5",
+    explanation:"Nollor sist i decimaldelen förändrar inte talets värde."
+  }
+
+];
+
+
+let quizOrder = [];
+let currentQuiz = 0;
+let quizScore = 0;
+let quizAnswered = 0;
+
+
+function shuffle(array){
+
+  const copy = [...array];
+
+  for(let i = copy.length - 1; i > 0; i--){
+
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [copy[i],copy[j]] = [copy[j],copy[i]];
+  }
+
+  return copy;
+}
+
+
+function startQuiz(){
+
+  quizOrder = shuffle(
+    quizQuestions.map((_,index) => index)
+  );
+
+  currentQuiz = 0;
+  quizScore = 0;
+  quizAnswered = 0;
+
+  renderQuiz();
+}
+
+
+function renderQuiz(){
+
+  const item =
+    quizQuestions[quizOrder[currentQuiz]];
+
+  document.getElementById("quizQuestion").textContent =
+    (currentQuiz + 1) + ". " + item.question;
+
+  const container =
+    document.getElementById("quizAnswers");
+
+  container.innerHTML = "";
+
+  shuffle(item.answers).forEach(answer => {
+
+    const button =
+      document.createElement("button");
+
+    button.className = "answer-btn";
+    button.textContent = answer;
+
+    button.onclick = function(){
+      answerQuiz(
+        answer,
+        item.correct,
+        item.explanation
+      );
+    };
+
+    container.appendChild(button);
+  });
+
+  const feedback =
+    document.getElementById("quizFeedback");
+
+  feedback.style.display = "none";
+  feedback.innerHTML = "";
+
+  document.getElementById("nextButton").style.display = "none";
+
+  updateScore();
+}
+
+
+function answerQuiz(answer,correct,explanation){
+
+  document.querySelectorAll(".answer-btn").forEach(button => {
+    button.disabled = true;
+  });
+
+  quizAnswered++;
+
+  const feedback =
+    document.getElementById("quizFeedback");
+
+  feedback.style.display = "block";
+
+  if(answer === correct){
+
+    quizScore++;
+
+    feedback.style.background = "#dcfce7";
+    feedback.style.color = "#166534";
+
+    feedback.innerHTML =
+      "✅ Rätt! " + explanation;
+
+  }else{
+
+    feedback.style.background = "#fee2e2";
+    feedback.style.color = "#991b1b";
+
+    feedback.innerHTML =
+      "❌ Inte riktigt. Rätt svar är <strong>" +
+      correct +
+      "</strong>.<br>" +
+      explanation;
+  }
+
+  updateScore();
+
+  document.getElementById("nextButton").style.display = "inline-block";
+}
+
+
+function nextQuizQuestion(){
+
+  currentQuiz++;
+
+  if(currentQuiz >= quizQuestions.length){
+
+    const card =
+      document.querySelector(".quiz-card");
+
+    let message = "";
+
+    if(quizScore === quizQuestions.length){
+      message = "🏆 Alla rätt! Mycket starkt.";
+    }else if(quizScore >= 6){
+      message = "🌟 Mycket bra förståelse.";
+    }else if(quizScore >= 4){
+      message = "👍 Bra arbete. Repetera gärna det du missade.";
+    }else{
+      message = "🌱 Fortsätt träna och prova quizet igen.";
+    }
+
+    card.innerHTML = `
+      <h3>🎉 Quizet är klart!</h3>
+      <p style="font-size:1.2rem;margin-top:15px;">
+        Du fick <strong>${quizScore} av ${quizQuestions.length}</strong> rätt.
+      </p>
+
+      <p style="margin-top:15px;color:#cbd5e1;">
+        ${message}
+      </p>
+
+      <button
+        class="next-btn"
+        style="display:inline-block"
+        onclick="location.reload()">
+        Spela igen
+      </button>
+    `;
+
+    return;
+  }
+
+  renderQuiz();
+}
+
+
+function updateScore(){
+
+  document.getElementById("scoreBox").textContent =
+    "Poäng: " +
+    quizScore +
+    " / " +
+    quizAnswered;
+}
+
+
+function checkGoals(){
+
+  const goals =
+    document.querySelectorAll(".goal");
+
+  let checked = 0;
+
+  goals.forEach(goal => {
+    if(goal.checked){
+      checked++;
+    }
+  });
+
+  const result =
+    document.getElementById("finishResult");
+
+  if(checked === goals.length){
+
+    result.textContent =
+      "🏆 Du har markerat alla mål. Prova nu utmaningsuppgifterna.";
+
+  }else if(checked >= 6){
+
+    result.textContent =
+      "🌟 Du har markerat " +
+      checked +
+      " av " +
+      goals.length +
+      " mål. Mycket bra.";
+
+  }else if(checked >= 3){
+
+    result.textContent =
+      "🌱 Du har markerat " +
+      checked +
+      " av " +
+      goals.length +
+      " mål. Fortsätt träna.";
+
+  }else{
+
+    result.textContent =
+      "👣 Börja gärna med platsvärde och tallinjen och arbeta vidare därifrån.";
+  }
+}
+
+
+startQuiz();
+
+</script>
+
+</body>
+</html>
