@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teknik i vardagen – Teknik åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --indigo:#4f46e5;--indigo2:#4338ca;--blue:#2563eb;--cyan:#0891b2;
+  --green:#16a34a;--orange:#ea580c;--red:#dc2626;--purple:#7c3aed;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#e0f2fe;color:#0c4a6e}
+.navlinks .home{background:var(--indigo);color:white}
+
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#0891b2,#2563eb,#0f172a);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#0e7490;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0;color:#0f4c81}
+.fact{background:#ecfeff;border:1px solid #a5f3fc;border-radius:14px;padding:15px;font-weight:800;color:#155e75;margin:14px 0}
+.tip{background:#eff6ff;border-left:5px solid var(--blue);padding:14px;border-radius:10px;margin-top:12px}
+.step{background:#f8fafc;border:1px solid var(--border);padding:13px;border-radius:12px;margin-top:10px}
+
+.everyday{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--cyan)
+}
+.everyday strong{display:block;color:#0e7490;margin-bottom:6px}
+.concept strong{display:block;color:#0e7490;margin-bottom:5px}
+
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#0891b2,#0e7490)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:390px}
+.check{margin-top:9px;background:var(--cyan);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#cffafe}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+
+.problem{background:linear-gradient(135deg,#cffafe,#dbeafe);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:120px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#0e7490;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#0e7490;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🏠 Teknik i vardagen – Teknik åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="teknik.html">🛠️ Teknik</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Undersök</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Teknik i vardagen</h1>
+      <p>
+        Teknik finns överallt omkring oss. Här lär du dig att upptäcka tekniska lösningar
+        i hemmet, skolan och samhället och att förklara deras funktion, delar, material,
+        styrning och konsekvenser.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">🏠🚲📱</div>
+      <h3>Teknik löser vardagsproblem</h3>
+      <p>Behov → lösning → användning → konsekvenser</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>🏠 Hemmet</div>
+  <div>🏫 Skolan</div>
+  <div>🚦 Samhället</div>
+  <div>📱 Digital teknik</div>
+  <div>🌍 Konsekvenser</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head">
+    <h2>📘 Vad menas med teknik i vardagen?</h2>
+    <p>Teknik är lösningar som människor utvecklar för att lösa problem och uppfylla behov.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Behov</h3><p>Vi behöver till exempel transportera oss, kommunicera, förvara mat och få tillgång till vatten.</p></div>
+    <div class="card"><h3>Lösning</h3><p>Tekniska produkter och system utvecklas för att möta behoven.</p></div>
+    <div class="card"><h3>Förändring</h3><p>Tekniska lösningar förbättras och förändras över tid.</p></div>
+  </div>
+
+  <div class="fact">Teknik är inte bara elektronik. En sax, en bro, en vattenkran och en dragkedja är också tekniska lösningar.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🏠 Teknik i hemmet</h2><p>Hemmet innehåller många tekniska system och produkter.</p></div>
+  <div class="grid-4">
+    <div class="everyday"><strong>🚰 Vattenkran</strong><p>Ventiler, rör och handtag styr vattenflödet.</p></div>
+    <div class="everyday"><strong>🧊 Kylskåp</strong><p>Ett tekniskt system som flyttar värme för att hålla maten kall.</p></div>
+    <div class="everyday"><strong>🚪 Dörrlås</strong><p>Mekaniska eller elektroniska delar styr åtkomst.</p></div>
+    <div class="everyday"><strong>💡 Belysning</strong><p>Elektriska komponenter ger ljus och kan styras med brytare eller sensorer.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🏫 Teknik i skolan</h2><p>Skolmiljön är full av teknik som stödjer undervisning, säkerhet och vardag.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Dator och projektor</h3><p>Bearbetar och visar information.</p></div>
+    <div class="card"><h3>Ventilation</h3><p>Flyttar luft och hjälper till att skapa en bra inomhusmiljö.</p></div>
+    <div class="card"><h3>Brandlarm</h3><p>Sensorer och larmkomponenter varnar vid brandrisk.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🚦 Teknik i samhället</h2><p>Stora tekniska system får samhället att fungera.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Vatten</h3><p>Vattenverk, ledningar, pumpar och avloppssystem.</p></div>
+    <div class="card"><h3>El</h3><p>Produktion, elnät, transformatorer och användare.</p></div>
+    <div class="card"><h3>Transport</h3><p>Vägar, järnvägar, fordon, signaler och hållplatser.</p></div>
+    <div class="card"><h3>Kommunikation</h3><p>Internet, mobilnät, fiber och servrar.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>📱 Digital teknik</h2><p>Många vardagsprodukter kombinerar elektronik, programvara och kommunikation.</p></div>
+  <div class="grid-3">
+    <div class="everyday"><strong>Mobiltelefon</strong><p>Skärm, batteri, processor, sensorer, kamera och radiosystem samverkar.</p></div>
+    <div class="everyday"><strong>Smart klocka</strong><p>Kan använda sensorer för rörelse, puls eller position.</p></div>
+    <div class="everyday"><strong>Betalsystem</strong><p>Överför information mellan kort, terminal, nätverk och bank.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔍 Så analyserar du en teknisk lösning</h2><p>Ställ samma frågor varje gång du undersöker teknik.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>1. Behov</h3><p>Vilket problem eller behov löser tekniken?</p></div>
+    <div class="card"><h3>2. Funktion</h3><p>Vad gör produkten eller systemet?</p></div>
+    <div class="card"><h3>3. Delar</h3><p>Vilka komponenter och material ingår?</p></div>
+    <div class="card"><h3>4. Samband</h3><p>Hur samverkar delarna?</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚙️ Exempel: cykel</h2><p>En vanlig cykel innehåller många tekniska lösningar.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Ram</h3><p>Ger konstruktionen hållfasthet och form.</p></div>
+    <div class="card"><h3>Kedja och drev</h3><p>Överför kraft från pedalerna till bakhjulet.</p></div>
+    <div class="card"><h3>Bromsar</h3><p>Skapar friktion som minskar farten.</p></div>
+    <div class="card"><h3>Styre</h3><p>Gör det möjligt att styra framhjulets riktning.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧺 Exempel: tvättmaskin</h2><p>En tvättmaskin kombinerar flera tekniska delsystem.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Vatten</h3><p>Ventiler och slangar fyller och tömmer maskinen.</p></div>
+    <div class="card"><h3>Rörelse</h3><p>En elmotor får trumman att rotera.</p></div>
+    <div class="card"><h3>Styrning</h3><p>Programmet bestämmer temperatur, tid, vattennivå och rotation.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌍 Teknikens konsekvenser</h2><p>Teknik kan skapa både möjligheter och problem.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Fördelar</h3><p>Kan spara tid, öka säkerhet, förbättra kommunikation och lösa praktiska problem.</p></div>
+    <div class="card"><h3>Nackdelar</h3><p>Kan kräva mycket energi och material, skapa avfall eller göra samhället beroende av komplicerade system.</p></div>
+    <div class="card"><h3>Val</h3><p>Teknik behöver bedömas utifrån funktion, kostnad, miljö, säkerhet och användarnas behov.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>♿ Tillgänglig teknik</h2><p>Tekniska lösningar kan utformas för att fler människor ska kunna använda dem.</p></div>
+  <div class="grid-3">
+    <div class="everyday"><strong>Automatiska dörrar</strong><p>Underlättar för personer med rörelsehinder och för den som bär något.</p></div>
+    <div class="everyday"><strong>Hissar</strong><p>Gör byggnader mer tillgängliga.</p></div>
+    <div class="everyday"><strong>Tal och förstoring</strong><p>Digitala funktioner kan stödja användare med syn- eller lässvårigheter.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+  <div class="grid-4">
+    <div class="concept"><strong>Teknisk lösning</strong>En lösning som människor utvecklat för ett behov eller problem.</div>
+    <div class="concept"><strong>Funktion</strong>Det en produkt eller ett system ska göra.</div>
+    <div class="concept"><strong>Komponent</strong>En del i en större teknisk lösning.</div>
+    <div class="concept"><strong>System</strong>Flera delar som samverkar.</div>
+    <div class="concept"><strong>Styrning</strong>Hur en teknisk lösning kontrolleras.</div>
+    <div class="concept"><strong>Sensor</strong>Komponent som känner av något.</div>
+    <div class="concept"><strong>Tillgänglighet</strong>Hur väl en lösning kan användas av olika människor.</div>
+    <div class="concept"><strong>Konsekvens</strong>En följd av att en teknisk lösning används.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Vanliga missuppfattningar</h2></div>
+  <div class="grid-3">
+    <div class="mistake"><h3>Teknik är bara digitalt</h3><p class="wrong">❌ Bara datorer och mobiler är teknik.</p><p class="right">✅ Teknik omfattar allt från saxar och broar till digitala system.</p></div>
+    <div class="mistake"><h3>Ny teknik är alltid bättre</h3><p class="wrong">❌ Nyast betyder automatiskt bäst.</p><p class="right">✅ Teknik måste bedömas efter funktion, hållbarhet, säkerhet, kostnad och behov.</p></div>
+    <div class="mistake"><h3>En produkt består bara av en lösning</h3><p class="wrong">❌ En tvättmaskin har bara en teknisk funktion.</p><p class="right">✅ Många produkter innehåller flera delsystem som samverkar.</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Nivå 1</h3><p>Hitta teknik omkring dig.</p><button onclick="showLevel(1)">Öppna nivå 1</button></div>
+    <div class="level level2"><h3>🚀 Nivå 2</h3><p>Funktion, delar och system.</p><button onclick="showLevel(2)">Öppna nivå 2</button></div>
+    <div class="level level3"><h3>🏆 Nivå 3</h3><p>Konsekvenser och förbättringar.</p><button onclick="showLevel(3)">Öppna nivå 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Nivå 1</h3>
+    <div class="task"><label>1. Är en sax en teknisk lösning?</label><input id="a1"><br><button class="check" onclick="checkAnswer('a1',['ja'],'f1')">Kontrollera</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kallas det som en teknisk lösning ska göra?</label><input id="a2"><br><button class="check" onclick="checkAnswer('a2',['funktion','funktionen'],'f2')">Kontrollera</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Vad kallas en del i en större teknisk lösning?</label><input id="a3"><br><button class="check" onclick="checkAnswer('a3',['komponent','en komponent'],'f3')">Kontrollera</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Nivå 2</h3>
+    <div class="task"><label>1. Vad kallas flera tekniska delar som samverkar?</label><input id="b1"><br><button class="check" onclick="checkAnswer('b1',['system','ett system','tekniskt system'],'g1')">Kontrollera</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Nämn en mekanism på en cykel.</label><input id="b2"><br><button class="check" onclick="checkAnswer('b2',['kedja','drev','kugghjul','broms','bromsar','pedaler'],'g2')">Kontrollera</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Vad kan en sensor göra?</label><input id="b3"><br><button class="check" onclick="checkAnswer('b3',['känna av','kanna av','mäta','mata','registrera'],'g3')">Kontrollera</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Nivå 3</h3>
+    <div class="task"><label>1. Kan teknik ha både positiva och negativa konsekvenser?</label><input id="c1"><br><button class="check" onclick="checkAnswer('c1',['ja'],'h1')">Kontrollera</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad kallas hur väl en lösning kan användas av olika människor?</label><input id="c2"><br><button class="check" onclick="checkAnswer('c2',['tillgänglighet','tillganglighet'],'h2')">Kontrollera</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Vad bör man göra om en teknisk lösning inte fungerar bra för användaren?</label><input id="c3"><br><button class="check" onclick="checkAnswer('c3',['förbättra den','forbattra den','ändra den','andra den','utveckla den'],'h3')">Kontrollera</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Vardagsteknik-quiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Nästa fråga →</button>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="section-head"><h2>🔍 Undersök vardagsteknik</h2><p>Analysera funktion, komponenter och konsekvenser.</p></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>🧊 Undersök ett kylskåp</h3>
+      <p>Vilket behov löser kylskåpet? Vilka delar eller delsystem kan du identifiera och vilka konsekvenser har användningen?</p>
+      <textarea placeholder="Skriv ditt resonemang..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Visa lösningsförslag</button>
+      <div id="sol1" class="solution">
+        Kylskåpet hjälper till att förvara mat längre genom att hålla låg temperatur. Det innehåller bland annat isolering,
+        kompressor, rörsystem, termostat eller temperatursensor, elektriska komponenter och dörrtätning.
+        Det minskar matsvinn men använder el och kräver material vid tillverkning.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🏫 Förbättra skolans teknik</h3>
+      <p>Välj en teknisk lösning i skolan som skulle kunna bli bättre. Vad fungerar mindre bra och hur skulle du förbättra den?</p>
+      <textarea placeholder="Beskriv problemet och din förbättring..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Visa exempel</button>
+      <div id="sol2" class="solution">
+        Exempel: en tung dörr kan förbättras med automatisk öppnare och sensor. Det kan öka tillgängligheten.
+        Man behöver samtidigt tänka på säkerhet, energianvändning, underhåll och kostnad.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+  <div class="grid-2">
+    <div class="support"><h3>🆘 Jag behöver hjälp</h3><ul><li>Välj en vardagsprodukt.</li><li>Fråga vilket behov den löser.</li><li>Lista minst tre delar.</li><li>Förklara vad varje del gör.</li><li>Nämn en fördel och en nackdel.</li></ul></div>
+    <div class="support"><h3>🚀 Jag vill utmanas</h3><ul><li>Analysera en produkt som ett helt tekniskt system.</li><li>Beskriv energi-, material- och informationsflöden.</li><li>Föreslå en förbättring för högre tillgänglighet.</li><li>Resonera om produktens miljöpåverkan under hela livscykeln.</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Kunskapscheck</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> Jag kan identifiera teknik i hem, skola och samhälle.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara vilket behov en teknisk lösning möter.</label>
+    <label><input class="goal" type="checkbox"> Jag kan beskriva funktion och komponenter.</label>
+    <label><input class="goal" type="checkbox"> Jag kan förklara hur flera delar samverkar i ett system.</label>
+    <label><input class="goal" type="checkbox"> Jag kan ge exempel på digital teknik och sensorer.</label>
+    <label><input class="goal" type="checkbox"> Jag kan resonera om tillgänglighet.</label>
+    <label><input class="goal" type="checkbox"> Jag kan beskriva positiva och negativa konsekvenser.</label>
+    <label><input class="goal" type="checkbox"> Jag kan föreslå och motivera förbättringar av vardagsteknik.</label>
+    <button class="goal-btn" onclick="checkGoals()">Se min progression</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer><strong>🏠 Teknik i vardagen • Teknik åk 6</strong><br>Behov • Funktion • Komponenter • System • Tillgänglighet • Konsekvenser</footer>
+
+<script>
+var quizQuestions=[
+{q:"Vad är en teknisk lösning?",a:["En lösning som människor utvecklat för ett behov eller problem","Endast en dator","Bara elektricitet","En naturhändelse"],c:"En lösning som människor utvecklat för ett behov eller problem",e:"Tekniska lösningar skapas för att möta behov eller lösa problem."},
+{q:"Vilket är exempel på teknik?",a:["En sax","Bara en mobiltelefon","Endast en dator","Endast en robot"],c:"En sax",e:"Även enkla verktyg är tekniska lösningar."},
+{q:"Vad kallas det en produkt ska göra?",a:["Funktion","Färg","Pris","Ålder"],c:"Funktion",e:"Funktionen beskriver produktens uppgift."},
+{q:"Vad är en komponent?",a:["En del i en större teknisk lösning","Ett helt samhälle","En användare","En ritning"],c:"En del i en större teknisk lösning",e:"Komponenter samverkar ofta i produkter och system."},
+{q:"Vilket är ett exempel på ett tekniskt system i samhället?",a:["Vattenförsörjning","En ensam sten","Ett träd","Ett moln"],c:"Vattenförsörjning",e:"Vattenförsörjningen består av många tekniska delar som samverkar."},
+{q:"Vad gör en sensor?",a:["Känner av något","Skapar alltid energi","Ersätter alla mekanismer","Är samma sak som en motor"],c:"Känner av något",e:"Sensorer kan mäta eller registrera till exempel ljus, rörelse eller temperatur."},
+{q:"Vad betyder tillgänglighet?",a:["Hur väl en lösning kan användas av olika människor","Hur dyr tekniken är","Hur snabbt den tillverkas","Vilken färg den har"],c:"Hur väl en lösning kan användas av olika människor",e:"Tillgänglig teknik tar hänsyn till olika användares behov."},
+{q:"Kan teknik ge både fördelar och nackdelar?",a:["Ja","Nej","Bara digital teknik","Bara gammal teknik"],c:"Ja",e:"Teknik kan skapa nytta men också påverka miljö, resurser, säkerhet och samhälle."}
+];
+
+var order=[],current=0,score=0,answered=0;
+function normalize(v){return v.trim().toLowerCase().replace(/\s+/g," ")}
+function showLevel(n){
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  var s=document.getElementById("level"+n);s.classList.add("active");
+  s.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function checkAnswer(id,answers,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=answers.some(function(a){return value===normalize(a)});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Rätt! Bra jobbat.":"❌ Inte riktigt. Försök igen."
+}
+function toggleSolution(id){var b=document.getElementById(id);b.style.display=b.style.display==="block"?"none":"block"}
+function shuffle(a){var c=a.slice();for(var i=c.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=c[i];c[i]=c[j];c[j]=t}return c}
+function startQuiz(){order=shuffle([0,1,2,3,4,5,6,7]);current=0;score=0;answered=0;renderQuestion()}
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+  var box=document.getElementById("answers");box.innerHTML="";
+  shuffle(item.a).forEach(function(choice){
+    var b=document.createElement("button");b.className="answer";b.type="button";b.textContent=choice;
+    b.onclick=function(){answerQuestion(choice,item.c,item.e)};box.appendChild(b)
+  });
+  var f=document.getElementById("quizFeedback");f.style.display="none";f.innerHTML="";
+  document.getElementById("nextBtn").style.display="none";updateScore()
+}
+function answerQuestion(choice,correct,exp){
+  document.querySelectorAll(".answer").forEach(function(b){b.disabled=true});answered++;
+  var f=document.getElementById("quizFeedback");f.style.display="block";
+  if(choice===correct){score++;f.style.background="#dcfce7";f.style.color="#166534";f.innerHTML="✅ Rätt! "+exp}
+  else{f.style.background="#fee2e2";f.style.color="#991b1b";f.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+exp}
+  updateScore();document.getElementById("nextBtn").style.display="inline-block"
+}
+function nextQuestion(){
+  current++;
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML="<h3>🎉 Quizet är klart!</h3><p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return
+  }
+  renderQuestion()
+}
+function updateScore(){document.getElementById("score").textContent="Poäng: "+score+" / "+answered}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 Alla mål markerade!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  else r.textContent="👣 Börja med behov, funktion, komponent och system."
+}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
