@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Krafter och rörelse – NO åk 6</title>
+
+<style>
+:root{
+  --bg:#f7f9fc;
+  --dark:#0f172a;
+  --text:#1f2937;
+  --muted:#64748b;
+  --blue:#2563eb;
+  --blue2:#1d4ed8;
+  --cyan:#0891b2;
+  --green:#16a34a;
+  --orange:#ea580c;
+  --red:#dc2626;
+  --purple:#7c3aed;
+  --card:#ffffff;
+  --border:#e2e8f0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:white;
+  padding:12px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{
+  color:#334155;
+  font-weight:800;
+  padding:8px 11px;
+  border-radius:10px;
+}
+.navlinks a:hover{background:#dbeafe;color:#1d4ed8}
+.navlinks .home{background:var(--blue);color:white}
+
+.hero{
+  background:
+    radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+    linear-gradient(135deg,#2563eb,#1d4ed8,#0f172a);
+  color:white;
+  padding:72px 6% 100px;
+}
+.hero-inner{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:35px;
+  align-items:center;
+}
+.hero h1{
+  margin:0 0 16px;
+  font-size:clamp(3rem,8vw,5rem);
+  line-height:1;
+}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{
+  background:white;
+  color:#1e3a8a;
+  border-radius:24px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 18px 50px rgba(0,0,0,.2);
+}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-top:-42px;
+}
+.overview div{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:800;
+  box-shadow:0 10px 28px rgba(0,0,0,.09);
+}
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+.card h3{margin-top:0;color:var(--dark)}
+
+.fact{
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+  border-radius:14px;
+  padding:15px;
+  font-weight:800;
+  color:#1e3a8a;
+  margin:14px 0;
+}
+.tip{
+  background:#eff6ff;
+  border-left:5px solid var(--blue);
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+.step{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  padding:13px;
+  border-radius:12px;
+  margin-top:10px;
+}
+.force{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--blue);
+}
+.force strong{display:block;color:#1d4ed8;margin-bottom:6px}
+
+.concept{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 5px 16px rgba(0,0,0,.05);
+}
+.concept strong{display:block;color:#1d4ed8;margin-bottom:5px}
+
+.mistake{
+  background:white;
+  border-top:5px solid var(--red);
+  border-radius:16px;
+  padding:20px;
+}
+.wrong{color:#b91c1c;font-weight:800}
+.right{color:#166534;font-weight:800}
+
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.level{
+  color:white;
+  border-radius:22px;
+  padding:24px;
+}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{
+  border:none;
+  background:white;
+  color:#111827;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+.panel{
+  display:none;
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  margin-top:18px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+.panel.active{display:block}
+
+.task{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  margin:12px 0;
+}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input{
+  padding:10px;
+  border:1px solid #cbd5e1;
+  border-radius:9px;
+  width:100%;
+  max-width:360px;
+}
+.check{
+  margin-top:9px;
+  background:var(--blue);
+  color:white;
+  border:none;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+.feedback{
+  display:none;
+  margin-top:9px;
+  padding:10px;
+  border-radius:9px;
+  font-weight:800;
+}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{
+  background:#0f172a;
+  color:white;
+  border-radius:24px;
+  padding:28px;
+}
+.quiz-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.score{
+  background:#1e293b;
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:900;
+}
+.quiz-card{
+  background:#1e293b;
+  border-radius:16px;
+  padding:22px;
+  margin-top:18px;
+}
+.answers{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.answer{
+  border:none;
+  background:white;
+  color:#1f2937;
+  padding:14px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  text-align:left;
+}
+.answer:hover{background:#dbeafe}
+.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{
+  display:none;
+  margin-top:14px;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+}
+#nextBtn{
+  display:none;
+  margin-top:12px;
+  border:none;
+  background:#facc15;
+  color:#111827;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.problem{
+  background:linear-gradient(135deg,#dbeafe,#cffafe);
+  border-radius:24px;
+  padding:28px;
+}
+.problem-card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  margin-top:15px;
+}
+.problem textarea{
+  width:100%;
+  min-height:115px;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  resize:vertical;
+  margin-top:12px;
+}
+.reveal{
+  margin-top:10px;
+  border:none;
+  background:#1d4ed8;
+  color:white;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+.solution{
+  display:none;
+  background:#f8fafc;
+  border-radius:10px;
+  padding:14px;
+  margin-top:12px;
+}
+
+.support{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+.checklist label{
+  display:flex;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+.checklist input{width:19px;height:19px}
+.goal-btn{
+  margin-top:16px;
+  border:none;
+  background:var(--blue2);
+  color:white;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{
+  background:#020617;
+  color:#cbd5e1;
+  padding:34px 20px;
+  text-align:center;
+  margin-top:60px;
+}
+
+@media(max-width:900px){
+  .overview,.grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-3,.levels{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .overview{margin-top:-25px}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">🏃 Krafter och rörelse – NO åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="no.html">🔬 NO</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Resonera</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+
+    <div>
+      <h1>Krafter och rörelse</h1>
+      <p>
+        Här lär du dig hur krafter påverkar föremåls rörelse.
+        Du arbetar med tyngdkraft, friktion, balans, hastighet och hur
+        krafter kan ändra fart eller riktning.
+      </p>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-icon">🏃⚽🧲</div>
+      <h3>Kraft påverkar rörelse</h3>
+      <p>En kraft kan få något att börja röra sig, stanna eller ändra riktning.</p>
+    </div>
+
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="overview">
+    <div>⬇️ Tyngdkraft</div>
+    <div>🛞 Friktion</div>
+    <div>⚖️ Balans</div>
+    <div>🏃 Hastighet</div>
+    <div>➡️ Kraft och riktning</div>
+  </div>
+
+  <section id="forsta">
+    <div class="section-head">
+      <h2>📘 Vad är en kraft?</h2>
+      <p>En kraft är en påverkan som kan förändra ett föremåls rörelse eller form.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Trycka</h3>
+        <p>När du skjuter en dörr påverkar du den med en kraft.</p>
+      </div>
+
+      <div class="card">
+        <h3>Dra</h3>
+        <p>När du drar en pulka påverkas den av din dragkraft.</p>
+      </div>
+
+      <div class="card">
+        <h3>Ändra rörelse</h3>
+        <p>En kraft kan öka eller minska fart eller ändra riktning.</p>
+      </div>
+    </div>
+
+    <div class="fact">
+      Krafter mäts i enheten newton, som förkortas N.
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>⬇️ Tyngdkraft</h2>
+      <p>Tyngdkraften drar föremål mot jorden.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Varför faller saker?</h3>
+        <p>
+          Jorden drar föremål mot sitt centrum. Därför faller en boll mot marken när du släpper den.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Tyngd och massa</h3>
+        <p>
+          Massa beskriver hur mycket materia något innehåller.
+          Tyngd är kraften som gravitationen påverkar föremålet med.
+        </p>
+        <div class="tip">Massa mäts i kilogram, medan kraft mäts i newton.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🛞 Friktion</h2>
+      <p>Friktion är en kraft som motverkar rörelse mellan ytor.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="force">
+        <strong>👟 Mycket friktion</strong>
+        <p>Skor med bra grepp hjälper oss att inte halka.</p>
+      </div>
+
+      <div class="force">
+        <strong>🧊 Lite friktion</strong>
+        <p>På is är friktionen liten, därför glider vi lätt.</p>
+      </div>
+
+      <div class="force">
+        <strong>🚲 Friktion behövs</strong>
+        <p>Bromsar använder friktion för att minska farten.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>⚖️ Balans och krafter</h2>
+      <p>Krafter kan vara lika stora men verka åt motsatta håll.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Balanserade krafter</h3>
+        <p>
+          En bok som ligger still på ett bord påverkas nedåt av tyngdkraften och uppåt av bordets kraft.
+        </p>
+        <div class="tip">Krafterna är balanserade, därför ändras inte bokens rörelse.</div>
+      </div>
+
+      <div class="card">
+        <h3>Obalanserade krafter</h3>
+        <p>
+          Om en större kraft verkar åt ena hållet kan föremålet börja accelerera åt det hållet.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🏃 Hastighet</h2>
+      <p>Hastighet beskriver hur långt något rör sig under en viss tid.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Sträcka</h3>
+        <div class="fact">Hur långt föremålet färdas.</div>
+      </div>
+
+      <div class="card">
+        <h3>Tid</h3>
+        <div class="fact">Hur lång tid rörelsen tar.</div>
+      </div>
+
+      <div class="card">
+        <h3>Hastighet</h3>
+        <div class="fact">Hastighet = sträcka ÷ tid</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>➡️ Krafter ändrar fart och riktning</h2>
+      <p>En kraft behöver inte bara få något att gå snabbare.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Snabbare</h3>
+        <p>En spark på en stillastående boll kan öka bollens fart.</p>
+      </div>
+
+      <div class="card">
+        <h3>Långsammare</h3>
+        <p>Friktion och bromskraft kan minska fart.</p>
+      </div>
+
+      <div class="card">
+        <h3>Ny riktning</h3>
+        <p>En kraft från sidan kan få ett föremål att ändra riktning.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🧲 Magnetisk kraft</h2>
+      <p>Magneter kan påverka vissa föremål utan direkt kontakt.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Attraktion</h3>
+        <p>Olika magnetpoler dras mot varandra.</p>
+      </div>
+
+      <div class="card">
+        <h3>Repulsion</h3>
+        <p>Lika magnetpoler stöter bort varandra.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🧠 Begreppsbank</h2>
+    </div>
+
+    <div class="grid-4">
+      <div class="concept"><strong>Kraft</strong>En påverkan som kan ändra rörelse eller form.</div>
+      <div class="concept"><strong>Tyngdkraft</strong>Kraften som drar föremål mot jorden.</div>
+      <div class="concept"><strong>Friktion</strong>Kraft som motverkar rörelse mellan ytor.</div>
+      <div class="concept"><strong>Hastighet</strong>Hur långt något färdas per tidsenhet.</div>
+      <div class="concept"><strong>Massa</strong>Hur mycket materia ett föremål innehåller.</div>
+      <div class="concept"><strong>Tyngd</strong>Kraften gravitationen påverkar föremålet med.</div>
+      <div class="concept"><strong>Balans</strong>När krafter tar ut varandra.</div>
+      <div class="concept"><strong>Newton</strong>Enheten för kraft, förkortad N.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>⚠️ Vanliga missuppfattningar</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="mistake">
+        <h3>Rörelse kräver alltid kraft framåt</h3>
+        <p class="wrong">❌ Ett föremål måste hela tiden få en kraft framåt för att röra sig.</p>
+        <p class="right">✅ Krafter behövs för att förändra rörelsen, till exempel fart eller riktning.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Friktion är alltid dåligt</h3>
+        <p class="wrong">❌ Friktion ska alltid minskas.</p>
+        <p class="right">✅ Friktion behövs bland annat när vi går, cyklar och bromsar.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Massa och tyngd</h3>
+        <p class="wrong">❌ Massa och tyngd är exakt samma sak.</p>
+        <p class="right">✅ Massa mäts i kg, medan tyngd är en kraft som mäts i N.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="traning">
+    <div class="section-head">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>Klicka på en nivå. Uppgifterna öppnas direkt.</p>
+    </div>
+
+    <div class="levels">
+      <div class="level level1">
+        <h3>🌱 Nivå 1</h3>
+        <p>Grundläggande krafter.</p>
+        <button type="button" onclick="showLevel(1)">Öppna nivå 1</button>
+      </div>
+
+      <div class="level level2">
+        <h3>🚀 Nivå 2</h3>
+        <p>Friktion, balans och hastighet.</p>
+        <button type="button" onclick="showLevel(2)">Öppna nivå 2</button>
+      </div>
+
+      <div class="level level3">
+        <h3>🏆 Nivå 3</h3>
+        <p>Samband och resonemang.</p>
+        <button type="button" onclick="showLevel(3)">Öppna nivå 3</button>
+      </div>
+    </div>
+
+    <div id="level1" class="panel">
+      <h3>🌱 Nivå 1</h3>
+
+      <div class="task">
+        <label>1. Vad kallas kraften som drar föremål mot jorden?</label>
+        <input id="a1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a1',['tyngdkraft','gravitation','gravitationen'],'f1')">Kontrollera</button>
+        <div id="f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad kallas kraften som motverkar rörelse mellan två ytor?</label>
+        <input id="a2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a2',['friktion'],'f2')">Kontrollera</button>
+        <div id="f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vilken enhet används för kraft?</label>
+        <input id="a3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a3',['newton','n'],'f3')">Kontrollera</button>
+        <div id="f3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level2" class="panel">
+      <h3>🚀 Nivå 2</h3>
+
+      <div class="task">
+        <label>1. Vad händer oftast med friktionen på is: ökar eller minskar den?</label>
+        <input id="b1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b1',['minskar','den minskar','liten friktion'],'g1')">Kontrollera</button>
+        <div id="g1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Om två lika stora krafter verkar åt motsatta håll, vad är krafterna då?</label>
+        <input id="b2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b2',['balanserade','i balans','balans'],'g2')">Kontrollera</button>
+        <div id="g2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. En cyklist färdas 30 km på 2 timmar. Vilken är medelhastigheten?</label>
+        <input id="b3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b3',['15','15 km/h'],'g3')">Kontrollera</button>
+        <div id="g3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level3" class="panel">
+      <h3>🏆 Nivå 3</h3>
+
+      <div class="task">
+        <label>1. Vad kan en obalanserad kraft göra med ett föremål?</label>
+        <input id="c1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c1',['ändra rörelsen','andra rorelsen','ändra fart','andra fart','ändra riktning','andra riktning'],'h1')">Kontrollera</button>
+        <div id="h1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Vad mäts massa i?</label>
+        <input id="c2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c2',['kilogram','kg'],'h2')">Kontrollera</button>
+        <div id="h2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vad händer mellan lika magnetpoler?</label>
+        <input id="c3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c3',['de stöter bort varandra','stoter bort varandra','repulsion','stöter bort'],'h3')">Kontrollera</button>
+        <div id="h3" class="feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quiz">
+    <div class="quiz">
+      <div class="quiz-top">
+        <div>
+          <h2>🎮 Kraftquiz</h2>
+          <p>Åtta frågor. Svarsalternativen blandas.</p>
+        </div>
+        <div id="score" class="score">Poäng: 0 / 0</div>
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+        <h3 id="question"></h3>
+        <div id="answers" class="answers"></div>
+        <div id="quizFeedback"></div>
+        <button id="nextBtn" type="button" onclick="nextQuestion()">Nästa fråga →</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="section-head">
+      <h2>💬 Resonera om krafter</h2>
+      <p>Använd begrepp som kraft, friktion, tyngdkraft och hastighet.</p>
+    </div>
+
+    <div class="problem">
+      <div class="problem-card">
+        <h3>🛷 Pulkan</h3>
+        <p>
+          En pulka glider lättare på snö än på torr asfalt.
+          Förklara varför med hjälp av friktion.
+        </p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol1')">
+          Visa lösningsförslag
+        </button>
+
+        <div id="sol1" class="solution">
+          Friktionen mellan pulkan och snön är mindre än mellan pulkan och den torra asfalten.
+          Därför bromsas pulkans rörelse mindre på snön och den glider lättare.
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <h3>⚽ Fotbollen</h3>
+        <p>
+          En boll ligger still. En elev sparkar på den och bollen börjar röra sig.
+          Senare bromsas den och stannar. Vilka krafter kan ha påverkat bollen?
+        </p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol2')">
+          Visa exempel
+        </button>
+
+        <div id="sol2" class="solution">
+          Elevens spark gav bollen en kraft som satte den i rörelse.
+          När bollen rullade påverkades den bland annat av friktion mot marken och luftmotstånd,
+          vilket gjorde att farten minskade tills bollen stannade.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🌱 Stöd och utmaning</h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="support">
+        <h3>🆘 Jag behöver hjälp</h3>
+        <ul>
+          <li>Rita pilar som visar kraftens riktning.</li>
+          <li>Fråga: Vad gör att föremålet startar, bromsar eller svänger?</li>
+          <li>Fundera på om friktionen är stor eller liten.</li>
+          <li>Använd orden kraft, friktion och tyngdkraft.</li>
+        </ul>
+      </div>
+
+      <div class="support">
+        <h3>🚀 Jag vill utmanas</h3>
+        <ul>
+          <li>Förklara hur säkerhetsbälte hänger ihop med rörelse.</li>
+          <li>Jämför friktion på is, grus och asfalt.</li>
+          <li>Skapa ett experiment för att undersöka friktion.</li>
+          <li>Förklara skillnaden mellan massa och tyngd.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>✅ Kunskapscheck</h2>
+    </div>
+
+    <div class="checklist">
+      <label><input class="goal" type="checkbox"> Jag kan förklara vad en kraft är.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beskriva tyngdkraft.</label>
+      <label><input class="goal" type="checkbox"> Jag kan förklara hur friktion påverkar rörelse.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beskriva balanserade och obalanserade krafter.</label>
+      <label><input class="goal" type="checkbox"> Jag kan förklara vad hastighet är.</label>
+      <label><input class="goal" type="checkbox"> Jag känner till skillnaden mellan massa och tyngd.</label>
+      <label><input class="goal" type="checkbox"> Jag kan ge exempel på hur krafter ändrar fart eller riktning.</label>
+      <label><input class="goal" type="checkbox"> Jag kan använda naturvetenskapliga begrepp i ett resonemang.</label>
+
+      <button class="goal-btn" type="button" onclick="checkGoals()">Se min progression</button>
+      <div id="goalResult"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <strong>🏃 Krafter och rörelse • NO åk 6</strong><br>
+  Kraft • Tyngdkraft • Friktion • Balans • Hastighet
+</footer>
+
+<script>
+var quizQuestions = [
+  {
+    q:"Vad är en kraft?",
+    a:["En påverkan som kan ändra rörelse eller form","Bara en hastighet","En temperatur","En sorts energi"],
+    c:"En påverkan som kan ändra rörelse eller form",
+    e:"En kraft kan till exempel starta, bromsa eller ändra riktning på en rörelse."
+  },
+  {
+    q:"Vad kallas kraften som drar föremål mot jorden?",
+    a:["Tyngdkraft","Friktion","Magnetism","Ljud"],
+    c:"Tyngdkraft",
+    e:"Tyngdkraften drar föremål mot jorden."
+  },
+  {
+    q:"Vad är friktion?",
+    a:["En kraft som motverkar rörelse mellan ytor","En kraft som alltid ökar farten","Samma sak som massa","En energikälla"],
+    c:"En kraft som motverkar rörelse mellan ytor",
+    e:"Friktion bromsar ofta rörelse mellan ytor."
+  },
+  {
+    q:"Vilken enhet används för kraft?",
+    a:["Newton","Kilogram","Meter","Sekund"],
+    c:"Newton",
+    e:"Kraft mäts i newton, N."
+  },
+  {
+    q:"Vad händer om två lika stora krafter verkar åt motsatta håll?",
+    a:["De kan vara balanserade","Föremålet måste explodera","Tyngdkraften försvinner","Friktionen blir noll"],
+    c:"De kan vara balanserade",
+    e:"Lika stora motriktade krafter kan ta ut varandra."
+  },
+  {
+    q:"Vad händer oftast med friktionen på is jämfört med torr asfalt?",
+    a:["Den är mindre","Den är alltid större","Den är exakt lika","Den försvinner helt"],
+    c:"Den är mindre",
+    e:"Is ger ofta mindre friktion än torr asfalt."
+  },
+  {
+    q:"Hur beräknas medelhastighet?",
+    a:["Sträcka ÷ tid","Tid ÷ sträcka","Sträcka + tid","Tid · tid"],
+    c:"Sträcka ÷ tid",
+    e:"Medelhastighet beskriver sträcka per tidsenhet."
+  },
+  {
+    q:"Vad händer mellan lika magnetpoler?",
+    a:["De stöter bort varandra","De dras alltid ihop","De blir varmare","De tappar sin massa"],
+    c:"De stöter bort varandra",
+    e:"Lika poler repellerar varandra."
+  }
+];
+
+var order=[];
+var current=0;
+var score=0;
+var answered=0;
+
+function normalize(value){
+  return value.trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function showLevel(number){
+  document.querySelectorAll(".panel").forEach(function(panel){
+    panel.classList.remove("active");
+  });
+
+  var selected=document.getElementById("level"+number);
+  selected.classList.add("active");
+  selected.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function checkAnswer(inputId,correctAnswers,feedbackId){
+  var value=normalize(document.getElementById(inputId).value);
+  var feedback=document.getElementById(feedbackId);
+
+  var correct=correctAnswers.some(function(answer){
+    return value===normalize(answer);
+  });
+
+  if(correct){
+    feedback.className="feedback good";
+    feedback.textContent="✅ Rätt! Bra jobbat.";
+  }else{
+    feedback.className="feedback bad";
+    feedback.textContent="❌ Inte riktigt. Försök igen.";
+  }
+}
+
+function toggleSolution(id){
+  var box=document.getElementById(id);
+  box.style.display=box.style.display==="block" ? "none" : "block";
+}
+
+function shuffle(array){
+  var copy=array.slice();
+
+  for(var i=copy.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var temp=copy[i];
+    copy[i]=copy[j];
+    copy[j]=temp;
+  }
+
+  return copy;
+}
+
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;
+  score=0;
+  answered=0;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+
+  var answerBox=document.getElementById("answers");
+  answerBox.innerHTML="";
+
+  shuffle(item.a).forEach(function(choice){
+    var button=document.createElement("button");
+    button.type="button";
+    button.className="answer";
+    button.textContent=choice;
+
+    button.onclick=function(){
+      answerQuestion(choice,item.c,item.e);
+    };
+
+    answerBox.appendChild(button);
+  });
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="none";
+  feedback.innerHTML="";
+
+  document.getElementById("nextBtn").style.display="none";
+  updateScore();
+}
+
+function answerQuestion(choice,correct,explanation){
+  document.querySelectorAll(".answer").forEach(function(button){
+    button.disabled=true;
+  });
+
+  answered++;
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="block";
+
+  if(choice===correct){
+    score++;
+    feedback.style.background="#dcfce7";
+    feedback.style.color="#166534";
+    feedback.innerHTML="✅ Rätt! "+explanation;
+  }else{
+    feedback.style.background="#fee2e2";
+    feedback.style.color="#991b1b";
+    feedback.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+explanation;
+  }
+
+  updateScore();
+  document.getElementById("nextBtn").style.display="inline-block";
+}
+
+function nextQuestion(){
+  current++;
+
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quizet är klart!</h3>"+
+      "<p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p>"+
+      "<button type='button' style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return;
+  }
+
+  renderQuestion();
+}
+
+function updateScore(){
+  document.getElementById("score").textContent="Poäng: "+score+" / "+answered;
+}
+
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal");
+  var checked=0;
+
+  goals.forEach(function(goal){
+    if(goal.checked){checked++}
+  });
+
+  var result=document.getElementById("goalResult");
+
+  if(checked===goals.length){
+    result.textContent="🏆 Alla mål markerade!";
+  }else if(checked>=6){
+    result.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  }else if(checked>=3){
+    result.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  }else{
+    result.textContent="👣 Börja med kraft, tyngdkraft och friktion.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  startQuiz();
+});
+</script>
+
+</body>
+</html>
