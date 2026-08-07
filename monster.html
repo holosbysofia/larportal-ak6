@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mönster – Matematik åk 6</title>
+
+<style>
+:root{
+  --bg:#f7f8fc;
+  --dark:#0f172a;
+  --text:#1f2937;
+  --muted:#64748b;
+  --indigo:#4f46e5;
+  --indigo2:#3730a3;
+  --blue:#2563eb;
+  --green:#059669;
+  --orange:#ea580c;
+  --purple:#7c3aed;
+  --red:#dc2626;
+  --card:#ffffff;
+  --border:#e2e8f0;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:white;
+  padding:12px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+
+.navlinks a{
+  color:#334155;
+  font-weight:800;
+  padding:8px 11px;
+  border-radius:10px;
+}
+
+.navlinks a:hover{
+  background:#e0e7ff;
+  color:#3730a3;
+}
+
+.navlinks .home{
+  background:var(--indigo);
+  color:white;
+}
+
+.hero{
+  background:
+    radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+    linear-gradient(135deg,#4f46e5,#4338ca,#312e81);
+  color:white;
+  padding:72px 6% 100px;
+}
+
+.hero-inner{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:35px;
+  align-items:center;
+}
+
+.hero h1{
+  margin:0 0 16px;
+  font-size:clamp(3rem,8vw,5.4rem);
+  line-height:1;
+}
+
+.hero p{
+  font-size:1.18rem;
+  max-width:720px;
+}
+
+.hero-card{
+  background:white;
+  color:#3730a3;
+  border-radius:24px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 18px 50px rgba(0,0,0,.2);
+}
+
+.pattern-big{
+  font-size:2rem;
+  font-weight:900;
+  letter-spacing:4px;
+  margin:16px 0;
+}
+
+.wrap{
+  max-width:1180px;
+  margin:auto;
+  padding:0 20px 70px;
+}
+
+.overview{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-top:-42px;
+}
+
+.overview div{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:800;
+  box-shadow:0 10px 28px rgba(0,0,0,.09);
+}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+
+.card h3{margin-top:0;color:var(--dark)}
+
+.formula{
+  background:#eef2ff;
+  border:1px solid #c7d2fe;
+  border-radius:14px;
+  padding:15px;
+  text-align:center;
+  font-size:1.45rem;
+  font-weight:900;
+  color:#3730a3;
+  margin:14px 0;
+}
+
+.tip{
+  background:#eef2ff;
+  border-left:5px solid var(--indigo);
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+
+.step{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  padding:13px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+.figure-row{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  align-items:flex-end;
+  margin-top:18px;
+}
+
+.figure{
+  background:white;
+  border-radius:14px;
+  padding:14px;
+  min-width:110px;
+  text-align:center;
+  box-shadow:0 4px 14px rgba(0,0,0,.05);
+}
+
+.blocks{
+  display:flex;
+  gap:4px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:8px;
+}
+
+.block{
+  width:24px;
+  height:24px;
+  background:#4f46e5;
+  border-radius:5px;
+}
+
+.concept{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 5px 16px rgba(0,0,0,.05);
+}
+
+.concept strong{
+  display:block;
+  color:#3730a3;
+  margin-bottom:5px;
+}
+
+.mistake{
+  background:white;
+  border-top:5px solid var(--red);
+  border-radius:16px;
+  padding:20px;
+}
+
+.wrong{color:#b91c1c;font-weight:800}
+.right{color:#166534;font-weight:800}
+
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.level{
+  color:white;
+  border-radius:22px;
+  padding:24px;
+}
+
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#4f46e5,#3730a3)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+
+.level button{
+  border:none;
+  background:white;
+  color:#111827;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.panel{
+  display:none;
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  margin-top:18px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+}
+
+.panel.active{display:block}
+
+.task{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  margin:12px 0;
+}
+
+.task label{
+  display:block;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.task input{
+  padding:10px;
+  border:1px solid #cbd5e1;
+  border-radius:9px;
+  width:100%;
+  max-width:320px;
+}
+
+.check{
+  margin-top:9px;
+  background:var(--indigo);
+  color:white;
+  border:none;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.feedback{
+  display:none;
+  margin-top:9px;
+  padding:10px;
+  border-radius:9px;
+  font-weight:800;
+}
+
+.feedback.good{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
+}
+
+.feedback.bad{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.quiz{
+  background:#0f172a;
+  color:white;
+  border-radius:24px;
+  padding:28px;
+}
+
+.quiz-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.score{
+  background:#1e293b;
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:900;
+}
+
+.quiz-card{
+  background:#1e293b;
+  border-radius:16px;
+  padding:22px;
+  margin-top:18px;
+}
+
+.answers{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.answer{
+  border:none;
+  background:white;
+  color:#1f2937;
+  padding:14px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  text-align:left;
+}
+
+.answer:hover{background:#e0e7ff}
+.answer:disabled{opacity:.75;cursor:default}
+
+#quizFeedback{
+  display:none;
+  margin-top:14px;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+}
+
+#nextBtn{
+  display:none;
+  margin-top:12px;
+  border:none;
+  background:#facc15;
+  color:#111827;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.problem{
+  background:linear-gradient(135deg,#e0e7ff,#ede9fe);
+  border-radius:24px;
+  padding:28px;
+}
+
+.problem-card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  margin-top:15px;
+}
+
+.problem textarea{
+  width:100%;
+  min-height:115px;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  resize:vertical;
+  margin-top:12px;
+}
+
+.reveal{
+  margin-top:10px;
+  border:none;
+  background:#3730a3;
+  color:white;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.solution{
+  display:none;
+  background:#f8fafc;
+  border-radius:10px;
+  padding:14px;
+  margin-top:12px;
+}
+
+.support{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+.checklist label{
+  display:flex;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.checklist input{
+  width:19px;
+  height:19px;
+}
+
+.goal-btn{
+  margin-top:16px;
+  border:none;
+  background:var(--indigo2);
+  color:white;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+#goalResult{
+  margin-top:12px;
+  font-weight:900;
+}
+
+footer{
+  background:#020617;
+  color:#cbd5e1;
+  padding:34px 20px;
+  text-align:center;
+  margin-top:60px;
+}
+
+@media(max-width:900px){
+  .overview,.grid-4{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .grid-3,.levels{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:700px){
+  .hero-inner,.grid-2,.overview,.answers{
+    grid-template-columns:1fr;
+  }
+
+  .hero-card{
+    display:none;
+  }
+
+  .overview{
+    margin-top:-25px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">🔁 Mönster – Matematik åk 6</div>
+
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="matematik.html">🔢 Matematik</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Problem</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+
+    <div>
+      <h1>Mönster</h1>
+      <p>
+        Här tränar du på att upptäcka regler i talföljder och figurmönster,
+        beskriva hur ett mönster förändras och använda regler för att förutsäga nästa steg.
+      </p>
+    </div>
+
+    <div class="hero-card">
+      <div style="font-size:2rem;">🔎 Hitta regeln</div>
+      <div class="pattern-big">3, 6, 9, 12, ?</div>
+      <strong>+3 varje gång → nästa tal är 15</strong>
+    </div>
+
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="overview">
+    <div>🔢 Talföljder</div>
+    <div>🟦 Figurmönster</div>
+    <div>🧠 Regler</div>
+    <div>📈 Förändring</div>
+    <div>💬 Resonemang</div>
+  </div>
+
+  <section id="forsta">
+    <div class="section-head">
+      <h2>📘 Vad är ett mönster?</h2>
+      <p>Ett matematiskt mönster följer en regel som går att upptäcka och beskriva.</p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>🔢 Talmönster</h3>
+        <div class="formula">2, 4, 6, 8, 10, ...</div>
+        <p>Regeln är +2 varje gång.</p>
+      </div>
+
+      <div class="card">
+        <h3>🔁 Upprepande mönster</h3>
+        <div class="formula">▲ ● ▲ ● ▲ ● ...</div>
+        <p>Två symboler upprepas om och om igen.</p>
+      </div>
+
+      <div class="card">
+        <h3>🟦 Växande mönster</h3>
+        <p>Antalet delar ökar på ett bestämt sätt från steg till steg.</p>
+        <div class="tip">Fråga alltid: Vad förändras? Hur mycket?</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🔢 Talföljder</h2>
+      <p>En talföljd består av tal som följer en regel.</p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>Ökar med samma tal</h3>
+        <div class="formula">5, 8, 11, 14, 17</div>
+        <div class="step">Regel: +3 varje gång</div>
+      </div>
+
+      <div class="card">
+        <h3>Minskar med samma tal</h3>
+        <div class="formula">30, 25, 20, 15, 10</div>
+        <div class="step">Regel: −5 varje gång</div>
+      </div>
+
+      <div class="card">
+        <h3>Multipliceras</h3>
+        <div class="formula">2, 4, 8, 16, 32</div>
+        <div class="step">Regel: ·2 varje gång</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🟦 Figurmönster</h2>
+      <p>I ett figurmönster undersöker vi hur antalet delar förändras.</p>
+    </div>
+
+    <div class="figure-row">
+
+      <div class="figure">
+        <strong>Steg 1</strong>
+        <div class="blocks">
+          <div class="block"></div>
+        </div>
+        <p>1 ruta</p>
+      </div>
+
+      <div class="figure">
+        <strong>Steg 2</strong>
+        <div class="blocks">
+          <div class="block"></div>
+          <div class="block"></div>
+          <div class="block"></div>
+        </div>
+        <p>3 rutor</p>
+      </div>
+
+      <div class="figure">
+        <strong>Steg 3</strong>
+        <div class="blocks">
+          <div class="block"></div>
+          <div class="block"></div>
+          <div class="block"></div>
+          <div class="block"></div>
+          <div class="block"></div>
+        </div>
+        <p>5 rutor</p>
+      </div>
+
+      <div class="figure">
+        <strong>Steg 4</strong>
+        <div class="blocks">
+          <div class="block"></div>
+          <div class="block"></div>
+          <div class="block"></div>
+          <div class="block"></div>
+          <div class="block"></div>
+          <div class="block"></div>
+          <div class="block"></div>
+        </div>
+        <p>7 rutor</p>
+      </div>
+
+    </div>
+
+    <div class="tip">
+      Mönstret har 1, 3, 5, 7 ... rutor. Det ökar med 2 rutor för varje nytt steg.
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🧠 Beskriv regeln</h2>
+      <p>En regel ska vara så tydlig att någon annan kan fortsätta mönstret.</p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Exempel 1</h3>
+        <div class="formula">4, 7, 10, 13, ...</div>
+        <p>Regel: börja på 4 och öka med 3 varje gång.</p>
+      </div>
+
+      <div class="card">
+        <h3>Exempel 2</h3>
+        <div class="formula">50, 45, 40, 35, ...</div>
+        <p>Regel: börja på 50 och minska med 5 varje gång.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>📋 Tabell hjälper dig se förändringen</h2>
+    </div>
+
+    <div class="card">
+
+      <div class="step"><strong>Steg 1</strong> → 4 delar</div>
+      <div class="step"><strong>Steg 2</strong> → 7 delar</div>
+      <div class="step"><strong>Steg 3</strong> → 10 delar</div>
+      <div class="step"><strong>Steg 4</strong> → 13 delar</div>
+
+      <div class="tip">
+        Antalet delar ökar med 3 varje gång.
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🔠 Kopplingen till algebra</h2>
+      <p>Mönster kan beskrivas med bokstäver och regler.</p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Multiplikationsmönster</h3>
+        <div class="formula">3, 6, 9, 12, 15 ...</div>
+        <p>
+          Om stegnumret kallas n kan antalet beskrivas som
+          <strong>3 · n</strong>.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Exempel</h3>
+        <div class="step">Steg 1 → 3 · 1 = 3</div>
+        <div class="step">Steg 2 → 3 · 2 = 6</div>
+        <div class="step">Steg 5 → 3 · 5 = 15</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🧠 Begreppsbank</h2>
+    </div>
+
+    <div class="grid-4">
+
+      <div class="concept">
+        <strong>Mönster</strong>
+        Något som följer en regel.
+      </div>
+
+      <div class="concept">
+        <strong>Talföljd</strong>
+        Tal som följer efter varandra enligt en regel.
+      </div>
+
+      <div class="concept">
+        <strong>Figurmönster</strong>
+        Figurer eller delar som förändras enligt en regel.
+      </div>
+
+      <div class="concept">
+        <strong>Regel</strong>
+        Beskriver hur mönstret byggs eller förändras.
+      </div>
+
+      <div class="concept">
+        <strong>Steg</strong>
+        En position i mönstret.
+      </div>
+
+      <div class="concept">
+        <strong>Förändring</strong>
+        Hur mycket något ökar eller minskar.
+      </div>
+
+      <div class="concept">
+        <strong>Generalisera</strong>
+        Beskriva en regel som gäller för alla steg.
+      </div>
+
+      <div class="concept">
+        <strong>Förutsäga</strong>
+        Använda regeln för att ta reda på kommande steg.
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>⚠️ Vanliga missuppfattningar</h2>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="mistake">
+        <h3>Bara gissa nästa tal</h3>
+        <p class="wrong">❌ 2, 5, 8, 11 → jag gissar 15.</p>
+        <p class="right">✅ Undersök förändringen: +3. Nästa tal är 14.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Regeln är bara nästa tal</h3>
+        <p class="wrong">❌ Regeln är 17.</p>
+        <p class="right">✅ Regeln beskriver hur hela mönstret förändras.</p>
+      </div>
+
+      <div class="mistake">
+        <h3>Titta bara på bilden</h3>
+        <p class="wrong">❌ Jag ser att den blir större.</p>
+        <p class="right">✅ Beskriv exakt hur många delar som läggs till.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="traning">
+
+    <div class="section-head">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>Klicka på en nivå. Uppgifterna öppnas direkt.</p>
+    </div>
+
+    <div class="levels">
+
+      <div class="level level1">
+        <h3>🌱 Nivå 1</h3>
+        <p>Fortsätt enkla mönster.</p>
+        <button type="button" onclick="showLevel(1)">Öppna nivå 1</button>
+      </div>
+
+      <div class="level level2">
+        <h3>🚀 Nivå 2</h3>
+        <p>Beskriv och använd regler.</p>
+        <button type="button" onclick="showLevel(2)">Öppna nivå 2</button>
+      </div>
+
+      <div class="level level3">
+        <h3>🏆 Nivå 3</h3>
+        <p>Generalisera och resonera.</p>
+        <button type="button" onclick="showLevel(3)">Öppna nivå 3</button>
+      </div>
+
+    </div>
+
+    <div id="level1" class="panel">
+
+      <h3>🌱 Nivå 1</h3>
+
+      <div class="task">
+        <label>1. 2, 4, 6, 8, ... Vilket tal kommer sedan?</label>
+        <input id="a1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a1',['10'],'f1')">Kontrollera</button>
+        <div id="f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. 20, 17, 14, 11, ... Vilket tal kommer sedan?</label>
+        <input id="a2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a2',['8'],'f2')">Kontrollera</button>
+        <div id="f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. 5, 10, 15, 20, ... Vilket tal kommer sedan?</label>
+        <input id="a3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('a3',['25'],'f3')">Kontrollera</button>
+        <div id="f3" class="feedback"></div>
+      </div>
+
+    </div>
+
+    <div id="level2" class="panel">
+
+      <h3>🚀 Nivå 2</h3>
+
+      <div class="task">
+        <label>1. 7, 11, 15, 19, ... Hur mycket ökar mönstret varje gång?</label>
+        <input id="b1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b1',['4','+4'],'g1')">Kontrollera</button>
+        <div id="g1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. 40, 34, 28, 22, ... Vilket tal kommer sedan?</label>
+        <input id="b2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b2',['16'],'g2')">Kontrollera</button>
+        <div id="g2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Mönstret är 3, 6, 9, 12, ... Vad är talet i steg 6?</label>
+        <input id="b3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('b3',['18'],'g3')">Kontrollera</button>
+        <div id="g3" class="feedback"></div>
+      </div>
+
+    </div>
+
+    <div id="level3" class="panel">
+
+      <h3>🏆 Nivå 3</h3>
+
+      <div class="task">
+        <label>1. Ett mönster har 4, 7, 10, 13 ... delar. Hur många delar finns i steg 10?</label>
+        <input id="c1" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c1',['31'],'h1')">Kontrollera</button>
+        <div id="h1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Regeln är 5 · n. Hur många delar finns i steg 8?</label>
+        <input id="c2" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c2',['40'],'h2')">Kontrollera</button>
+        <div id="h2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Mönstret 2, 6, 10, 14 ... ökar med hur mycket varje steg?</label>
+        <input id="c3" type="text">
+        <br>
+        <button class="check" type="button" onclick="checkAnswer('c3',['4','+4'],'h3')">Kontrollera</button>
+        <div id="h3" class="feedback"></div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="quiz">
+
+    <div class="quiz">
+
+      <div class="quiz-top">
+
+        <div>
+          <h2>🎮 Mönsterquiz</h2>
+          <p>Åtta frågor. Svarsalternativen blandas.</p>
+        </div>
+
+        <div id="score" class="score">
+          Poäng: 0 / 0
+        </div>
+
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+
+        <h3 id="question"></h3>
+
+        <div id="answers" class="answers"></div>
+
+        <div id="quizFeedback"></div>
+
+        <button id="nextBtn" type="button" onclick="nextQuestion()">
+          Nästa fråga →
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="problem">
+
+    <div class="section-head">
+      <h2>🧩 Problemlösning</h2>
+      <p>Använd mönstrets regel för att lösa problemet.</p>
+    </div>
+
+    <div class="problem">
+
+      <div class="problem-card">
+
+        <h3>🪑 Stolar i rader</h3>
+
+        <p>
+          På rad 1 står 4 stolar.
+          På rad 2 står 7 stolar.
+          På rad 3 står 10 stolar.
+          Mönstret fortsätter på samma sätt.
+        </p>
+
+        <p>
+          <strong>
+            Hur många stolar står på rad 8?
+          </strong>
+        </p>
+
+        <textarea placeholder="Skriv hur du tänker och räknar..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol1')">
+          Visa lösningsförslag
+        </button>
+
+        <div id="sol1" class="solution">
+          Mönstret ökar med 3 stolar varje rad.<br><br>
+
+          Rad 1 = 4<br>
+          Rad 2 = 7<br>
+          Rad 3 = 10<br>
+          Rad 4 = 13<br>
+          Rad 5 = 16<br>
+          Rad 6 = 19<br>
+          Rad 7 = 22<br>
+          Rad 8 = 25<br><br>
+
+          <strong>Svar: På rad 8 står 25 stolar.</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>💬 Resonemangsutmaning</h2>
+    </div>
+
+    <div class="problem">
+
+      <div class="problem-card">
+
+        <p>
+          Två elever tittar på talföljden 5, 8, 11, 14, ...
+        </p>
+
+        <p>
+          Elev A säger: “Nästa tal är 17.”<br>
+          Elev B säger: “Regeln är +3.”
+        </p>
+
+        <p>
+          <strong>
+            Vem beskriver mönstret bäst? Förklara.
+          </strong>
+        </p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+        <br>
+
+        <button class="reveal" type="button" onclick="toggleSolution('sol2')">
+          Visa ledtråd
+        </button>
+
+        <div id="sol2" class="solution">
+          Elev A har rätt om nästa tal, men Elev B beskriver själva regeln.
+          Regeln +3 fungerar för alla steg i talföljden och säger mer om mönstret.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>🌱 Stöd och utmaning</h2>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="support">
+
+        <h3>🆘 Jag behöver hjälp</h3>
+
+        <ul>
+          <li>Jämför två tal som ligger bredvid varandra.</li>
+          <li>Fråga: Hur mycket ökade eller minskade det?</li>
+          <li>Skriv skillnaden mellan varje steg.</li>
+          <li>Gör en tabell om mönstret är svårt att se.</li>
+        </ul>
+
+      </div>
+
+      <div class="support">
+
+        <h3>🚀 Jag vill utmanas</h3>
+
+        <ul>
+          <li>Skapa en egen talföljd och skriv regeln.</li>
+          <li>Skapa ett figurmönster som ökar med 4 delar per steg.</li>
+          <li>Beskriv ett mönster med en algebraisk regel.</li>
+          <li>Förutsäg steg 20 utan att rita alla steg.</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-head">
+      <h2>✅ Kunskapscheck</h2>
+    </div>
+
+    <div class="checklist">
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan fortsätta en enkel talföljd.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan hitta hur mycket ett mönster ökar eller minskar.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan beskriva en regel med ord.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan undersöka ett figurmönster.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan använda en tabell för att beskriva ett mönster.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan förutsäga ett senare steg.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag förstår kopplingen mellan mönster och algebra.
+      </label>
+
+      <label>
+        <input class="goal" type="checkbox">
+        Jag kan förklara hur jag vet att en regel fungerar.
+      </label>
+
+      <button class="goal-btn" type="button" onclick="checkGoals()">
+        Se min progression
+      </button>
+
+      <div id="goalResult"></div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <strong>🔁 Mönster • Matematik åk 6</strong><br>
+  Upptäcka • Beskriva • Förutsäga • Generalisera
+</footer>
+
+<script>
+var quizQuestions = [
+  {
+    q:"Vilket tal kommer sedan: 3, 6, 9, 12, ...?",
+    a:["13","14","15","18"],
+    c:"15",
+    e:"Mönstret ökar med 3 varje gång."
+  },
+  {
+    q:"Vilken regel beskriver 5, 10, 15, 20, ...?",
+    a:["+5","−5","·2","+10"],
+    c:"+5",
+    e:"Skillnaden mellan varje tal är 5."
+  },
+  {
+    q:"Vilket tal kommer sedan: 30, 25, 20, 15, ...?",
+    a:["5","10","12","20"],
+    c:"10",
+    e:"Mönstret minskar med 5 varje gång."
+  },
+  {
+    q:"Mönstret är 4, 8, 12, 16, ... Vilket tal finns i steg 6?",
+    a:["20","22","24","28"],
+    c:"24",
+    e:"Steg 6 är 4 · 6 = 24."
+  },
+  {
+    q:"Vad betyder en regel i ett mönster?",
+    a:[
+      "Hur mönstret byggs eller förändras",
+      "Bara nästa tal",
+      "Det största talet",
+      "Antalet siffror"
+    ],
+    c:"Hur mönstret byggs eller förändras",
+    e:"Regeln beskriver hur hela mönstret fungerar."
+  },
+  {
+    q:"Vilket tal kommer sedan: 2, 4, 8, 16, ...?",
+    a:["18","20","24","32"],
+    c:"32",
+    e:"Varje tal multipliceras med 2."
+  },
+  {
+    q:"Ett mönster har 1, 3, 5, 7 delar. Hur förändras det?",
+    a:["+1","+2","+3","·2"],
+    c:"+2",
+    e:"Antalet delar ökar med 2 varje steg."
+  },
+  {
+    q:"Regeln är 3 · n. Hur många delar finns i steg 7?",
+    a:["10","18","21","24"],
+    c:"21",
+    e:"3 · 7 = 21."
+  }
+];
+
+var order=[];
+var current=0;
+var score=0;
+var answered=0;
+
+function normalize(value){
+  return value.trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function showLevel(number){
+  document.querySelectorAll(".panel").forEach(function(panel){
+    panel.classList.remove("active");
+  });
+
+  var selected=document.getElementById("level"+number);
+  selected.classList.add("active");
+  selected.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function checkAnswer(inputId,correctAnswers,feedbackId){
+  var value=normalize(document.getElementById(inputId).value);
+  var feedback=document.getElementById(feedbackId);
+
+  var correct=correctAnswers.some(function(answer){
+    return value===normalize(answer);
+  });
+
+  if(correct){
+    feedback.className="feedback good";
+    feedback.textContent="✅ Rätt! Bra jobbat.";
+  }else{
+    feedback.className="feedback bad";
+    feedback.textContent="❌ Inte riktigt. Försök igen.";
+  }
+}
+
+function toggleSolution(id){
+  var box=document.getElementById(id);
+  box.style.display=box.style.display==="block" ? "none" : "block";
+}
+
+function shuffle(array){
+  var copy=array.slice();
+
+  for(var i=copy.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var temp=copy[i];
+    copy[i]=copy[j];
+    copy[j]=temp;
+  }
+
+  return copy;
+}
+
+function startQuiz(){
+  order=shuffle([0,1,2,3,4,5,6,7]);
+  current=0;
+  score=0;
+  answered=0;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+
+  document.getElementById("question").textContent=
+    (current+1)+". "+item.q;
+
+  var answerBox=document.getElementById("answers");
+  answerBox.innerHTML="";
+
+  shuffle(item.a).forEach(function(choice){
+    var button=document.createElement("button");
+    button.type="button";
+    button.className="answer";
+    button.textContent=choice;
+
+    button.onclick=function(){
+      answerQuestion(choice,item.c,item.e);
+    };
+
+    answerBox.appendChild(button);
+  });
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="none";
+  feedback.innerHTML="";
+
+  document.getElementById("nextBtn").style.display="none";
+
+  updateScore();
+}
+
+function answerQuestion(choice,correct,explanation){
+  document.querySelectorAll(".answer").forEach(function(button){
+    button.disabled=true;
+  });
+
+  answered++;
+
+  var feedback=document.getElementById("quizFeedback");
+  feedback.style.display="block";
+
+  if(choice===correct){
+    score++;
+    feedback.style.background="#dcfce7";
+    feedback.style.color="#166534";
+    feedback.innerHTML="✅ Rätt! "+explanation;
+  }else{
+    feedback.style.background="#fee2e2";
+    feedback.style.color="#991b1b";
+    feedback.innerHTML=
+      "❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+explanation;
+  }
+
+  updateScore();
+
+  document.getElementById("nextBtn").style.display="inline-block";
+}
+
+function nextQuestion(){
+  current++;
+
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML=
+      "<h3>🎉 Quizet är klart!</h3>"+
+      "<p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p>"+
+      "<button type='button' style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+
+    return;
+  }
+
+  renderQuestion();
+}
+
+function updateScore(){
+  document.getElementById("score").textContent=
+    "Poäng: "+score+" / "+answered;
+}
+
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal");
+  var checked=0;
+
+  goals.forEach(function(goal){
+    if(goal.checked){
+      checked++;
+    }
+  });
+
+  var result=document.getElementById("goalResult");
+
+  if(checked===goals.length){
+    result.textContent="🏆 Alla mål markerade!";
+  }else if(checked>=6){
+    result.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  }else if(checked>=3){
+    result.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  }else{
+    result.textContent="👣 Börja med enkla talföljder och arbeta vidare steg för steg.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  startQuiz();
+});
+</script>
+
+</body>
+</html>
+          
