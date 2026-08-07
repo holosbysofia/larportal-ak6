@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Träna – Lärportal åk 6</title>
+<style>
+:root{
+  --bg:#f6f8fc;--ink:#14213d;--muted:#64748b;--card:#fff;--line:#e5e7eb;
+  --blue:#2563eb;--green:#059669;--orange:#ea580c;--purple:#7c3aed;--red:#dc2626;--cyan:#0891b2
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+a{text-decoration:none;color:inherit}
+button{font:inherit}
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{padding:8px 11px;border-radius:10px;font-weight:800;color:#334155}
+.navlinks a:hover{background:#eef2ff;color:#3730a3}
+.navlinks .home{background:var(--blue);color:white}
+
+.hero{
+  background:radial-gradient(circle at 84% 18%,rgba(255,255,255,.18),transparent 25%),
+  linear-gradient(135deg,#2563eb,#7c3aed,#0891b2);
+  color:white;padding:72px 6% 96px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr .85fr;gap:32px;align-items:center}
+.hero h1{font-size:clamp(3.2rem,8vw,5.4rem);line-height:.95;margin:0 0 16px}
+.hero p{font-size:1.17rem;max-width:760px;margin:0}
+.hero-card{
+  background:white;color:#1e3a8a;border-radius:24px;padding:28px;text-align:center;
+  box-shadow:0 18px 50px rgba(0,0,0,.18)
+}
+.hero-card .big{font-size:5rem}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:-34px}
+.level{
+  background:white;border-radius:16px;padding:18px;text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,.08)
+}
+.level b{display:block;font-size:1.2rem}
+
+section{margin-top:56px}
+.section-head h2{font-size:2rem;margin:0 0 7px}
+.section-head p{margin:0;color:var(--muted)}
+
+.subject-tabs{
+  display:flex;gap:10px;flex-wrap:wrap;background:white;border-radius:18px;padding:14px;
+  box-shadow:0 5px 18px rgba(0,0,0,.05)
+}
+.subject-tabs button{
+  border:0;background:#f1f5f9;color:#334155;padding:9px 13px;border-radius:999px;
+  font-weight:900;cursor:pointer
+}
+.subject-tabs button.active{background:#1d4ed8;color:white}
+
+.training-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:22px}
+.card{
+  background:white;border-radius:22px;padding:22px;box-shadow:0 6px 22px rgba(0,0,0,.06);
+  border:1px solid #edf1f6;transition:.2s
+}
+.card:hover{transform:translateY(-3px)}
+.card.hide{display:none}
+.card .icon{font-size:2.4rem}
+.card h3{margin:10px 0 6px}
+.card p{color:var(--muted);margin:0 0 14px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.badge{font-size:.77rem;font-weight:900;padding:5px 8px;border-radius:999px;background:#eef2ff;color:#4338ca}
+.start{
+  width:100%;border:0;background:#2563eb;color:white;padding:10px 14px;border-radius:10px;
+  font-weight:900;cursor:pointer
+}
+
+.panel{
+  display:none;background:white;border-radius:24px;padding:26px;
+  box-shadow:0 8px 26px rgba(0,0,0,.07);margin-top:28px
+}
+.panel.active{display:block}
+.panel-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.panel h2{margin:0 0 5px}
+.close{
+  border:0;background:#e2e8f0;padding:9px 12px;border-radius:10px;font-weight:900;cursor:pointer
+}
+.task{
+  background:#f8fafc;border-radius:18px;padding:20px;margin-top:18px;border:1px solid #e2e8f0
+}
+.task h3{margin-top:0}
+.options{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+.option{
+  border:2px solid #dbe2ea;background:white;padding:13px;border-radius:11px;
+  font-weight:800;cursor:pointer;text-align:left
+}
+.option.correct{background:#dcfce7;border-color:#16a34a;color:#166534}
+.option.wrong{background:#fee2e2;border-color:#dc2626;color:#991b1b}
+.feedback{margin-top:12px;font-weight:900}
+.next-btn{
+  display:none;margin-top:14px;border:0;background:#f59e0b;color:#111827;
+  border-radius:10px;padding:9px 13px;font-weight:900;cursor:pointer
+}
+.progress{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:18px}
+.progress div{height:100%;background:linear-gradient(90deg,#2563eb,#0891b2);width:0}
+.result{display:none;text-align:center;padding:25px 10px}
+.result .big{font-size:4rem}
+.result h3{font-size:1.8rem;margin:8px 0}
+.result button{border:0;background:#2563eb;color:white;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer;margin:5px}
+
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.info{background:white;border-radius:20px;padding:22px;box-shadow:0 5px 18px rgba(0,0,0,.05)}
+.info h3{margin-top:0;color:#1d4ed8}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+
+@media(max-width:900px){.training-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.hero-inner,.levels,.training-grid,.options,.info-grid{grid-template-columns:1fr}.hero-card{display:none}.levels{margin-top:-22px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">✍️ Träna – Åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="#traning">Träningsbank</a>
+    <a href="#sa-fungerar-det">Så fungerar det</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Träna</h1>
+      <p>
+        Här tränar du steg för steg i matematik, NO, teknik, svenska/SVA och engelska.
+        Välj ämne och börja med en nivå som passar dig.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="big">✍️🧠🚀</div>
+      <h3>Öva lite – lär mycket</h3>
+      <p>Lätt • Medel • Utmaning</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="levels">
+  <div class="level"><b>🌱 Nivå 1</b><span>Kom igång</span></div>
+  <div class="level"><b>⭐ Nivå 2</b><span>Träna vidare</span></div>
+  <div class="level"><b>🚀 Nivå 3</b><span>Utmana dig</span></div>
+</div>
+
+<section id="traning">
+  <div class="section-head">
+    <h2>📚 Träningsbank</h2>
+    <p>Välj ämne och träna med korta uppgifter.</p>
+  </div>
+
+  <div class="subject-tabs">
+    <button class="active" onclick="filterCards('alla',this)">Alla</button>
+    <button onclick="filterCards('matematik',this)">🔢 Matematik</button>
+    <button onclick="filterCards('no',this)">🔬 NO</button>
+    <button onclick="filterCards('teknik',this)">⚙️ Teknik</button>
+    <button onclick="filterCards('svenska',this)">📖 Svenska/SVA</button>
+    <button onclick="filterCards('engelska',this)">🇬🇧 Engelska</button>
+  </div>
+
+  <div class="training-grid">
+    <div class="card" data-subject="matematik">
+      <div class="icon">➗</div><h3>Räknesätt</h3>
+      <p>Träna de fyra räknesätten och prioritering.</p>
+      <div class="badges"><span class="badge">Nivå 1–3</span><span class="badge">10 uppgifter</span></div>
+      <button class="start" onclick="startTraining('raknesatt')">Börja träna →</button>
+    </div>
+
+    <div class="card" data-subject="matematik">
+      <div class="icon">📊</div><h3>Bråk, decimal & procent</h3>
+      <p>Träna samband mellan olika talformer.</p>
+      <div class="badges"><span class="badge">Nivå 1–3</span><span class="badge">10 uppgifter</span></div>
+      <button class="start" onclick="startTraining('talformer')">Börja träna →</button>
+    </div>
+
+    <div class="card" data-subject="matematik">
+      <div class="icon">🧩</div><h3>Problemlösning</h3>
+      <p>Välj strategi och lös vardagsnära problem.</p>
+      <div class="badges"><span class="badge">Resonemang</span><span class="badge">10 uppgifter</span></div>
+      <button class="start" onclick="startTraining('problem')">Börja träna →</button>
+    </div>
+
+    <div class="card" data-subject="no">
+      <div class="icon">🫀</div><h3>Kroppen & hälsa</h3>
+      <p>Organ, organsystem, hälsa och kroppens funktioner.</p>
+      <div class="badges"><span class="badge">Biologi</span><span class="badge">10 uppgifter</span></div>
+      <button class="start" onclick="startTraining('kroppen')">Börja träna →</button>
+    </div>
+
+    <div class="card" data-subject="no">
+      <div class="icon">⚡</div><h3>Energi & krafter</h3>
+      <p>Energi, rörelse, friktion, ljus och elektricitet.</p>
+      <div class="badges"><span class="badge">Fysik</span><span class="badge">10 uppgifter</span></div>
+      <button class="start" onclick="startTraining('energi')">Börja träna →</button>
+    </div>
+
+    <div class="card" data-subject="no">
+      <div class="icon">🌱</div><h3>Ekosystem</h3>
+      <p>Näringskedjor, producenter, konsumenter och hållbarhet.</p>
+      <div class="badges"><span class="badge">Biologi</span><span class="badge">10 uppgifter</span></div>
+      <button class="start" onclick="startTraining('ekosystem')">Börja träna →</button>
+    </div>
+
+    <div class="card" data-subject="teknik">
+      <div class="icon">🏗️</div><h3>Konstruktioner</h3>
+      <p>Hållfasthet, stabilitet, material och tekniska lösningar.</p>
+      <div class="badges"><span class="badge">Teknik</span><span class="badge">10 uppgifter</span></div>
+      <button class="start" onclick="startTraining('konstruktion')">Börja träna →</button>
+    </div>
+
+    <div class="card" data-subject="teknik">
+      <div class="icon">🤖</div><h3>Programmering & styrning</h3>
+      <p>Algoritm, sensor, input, output och styrning.</p>
+      <div class="badges"><span class="badge">Teknik</span><span class="badge">10 uppgifter</span></div>
+      <button class="start" onclick="startTraining('programmering')">Börja träna →</button>
+    </div>
+
+    <div class="card" data-subject="svenska">
+      <div class="icon">📖</div><h3>Läsförståelse</h3>
+      <p>Huvudidé, inferens, budskap och detaljer.</p>
+      <div class="badges"><span class="badge">Svenska/SVA</span><span class="badge">10 uppgifter</span></div>
+      <button class="start" onclick="startTraining('lasning')">Börja träna →</button>
+    </div>
+
+    <div class="card" data-subject="svenska">
+      <div class="icon">🔤</div><h3>Ordklasser & meningsbyggnad</h3>
+      <p>Substantiv, verb, adjektiv, pronomen och meningar.</p>
+      <div class="badges"><span class="badge">Språk</span><span class="badge">10 uppgifter</span></div>
+      <button class="start" onclick="startTraining('sprak')">Börja träna →</button>
+    </div>
+
+    <div class="card" data-subject="engelska">
+      <div class="icon">💬</div><h3>Everyday English</h3>
+      <p>Vanliga fraser, frågor och svar i vardagen.</p>
+      <div class="badges"><span class="badge">English</span><span class="badge">10 uppgifter</span></div>
+      <button class="start" onclick="startTraining('everyday')">Börja träna →</button>
+    </div>
+
+    <div class="card" data-subject="engelska">
+      <div class="icon">🏃</div><h3>Grammar</h3>
+      <p>Verb, tempus, ordföljd och frågor.</p>
+      <div class="badges"><span class="badge">English</span><span class="badge">10 uppgifter</span></div>
+      <button class="start" onclick="startTraining('grammar')">Börja träna →</button>
+    </div>
+  </div>
+
+  <div id="panel" class="panel">
+    <div class="panel-top">
+      <div>
+        <h2 id="panelTitle">Träning</h2>
+        <p id="panelDesc"></p>
+      </div>
+      <button class="close" onclick="closeTraining()">✕ Stäng</button>
+    </div>
+
+    <div class="progress"><div id="progress"></div></div>
+
+    <div id="taskArea">
+      <div class="task">
+        <h3 id="question"></h3>
+        <div id="options" class="options"></div>
+        <div id="feedback" class="feedback"></div>
+        <button id="nextBtn" class="next-btn" onclick="nextTask()">Nästa →</button>
+      </div>
+    </div>
+
+    <div id="result" class="result">
+      <div class="big">🌟</div>
+      <h3 id="resultTitle">Bra jobbat!</h3>
+      <p id="resultText"></p>
+      <button onclick="restartTraining()">Träna igen</button>
+      <button onclick="closeTraining()">Välj annat område</button>
+    </div>
+  </div>
+</section>
+
+<section id="sa-fungerar-det">
+  <div class="section-head">
+    <h2>💡 Så använder du träningssidan</h2>
+  </div>
+  <div class="info-grid">
+    <div class="info"><h3>1. Välj område</h3><p>Börja med det område du arbetar med just nu.</p></div>
+    <div class="info"><h3>2. Träna kort</h3><p>Gör några uppgifter åt gången och läs återkopplingen.</p></div>
+    <div class="info"><h3>3. Försök igen</h3><p>Uppgifterna blandas så att du kan repetera flera gånger.</p></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>✍️ Träna • Lärportal åk 6</strong><br>
+  Matematik • NO • Teknik • Svenska/SVA • Engelska
+</footer>
+
+<script>
+const DATA={
+raknesatt:{
+ title:"➗ Räknesätt",desc:"De fyra räknesätten och prioritering.",
+ qs:[
+ ["Vad är 36 ÷ 4?",["9","8","10","7"],"9","36 delat med 4 är 9."],
+ ["Vad är 18 × 6?",["108","96","118","106"],"108","18 × 6 = 108."],
+ ["Vad är 245 + 176?",["421","411","431","401"],"421","245 + 176 = 421."],
+ ["Vad är 500 - 287?",["213","223","203","217"],"213","500 - 287 = 213."],
+ ["Vad är 5 + 4 × 3?",["17","27","15","21"],"17","Multiplikation först: 4 × 3 = 12, sedan 5 + 12 = 17."],
+ ["Vad är 84 ÷ 7?",["12","11","13","14"],"12","84 ÷ 7 = 12."],
+ ["Vad är 0,8 + 1,35?",["2,15","1,43","2,05","2,25"],"2,15","0,80 + 1,35 = 2,15."],
+ ["Vad är 3,6 ÷ 2?",["1,8","1,6","2,8","1,3"],"1,8","3,6 ÷ 2 = 1,8."],
+ ["Vilket uttryck är 72?",["8 × 9","7 × 9","9 × 9","72 ÷ 9"],"8 × 9","8 × 9 = 72."],
+ ["Vad är (20 + 10) ÷ 6?",["5","6","4","3"],"5","30 ÷ 6 = 5."]
+ ]},
+talformer:{
+ title:"📊 Bråk, decimal & procent",desc:"Samband mellan olika talformer.",
+ qs:[
+ ["50 % är samma som...",["0,5","0,05","5","0,25"],"0,5","50 % = 0,5."],
+ ["1/4 är samma som...",["25 %","40 %","50 %","10 %"],"25 %","1/4 = 25 %."],
+ ["0,75 är samma som...",["75 %","7,5 %","750 %","57 %"],"75 %","0,75 = 75 %."],
+ ["Vilket är störst?",["0,9","80 %","3/4","0,7"],"0,9","0,9 = 90 %."],
+ ["Vad är 10 % av 300?",["30","20","10","40"],"30","10 % är en tiondel."],
+ ["1/5 i decimalform är...",["0,2","0,5","0,25","0,1"],"0,2","1 ÷ 5 = 0,2."],
+ ["40 % av 50 är...",["20","25","15","10"],"20","0,4 × 50 = 20."],
+ ["0,125 är samma som...",["1/8","1/4","1/2","1/10"],"1/8","1/8 = 0,125."],
+ ["120 % i decimalform är...",["1,2","0,12","12","1,02"],"1,2","120 % = 1,20."],
+ ["Vilket är minst?",["20 %","0,3","1/2","0,45"],"20 %","20 % = 0,20."]
+ ]},
+problem:{
+ title:"🧩 Problemlösning",desc:"Läs noggrant och välj rätt strategi.",
+ qs:[
+ ["En klass har 28 elever. 7 elever sitter vid varje bord. Hur många bord behövs?",["4","3","5","6"],"4","28 ÷ 7 = 4."],
+ ["Tre böcker kostar 120 kr styck. Vad kostar de totalt?",["360 kr","240 kr","320 kr","420 kr"],"360 kr","3 × 120 = 360 kr."],
+ ["En buss har 52 platser. 39 är upptagna. Hur många är lediga?",["13","11","12","14"],"13","52 - 39 = 13."],
+ ["En flaska rymmer 1,5 liter. Hur mycket rymmer 4 flaskor?",["6 liter","5 liter","4,5 liter","7 liter"],"6 liter","1,5 × 4 = 6."],
+ ["900 kr ska delas lika mellan 6 personer. Hur mycket får varje person?",["150 kr","180 kr","120 kr","160 kr"],"150 kr","900 ÷ 6 = 150."],
+ ["En film börjar 18:20 och är 1 h 30 min. När slutar den?",["19:50","19:40","20:00","19:30"],"19:50","18:20 + 1:30 = 19:50."],
+ ["En tröja kostar 400 kr och rabatten är 25 %. Hur stor är rabatten?",["100 kr","75 kr","125 kr","150 kr"],"100 kr","25 % av 400 = 100."],
+ ["5 paket innehåller 24 pennor var. Hur många pennor?",["120","100","96","124"],"120","5 × 24 = 120."],
+ ["Sara går 2,4 km till skolan och lika långt hem. Totalt?",["4,8 km","2,8 km","5,4 km","4,4 km"],"4,8 km","2,4 + 2,4 = 4,8."],
+ ["840 kort delas lika på 12 elever. Hur många var?",["70","60","80","75"],"70","840 ÷ 12 = 70."]
+ ]},
+kroppen:{
+ title:"🫀 Kroppen & hälsa",desc:"Organ, organsystem och hälsa.",
+ qs:[
+ ["Vilket organ pumpar blod?",["hjärtat","lungorna","magsäcken","hjärnan"],"hjärtat","Hjärtat pumpar blod genom kroppen."],
+ ["Var sker gasutbyte?",["lungorna","magsäcken","skelettet","huden"],"lungorna","I lungorna byts syre och koldioxid."],
+ ["Vad gör skelettet?",["ger stöd och skyddar organ","pumpar blod","bryter ner mat","skapar syre"],"ger stöd och skyddar organ","Skelettet ger stadga och skydd."],
+ ["Var börjar matspjälkningen?",["munnen","lungorna","hjärtat","njurarna"],"munnen","Tuggning och saliv startar processen."],
+ ["Vilket organ styr många kroppsfunktioner?",["hjärnan","magsäcken","huden","levern"],"hjärnan","Hjärnan är central i nervsystemet."],
+ ["Vad händer ofta med pulsen vid träning?",["den ökar","den blir noll","den påverkas inte","hjärtat stannar"],"den ökar","Kroppen behöver mer syre och blodflöde."],
+ ["Vilket system transporterar blod?",["cirkulationssystemet","matspjälkningssystemet","skelettet","huden"],"cirkulationssystemet","Hjärta och blodkärl ingår."],
+ ["Vad gör muskler för att skapa rörelse?",["drar ihop sig","blir ben","stoppar blod","skapar luft"],"drar ihop sig","Muskler kan dra ihop sig."],
+ ["Varför behöver vi sömn?",["återhämtning","för att sluta andas","för att blodet ska stanna","för att muskler ska försvinna"],"återhämtning","Sömn är viktig för kropp och hjärna."],
+ ["Vilket organ filtrerar blod och bildar urin?",["njurarna","hjärtat","lungorna","magsäcken"],"njurarna","Njurarna hjälper kroppen reglera vatten och salter."]
+ ]},
+energi:{
+ title:"⚡ Energi & krafter",desc:"Energi, rörelse, ljus, ljud och elektricitet.",
+ qs:[
+ ["Vilken kraft drar föremål mot jorden?",["gravitation","friktion","ljud","ljus"],"gravitation","Gravitation drar massor mot varandra."],
+ ["Vad gör friktion ofta?",["motverkar rörelse","skapar massa","stoppar gravitation","skapar syre"],"motverkar rörelse","Friktion bromsar rörelse."],
+ ["Vad krävs för att en lampa ska lysa i en enkel krets?",["sluten krets","öppen krets","bara sladd","ingen energikälla"],"sluten krets","Ström behöver en sammanhängande väg."],
+ ["Vilket material leder ström bra?",["metall","plast","gummi","torrt trä"],"metall","Många metaller leder elektricitet."],
+ ["Hur uppstår ljud?",["genom vibrationer","genom färg","genom stillhet","genom gravitation"],"genom vibrationer","Ljud börjar med vibrationer."],
+ ["Vad händer med ljus i en spegel?",["det reflekteras","det blir ljud","det försvinner","det blir massa"],"det reflekteras","Spegeln reflekterar ljus."],
+ ["Vilken energikälla är förnybar?",["solenergi","kol","olja","naturgas"],"solenergi","Solen är förnybar."],
+ ["Vilken enhet används för kraft?",["newton","liter","sekund","meter per liter"],"newton","Kraft mäts i newton."],
+ ["Vad har ett föremål som rör sig?",["rörelseenergi","ingen energi","bara värme","bara kemisk energi"],"rörelseenergi","Rörelse innebär rörelseenergi."],
+ ["Vad betyder balanserade krafter?",["den sammanlagda kraften är noll","alla krafter är stora","föremålet måste accelerera","gravitation saknas"],"den sammanlagda kraften är noll","Krafterna tar ut varandra."]
+ ]},
+ekosystem:{
+ title:"🌱 Ekosystem",desc:"Näringskedjor och hållbar utveckling.",
+ qs:[
+ ["Vad är en producent?",["en växt som kan tillverka energirik näring","ett rovdjur","en sten","en nedbrytare"],"en växt som kan tillverka energirik näring","Växter är vanliga producenter."],
+ ["Vad är en konsument?",["en organism som äter andra organismer","en sten","en växt som bara fotosyntetiserar","vatten"],"en organism som äter andra organismer","Konsumenter får energi genom att äta."],
+ ["Vad gör nedbrytare?",["bryter ner dött material","skapar solljus","stoppar kretslopp","äter sten"],"bryter ner dött material","De återför näringsämnen."],
+ ["Vad visar en näringskedja?",["vem som äter vem","vädret","bergens höjd","dagens datum"],"vem som äter vem","Den visar födorelationer."],
+ ["Vad är biologisk mångfald?",["variation av arter, gener och livsmiljöer","bara träd","bara djur","en enda art"],"variation av arter, gener och livsmiljöer","Mångfald finns på flera nivåer."],
+ ["Vilken gas tar växter upp vid fotosyntes?",["koldioxid","bara syre","väte","helium"],"koldioxid","Växter använder koldioxid."],
+ ["Vad är hållbar utveckling?",["att möta dagens behov utan att förstöra framtidens möjligheter","att använda allt snabbt","att aldrig förändra något","bara ekonomisk tillväxt"],"att möta dagens behov utan att förstöra framtidens möjligheter","Hållbar utveckling väger flera perspektiv."],
+ ["Vilket är förnybart?",["solenergi","olja","kol","naturgas"],"solenergi","Solenergi förnyas kontinuerligt."],
+ ["Vad är ett ekosystem?",["organismer och miljö som samspelar","bara djur","bara växter","bara mark"],"organismer och miljö som samspelar","Både levande och icke-levande delar ingår."],
+ ["Varifrån kommer mycket av energin i ekosystem?",["solen","månen","stenar","vind enbart"],"solen","Producenter fångar solenergi."]
+ ]},
+konstruktion:{
+ title:"🏗️ Konstruktioner",desc:"Hållfasthet, stabilitet och tekniska lösningar.",
+ qs:[
+ ["Vad betyder hållfasthet?",["förmåga att tåla belastning","förmåga att lysa","förmåga att flyta","förmåga att låta"],"förmåga att tåla belastning","Hållfasthet handlar om att inte gå sönder."],
+ ["Vad betyder stabilitet?",["förmåga att stå stadigt","förmåga att leda ström","förmåga att smälta","förmåga att rotera snabbt"],"förmåga att stå stadigt","Stabilitet motverkar vältning."],
+ ["Vilken form används ofta för att göra konstruktioner stabila?",["triangel","cirkel enbart","oval enbart","spiral"],"triangel","Trianglar är formstabila."],
+ ["Vad är en prototyp?",["en tidig modell som testas","slutprodukten alltid","ett material","en ritningslinje"],"en tidig modell som testas","Prototyper används för test och förbättring."],
+ ["Vad är en komponent?",["en del i ett system","hela systemet","en idé","en ritning"],"en del i ett system","Komponenter bygger upp system."],
+ ["Vad är funktion?",["vad lösningen ska göra","vilken färg den har","hur dyr den är","vem som äger den"],"vad lösningen ska göra","Funktion beskriver uppgiften."],
+ ["Vad visar en skiss?",["en idé eller konstruktion","bara färg","bara pris","bara materialets vikt"],"en idé eller konstruktion","Skissen visualiserar en idé."],
+ ["Vad är belastning?",["kraft som påverkar en konstruktion","färg på material","en ritning","ett program"],"kraft som påverkar en konstruktion","Belastning kan vara drag, tryck eller böjning."],
+ ["Vilket material är ofta bra när låg vikt är viktig?",["material med hög styrka i förhållande till vikt","alltid tyngsta materialet","bara glas","bara papper"],"material med hög styrka i förhållande till vikt","Materialval beror på egenskaper och funktion."],
+ ["Vad gör man efter ett test i en teknisk process?",["förbättrar konstruktionen","slutar alltid direkt","kastar allt","byter ämne"],"förbättrar konstruktionen","Test används för att hitta förbättringar."]
+ ]},
+programmering:{
+ title:"🤖 Programmering & styrning",desc:"Algoritm, sensor, input och output.",
+ qs:[
+ ["Vad är en algoritm?",["en följd av instruktioner","en sensor","en motor","ett material"],"en följd av instruktioner","Algoritmen beskriver steg i rätt ordning."],
+ ["Vad är input?",["information som går in i systemet","resultat ut ur systemet","bara ström","en skiss"],"information som går in i systemet","Input tas emot av systemet."],
+ ["Vad är output?",["resultat eller signal ut från systemet","information in","en ritning","en sensor"],"resultat eller signal ut från systemet","Output är det systemet gör eller skickar ut."],
+ ["Vad gör en sensor?",["känner av något i omgivningen","bygger alltid broar","skapar algoritmer själv","är alltid en motor"],"känner av något i omgivningen","Sensorer mäter eller upptäcker."],
+ ["Vad är en loop?",["en upprepning","en skiss","ett material","ett hjul"],"en upprepning","Loopar upprepar instruktioner."],
+ ["Vad är ett villkor?",["en regel som avgör vad som ska hända","en färg","ett material","en ritning"],"en regel som avgör vad som ska hända","Villkor används i if-satser."],
+ ["Vad betyder felsökning?",["att hitta och rätta fel","att skapa fler fel","att rita","att mäta längd"],"att hitta och rätta fel","Debugging är felsökning."],
+ ["Vilket är ett exempel på output?",["en lampa som tänds","en sensor som mäter","en knapp som trycks","temperaturvärdet in"],"en lampa som tänds","Lampans tändning är ett resultat."],
+ ["Vilket är ett exempel på input?",["en knapptryckning","en motor som snurrar","en lampa som lyser","ett ljud från högtalaren"],"en knapptryckning","Knapptryckningen ger information till systemet."],
+ ["Vad betyder styrning?",["att kontrollera hur ett system beter sig","att måla systemet","att väga systemet","att namnge systemet"],"att kontrollera hur ett system beter sig","Styrning reglerar systemets funktion."]
+ ]},
+lasning:{
+ title:"📖 Läsförståelse",desc:"Huvudidé, inferens, budskap och detaljer.",
+ qs:[
+ ["Vad är huvudidé?",["det viktigaste texten handlar om","första ordet","längsta meningen","författarens namn"],"det viktigaste texten handlar om","Huvudidén är textens kärna."],
+ ["Vad är en inferens?",["en slutsats utifrån ledtrådar","en rubrik","ett skiljetecken","en källa"],"en slutsats utifrån ledtrådar","Inferenser görs mellan raderna."],
+ ["Vad är budskap?",["det texten vill säga eller väcka tankar om","antal meningar","alla fakta","textens färg"],"det texten vill säga eller väcka tankar om","Budskapet är en övergripande tanke."],
+ ["Vad är en detalj?",["en specifik uppgift","hela huvudidén","budskapet","temat"],"en specifik uppgift","Detaljer är mindre informationsbitar."],
+ ["Vad betyder sammanfatta?",["återge det viktigaste kort","kopiera allt","skriva längre","ta med alla detaljer"],"återge det viktigaste kort","En sammanfattning är koncentrerad."],
+ ["Vilken fråga är källkritisk?",["Vem står bakom informationen?","Vilken färg har sidan?","Hur lång är texten?","Finns många bilder?"],"Vem står bakom informationen?","Avsändaren är viktig att kontrollera."],
+ ["Vad hjälper dig att läsa mellan raderna?",["ledtrådar i texten och egna kunskaper","bara rubriken","bara bilder","antal stycken"],"ledtrådar i texten och egna kunskaper","Inferens bygger på båda."],
+ ["Vad är tema?",["ett större återkommande ämne eller idé","ett skiljetecken","en tabell","ett namn"],"ett större återkommande ämne eller idé","Exempel: vänskap, mod, identitet."],
+ ["Vad bör en sammanfattning undvika?",["onödiga detaljer","huvudidén","viktiga fakta","egna formuleringar"],"onödiga detaljer","Den ska vara kort och fokuserad."],
+ ["Vad betyder syfte i en text?",["varför texten skapats","hur lång den är","vilken färg den har","hur många ord den har"],"varför texten skapats","Syfte handlar om avsikten."]
+ ]},
+sprak:{
+ title:"🔤 Ordklasser & meningsbyggnad",desc:"Språkets byggstenar.",
+ qs:[
+ ["Vilken ordklass är 'springer'?",["verb","substantiv","adjektiv","pronomen"],"verb","Springer uttrycker handling."],
+ ["Vilken ordklass är 'vacker'?",["adjektiv","verb","substantiv","preposition"],"adjektiv","Vacker beskriver en egenskap."],
+ ["Vilken ordklass är 'skola'?",["substantiv","verb","adverb","pronomen"],"substantiv","Skola är ett substantiv."],
+ ["Vilken ordklass är 'hon'?",["pronomen","adjektiv","substantiv","konjunktion"],"pronomen","Hon ersätter ett namn."],
+ ["Vilken ordklass är 'under' i 'under bordet'?",["preposition","verb","adjektiv","pronomen"],"preposition","Under visar relation i rum."],
+ ["Vilken ordklass är 'och'?",["konjunktion","adverb","pronomen","substantiv"],"konjunktion","Och binder ihop ord eller satser."],
+ ["Vilken mening är fullständig?",["Eleverna arbetar tyst.","När eleverna.","Eftersom det.","I klassrummet när."],"Eleverna arbetar tyst.","Den uttrycker en hel tanke."],
+ ["Vilket sambandsord visar orsak?",["eftersom","men","sedan","dessutom"],"eftersom","Eftersom anger orsak."],
+ ["Vilket sambandsord visar motsats?",["men","och","eftersom","därför"],"men","Men markerar kontrast."],
+ ["Vilken stavning är korrekt?",["intressant","intresant","interesant","intressannt"],"intressant","Intressant stavas med dubbel s."]
+ ]},
+everyday:{
+ title:"💬 Everyday English",desc:"Useful phrases for everyday communication.",
+ qs:[
+ ["How do you ask for help?",["Can you help me, please?","You help now.","Help is blue.","Where help?"],"Can you help me, please?","This is a polite request."],
+ ["How do you ask someone to repeat?",["Can you repeat that, please?","Repeat where?","You repeating.","What colour repeat?"],"Can you repeat that, please?","Useful classroom English."],
+ ["Which phrase asks for an opinion?",["What do you think?","How blue is it?","Where yesterday?","Who table?"],"What do you think?","It invites an opinion."],
+ ["How do you ask the meaning of a word?",["What does this word mean?","Where word?","When word?","Why blue?"],"What does this word mean?","This asks for clarification."],
+ ["Which phrase keeps a conversation going?",["What about you?","Stop.","Goodbye forever.","No words."],"What about you?","It returns the conversation to the other person."],
+ ["Which phrase shows agreement?",["I agree because...","I no agree.","Agreement blue.","I agreeing."],"I agree because...","It expresses agreement and opens for a reason."],
+ ["What can you say while thinking?",["Let me think...","No English.","Never answer.","I gone."],"Let me think...","It gives you time."],
+ ["Which is polite?",["Could you speak more slowly, please?","Speak slow now!","You slow.","Slow blue."],"Could you speak more slowly, please?","Could you... please? is polite."],
+ ["Which phrase gives an example?",["For example...","For blue...","At example...","By example is."],"For example...","This introduces an example."],
+ ["Which phrase asks a follow-up question?",["Why?","Goodbye.","No.","Stop."],"Why?","Why? continues the conversation."]
+ ]},
+grammar:{
+ title:"🏃 Grammar",desc:"Verb, tempus, ordföljd och frågor.",
+ qs:[
+ ["Choose the correct sentence.",["She plays football every Friday.","She play football every Friday.","She playing football every Friday.","She played football every Friday now."],"She plays football every Friday.","He/she/it takes -s in present simple."],
+ ["Complete: They ___ TV now.",["are watching","watch","watched","is watching"],"are watching","Now often signals present continuous."],
+ ["Past simple of 'go' is...",["went","goed","goes","going"],"went","Go is irregular."],
+ ["Choose the correct question.",["Where do you live?","Where you live?","Where does you live?","Do where you live?"],"Where do you live?","Question word + do + subject + verb."],
+ ["Choose the correct negative.",["He doesn't like milk.","He doesn't likes milk.","He don't likes milk.","He not like milk."],"He doesn't like milk.","After doesn't use base form."],
+ ["Comparative of 'big' is...",["bigger","biggest","more big","biger"],"bigger","Big → bigger."],
+ ["Superlative of 'good' is...",["best","better","goodest","most good"],"best","Good → better → best."],
+ ["Choose the adverb.",["quickly","quick","quicker","quickness"],"quickly","Quickly describes how."],
+ ["Choose the correct sentence.",["I usually walk to school.","I walk usually to school always.","Usually I to school walk.","I usually to walk school."],"I usually walk to school.","Frequency adverb usually comes before main verb."],
+ ["Choose the correct past question.",["Did you see the film?","Did you saw the film?","Do you saw the film?","Saw you the film?"],"Did you see the film?","After did use base form."]
+ ]}
+};
+
+let state={key:null,qs:[],i:0,score:0,answered:false};
+
+function shuffle(a){
+  let x=a.slice();
+  for(let i=x.length-1;i>0;i--){
+    let j=Math.floor(Math.random()*(i+1));
+    [x[i],x[j]]=[x[j],x[i]];
+  }
+  return x;
+}
+
+function filterCards(subject,btn){
+  document.querySelectorAll('.subject-tabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.card').forEach(c=>{
+    c.classList.toggle('hide',subject!=='alla' && c.dataset.subject!==subject);
+  });
+}
+
+function startTraining(key){
+  state={key:key,qs:shuffle(DATA[key].qs).slice(0,10),i:0,score:0,answered:false};
+  document.getElementById('panelTitle').textContent=DATA[key].title;
+  document.getElementById('panelDesc').textContent=DATA[key].desc;
+  document.getElementById('panel').classList.add('active');
+  document.getElementById('taskArea').style.display='block';
+  document.getElementById('result').style.display='none';
+  renderTask();
+  setTimeout(()=>document.getElementById('panel').scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+
+function renderTask(){
+  state.answered=false;
+  const q=state.qs[state.i];
+  document.getElementById('question').textContent=(state.i+1)+'. '+q[0];
+  const box=document.getElementById('options');
+  box.innerHTML='';
+  shuffle(q[1]).forEach(choice=>{
+    const b=document.createElement('button');
+    b.className='option';
+    b.textContent=choice;
+    b.onclick=()=>answer(choice,b);
+    box.appendChild(b);
+  });
+  document.getElementById('feedback').textContent='';
+  document.getElementById('nextBtn').style.display='none';
+  document.getElementById('progress').style.width=(state.i/state.qs.length*100)+'%';
+}
+
+function answer(choice,btn){
+  if(state.answered)return;
+  state.answered=true;
+  const q=state.qs[state.i];
+  document.querySelectorAll('.option').forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===q[2])b.classList.add('correct');
+  });
+  const fb=document.getElementById('feedback');
+  if(choice===q[2]){
+    state.score++;
+    btn.classList.add('correct');
+    fb.textContent='✅ Rätt! '+q[3];
+    fb.style.color='#166534';
+  }else{
+    btn.classList.add('wrong');
+    fb.textContent='❌ Inte riktigt. Rätt svar: '+q[2]+'. '+q[3];
+    fb.style.color='#991b1b';
+  }
+  document.getElementById('nextBtn').style.display='inline-block';
+}
+
+function nextTask(){
+  state.i++;
+  if(state.i>=state.qs.length){showResult();return}
+  renderTask();
+}
+
+function showResult(){
+  document.getElementById('progress').style.width='100%';
+  document.getElementById('taskArea').style.display='none';
+  document.getElementById('result').style.display='block';
+  let title='Fortsätt träna!';
+  if(state.score===10)title='🌟 Full pott!';
+  else if(state.score>=8)title='🏆 Mycket bra!';
+  else if(state.score>=6)title='👏 Bra jobbat!';
+  document.getElementById('resultTitle').textContent=title;
+  document.getElementById('resultText').textContent='Du fick '+state.score+' av '+state.qs.length+' rätt.';
+}
+
+function restartTraining(){startTraining(state.key)}
+function closeTraining(){
+  document.getElementById('panel').classList.remove('active');
+  document.getElementById('traning').scrollIntoView({behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>
