@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algebra – Matematik åk 6</title>
+
+  <style>
+    :root{
+      --bg:#f7f8fc;
+      --card:#ffffff;
+      --dark:#0f172a;
+      --text:#1f2937;
+      --muted:#64748b;
+      --orange:#ea580c;
+      --orange2:#c2410c;
+      --yellow:#f59e0b;
+      --blue:#2563eb;
+      --purple:#7c3aed;
+      --green:#059669;
+      --red:#dc2626;
+      --border:#e2e8f0;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    button,input,textarea{font:inherit}
+
+    nav{
+      position:sticky;top:0;z-index:1000;
+      background:white;
+      padding:13px 5%;
+      display:flex;justify-content:space-between;align-items:center;gap:20px;
+      box-shadow:0 2px 14px rgba(0,0,0,.08);
+    }
+
+    .logo{font-size:1.2rem;font-weight:900;color:var(--dark);white-space:nowrap}
+    .navlinks{display:flex;flex-wrap:wrap;gap:7px;justify-content:flex-end}
+    .navlinks a{
+      text-decoration:none;color:#334155;padding:8px 11px;border-radius:10px;
+      font-weight:800;font-size:.88rem
+    }
+    .navlinks a:hover{background:#ffedd5;color:#c2410c}
+    .navlinks .home{background:var(--orange);color:white}
+
+    .hero{
+      background:
+        radial-gradient(circle at 85% 18%,rgba(255,255,255,.19),transparent 22%),
+        radial-gradient(circle at 76% 70%,rgba(255,255,255,.10),transparent 20%),
+        linear-gradient(135deg,#ea580c,#c2410c 45%,#7c2d12);
+      color:white;padding:80px 6% 110px;
+    }
+
+    .hero-inner{
+      max-width:1250px;margin:auto;
+      display:grid;grid-template-columns:1.7fr 1fr;align-items:center;gap:45px
+    }
+
+    .badge{
+      display:inline-block;background:rgba(255,255,255,.15);
+      border:1px solid rgba(255,255,255,.25);
+      padding:8px 14px;border-radius:30px;font-weight:800;margin-bottom:18px
+    }
+
+    .hero h1{font-size:clamp(3rem,8vw,5.5rem);line-height:1;margin-bottom:18px}
+    .hero p{font-size:1.2rem;max-width:720px}
+
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+    .hero-actions a{
+      text-decoration:none;background:white;color:#9a3412;
+      padding:13px 18px;border-radius:13px;font-weight:900
+    }
+    .hero-actions a.secondary{
+      background:rgba(255,255,255,.14);color:white;
+      border:1px solid rgba(255,255,255,.28)
+    }
+
+    .hero-visual{display:flex;justify-content:center}
+    .algebra-card{
+      width:300px;background:rgba(255,255,255,.96);color:#9a3412;
+      border-radius:30px;padding:30px;text-align:center;
+      box-shadow:0 20px 60px rgba(0,0,0,.22);
+      transform:rotate(3deg)
+    }
+    .algebra-card .equation{font-size:3rem;font-weight:900;margin:12px 0}
+    .algebra-card p{color:#475569;font-size:1rem}
+
+    .wrapper{max-width:1250px;margin:auto;padding:0 22px 70px}
+
+    .overview{
+      display:grid;grid-template-columns:repeat(5,1fr);gap:15px;
+      margin-top:-58px;position:relative;z-index:20
+    }
+
+    .overview-card{
+      background:white;padding:20px 15px;border-radius:18px;text-align:center;
+      box-shadow:0 12px 35px rgba(15,23,42,.12)
+    }
+    .overview-card span{display:block;font-size:2rem;margin-bottom:6px}
+
+    .section{margin-top:70px}
+    .section-head{margin-bottom:26px}
+    .section-head h2{font-size:2rem;color:var(--dark);margin-bottom:7px}
+    .section-head p{color:var(--muted);max-width:850px}
+
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+    .card{
+      background:white;padding:26px;border-radius:22px;
+      box-shadow:0 7px 23px rgba(0,0,0,.07)
+    }
+    .card h3{color:var(--dark);margin-bottom:10px}
+    .card p{color:#475569}
+
+    .big-equation{
+      font-size:2.5rem;font-weight:900;color:#c2410c;margin:17px 0;
+      background:#fff7ed;padding:15px;border-radius:15px;text-align:center
+    }
+
+    .callout{
+      background:#fff7ed;border-left:6px solid var(--orange);
+      padding:18px;border-radius:14px;margin-top:16px
+    }
+
+    .balance{
+      background:linear-gradient(135deg,#fff7ed,#fef3c7);
+      border-radius:25px;padding:30px;box-shadow:0 7px 22px rgba(0,0,0,.06)
+    }
+
+    .balance-row{
+      display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+      gap:18px;margin-top:20px
+    }
+
+    .balance-box{
+      background:white;padding:22px;border-radius:18px;text-align:center;
+      box-shadow:0 5px 14px rgba(0,0,0,.06);font-size:1.3rem;font-weight:900
+    }
+
+    .equals{font-size:2.2rem;font-weight:900;color:#ea580c}
+
+    .step-list{display:grid;gap:13px;margin-top:18px}
+    .step{
+      background:#f8fafc;border:1px solid var(--border);
+      padding:15px;border-radius:13px
+    }
+    .step strong{color:#c2410c}
+
+    .concept{
+      background:white;padding:20px;border-radius:18px;
+      box-shadow:0 5px 18px rgba(0,0,0,.06)
+    }
+    .concept strong{display:block;color:#c2410c;margin-bottom:6px;font-size:1.05rem}
+
+    .mistakes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .mistake{
+      background:white;border-radius:18px;padding:22px;border-top:5px solid var(--red);
+      box-shadow:0 5px 18px rgba(0,0,0,.06)
+    }
+    .wrong{color:#b91c1c;font-weight:900;margin:10px 0}
+    .right{color:#047857;font-weight:800}
+
+    .levels{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .level{
+      border-radius:25px;padding:30px;color:white;min-height:330px;
+      display:flex;flex-direction:column;justify-content:space-between
+    }
+    .level1{background:linear-gradient(135deg,#059669,#0f766e)}
+    .level2{background:linear-gradient(135deg,#ea580c,#c2410c)}
+    .level3{background:linear-gradient(135deg,#7c3aed,#6d28d9)}
+    .level h3{font-size:1.5rem;margin-bottom:8px}
+    .level ul{padding-left:20px;margin:16px 0}
+    .level button{
+      border:none;background:white;color:#111827;padding:11px 16px;
+      border-radius:11px;font-weight:900;cursor:pointer;width:max-content
+    }
+
+    .training-panel{
+      display:none;margin-top:22px;background:white;border-radius:22px;
+      padding:28px;box-shadow:0 7px 24px rgba(0,0,0,.08)
+    }
+    .training-panel.active{display:block}
+
+    .task{
+      background:#f8fafc;border:1px solid var(--border);
+      padding:18px;border-radius:14px;margin-bottom:14px
+    }
+    .task label{display:block;font-weight:800;margin-bottom:8px}
+    .task input{
+      width:100%;max-width:320px;padding:11px;border:1px solid #cbd5e1;
+      border-radius:10px
+    }
+
+    .check-btn{
+      border:none;background:var(--orange);color:white;padding:10px 15px;
+      border-radius:10px;font-weight:900;cursor:pointer;margin-top:10px
+    }
+
+    .feedback{
+      margin-top:10px;display:none;padding:10px 12px;
+      border-radius:10px;font-weight:800
+    }
+    .feedback.good{display:block;background:#dcfce7;color:#166534}
+    .feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+    .quiz-zone{background:#0f172a;color:white;border-radius:28px;padding:36px}
+    .quiz-top{
+      display:flex;justify-content:space-between;align-items:center;
+      flex-wrap:wrap;gap:20px
+    }
+    .score{background:#1e293b;padding:10px 14px;border-radius:12px;font-weight:900}
+    .quiz-card{margin-top:23px;background:#1e293b;padding:26px;border-radius:20px}
+    .quiz-card h3{font-size:1.35rem;margin-bottom:18px}
+    .answer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .answer-btn{
+      border:none;padding:16px;border-radius:13px;background:white;color:#1f2937;
+      font-weight:900;cursor:pointer;text-align:left
+    }
+    .answer-btn:hover{background:#ffedd5}
+    .answer-btn:disabled{cursor:default;opacity:.85}
+    .quiz-feedback{
+      display:none;margin-top:18px;padding:15px;border-radius:12px;font-weight:800
+    }
+    .next-btn{
+      margin-top:15px;border:none;padding:11px 16px;border-radius:11px;
+      background:#facc15;color:#111827;font-weight:900;cursor:pointer;display:none
+    }
+
+    .problem-zone{
+      background:linear-gradient(135deg,#ffedd5,#fef3c7);
+      border-radius:28px;padding:34px
+    }
+    .problem-card{
+      background:rgba(255,255,255,.86);padding:25px;border-radius:18px;margin-top:18px
+    }
+    .problem-card textarea{
+      width:100%;min-height:130px;border:1px solid #cbd5e1;
+      border-radius:12px;padding:14px;margin-top:15px;resize:vertical
+    }
+    .reveal-btn{
+      margin-top:12px;border:none;background:#9a3412;color:white;
+      padding:10px 15px;border-radius:10px;font-weight:900;cursor:pointer
+    }
+    .solution{
+      display:none;margin-top:16px;background:white;padding:16px;border-radius:12px
+    }
+
+    .support-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    .support{
+      background:white;padding:28px;border-radius:22px;
+      box-shadow:0 6px 20px rgba(0,0,0,.06)
+    }
+    .support h3{margin-bottom:15px}
+    .support ul{list-style:none}
+    .support li{background:#f8fafc;padding:12px;border-radius:10px;margin:9px 0}
+
+    .checklist{
+      background:white;border-radius:25px;padding:30px;
+      box-shadow:0 7px 23px rgba(0,0,0,.06)
+    }
+    .checklist label{
+      display:flex;gap:10px;align-items:flex-start;padding:11px 0;
+      border-bottom:1px solid var(--border);cursor:pointer
+    }
+    .checklist input{width:20px;height:20px;margin-top:2px}
+    .finish-box{margin-top:22px;background:#fff7ed;padding:20px;border-radius:18px}
+    .finish-box button{
+      border:none;background:#c2410c;color:white;padding:11px 16px;
+      border-radius:10px;font-weight:900;cursor:pointer
+    }
+    #finishResult{margin-top:12px;font-weight:900}
+
+    footer{
+      margin-top:70px;background:#020617;color:#cbd5e1;
+      padding:38px 20px;text-align:center
+    }
+
+    @media(max-width:1050px){
+      .overview,.grid-4{grid-template-columns:repeat(2,1fr)}
+      .grid-3,.levels,.mistakes{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media(max-width:760px){
+      nav{flex-direction:column;align-items:flex-start}
+      .hero-inner,.overview,.grid-2,.grid-3,.grid-4,.levels,
+      .mistakes,.support-grid,.answer-grid{grid-template-columns:1fr}
+      .hero-visual{display:none}
+      .overview{margin-top:-38px}
+      .balance-row{grid-template-columns:1fr}
+      .equals{text-align:center}
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">🔠 Algebra – Matematik åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="matematik.html">🔢 Matematik</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#begrepp">Begrepp</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#problem">Problem</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="badge">Matematik åk 6 • Algebra</div>
+      <h1>Algebra</h1>
+      <p>
+        Algebra handlar om att upptäcka mönster, använda symboler,
+        förstå likheter och hitta okända tal. Här får du arbeta steg för steg
+        med uttryck, variabler och enkla ekvationer.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#forsta">📘 Börja lära</a>
+        <a class="secondary" href="#traning">✍️ Börja träna</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="algebra-card">
+        <div style="font-size:2.5rem;">🧠</div>
+        <div class="equation">x + 7 = 19</div>
+        <p>Vilket tal gömmer sig bakom x?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="wrapper">
+
+  <section class="overview">
+    <div class="overview-card"><span>🔠</span><strong>Variabler</strong></div>
+    <div class="overview-card"><span>⚖️</span><strong>Likheter</strong></div>
+    <div class="overview-card"><span>🧩</span><strong>Ekvationer</strong></div>
+    <div class="overview-card"><span>🔁</span><strong>Mönster</strong></div>
+    <div class="overview-card"><span>💬</span><strong>Resonemang</strong></div>
+  </section>
+
+  <section class="section" id="forsta">
+    <div class="section-head">
+      <h2>📘 1. Vad är algebra?</h2>
+      <p>
+        I algebra använder vi bokstäver och symboler för att beskriva tal,
+        samband och regler. En bokstav kan stå för ett tal som vi ännu inte känner till.
+      </p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>🔠 Variabel</h3>
+        <div class="big-equation">x = ?</div>
+        <p>En variabel är en bokstav som kan representera ett tal.</p>
+        <div class="callout">Exempel: Om x = 4 så är x + 3 = 7.</div>
+      </div>
+
+      <div class="card">
+        <h3>➕ Uttryck</h3>
+        <div class="big-equation">x + 5</div>
+        <p>Ett uttryck innehåller tal, symboler och ibland variabler.</p>
+        <div class="callout">x + 5 har inget likhetstecken.</div>
+      </div>
+
+      <div class="card">
+        <h3>⚖️ Ekvation</h3>
+        <div class="big-equation">x + 5 = 12</div>
+        <p>En ekvation är en likhet där vi kan behöva hitta ett okänt tal.</p>
+        <div class="callout">Här är x = 7.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>⚖️ Likhetstecknet betyder lika mycket</h2>
+      <p>
+        Likhetstecknet betyder att vänster sida och höger sida har samma värde.
+        Det betyder inte bara “här kommer svaret”.
+      </p>
+    </div>
+
+    <div class="balance">
+      <div class="balance-row">
+        <div class="balance-box">8 + 4</div>
+        <div class="equals">=</div>
+        <div class="balance-box">7 + 5</div>
+      </div>
+
+      <div class="balance-row">
+        <div class="balance-box">12</div>
+        <div class="equals">=</div>
+        <div class="balance-box">12</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>🧩 Hitta det okända talet</h2>
+      <p>Du kan tänka baklänges eller använda motsatt räknesätt.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>x + 6 = 15</h3>
+        <div class="step-list">
+          <div class="step"><strong>Fråga:</strong> vilket tal plus 6 blir 15?</div>
+          <div class="step">15 − 6 = 9</div>
+          <div class="step"><strong>x = 9</strong></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>x − 4 = 10</h3>
+        <div class="step-list">
+          <div class="step"><strong>Fråga:</strong> vilket tal minus 4 blir 10?</div>
+          <div class="step">10 + 4 = 14</div>
+          <div class="step"><strong>x = 14</strong></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>3 · x = 18</h3>
+        <div class="step-list">
+          <div class="step"><strong>Fråga:</strong> 3 gånger vilket tal blir 18?</div>
+          <div class="step">18 ÷ 3 = 6</div>
+          <div class="step"><strong>x = 6</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>🔁 Mönster och regler</h2>
+      <p>Algebra hjälper oss att beskriva hur ett mönster fortsätter.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Talföljd</h3>
+        <div class="big-equation">4, 7, 10, 13, ...</div>
+        <p>Skillnaden är alltid +3.</p>
+        <div class="callout">Regel: börja på 4 och öka med 3 varje gång.</div>
+      </div>
+
+      <div class="card">
+        <h3>Figurmönster</h3>
+        <div class="big-equation">3, 5, 7, 9, ...</div>
+        <p>Antalet ökar med 2 varje steg.</p>
+        <div class="callout">Steg 5 innehåller 11 delar.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>🧮 Sätt in ett värde</h2>
+      <p>Om du vet vad variabeln är kan du beräkna uttryckets värde.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Om x = 5</h3>
+        <div class="big-equation">x + 4</div>
+        <div class="step-list">
+          <div class="step">5 + 4 = 9</div>
+          <div class="step"><strong>Uttryckets värde är 9.</strong></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Om a = 6</h3>
+        <div class="big-equation">2 · a</div>
+        <div class="step-list">
+          <div class="step">2 · 6 = 12</div>
+          <div class="step"><strong>Uttryckets värde är 12.</strong></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Om n = 10</h3>
+        <div class="big-equation">n − 3</div>
+        <div class="step-list">
+          <div class="step">10 − 3 = 7</div>
+          <div class="step"><strong>Uttryckets värde är 7.</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="begrepp">
+    <div class="section-head">
+      <h2>🧠 Begreppsbank</h2>
+      <p>De här orden behöver du känna igen och kunna använda.</p>
+    </div>
+
+    <div class="grid-4">
+      <div class="concept"><strong>Algebra</strong>Matematik där symboler och bokstäver används för tal och samband.</div>
+      <div class="concept"><strong>Variabel</strong>En bokstav som representerar ett tal.</div>
+      <div class="concept"><strong>Uttryck</strong>Tal, symboler och variabler utan likhetstecken.</div>
+      <div class="concept"><strong>Ekvation</strong>En likhet som innehåller ett okänt tal.</div>
+      <div class="concept"><strong>Likhet</strong>Två uttryck som har samma värde.</div>
+      <div class="concept"><strong>Obekant tal</strong>Ett tal som ännu inte är känt.</div>
+      <div class="concept"><strong>Regel</strong>Beskriver hur ett mönster eller samband fungerar.</div>
+      <div class="concept"><strong>Talföljd</strong>Tal som följer en bestämd regel.</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>⚠️ Vanliga missuppfattningar</h2>
+    </div>
+
+    <div class="mistakes">
+      <div class="mistake">
+        <h3>x betyder gånger?</h3>
+        <div class="wrong">❌ Bokstaven x betyder alltid multiplikation.</div>
+        <div class="right">✅ I algebra kan x vara en variabel som står för ett tal.</div>
+      </div>
+
+      <div class="mistake">
+        <h3>Likhetstecknet</h3>
+        <div class="wrong">❌ = betyder “nu kommer svaret”.</div>
+        <div class="right">✅ = betyder att båda sidor har samma värde.</div>
+      </div>
+
+      <div class="mistake">
+        <h3>Uttryck eller ekvation?</h3>
+        <div class="wrong">❌ x + 4 är en ekvation.</div>
+        <div class="right">✅ x + 4 är ett uttryck. x + 4 = 9 är en ekvation.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="traning">
+    <div class="section-head">
+      <h2>✍️ Träna på din nivå</h2>
+      <p>Klicka på en nivå. Uppgifterna öppnas direkt här på sidan.</p>
+    </div>
+
+    <div class="levels">
+      <div class="level level1">
+        <div>
+          <h3>🌱 Nivå 1 – Grund</h3>
+          <p>Jag förstår variabler och enkla likheter.</p>
+          <ul>
+            <li>Hitta okänt tal</li>
+            <li>Sätta in värde</li>
+            <li>Förstå =</li>
+          </ul>
+        </div>
+        <button onclick="openLevel(1)">Öppna nivå 1</button>
+      </div>
+
+      <div class="level level2">
+        <div>
+          <h3>🚀 Nivå 2 – Vidare</h3>
+          <p>Jag löser enkla ekvationer.</p>
+          <ul>
+            <li>Addition</li>
+            <li>Subtraktion</li>
+            <li>Multiplikation</li>
+          </ul>
+        </div>
+        <button onclick="openLevel(2)">Öppna nivå 2</button>
+      </div>
+
+      <div class="level level3">
+        <div>
+          <h3>🏆 Nivå 3 – Utmaning</h3>
+          <p>Jag använder algebra i problem och mönster.</p>
+          <ul>
+            <li>Flera steg</li>
+            <li>Mönster</li>
+            <li>Resonemang</li>
+          </ul>
+        </div>
+        <button onclick="openLevel(3)">Öppna nivå 3</button>
+      </div>
+    </div>
+
+    <div id="level1Panel" class="training-panel">
+      <h3>🌱 Nivå 1</h3>
+
+      <div class="task">
+        <label>1. x + 5 = 12. Vad är x?</label>
+        <input id="l1q1" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l1q1',['7'],'l1f1')">Kontrollera</button>
+        <div id="l1f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Om a = 4, vad är a + 6?</label>
+        <input id="l1q2" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l1q2',['10'],'l1f2')">Kontrollera</button>
+        <div id="l1f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Vilket tal saknas? 9 + ? = 14</label>
+        <input id="l1q3" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l1q3',['5'],'l1f3')">Kontrollera</button>
+        <div id="l1f3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level2Panel" class="training-panel">
+      <h3>🚀 Nivå 2</h3>
+
+      <div class="task">
+        <label>1. x − 8 = 15. Vad är x?</label>
+        <input id="l2q1" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l2q1',['23'],'l2f1')">Kontrollera</button>
+        <div id="l2f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. 4 · x = 28. Vad är x?</label>
+        <input id="l2q2" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l2q2',['7'],'l2f2')">Kontrollera</button>
+        <div id="l2f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Om n = 6, vad är 3 · n?</label>
+        <input id="l2q3" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l2q3',['18'],'l2f3')">Kontrollera</button>
+        <div id="l2f3" class="feedback"></div>
+      </div>
+    </div>
+
+    <div id="level3Panel" class="training-panel">
+      <h3>🏆 Nivå 3</h3>
+
+      <div class="task">
+        <label>1. Ett tal ökas med 9 och blir 24. Vilket är talet?</label>
+        <input id="l3q1" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l3q1',['15'],'l3f1')">Kontrollera</button>
+        <div id="l3f1" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>2. Talföljden är 5, 9, 13, 17, ... Vilket tal kommer sedan?</label>
+        <input id="l3q2" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l3q2',['21'],'l3f2')">Kontrollera</button>
+        <div id="l3f2" class="feedback"></div>
+      </div>
+
+      <div class="task">
+        <label>3. Om x = 8, vad är 2 · x + 3?</label>
+        <input id="l3q3" type="text" placeholder="Skriv ditt svar">
+        <br>
+        <button class="check-btn" onclick="checkMulti('l3q3',['19'],'l3f3')">Kontrollera</button>
+        <div id="l3f3" class="feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="quiz">
+    <div class="quiz-zone">
+      <div class="quiz-top">
+        <div>
+          <h2>🎮 Algebraquiz</h2>
+          <p style="color:#cbd5e1;">Frågorna och svarsalternativen blandas.</p>
+        </div>
+        <div id="scoreBox" class="score">Poäng: 0 / 0</div>
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+        <h3 id="quizQuestion">Laddar fråga...</h3>
+        <div id="quizAnswers" class="answer-grid"></div>
+        <div id="quizFeedback" class="quiz-feedback"></div>
+        <button id="nextButton" class="next-btn" onclick="nextQuizQuestion()">Nästa fråga →</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="problem">
+    <div class="section-head">
+      <h2>🧩 Problemlösning</h2>
+      <p>Översätt situationen till matematik och visa hur du tänker.</p>
+    </div>
+
+    <div class="problem-zone">
+      <h2>🎟️ Biobiljetterna</h2>
+
+      <div class="problem-card">
+        <p>
+          En vuxenbiljett kostar 40 kr mer än en barnbiljett.
+          En vuxenbiljett kostar 140 kr.
+        </p>
+        <br>
+        <p><strong>Vad kostar en barnbiljett?</strong></p>
+
+        <textarea placeholder="Skriv hur du tänker och räknar..."></textarea>
+
+        <button class="reveal-btn" onclick="toggleSolution('solution1')">Visa lösningsförslag</button>
+
+        <div id="solution1" class="solution">
+          Låt x vara priset på en barnbiljett.
+          <br><br>
+          x + 40 = 140
+          <br><br>
+          140 − 40 = 100
+          <br><br>
+          <strong>Svar: Barnbiljetten kostar 100 kr.</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="problem-zone" style="background:linear-gradient(135deg,#ede9fe,#dbeafe);">
+      <h2>🧠 Resonemangsutmaning</h2>
+
+      <div class="problem-card">
+        <p>Två elever löser ekvationen x + 8 = 20.</p>
+        <br>
+        <p><strong>Elev A:</strong> “Jag räknar 20 − 8.”</p>
+        <p><strong>Elev B:</strong> “Jag tänker vilket tal plus 8 blir 20?”</p>
+        <br>
+        <p>Har båda metoderna rätt? Förklara varför.</p>
+
+        <textarea placeholder="Skriv ditt resonemang..."></textarea>
+
+        <button class="reveal-btn" onclick="toggleSolution('solution2')">Visa ledtråd</button>
+
+        <div id="solution2" class="solution">
+          Ja. Båda metoderna leder till x = 12.
+          Elev A använder motsatt räknesätt och Elev B tänker baklänges.
+          Metoderna beskriver samma samband på olika sätt.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>🌱 Stöd och utmaning</h2>
+    </div>
+
+    <div class="support-grid">
+      <div class="support">
+        <h3>🆘 Jag behöver hjälp</h3>
+        <ul>
+          <li>⚖️ Tänk att båda sidor om = måste vara lika mycket.</li>
+          <li>↩️ Tänk baklänges när du letar efter ett okänt tal.</li>
+          <li>➕ Motsatsen till + är −.</li>
+          <li>✖️ Motsatsen till multiplikation är division.</li>
+          <li>🔠 Byt ut bokstaven mot talet när du vet variabelns värde.</li>
+        </ul>
+      </div>
+
+      <div class="support">
+        <h3>🚀 Jag vill utmanas</h3>
+        <ul>
+          <li>🧠 Skapa en egen ekvation som har lösningen x = 12.</li>
+          <li>🔁 Beskriv en talföljd med en tydlig regel.</li>
+          <li>💬 Förklara två olika sätt att lösa samma ekvation.</li>
+          <li>🧩 Skapa ett vardagsproblem som kan skrivas som x + 15 = 40.</li>
+          <li>🏆 Undersök vad som händer om variabeln får olika värden.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>✅ Kunskapscheck</h2>
+      <p>Kryssa i det du känner att du kan.</p>
+    </div>
+
+    <div class="checklist">
+      <label><input class="goal" type="checkbox"> Jag kan förklara vad en variabel är.</label>
+      <label><input class="goal" type="checkbox"> Jag kan skilja på uttryck och ekvation.</label>
+      <label><input class="goal" type="checkbox"> Jag förstår vad likhetstecknet betyder.</label>
+      <label><input class="goal" type="checkbox"> Jag kan hitta ett okänt tal i en enkel likhet.</label>
+      <label><input class="goal" type="checkbox"> Jag kan sätta in ett värde i ett uttryck.</label>
+      <label><input class="goal" type="checkbox"> Jag kan använda motsatt räknesätt.</label>
+      <label><input class="goal" type="checkbox"> Jag kan beskriva en regel i ett mönster.</label>
+      <label><input class="goal" type="checkbox"> Jag kan använda algebra i problemlösning.</label>
+
+      <div class="finish-box">
+        <button onclick="checkGoals()">Se min progression</button>
+        <div id="finishResult"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>🔠 Algebra • Matematik åk 6</strong></p>
+  <p>Förstå • Träna • Resonera • Lösa problem</p>
+</footer>
+
+<script>
+  function normalize(value){
+    return value.trim().toLowerCase().replace(/\s+/g," ");
+  }
+
+  function checkMulti(inputId, answers, feedbackId){
+    const value = normalize(document.getElementById(inputId).value);
+    const feedback = document.getElementById(feedbackId);
+    const correct = answers.some(answer => value === normalize(answer));
+
+    if(correct){
+      feedback.className = "feedback good";
+      feedback.textContent = "✅ Rätt! Bra jobbat.";
+    } else {
+      feedback.className = "feedback bad";
+      feedback.textContent = "❌ Inte riktigt ännu. Försök igen.";
+    }
+  }
+
+  function openLevel(level){
+    document.querySelectorAll(".training-panel").forEach(panel => {
+      panel.classList.remove("active");
+    });
+
+    const panel = document.getElementById("level" + level + "Panel");
+    panel.classList.add("active");
+    panel.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  function toggleSolution(id){
+    const element = document.getElementById(id);
+    element.style.display = element.style.display === "block" ? "none" : "block";
+  }
+
+  const quizQuestions = [
+    {
+      question:"x + 6 = 14. Vad är x?",
+      answers:["6","8","14","20"],
+      correct:"8",
+      explanation:"14 − 6 = 8."
+    },
+    {
+      question:"Vilket av följande är ett uttryck?",
+      answers:["x + 5","x + 5 = 12","7 = 7","3 + 4 = 7"],
+      correct:"x + 5",
+      explanation:"Ett uttryck har inget likhetstecken."
+    },
+    {
+      question:"Om a = 5, vad är a + 7?",
+      answers:["2","5","12","35"],
+      correct:"12",
+      explanation:"5 + 7 = 12."
+    },
+    {
+      question:"3 · x = 21. Vad är x?",
+      answers:["6","7","18","24"],
+      correct:"7",
+      explanation:"21 ÷ 3 = 7."
+    },
+    {
+      question:"Vad betyder likhetstecknet = ?",
+      answers:["Nu kommer svaret","Båda sidor har samma värde","Man ska addera","Man ska byta tal"],
+      correct:"Båda sidor har samma värde",
+      explanation:"Likhetstecknet visar att vänster och höger sida är lika mycket."
+    },
+    {
+      question:"Vilket tal kommer sedan: 2, 5, 8, 11, ...?",
+      answers:["12","13","14","15"],
+      correct:"14",
+      explanation:"Talföljden ökar med 3 varje gång."
+    },
+    {
+      question:"x − 9 = 10. Vad är x?",
+      answers:["1","9","19","20"],
+      correct:"19",
+      explanation:"10 + 9 = 19."
+    },
+    {
+      question:"Om n = 4, vad är 2 · n + 1?",
+      answers:["7","8","9","10"],
+      correct:"9",
+      explanation:"2 · 4 + 1 = 8 + 1 = 9."
+    }
+  ];
+
+  let quizOrder = [];
+  let currentQuiz = 0;
+  let quizScore = 0;
+  let quizAnswered = 0;
+
+  function shuffle(array){
+    const copy = [...array];
+    for(let i = copy.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i],copy[j]] = [copy[j],copy[i]];
+    }
+    return copy;
+  }
+
+  function startQuiz(){
+    quizOrder = shuffle(quizQuestions.map((_,index) => index));
+    currentQuiz = 0;
+    quizScore = 0;
+    quizAnswered = 0;
+    renderQuiz();
+  }
+
+  function renderQuiz(){
+    const item = quizQuestions[quizOrder[currentQuiz]];
+    document.getElementById("quizQuestion").textContent =
+      (currentQuiz + 1) + ". " + item.question;
+
+    const container = document.getElementById("quizAnswers");
+    container.innerHTML = "";
+
+    shuffle(item.answers).forEach(answer => {
+      const button = document.createElement("button");
+      button.className = "answer-btn";
+      button.textContent = answer;
+      button.onclick = function(){
+        answerQuiz(answer,item.correct,item.explanation);
+      };
+      container.appendChild(button);
+    });
+
+    const feedback = document.getElementById("quizFeedback");
+    feedback.style.display = "none";
+    feedback.innerHTML = "";
+    document.getElementById("nextButton").style.display = "none";
+    updateScore();
+  }
+
+  function answerQuiz(answer,correct,explanation){
+    document.querySelectorAll(".answer-btn").forEach(button => {
+      button.disabled = true;
+    });
+
+    quizAnswered++;
+    const feedback = document.getElementById("quizFeedback");
+    feedback.style.display = "block";
+
+    if(answer === correct){
+      quizScore++;
+      feedback.style.background = "#dcfce7";
+      feedback.style.color = "#166534";
+      feedback.innerHTML = "✅ Rätt! " + explanation;
+    } else {
+      feedback.style.background = "#fee2e2";
+      feedback.style.color = "#991b1b";
+      feedback.innerHTML =
+        "❌ Inte riktigt. Rätt svar är <strong>" +
+        correct +
+        "</strong>.<br>" +
+        explanation;
+    }
+
+    updateScore();
+    document.getElementById("nextButton").style.display = "inline-block";
+  }
+
+  function nextQuizQuestion(){
+    currentQuiz++;
+
+    if(currentQuiz >= quizQuestions.length){
+      const card = document.getElementById("quizCard");
+
+      let message = "";
+      if(quizScore === quizQuestions.length){
+        message = "🏆 Alla rätt! Fantastiskt arbete.";
+      } else if(quizScore >= 6){
+        message = "🌟 Mycket bra förståelse för algebra.";
+      } else if(quizScore >= 4){
+        message = "👍 Bra arbete. Repetera gärna det du missade.";
+      } else {
+        message = "🌱 Fortsätt träna och prova quizet igen.";
+      }
+
+      card.innerHTML = `
+        <h3>🎉 Quizet är klart!</h3>
+        <p style="font-size:1.2rem;margin-top:15px;">
+          Du fick <strong>${quizScore} av ${quizQuestions.length}</strong> rätt.
+        </p>
+        <p style="margin-top:15px;color:#cbd5e1;">${message}</p>
+        <button class="next-btn" style="display:inline-block" onclick="location.reload()">
+          Spela igen
+        </button>
+      `;
+      return;
+    }
+
+    renderQuiz();
+  }
+
+  function updateScore(){
+    document.getElementById("scoreBox").textContent =
+      "Poäng: " + quizScore + " / " + quizAnswered;
+  }
+
+  function checkGoals(){
+    const goals = document.querySelectorAll(".goal");
+    let checked = 0;
+
+    goals.forEach(goal => {
+      if(goal.checked) checked++;
+    });
+
+    const result = document.getElementById("finishResult");
+
+    if(checked === goals.length){
+      result.textContent = "🏆 Du har markerat alla mål. Prova nu utmaningsuppgifterna.";
+    } else if(checked >= 6){
+      result.textContent = "🌟 Du har markerat " + checked + " av " + goals.length + " mål. Mycket bra.";
+    } else if(checked >= 3){
+      result.textContent = "🌱 Du har markerat " + checked + " av " + goals.length + " mål. Fortsätt träna.";
+    } else {
+      result.textContent = "👣 Börja med variabler och likheter och arbeta vidare steg för steg.";
+    }
+  }
+
+  startQuiz();
+</script>
+
+</body>
+</html>
