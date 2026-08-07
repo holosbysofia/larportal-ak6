@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meningsbyggnad – Svenska åk 6</title>
+<style>
+:root{
+  --bg:#f8fafc;--dark:#0f172a;--text:#1f2937;--muted:#64748b;
+  --rose:#e11d48;--rose2:#be123c;--purple:#7c3aed;--blue:#2563eb;
+  --green:#16a34a;--orange:#ea580c;--red:#dc2626;--border:#e2e8f0
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+a{text-decoration:none}
+button,input,textarea{font:inherit}
+
+nav{
+  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.logo{font-weight:900;color:var(--dark)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{color:#334155;font-weight:800;padding:8px 11px;border-radius:10px}
+.navlinks a:hover{background:#ffe4e6;color:#9f1239}
+.navlinks .home{background:var(--rose);color:white}
+
+.hero{
+  background:radial-gradient(circle at 84% 16%,rgba(255,255,255,.18),transparent 24%),
+  linear-gradient(135deg,#e11d48,#7c3aed,#0f172a);
+  color:white;padding:72px 6% 100px
+}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr;gap:35px;align-items:center}
+.hero h1{margin:0 0 16px;font-size:clamp(3rem,8vw,5rem);line-height:1}
+.hero p{font-size:1.18rem;max-width:760px}
+.hero-card{background:white;color:#9f1239;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+.hero-icon{font-size:5rem;margin-bottom:8px}
+
+.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
+.overview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:-42px}
+.overview div{background:white;padding:18px;border-radius:16px;text-align:center;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.09)}
+
+section{margin-top:62px}
+.section-head{margin-bottom:22px}
+.section-head h2{margin:0 0 8px;color:var(--dark);font-size:2rem}
+.section-head p{margin:0;color:var(--muted)}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.card,.concept,.support,.checklist{
+  background:white;border-radius:20px;padding:24px;box-shadow:0 6px 22px rgba(0,0,0,.06)
+}
+.card h3{margin-top:0;color:#881337}
+.fact{background:#fff1f2;border:1px solid #fecdd3;border-radius:14px;padding:15px;font-weight:800;color:#9f1239;margin:14px 0}
+.tip{background:#faf5ff;border-left:5px solid var(--purple);padding:14px;border-radius:10px;margin-top:12px}
+
+.syntax{
+  background:white;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05);
+  border-top:5px solid var(--rose)
+}
+.syntax strong{display:block;color:#be123c;margin-bottom:6px}
+.concept strong{display:block;color:#be123c;margin-bottom:5px}
+
+.example{
+  background:white;border-radius:22px;padding:26px;box-shadow:0 6px 22px rgba(0,0,0,.06);
+  border:1px solid #f1f5f9
+}
+.example h3{margin-top:0;color:#4c1d95}
+.hl-subj{background:#dbeafe;color:#1d4ed8;padding:2px 6px;border-radius:6px;font-weight:900}
+.hl-pred{background:#dcfce7;color:#166534;padding:2px 6px;border-radius:6px;font-weight:900}
+.hl-bis{background:#ede9fe;color:#6d28d9;padding:2px 6px;border-radius:6px;font-weight:900}
+
+.mistake{background:white;border-top:5px solid var(--red);border-radius:16px;padding:20px}
+.wrong{color:#b91c1c;font-weight:800}.right{color:#166534;font-weight:800}
+
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level{color:white;border-radius:22px;padding:24px}
+.level1{background:linear-gradient(135deg,#059669,#047857)}
+.level2{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.level3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.level button{border:none;background:white;color:#111827;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
+
+.panel{display:none;background:white;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 6px 22px rgba(0,0,0,.06)}
+.panel.active{display:block}
+.task{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.task label{display:block;font-weight:800;margin-bottom:8px}
+.task input,.task textarea{padding:10px;border:1px solid #cbd5e1;border-radius:9px;width:100%;max-width:540px}
+.task textarea{min-height:110px}
+.check{margin-top:9px;background:var(--rose);color:white;border:none;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.feedback{display:none;margin-top:9px;padding:10px;border-radius:9px;font-weight:800}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+
+.quiz{background:#0f172a;color:white;border-radius:24px;padding:28px}
+.quiz-top{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.score{background:#1e293b;padding:9px 12px;border-radius:10px;font-weight:900}
+.quiz-card{background:#1e293b;border-radius:16px;padding:22px;margin-top:18px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer{border:none;background:white;color:#1f2937;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;text-align:left}
+.answer:hover{background:#ffe4e6}.answer:disabled{opacity:.75;cursor:default}
+#quizFeedback{display:none;margin-top:14px;padding:12px;border-radius:10px;font-weight:800}
+#nextBtn{display:none;margin-top:12px;border:none;background:#facc15;color:#111827;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+
+.problem{background:linear-gradient(135deg,#fff1f2,#ede9fe);border-radius:24px;padding:28px}
+.problem-card{background:white;border-radius:16px;padding:20px;margin-top:15px}
+.problem textarea{width:100%;min-height:130px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;resize:vertical;margin-top:12px}
+.reveal{margin-top:10px;border:none;background:#be123c;color:white;padding:9px 13px;border-radius:9px;font-weight:900;cursor:pointer}
+.solution{display:none;background:#f8fafc;border-radius:10px;padding:14px;margin-top:12px}
+
+.checklist label{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checklist input{width:19px;height:19px}
+.goal-btn{margin-top:16px;border:none;background:#be123c;color:white;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer}
+#goalResult{margin-top:12px;font-weight:900}
+
+footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
+@media(max-width:900px){.overview,.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.levels{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-inner,.grid-2,.overview,.answers{grid-template-columns:1fr}.hero-card{display:none}.overview{margin-top:-25px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🔤 Meningsbyggnad – Svenska åk 6</div>
+  <div class="navlinks">
+    <a class="home" href="index.html">🏠 Start</a>
+    <a href="svenska.html">📚 Svenska</a>
+    <a href="#forsta">Förstå</a>
+    <a href="#traning">Träna</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#skriv">Skriv</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Meningsbyggnad</h1>
+      <p>
+        Här lär du dig hur meningar byggs upp. Du tränar på subjekt, predikat,
+        huvudsats, bisats, ordföljd, sambandsord och hur du varierar meningar
+        så att texten blir tydlig och lätt att läsa.
+      </p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">🔤🧱✍️</div>
+      <h3>Bygg tydliga meningar</h3>
+      <p>Vem? → gör vad? → när? → var? → varför?</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="overview">
+  <div>👤 Subjekt</div>
+  <div>🏃 Predikat</div>
+  <div>🧱 Huvudsats</div>
+  <div>🔗 Bisats</div>
+  <div>✍️ Variation</div>
+</div>
+
+<section id="forsta">
+  <div class="section-head"><h2>📘 Vad är en mening?</h2><p>En mening uttrycker en hel tanke och börjar med stor bokstav och avslutas med skiljetecken.</p></div>
+  <div class="fact">En fullständig mening behöver normalt minst ett verb och ofta ett subjekt som visar vem eller vad meningen handlar om.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>👤 Subjekt och predikat</h2><p>Två viktiga delar i en mening.</p></div>
+  <div class="grid-2">
+    <div class="card"><h3>Subjekt</h3><p>Vem eller vad gör något?</p><div class="tip"><span class="hl-subj">Eleven</span> skriver.</div></div>
+    <div class="card"><h3>Predikat</h3><p>Vad händer eller görs?</p><div class="tip">Eleven <span class="hl-pred">skriver</span>.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧱 Bygg ut en enkel mening</h2><p>En mening kan utvecklas steg för steg.</p></div>
+  <div class="grid-4">
+    <div class="syntax"><strong>Grund</strong><p>Flickan springer.</p></div>
+    <div class="syntax"><strong>Var?</strong><p>Flickan springer på skolgården.</p></div>
+    <div class="syntax"><strong>När?</strong><p>Efter lunchen springer flickan på skolgården.</p></div>
+    <div class="syntax"><strong>Hur?</strong><p>Efter lunchen springer flickan snabbt på skolgården.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧱 Huvudsats</h2><p>En huvudsats kan stå ensam och fortfarande vara en fullständig mening.</p></div>
+  <div class="example">
+    <h3>Exempel</h3>
+    <p><strong>Vi går hem.</strong></p>
+    <p><strong>Hon läser en bok.</strong></p>
+    <p><strong>I morgon börjar matchen.</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔗 Bisats</h2><p>En bisats hör ihop med en huvudsats och kan ofta inte stå ensam på samma sätt.</p></div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Huvudsats + bisats</h3>
+      <p>Jag stannar hemma <span class="hl-bis">eftersom jag är sjuk</span>.</p>
+    </div>
+    <div class="card">
+      <h3>Bisats först</h3>
+      <p><span class="hl-bis">Eftersom jag är sjuk</span>, stannar jag hemma.</p>
+    </div>
+  </div>
+  <div class="tip">Vanliga bisatsinledare: eftersom, när, om, att, som, fastän, medan.</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔄 Ordföljd</h2><p>Ordföljden påverkas av vad som står först i meningen.</p></div>
+  <div class="grid-2">
+    <div class="card"><h3>Rak ordföljd</h3><p><span class="hl-subj">Vi</span> <span class="hl-pred">spelar</span> fotboll efter skolan.</p></div>
+    <div class="card"><h3>Omvänd ordföljd</h3><p>Efter skolan <span class="hl-pred">spelar</span> <span class="hl-subj">vi</span> fotboll.</p></div>
+  </div>
+  <div class="fact">När något annat än subjektet står först i en svensk huvudsats kommer det finita verbet ofta före subjektet: ”I morgon går vi …”</div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🔗 Sambandsord</h2><p>Sambandsord hjälper meningar och tankar att hänga ihop.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Lägga till</h3><p>och, dessutom, också</p></div>
+    <div class="card"><h3>Orsak</h3><p>eftersom, därför att</p></div>
+    <div class="card"><h3>Kontrast</h3><p>men, däremot, trots att</p></div>
+    <div class="card"><h3>Ordning</h3><p>först, sedan, därefter, till sist</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✍️ Variera meningarna</h2><p>En text blir bättre när meningarna inte börjar och ser ut exakt likadant hela tiden.</p></div>
+  <div class="grid-3">
+    <div class="card"><h3>Variera början</h3><p>”Jag gick …” → ”Efter skolan gick jag …” → ”Plötsligt gick jag …”</p></div>
+    <div class="card"><h3>Variera längden</h3><p>Korta meningar kan skapa tempo. Längre meningar kan ge mer information.</p></div>
+    <div class="card"><h3>Kombinera</h3><p>Koppla samman meningar med sambandsord när idéerna hör ihop.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🚫 Meningsfragment och run-on-meningar</h2><p>Två vanliga problem i elevtexter.</p></div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Meningsfragment</h3>
+      <p>”När jag kom hem.”</p>
+      <div class="tip">Det känns ofullständigt. Bättre: ”När jag kom hem, började jag laga mat.”</div>
+    </div>
+    <div class="card">
+      <h3>För lång mening</h3>
+      <p>”Jag gick hem och jag åt och jag gjorde läxan och sen ringde min vän och sen gick vi ut.”</p>
+      <div class="tip">Dela upp och variera sambanden.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🧠 Begreppsbank</h2></div>
+  <div class="grid-4">
+    <div class="concept"><strong>Subjekt</strong>Vem eller vad meningen handlar om.</div>
+    <div class="concept"><strong>Predikat</strong>Det verb som visar vad som händer eller görs.</div>
+    <div class="concept"><strong>Huvudsats</strong>En sats som kan stå själv.</div>
+    <div class="concept"><strong>Bisats</strong>En sats som hör ihop med en huvudsats.</div>
+    <div class="concept"><strong>Ordföljd</strong>I vilken ordning orden står.</div>
+    <div class="concept"><strong>Sambandsord</strong>Ord som visar hur tankar hänger ihop.</div>
+    <div class="concept"><strong>Meningsfragment</strong>En ofullständig mening.</div>
+    <div class="concept"><strong>Variation</strong>Att variera början, längden och strukturen i meningar.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>⚠️ Vanliga missuppfattningar</h2></div>
+  <div class="grid-3">
+    <div class="mistake"><h3>Alla meningar ska börja med subjektet</h3><p class="wrong">❌ Jag måste alltid skriva ”Jag …”, ”Hon …”, ”De …”.</p><p class="right">✅ Du kan börja med tid, plats eller annat och använda omvänd ordföljd.</p></div>
+    <div class="mistake"><h3>Lång mening är bättre</h3><p class="wrong">❌ Ju längre mening, desto bättre språk.</p><p class="right">✅ Tydlighet är viktigare. Variera korta och längre meningar.</p></div>
+    <div class="mistake"><h3>Bisats kan alltid stå ensam</h3><p class="wrong">❌ ”Eftersom jag var trött.” fungerar alltid som fullständig mening.</p><p class="right">✅ Ofta behöver bisatsen en huvudsats: ”Eftersom jag var trött, gick jag hem.”</p></div>
+  </div>
+</section>
+
+<section id="traning">
+  <div class="section-head"><h2>✍️ Träna på din nivå</h2><p>Klicka på en nivå.</p></div>
+
+  <div class="levels">
+    <div class="level level1"><h3>🌱 Nivå 1</h3><p>Subjekt och predikat.</p><button onclick="showLevel(1)">Öppna nivå 1</button></div>
+    <div class="level level2"><h3>🚀 Nivå 2</h3><p>Huvudsats, bisats och ordföljd.</p><button onclick="showLevel(2)">Öppna nivå 2</button></div>
+    <div class="level level3"><h3>🏆 Nivå 3</h3><p>Variera och förbättra meningar.</p><button onclick="showLevel(3)">Öppna nivå 3</button></div>
+  </div>
+
+  <div id="level1" class="panel">
+    <h3>🌱 Nivå 1</h3>
+    <p><strong>Mening:</strong> Katten sover på soffan.</p>
+    <div class="task"><label>1. Vad är subjekt?</label><input id="a1"><br><button class="check" onclick="checkAnswer('a1',['katten'],'f1')">Kontrollera</button><div id="f1" class="feedback"></div></div>
+    <div class="task"><label>2. Vad är predikat?</label><input id="a2"><br><button class="check" onclick="checkAnswer('a2',['sover'],'f2')">Kontrollera</button><div id="f2" class="feedback"></div></div>
+    <div class="task"><label>3. Bör en mening börja med stor bokstav?</label><input id="a3"><br><button class="check" onclick="checkAnswer('a3',['ja'],'f3')">Kontrollera</button><div id="f3" class="feedback"></div></div>
+  </div>
+
+  <div id="level2" class="panel">
+    <h3>🚀 Nivå 2</h3>
+    <div class="task"><label>1. Är ”Vi går hem.” en huvudsats?</label><input id="b1"><br><button class="check" onclick="checkAnswer('b1',['ja'],'g1')">Kontrollera</button><div id="g1" class="feedback"></div></div>
+    <div class="task"><label>2. Vilket ord inleder bisatsen i ”Jag stannar eftersom det regnar”?</label><input id="b2"><br><button class="check" onclick="checkAnswer('b2',['eftersom'],'g2')">Kontrollera</button><div id="g2" class="feedback"></div></div>
+    <div class="task"><label>3. Vilken mening har rätt ordföljd: ”I morgon vi går till skolan” eller ”I morgon går vi till skolan”?</label><input id="b3"><br><button class="check" onclick="checkContains('b3',['i morgon går vi','gar vi'],'g3')">Kontrollera</button><div id="g3" class="feedback"></div></div>
+  </div>
+
+  <div id="level3" class="panel">
+    <h3>🏆 Nivå 3</h3>
+    <div class="task"><label>1. Förbättra: ”Jag gick hem. Jag åt. Jag gjorde läxan.”</label><textarea id="c1"></textarea><br><button class="check" onclick="checkContains('c1',['sedan','därefter','darefter','och','när','nar','efter'],'h1')">Kontrollera</button><div id="h1" class="feedback"></div></div>
+    <div class="task"><label>2. Är ”När skolan slutade.” en fullständig mening i sig här?</label><input id="c2"><br><button class="check" onclick="checkAnswer('c2',['nej'],'h2')">Kontrollera</button><div id="h2" class="feedback"></div></div>
+    <div class="task"><label>3. Kan korta meningar användas för att skapa tempo?</label><input id="c3"><br><button class="check" onclick="checkAnswer('c3',['ja'],'h3')">Kontrollera</button><div id="h3" class="feedback"></div></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="quiz">
+    <div class="quiz-top">
+      <div><h2>🎮 Meningsbyggnadsquiz</h2><p>Åtta frågor. Svarsalternativen blandas.</p></div>
+      <div id="score" class="score">Poäng: 0 / 0</div>
+    </div>
+    <div class="quiz-card" id="quizCard">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+      <div id="quizFeedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Nästa fråga →</button>
+    </div>
+  </div>
+</section>
+
+<section id="skriv">
+  <div class="section-head"><h2>📝 Skriv och förbättra</h2><p>Använd tydliga och varierade meningar.</p></div>
+
+  <div class="problem">
+    <div class="problem-card">
+      <h3>✍️ Uppgift 1</h3>
+      <p>Bygg ut meningen ”Pojken väntade.” med tid, plats och en anledning.</p>
+      <textarea placeholder="Skriv en utvecklad mening..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol1')">Visa exempel</button>
+      <div id="sol1" class="solution">Efter skolan väntade pojken utanför biblioteket eftersom hans syster skulle hämta honom.</div>
+    </div>
+
+    <div class="problem-card">
+      <h3>🔧 Uppgift 2</h3>
+      <p>Skriv om texten så att meningarna varierar: ”Jag vaknade. Jag åt frukost. Jag gick till skolan. Jag träffade min vän.”</p>
+      <textarea placeholder="Skriv en mer varierad version..."></textarea><br>
+      <button class="reveal" onclick="toggleSolution('sol2')">Visa exempel</button>
+      <div id="sol2" class="solution">När jag hade vaknat åt jag frukost. Därefter gick jag till skolan, där jag träffade min vän.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>🌱 Stöd och utmaning</h2></div>
+  <div class="grid-2">
+    <div class="support"><h3>🆘 Jag behöver hjälp</h3><ul><li>Fråga: Vem eller vad? = subjekt.</li><li>Fråga: Vad gör/händer? = predikat.</li><li>Bygg först en kort mening.</li><li>Lägg sedan till tid, plats eller orsak.</li><li>Kontrollera stor bokstav och skiljetecken.</li></ul></div>
+    <div class="support"><h3>🚀 Jag vill utmanas</h3><ul><li>Variera mellan rak och omvänd ordföljd.</li><li>Kombinera huvudsats och bisats.</li><li>Variera meningslängden för olika effekt.</li><li>Förbättra en egen text genom att ändra tre meningsstarter.</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>✅ Kunskapscheck</h2></div>
+  <div class="checklist">
+    <label><input class="goal" type="checkbox"> Jag kan hitta subjekt i en enkel mening.</label>
+    <label><input class="goal" type="checkbox"> Jag kan hitta predikat i en enkel mening.</label>
+    <label><input class="goal" type="checkbox"> Jag vet vad en huvudsats är.</label>
+    <label><input class="goal" type="checkbox"> Jag vet vad en bisats är.</label>
+    <label><input class="goal" type="checkbox"> Jag kan använda rätt ordföljd när meningen börjar med tid eller plats.</label>
+    <label><input class="goal" type="checkbox"> Jag kan använda sambandsord.</label>
+    <label><input class="goal" type="checkbox"> Jag kan upptäcka ofullständiga meningar.</label>
+    <label><input class="goal" type="checkbox"> Jag kan variera och förbättra meningsbyggnaden i en text.</label>
+    <button class="goal-btn" onclick="checkGoals()">Se min progression</button>
+    <div id="goalResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer><strong>🔤 Meningsbyggnad • Svenska åk 6</strong><br>Subjekt • Predikat • Huvudsats • Bisats • Ordföljd • Sambandsord • Variation</footer>
+
+<script>
+var quizQuestions=[
+{q:"Vad är subjektet i 'Eleven skriver en text'?",a:["Eleven","skriver","en","text"],c:"Eleven",e:"Subjektet visar vem eller vad som gör något."},
+{q:"Vad är predikatet i 'Eleven skriver en text'?",a:["skriver","Eleven","text","en"],c:"skriver",e:"Predikatet är verbet som visar vad som händer."},
+{q:"Vilken sats kan stå själv?",a:["Huvudsats","Bisats","Bisatsinledare","Prepositionsfras"],c:"Huvudsats",e:"En huvudsats kan fungera som en fullständig mening."},
+{q:"Vilket ord kan inleda en bisats?",a:["eftersom","stol","snabb","springer"],c:"eftersom",e:"Eftersom är en vanlig bisatsinledare."},
+{q:"Vilken mening har korrekt ordföljd?",a:["I dag går vi till biblioteket.","I dag vi går till biblioteket.","I dag till biblioteket vi.","Går biblioteket vi i dag."],c:"I dag går vi till biblioteket.",e:"När tidsuttrycket står först kommer verbet före subjektet."},
+{q:"Vad är ett meningsfragment?",a:["En ofullständig mening","En mycket lång rubrik","En fråga","En dialog"],c:"En ofullständig mening",e:"Ett fragment uttrycker inte en fullständig tanke i sitt sammanhang."},
+{q:"Varför varierar man meningsstarter?",a:["För att texten ska bli mer varierad och flyta bättre","För att göra texten svårare","För att undvika verb","För att ta bort sambandsord"],c:"För att texten ska bli mer varierad och flyta bättre",e:"Variation förbättrar rytm och läsbarhet."},
+{q:"Vilket ord visar orsak?",a:["eftersom","sedan","dessutom","men"],c:"eftersom",e:"Eftersom visar varför något händer."}
+];
+
+var order=[],current=0,score=0,answered=0;
+function normalize(v){return v.trim().toLowerCase().replace(/\s+/g," ")}
+function showLevel(n){
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active")});
+  var s=document.getElementById("level"+n);s.classList.add("active");
+  s.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function checkAnswer(id,answers,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=answers.some(function(a){return value===normalize(a)});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Rätt! Bra jobbat.":"❌ Inte riktigt. Försök igen."
+}
+function checkContains(id,parts,fid){
+  var value=normalize(document.getElementById(id).value),f=document.getElementById(fid);
+  var ok=parts.some(function(p){return value.indexOf(normalize(p))!==-1});
+  f.className=ok?"feedback good":"feedback bad";
+  f.textContent=ok?"✅ Bra!":"❌ Försök igen och tänk på ordföljd och samband."
+}
+function toggleSolution(id){var b=document.getElementById(id);b.style.display=b.style.display==="block"?"none":"block"}
+function shuffle(a){var c=a.slice();for(var i=c.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=c[i];c[i]=c[j];c[j]=t}return c}
+function startQuiz(){order=shuffle([0,1,2,3,4,5,6,7]);current=0;score=0;answered=0;renderQuestion()}
+function renderQuestion(){
+  var item=quizQuestions[order[current]];
+  document.getElementById("question").textContent=(current+1)+". "+item.q;
+  var box=document.getElementById("answers");box.innerHTML="";
+  shuffle(item.a).forEach(function(choice){
+    var b=document.createElement("button");b.className="answer";b.type="button";b.textContent=choice;
+    b.onclick=function(){answerQuestion(choice,item.c,item.e)};box.appendChild(b)
+  });
+  var f=document.getElementById("quizFeedback");f.style.display="none";f.innerHTML="";
+  document.getElementById("nextBtn").style.display="none";updateScore()
+}
+function answerQuestion(choice,correct,exp){
+  document.querySelectorAll(".answer").forEach(function(b){b.disabled=true});answered++;
+  var f=document.getElementById("quizFeedback");f.style.display="block";
+  if(choice===correct){score++;f.style.background="#dcfce7";f.style.color="#166534";f.innerHTML="✅ Rätt! "+exp}
+  else{f.style.background="#fee2e2";f.style.color="#991b1b";f.innerHTML="❌ Rätt svar är <strong>"+correct+"</strong>.<br>"+exp}
+  updateScore();document.getElementById("nextBtn").style.display="inline-block"
+}
+function nextQuestion(){
+  current++;
+  if(current>=quizQuestions.length){
+    document.getElementById("quizCard").innerHTML="<h3>🎉 Quizet är klart!</h3><p>Du fick <strong>"+score+" av "+quizQuestions.length+"</strong> rätt.</p><button style='margin-top:12px;background:#facc15;border:none;padding:10px 14px;border-radius:9px;font-weight:900;cursor:pointer' onclick='location.reload()'>Spela igen</button>";
+    return
+  }
+  renderQuestion()
+}
+function updateScore(){document.getElementById("score").textContent="Poäng: "+score+" / "+answered}
+function checkGoals(){
+  var goals=document.querySelectorAll(".goal"),checked=0;
+  goals.forEach(function(g){if(g.checked)checked++});
+  var r=document.getElementById("goalResult");
+  if(checked===goals.length)r.textContent="🏆 Alla mål markerade!";
+  else if(checked>=6)r.textContent="🌟 "+checked+" av "+goals.length+" mål. Mycket bra.";
+  else if(checked>=3)r.textContent="🌱 "+checked+" av "+goals.length+" mål. Fortsätt träna.";
+  else r.textContent="👣 Börja med subjekt, predikat och enkla huvudsatser."
+}
+document.addEventListener("DOMContentLoaded",startQuiz);
+</script>
+
+</body>
+</html>
