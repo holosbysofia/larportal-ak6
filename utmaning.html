@@ -3,135 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Utmaningar – Lärportal åk 6</title>
+<title>Utmaningsbank – Lärportal åk 6</title>
 <style>
 :root{
-  --bg:#f7f8fc;--ink:#152238;--muted:#667085;--card:#fff;--line:#e5e7eb;
-  --gold:#f59e0b;--orange:#ea580c;--purple:#7c3aed;--blue:#2563eb;--green:#059669;--red:#dc2626
+  --bg:#f7f8fc;--ink:#14213d;--muted:#64748b;--blue:#2563eb;--purple:#7c3aed;
+  --green:#059669;--orange:#ea580c;--red:#dc2626;--cyan:#0891b2;--card:#fff;--line:#e5e7eb
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
 a{text-decoration:none;color:inherit}
 button,textarea{font:inherit}
-
 nav{
-  position:sticky;top:0;z-index:1000;background:white;padding:12px 5%;
+  position:sticky;top:0;z-index:100;background:white;padding:12px 5%;
   display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
   box-shadow:0 2px 12px rgba(0,0,0,.08)
 }
 .logo{font-weight:900}
 .navlinks{display:flex;gap:8px;flex-wrap:wrap}
 .navlinks a{padding:8px 11px;border-radius:10px;font-weight:800;color:#334155}
-.navlinks a:hover{background:#fff7ed;color:#9a3412}
-.navlinks .home{background:#f59e0b;color:#111827}
+.navlinks .home{background:#2563eb;color:white}
 
 .hero{
   background:
-    radial-gradient(circle at 83% 18%,rgba(255,255,255,.17),transparent 24%),
+    radial-gradient(circle at 85% 18%,rgba(255,255,255,.18),transparent 24%),
     linear-gradient(135deg,#f59e0b,#ea580c,#7c3aed);
-  color:white;padding:74px 6% 100px
+  color:white;padding:72px 6% 96px
 }
-.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr .85fr;gap:32px;align-items:center}
-.hero h1{font-size:clamp(3.2rem,8vw,5.5rem);line-height:.95;margin:0 0 16px}
-.hero p{font-size:1.17rem;max-width:760px;margin:0}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.5fr .85fr;gap:30px;align-items:center}
+.hero h1{font-size:clamp(3.2rem,8vw,5.4rem);line-height:.95;margin:0 0 16px}
+.hero p{font-size:1.18rem;max-width:760px;margin:0}
 .hero-card{background:white;color:#7c2d12;border-radius:24px;padding:28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.18)}
 .hero-card .big{font-size:5rem}
 
-.wrap{max-width:1180px;margin:auto;padding:0 20px 70px}
-.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:-34px}
-.quick a{
-  background:white;border-radius:16px;padding:18px 12px;text-align:center;font-weight:900;
+.wrap{max-width:1220px;margin:auto;padding:0 20px 70px}
+.quick{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:-34px}
+.quick button{
+  border:0;background:white;border-radius:16px;padding:16px 10px;font-weight:900;cursor:pointer;
   box-shadow:0 10px 25px rgba(0,0,0,.08)
 }
+.quick button.active{outline:3px solid #fbbf24}
 
-section{margin-top:58px}
+section{margin-top:56px}
 .section-head h2{font-size:2rem;margin:0 0 7px}
 .section-head p{margin:0;color:var(--muted)}
 
-.challenge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.level-filter{
+  display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;background:white;border-radius:18px;
+  padding:13px;box-shadow:0 5px 18px rgba(0,0,0,.05)
+}
+.level-filter button{
+  border:0;border-radius:999px;padding:9px 13px;font-weight:900;cursor:pointer;background:#f1f5f9;color:#334155
+}
+.level-filter button.active{background:#7c3aed;color:white}
+
+.subject-block{margin-top:38px}
+.subject-heading{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  color:white;border-radius:18px;padding:17px 20px;margin-bottom:18px
+}
+.subject-heading h2{margin:0;font-size:1.7rem}
+.subject-heading span{font-weight:800;opacity:.95}
+.math-head{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.no-head{background:linear-gradient(135deg,#059669,#0f766e)}
+.tech-head{background:linear-gradient(135deg,#ea580c,#f59e0b)}
+.sv-head{background:linear-gradient(135deg,#9333ea,#6d28d9)}
+.en-head{background:linear-gradient(135deg,#dc2626,#be123c)}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .card{
   background:white;border-radius:22px;padding:22px;box-shadow:0 6px 22px rgba(0,0,0,.06);
-  border:1px solid #edf1f6;display:flex;flex-direction:column;min-height:280px
+  border:1px solid #edf1f6;transition:.2s;display:flex;flex-direction:column;min-height:275px
 }
-.card .icon{font-size:2.5rem}
-.card h3{margin:10px 0 7px}
-.card p{color:var(--muted)}
-.badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 15px}
-.badge{font-size:.78rem;font-weight:900;padding:5px 8px;border-radius:999px;background:#fff7ed;color:#9a3412}
-.open{
-  margin-top:auto;border:0;background:#f59e0b;color:#111827;padding:10px 14px;border-radius:10px;
-  font-weight:900;cursor:pointer
-}
+.card:hover{transform:translateY(-3px)}
+.card.hide,.subject-block.hide{display:none}
+.icon{font-size:2.4rem}
+.card h3{margin:10px 0 7px;font-size:1.25rem}
+.card p{color:var(--muted);flex:1}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 14px}
+.badge{font-size:.77rem;font-weight:900;padding:5px 8px;border-radius:999px;background:#fff7ed;color:#9a3412}
+.badge.master{background:#f3e8ff;color:#6b21a8}
+.badge.hard{background:#fee2e2;color:#991b1b}
+.open{border:0;background:#ea580c;color:white;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer}
 
 .panel{
   display:none;background:white;border-radius:24px;padding:26px;box-shadow:0 8px 26px rgba(0,0,0,.07);
-  margin-top:26px
+  margin-top:28px;border:1px solid #edf1f6
 }
 .panel.active{display:block}
-.panel-top{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;flex-wrap:wrap}
+.panel-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
 .panel h2{margin:0 0 5px}
 .close{border:0;background:#e2e8f0;padding:9px 12px;border-radius:10px;font-weight:900;cursor:pointer}
-.mission{
-  background:linear-gradient(135deg,#fff7ed,#fef3c7);border-radius:18px;padding:22px;margin-top:18px;
-  border:1px solid #fed7aa
-}
-.mission h3{margin-top:0}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
-.step{background:white;border-radius:14px;padding:15px}
-.step b{display:block;color:#b45309;margin-bottom:5px}
-textarea{
-  width:100%;min-height:170px;border:2px solid #dbe2ea;border-radius:12px;padding:13px;
-  margin-top:15px;resize:vertical;outline:none
-}
-textarea:focus{border-color:#f59e0b}
-.reveal{border:0;background:#7c3aed;color:white;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer;margin-top:10px}
-.solution{display:none;background:#f8fafc;border-radius:12px;padding:15px;margin-top:12px}
-.next{border:0;background:#2563eb;color:white;padding:10px 14px;border-radius:10px;font-weight:900;cursor:pointer;margin-top:10px}
+.challenge-box{background:#fff7ed;border:1px solid #fed7aa;border-radius:18px;padding:22px;margin-top:18px}
+.challenge-box h3{margin-top:0}
+.challenge-box textarea{width:100%;min-height:170px;border:1px solid #cbd5e1;border-radius:12px;padding:12px;resize:vertical;background:white}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.actions button{border:0;border-radius:10px;padding:10px 14px;font-weight:900;cursor:pointer}
+.hint-btn{background:#facc15;color:#111827}.solution-btn{background:#2563eb;color:white}.next-btn{background:#7c3aed;color:white}
+.reveal{display:none;margin-top:14px;padding:14px;border-radius:12px;background:#f8fafc;border-left:5px solid #2563eb}
 
-.weekly{
-  background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:28px;padding:32px;
-  display:grid;grid-template-columns:2fr .8fr;gap:24px;align-items:center
+.random-zone{
+  background:linear-gradient(135deg,#1e293b,#0f172a);color:white;border-radius:26px;padding:30px
 }
-.weekly .big{font-size:7rem;text-align:center}
-.weekly textarea{background:white}
+.random-zone h2{margin-top:0}
+.random-zone p{color:#cbd5e1}
+.random-zone button{border:0;background:#f59e0b;color:#111827;padding:12px 16px;border-radius:11px;font-weight:900;cursor:pointer}
 
-.rubric{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.rubric-card{background:white;border-radius:20px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.05)}
-.rubric-card h3{margin-top:0}
-.rubric-card ul{padding-left:20px;color:#475569}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.info{background:white;border-radius:20px;padding:22px;box-shadow:0 5px 18px rgba(0,0,0,.05)}
+.info h3{margin-top:0;color:#7c3aed}
 
 footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;margin-top:60px}
 
-@media(max-width:900px){.quick,.challenge-grid,.steps{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:700px){.hero-inner,.quick,.challenge-grid,.steps,.weekly,.rubric{grid-template-columns:1fr}.hero-card{display:none}.quick{margin-top:-22px}.weekly .big{font-size:5rem}}
+@media(max-width:1000px){.quick{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.hero-inner,.quick,.grid,.info-grid{grid-template-columns:1fr}.hero-card{display:none}.quick{margin-top:-22px}}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">🏆 Utmaningar – Åk 6</div>
+  <div class="logo">🏆 Utmaningsbank – Åk 6</div>
   <div class="navlinks">
     <a class="home" href="index.html">🏠 Start</a>
-    <a href="#utmaningar">Utmaningar</a>
-    <a href="#veckans">Veckans problem</a>
-    <a href="#resonera">Resonera</a>
+    <a href="#bank">Utmaningar</a>
+    <a href="#slump">Slumpa</a>
+    <a href="#strategier">Strategier</a>
   </div>
 </nav>
 
 <header class="hero">
   <div class="hero-inner">
     <div>
-      <h1>Utmana dig</h1>
+      <h1>Utmana mig</h1>
       <p>
-        Här får du uppgifter där det inte alltid finns bara ett självklart sätt.
-        Förklara hur du tänker, jämför lösningar och försök hitta mer än ett svar.
+        En riktig utmaningsbank med många uppgifter. Välj ämne och nivå:
+        Kluring, Svår eller Mästarutmaning. Här behöver du ofta förklara,
+        jämföra, pröva flera vägar eller motivera ditt svar.
       </p>
     </div>
     <div class="hero-card">
-      <div class="big">🏆🧩💡</div>
+      <div class="big">🏆🧩🚀</div>
       <h3>Tänk ett steg längre</h3>
-      <p>Utforska • förklara • bevisa • skapa</p>
+      <p>5 ämnen • 30 utmaningar • 3 nivåer</p>
     </div>
   </div>
 </header>
@@ -139,344 +152,223 @@ footer{background:#020617;color:#cbd5e1;padding:34px 20px;text-align:center;marg
 <main class="wrap">
 
 <div class="quick">
-  <a href="#matematik">🔢 Matematik</a>
-  <a href="#no">🔬 NO</a>
-  <a href="#teknik">⚙️ Teknik</a>
-  <a href="#sprak">📖 Språk</a>
+  <button class="active" onclick="filterSubject('alla',this)">🌟 Alla</button>
+  <button onclick="filterSubject('matematik',this)">🔢 Matematik</button>
+  <button onclick="filterSubject('no',this)">🔬 NO</button>
+  <button onclick="filterSubject('teknik',this)">⚙️ Teknik</button>
+  <button onclick="filterSubject('svenska',this)">📖 Svenska/SVA</button>
+  <button onclick="filterSubject('engelska',this)">🇬🇧 Engelska</button>
 </div>
 
-<section id="utmaningar">
+<section id="bank">
   <div class="section-head">
-    <h2>🚀 Utmaningsbank</h2>
-    <p>Välj en uppgift och skriv eller diskutera din lösning.</p>
+    <h2>🧠 Utmaningsbanken</h2>
+    <p>Välj nivå. Alla uppgifter har ledtråd och exempel på resonemang.</p>
   </div>
 
-  <div class="challenge-grid">
+  <div class="level-filter">
+    <button class="active" onclick="filterLevel('alla',this)">Alla nivåer</button>
+    <button onclick="filterLevel('kluring',this)">🧩 Kluring</button>
+    <button onclick="filterLevel('svar',this)">🔥 Svår</button>
+    <button onclick="filterLevel('mastare',this)">🏆 Mästarutmaning</button>
+  </div>
 
-    <div class="card" id="matematik">
-      <div class="icon">🔢</div>
-      <h3>Alla grupper</h3>
-      <p>En klass har 36 elever. På hur många olika sätt kan eleverna delas in i lika stora grupper?</p>
-      <div class="badges"><span class="badge">Matematik</span><span class="badge">Flera lösningar</span></div>
-      <button class="open" onclick="openChallenge('grupper')">Öppna utmaning →</button>
+  <div class="subject-block" data-subject="matematik">
+    <div class="subject-heading math-head"><h2>🔢 Matematik</h2><span>6 utmaningar</span></div>
+    <div class="grid">
+      <div class="card" data-level="kluring"><div class="icon">👥</div><h3>30 elever – hur många grupper?</h3><p>Hitta alla sätt att dela 30 elever i lika stora grupper.</p><div class="badges"><span class="badge">Kluring</span><span class="badge">Faktorer</span></div><button class="open" onclick="openChallenge('m1')">Öppna →</button></div>
+      <div class="card" data-level="kluring"><div class="icon">🔍</div><h3>Mönsterjakten</h3><p>Fortsätt ett talmönster och formulera regeln.</p><div class="badges"><span class="badge">Kluring</span><span class="badge">Algebra</span></div><button class="open" onclick="openChallenge('m2')">Öppna →</button></div>
+      <div class="card" data-level="svar"><div class="icon">📐</div><h3>Samma omkrets – olika area</h3><p>Undersök vilka rektanglar som ger störst area.</p><div class="badges"><span class="badge hard">Svår</span><span class="badge">Geometri</span></div><button class="open" onclick="openChallenge('m3')">Öppna →</button></div>
+      <div class="card" data-level="svar"><div class="icon">💰</div><h3>Rabattkedjan</h3><p>Två rabatter efter varandra – är det samma som att lägga ihop dem?</p><div class="badges"><span class="badge hard">Svår</span><span class="badge">Procent</span></div><button class="open" onclick="openChallenge('m4')">Öppna →</button></div>
+      <div class="card" data-level="mastare"><div class="icon">🎯</div><h3>Talpusslet</h3><p>Hitta ett tal från flera ledtrådar och bevisa att svaret är unikt.</p><div class="badges"><span class="badge master">Mästarutmaning</span></div><button class="open" onclick="openChallenge('m5')">Öppna →</button></div>
+      <div class="card" data-level="mastare"><div class="icon">📊</div><h3>Statistikdetektiven</h3><p>Skapa en talserie med givna statistiska egenskaper.</p><div class="badges"><span class="badge master">Mästarutmaning</span><span class="badge">Statistik</span></div><button class="open" onclick="openChallenge('m6')">Öppna →</button></div>
     </div>
+  </div>
 
-    <div class="card">
-      <div class="icon">📐</div>
-      <h3>Samma area – olika form</h3>
-      <p>Rita så många olika rektanglar du kan som har arean 48 cm².</p>
-      <div class="badges"><span class="badge">Geometri</span><span class="badge">Mönster</span></div>
-      <button class="open" onclick="openChallenge('area')">Öppna utmaning →</button>
+  <div class="subject-block" data-subject="no">
+    <div class="subject-heading no-head"><h2>🔬 NO</h2><span>6 utmaningar</span></div>
+    <div class="grid">
+      <div class="card" data-level="kluring"><div class="icon">🌱</div><h3>Ekosystemmysteriet</h3><p>Vad händer när antalet insekter minskar kraftigt?</p><div class="badges"><span class="badge">Kluring</span><span class="badge">Biologi</span></div><button class="open" onclick="openChallenge('n1')">Öppna →</button></div>
+      <div class="card" data-level="kluring"><div class="icon">⚡</div><h3>Följ energin</h3><p>Beskriv energikedjan från mat till cykellampa.</p><div class="badges"><span class="badge">Kluring</span><span class="badge">Fysik</span></div><button class="open" onclick="openChallenge('n2')">Öppna →</button></div>
+      <div class="card" data-level="svar"><div class="icon">🧪</div><h3>Planera en undersökning</h3><p>Temperatur och hur snabbt socker löser sig.</p><div class="badges"><span class="badge hard">Svår</span><span class="badge">Metod</span></div><button class="open" onclick="openChallenge('n3')">Öppna →</button></div>
+      <div class="card" data-level="svar"><div class="icon">💧</div><h3>Vattendroppens resa</h3><p>Förklara en möjlig väg genom vattnets kretslopp.</p><div class="badges"><span class="badge hard">Svår</span></div><button class="open" onclick="openChallenge('n4')">Öppna →</button></div>
+      <div class="card" data-level="mastare"><div class="icon">🫀</div><h3>Kroppen under löpning</h3><p>Koppla ihop flera organsystem när kroppen arbetar.</p><div class="badges"><span class="badge master">Mästarutmaning</span></div><button class="open" onclick="openChallenge('n5')">Öppna →</button></div>
+      <div class="card" data-level="mastare"><div class="icon">🌍</div><h3>Hållbarhetskonflikten</h3><p>Väg ekologiska, sociala och ekonomiska konsekvenser mot varandra.</p><div class="badges"><span class="badge master">Mästarutmaning</span></div><button class="open" onclick="openChallenge('n6')">Öppna →</button></div>
     </div>
+  </div>
 
-    <div class="card">
-      <div class="icon">💯</div>
-      <h3>Procentdetektiven</h3>
-      <p>Hitta tre olika priser där 25 % rabatt blir ett helt antal kronor. Förklara varför.</p>
-      <div class="badges"><span class="badge">Procent</span><span class="badge">Resonemang</span></div>
-      <button class="open" onclick="openChallenge('procent')">Öppna utmaning →</button>
+  <div class="subject-block" data-subject="teknik">
+    <div class="subject-heading tech-head"><h2>⚙️ Teknik</h2><span>6 utmaningar</span></div>
+    <div class="grid">
+      <div class="card" data-level="kluring"><div class="icon">🏗️</div><h3>Bygg högst</h3><p>Planera ett stabilt torn med begränsat material.</p><div class="badges"><span class="badge">Kluring</span></div><button class="open" onclick="openChallenge('t1')">Öppna →</button></div>
+      <div class="card" data-level="kluring"><div class="icon">🤖</div><h3>Automatisk nattlampa</h3><p>Beskriv input, villkor och output.</p><div class="badges"><span class="badge">Kluring</span><span class="badge">Styrning</span></div><button class="open" onclick="openChallenge('t2')">Öppna →</button></div>
+      <div class="card" data-level="svar"><div class="icon">🌉</div><h3>Bro för 2 kg</h3><p>Välj form och material för en hållfast bro.</p><div class="badges"><span class="badge hard">Svår</span><span class="badge">Konstruktion</span></div><button class="open" onclick="openChallenge('t3')">Öppna →</button></div>
+      <div class="card" data-level="svar"><div class="icon">⚙️</div><h3>Gör rörelsen långsammare</h3><p>Använd kugghjul för att förändra hastighet.</p><div class="badges"><span class="badge hard">Svår</span><span class="badge">Mekanismer</span></div><button class="open" onclick="openChallenge('t4')">Öppna →</button></div>
+      <div class="card" data-level="mastare"><div class="icon">🏠</div><h3>Smart klassrum</h3><p>Designa ett system med flera sensorer och styrningar.</p><div class="badges"><span class="badge master">Mästarutmaning</span></div><button class="open" onclick="openChallenge('t5')">Öppna →</button></div>
+      <div class="card" data-level="mastare"><div class="icon">♻️</div><h3>Designa om produkten</h3><p>Gör en vardagsprodukt mer hållbar genom hela livscykeln.</p><div class="badges"><span class="badge master">Mästarutmaning</span></div><button class="open" onclick="openChallenge('t6')">Öppna →</button></div>
     </div>
+  </div>
 
-    <div class="card" id="no">
-      <div class="icon">🌱</div>
-      <h3>Ekosystem i förändring</h3>
-      <p>Vad kan hända i en näringsväv om en art minskar kraftigt?</p>
-      <div class="badges"><span class="badge">NO</span><span class="badge">Orsak & konsekvens</span></div>
-      <button class="open" onclick="openChallenge('ekosystem')">Öppna utmaning →</button>
+  <div class="subject-block" data-subject="svenska">
+    <div class="subject-heading sv-head"><h2>📖 Svenska / SVA</h2><span>6 utmaningar</span></div>
+    <div class="grid">
+      <div class="card" data-level="kluring"><div class="icon">🔎</div><h3>Läs mellan raderna</h3><p>Gör en inferens och hitta två textledtrådar.</p><div class="badges"><span class="badge">Kluring</span></div><button class="open" onclick="openChallenge('s1')">Öppna →</button></div>
+      <div class="card" data-level="kluring"><div class="icon">✍️</div><h3>Bygg ut meningen</h3><p>Gör en enkel mening mer levande och precis.</p><div class="badges"><span class="badge">Kluring</span><span class="badge">Skriva</span></div><button class="open" onclick="openChallenge('s2')">Öppna →</button></div>
+      <div class="card" data-level="svar"><div class="icon">💬</div><h3>Övertyga mig</h3><p>Skriv tes, argument, motargument och bemötande.</p><div class="badges"><span class="badge hard">Svår</span></div><button class="open" onclick="openChallenge('s3')">Öppna →</button></div>
+      <div class="card" data-level="svar"><div class="icon">📰</div><h3>Källkritisk jämförelse</h3><p>Jämför två källor och avgör vilken du litar mest på.</p><div class="badges"><span class="badge hard">Svår</span><span class="badge">Källkritik</span></div><button class="open" onclick="openChallenge('s4')">Öppna →</button></div>
+      <div class="card" data-level="mastare"><div class="icon">📚</div><h3>Två perspektiv</h3><p>Skriv samma händelse ur två olika perspektiv.</p><div class="badges"><span class="badge master">Mästarutmaning</span></div><button class="open" onclick="openChallenge('s5')">Öppna →</button></div>
+      <div class="card" data-level="mastare"><div class="icon">🧠</div><h3>Budskap eller tema?</h3><p>Resonera om skillnaden och stöd ditt svar.</p><div class="badges"><span class="badge master">Mästarutmaning</span></div><button class="open" onclick="openChallenge('s6')">Öppna →</button></div>
     </div>
+  </div>
 
-    <div class="card">
-      <div class="icon">⚡</div>
-      <h3>Energi utan slöseri</h3>
-      <p>Föreslå tre sätt att minska onödig energianvändning i skolan.</p>
-      <div class="badges"><span class="badge">Fysik</span><span class="badge">Hållbarhet</span></div>
-      <button class="open" onclick="openChallenge('energi')">Öppna utmaning →</button>
+  <div class="subject-block" data-subject="engelska">
+    <div class="subject-heading en-head"><h2>🇬🇧 Engelska</h2><span>6 utmaningar</span></div>
+    <div class="grid">
+      <div class="card" data-level="kluring"><div class="icon">💬</div><h3>Keep the conversation going</h3><p>Build a short conversation with follow-up questions.</p><div class="badges"><span class="badge">Kluring</span></div><button class="open" onclick="openChallenge('e1')">Öppna →</button></div>
+      <div class="card" data-level="kluring"><div class="icon">🧠</div><h3>Missing Word Mission</h3><p>Describe a word without switching to Swedish.</p><div class="badges"><span class="badge">Kluring</span></div><button class="open" onclick="openChallenge('e2')">Öppna →</button></div>
+      <div class="card" data-level="svar"><div class="icon">⚖️</div><h3>Compare two choices</h3><p>Compare two options and explain which is better.</p><div class="badges"><span class="badge hard">Svår</span></div><button class="open" onclick="openChallenge('e3')">Öppna →</button></div>
+      <div class="card" data-level="svar"><div class="icon">📖</div><h3>Read between the lines</h3><p>Make an inference from a short English text.</p><div class="badges"><span class="badge hard">Svår</span></div><button class="open" onclick="openChallenge('e4')">Öppna →</button></div>
+      <div class="card" data-level="mastare"><div class="icon">🎤</div><h3>Mini debate</h3><p>Give an opinion, reasons and respond to a counterargument.</p><div class="badges"><span class="badge master">Mästarutmaning</span></div><button class="open" onclick="openChallenge('e5')">Öppna →</button></div>
+      <div class="card" data-level="mastare"><div class="icon">🌍</div><h3>Culture without stereotypes</h3><p>Explain how to compare countries respectfully.</p><div class="badges"><span class="badge master">Mästarutmaning</span></div><button class="open" onclick="openChallenge('e6')">Öppna →</button></div>
     </div>
-
-    <div class="card">
-      <div class="icon">🧪</div>
-      <h3>Planera en undersökning</h3>
-      <p>Hur skulle du undersöka vilken typ av material som isolerar värme bäst?</p>
-      <div class="badges"><span class="badge">NO</span><span class="badge">Undersökning</span></div>
-      <button class="open" onclick="openChallenge('undersokning')">Öppna utmaning →</button>
-    </div>
-
-    <div class="card" id="teknik">
-      <div class="icon">🏗️</div>
-      <h3>Bygg högre</h3>
-      <p>Du får 20 pappersark och 50 cm tejp. Hur bygger du högsta möjliga torn?</p>
-      <div class="badges"><span class="badge">Teknik</span><span class="badge">Konstruktion</span></div>
-      <button class="open" onclick="openChallenge('torn')">Öppna utmaning →</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">🤖</div>
-      <h3>Smart klassrum</h3>
-      <p>Designa ett tekniskt system som hjälper klassen att spara energi.</p>
-      <div class="badges"><span class="badge">System</span><span class="badge">Sensorer</span></div>
-      <button class="open" onclick="openChallenge('smart')">Öppna utmaning →</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">♻️</div>
-      <h3>Gör om en produkt</h3>
-      <p>Välj en vardagsprodukt och förbättra den så att den blir mer hållbar.</p>
-      <div class="badges"><span class="badge">Design</span><span class="badge">Hållbarhet</span></div>
-      <button class="open" onclick="openChallenge('produkt')">Öppna utmaning →</button>
-    </div>
-
-    <div class="card" id="sprak">
-      <div class="icon">📖</div>
-      <h3>Två perspektiv</h3>
-      <p>Skriv samma händelse ur två olika personers perspektiv.</p>
-      <div class="badges"><span class="badge">Svenska/SVA</span><span class="badge">Berättande</span></div>
-      <button class="open" onclick="openChallenge('perspektiv')">Öppna utmaning →</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">💬</div>
-      <h3>Argumentduellen</h3>
-      <p>Är läxor bra eller dåliga? Skriv argument för båda sidor innan du bestämmer dig.</p>
-      <div class="badges"><span class="badge">Resonemang</span><span class="badge">Argument</span></div>
-      <button class="open" onclick="openChallenge('argument')">Öppna utmaning →</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">🇬🇧</div>
-      <h3>English challenge</h3>
-      <p>Explain a school rule in English and argue for one improvement.</p>
-      <div class="badges"><span class="badge">English</span><span class="badge">Speaking/Writing</span></div>
-      <button class="open" onclick="openChallenge('english')">Open challenge →</button>
-    </div>
-
   </div>
 
   <div id="panel" class="panel">
     <div class="panel-top">
       <div>
-        <h2 id="panelTitle">Utmaning</h2>
-        <p id="panelIntro"></p>
+        <h2 id="challengeTitle">Utmaning</h2>
+        <p id="challengeIntro"></p>
       </div>
       <button class="close" onclick="closeChallenge()">✕ Stäng</button>
     </div>
-
-    <div class="mission">
-      <h3 id="missionTitle"></h3>
-      <p id="missionText"></p>
-
-      <div class="steps">
-        <div class="step"><b>1. Förstå</b><span id="step1"></span></div>
-        <div class="step"><b>2. Utforska</b><span id="step2"></span></div>
-        <div class="step"><b>3. Förklara</b><span id="step3"></span></div>
+    <div class="challenge-box">
+      <h3 id="challengeQuestion"></h3>
+      <textarea id="studentAnswer" placeholder="Skriv hur du tänker här..."></textarea>
+      <div class="actions">
+        <button class="hint-btn" onclick="showHint()">💡 Ledtråd</button>
+        <button class="solution-btn" onclick="showSolution()">✅ Exempel på resonemang</button>
+        <button class="next-btn" onclick="randomChallenge()">🎲 Ny utmaning</button>
       </div>
-
-      <textarea placeholder="Skriv dina tankar, lösningar eller förklaringar här..."></textarea><br>
-      <button class="reveal" onclick="toggleSolution()">Visa stöd / exempel</button>
-      <div id="solution" class="solution"></div>
+      <div id="hint" class="reveal"></div>
+      <div id="solution" class="reveal"></div>
     </div>
   </div>
 </section>
 
-<section id="veckans">
-  <div class="section-head">
-    <h2>🏆 Veckans problemlösning</h2>
-    <p>En större uppgift som passar för enskilt arbete, par eller helklassdiskussion.</p>
-  </div>
-
-  <div class="weekly">
-    <div>
-      <h2>30 elever – hur många möjligheter?</h2>
-      <p>
-        En klass har 30 elever. Eleverna ska delas in i grupper med lika många elever i varje grupp.
-        På hur många olika sätt kan klassen delas in?
-      </p>
-      <p><strong>Utmaning:</strong> Visa hur du vet att du hittat alla möjligheter. Kan du visa resonemanget på mer än ett sätt?</p>
-      <textarea placeholder="Skriv eller planera din lösning..."></textarea>
-    </div>
-    <div class="big">🤔</div>
+<section id="slump">
+  <div class="random-zone">
+    <h2>🎲 Slumpa en utmaning</h2>
+    <p>Vet du inte vad du ska välja? Låt portalen välja en av de 30 uppgifterna.</p>
+    <button onclick="randomChallenge()">Ge mig en utmaning →</button>
   </div>
 </section>
 
-<section id="resonera">
-  <div class="section-head">
-    <h2>🧠 Så utvecklar du ett starkt resonemang</h2>
-  </div>
-
-  <div class="rubric">
-    <div class="rubric-card">
-      <h3>🌱 På väg</h3>
-      <ul>
-        <li>Jag visar ett svar.</li>
-        <li>Jag skriver något om hur jag tänkte.</li>
-        <li>Jag använder några ämnesord.</li>
-      </ul>
-    </div>
-
-    <div class="rubric-card">
-      <h3>⭐ Utvecklat</h3>
-      <ul>
-        <li>Jag visar flera steg.</li>
-        <li>Jag förklarar varför min lösning fungerar.</li>
-        <li>Jag använder relevanta begrepp.</li>
-      </ul>
-    </div>
-
-    <div class="rubric-card">
-      <h3>🚀 Välutvecklat</h3>
-      <ul>
-        <li>Jag jämför flera lösningar eller perspektiv.</li>
-        <li>Jag motiverar och drar slutsatser.</li>
-        <li>Jag kan upptäcka mönster eller generalisera.</li>
-      </ul>
-    </div>
+<section id="strategier">
+  <div class="section-head"><h2>🚀 Strategier när det blir svårt</h2></div>
+  <div class="info-grid">
+    <div class="info"><h3>1. Visa vad du vet</h3><p>Skriv fakta, begrepp, givna tal eller ledtrådar innan du börjar lösa.</p></div>
+    <div class="info"><h3>2. Pröva flera vägar</h3><p>Rita, gör tabell, jämför, testa exempel eller förklara muntligt.</p></div>
+    <div class="info"><h3>3. Motivera</h3><p>Ett starkt svar visar inte bara vad du tror – utan varför.</p></div>
   </div>
 </section>
 
 </main>
 
 <footer>
-  <strong>🏆 Utmaningar • Lärportal åk 6</strong><br>
-  Problemlösning • Resonemang • Kreativitet • Flera lösningar
+  <strong>🏆 Utmaningsbank • Lärportal åk 6</strong><br>
+  30 utmaningar • Matematik • NO • Teknik • Svenska/SVA • Engelska
 </footer>
 
 <script>
-const CHALLENGES={
-grupper:{
- title:"🔢 Alla grupper",
- intro:"Tal, faktorer och systematiskt prövande.",
- mission:"En klass har 36 elever. På hur många olika sätt kan eleverna delas in i lika stora grupper?",
- s1:"Bestäm vad 'lika stora grupper' betyder.",
- s2:"Pröva gruppstorlekar systematiskt och skriv upp alla möjligheter.",
- s3:"Förklara hur du vet att ingen möjlighet saknas.",
- solution:"Stöd: Leta efter faktorpar till 36. Exempel: 1×36, 2×18, 3×12, 4×9 och 6×6. Bestäm om 1 elev per grupp och en enda grupp ska räknas med utifrån hur uppgiften tolkas."
-},
-area:{
- title:"📐 Samma area – olika form",
- intro:"Area, multiplikation och mönster.",
- mission:"Rita eller beskriv så många olika rektanglar du kan med arean 48 cm². Använd hela centimeter som sidlängder.",
- s1:"Vilka två sidlängder måste multipliceras till 48?",
- s2:"Sök efter faktorpar utan att hoppa över något.",
- s3:"Jämför omkretsen hos dina rektanglar.",
- solution:"Exempel på faktorpar: 1×48, 2×24, 3×16, 4×12 och 6×8. Extra utmaning: vilken har minst omkrets?"
-},
-procent:{
- title:"💯 Procentdetektiven",
- intro:"Procent, division och generalisering.",
- mission:"Hitta minst tre priser där 25 % rabatt blir exakt ett helt antal kronor. Förklara vad priserna har gemensamt.",
- s1:"Tänk på vad 25 % betyder som bråk.",
- s2:"Pröva flera priser och beräkna rabatten.",
- s3:"Beskriv ett mönster som alltid fungerar.",
- solution:"25 % = 1/4. Om priset är delbart med 4 blir en fjärdedel ett helt antal kronor. Exempel: 100 kr → 25 kr, 240 kr → 60 kr, 396 kr → 99 kr."
-},
-ekosystem:{
- title:"🌱 Ekosystem i förändring",
- intro:"Orsak, konsekvens och näringsvävar.",
- mission:"Föreställ dig att antalet rävar minskar kraftigt i ett ekosystem. Beskriv minst tre möjliga följder.",
- s1:"Vilka organismer äter räven?",
- s2:"Vad kan hända med bytesdjuren och deras föda?",
- s3:"Förklara att följder kan spridas genom flera led.",
- solution:"Exempel: Om rävar äter mycket smågnagare kan fler smågnagare överleva. De kan då äta mer växtmaterial. Andra arter som konkurrerar om samma resurser kan också påverkas. Exakt effekt beror på näringsväven."
-},
-energi:{
- title:"⚡ Energi utan slöseri",
- intro:"Energi, tekniska val och hållbarhet.",
- mission:"Föreslå tre konkreta åtgärder som kan minska onödig energianvändning i skolan.",
- s1:"Hitta situationer där energi används i onödan.",
- s2:"Föreslå lösningar som faktiskt går att genomföra.",
- s3:"Förklara både nytta och eventuell nackdel.",
- solution:"Exempel: släcka belysning i tomma rum, använda tidsstyrning eller rörelsesensorer, sänka onödig standby-förbrukning och minska värmeförluster. Resonera också om kostnad och användarvänlighet."
-},
-undersokning:{
- title:"🧪 Planera en undersökning",
- intro:"Fråga, hypotes, variabler och rättvist test.",
- mission:"Planera en undersökning av vilket material som isolerar en behållare med varmt vatten bäst.",
- s1:"Bestäm vad du ska ändra och vad du ska mäta.",
- s2:"Håll andra viktiga faktorer lika mellan försöken.",
- s3:"Beskriv hur du gör testet säkert och hur resultatet ska jämföras.",
- solution:"Exempel: Ändra isoleringsmaterialet. Mät temperatur efter samma tid. Använd lika stora behållare, samma starttemperatur och samma mängd vatten. Upprepa gärna försöket."
-},
-torn:{
- title:"🏗️ Bygg högre",
- intro:"Konstruktion, stabilitet och förbättring.",
- mission:"Du får 20 pappersark och högst 50 cm tejp. Planera ett torn som ska bli så högt som möjligt och stå själv i minst 30 sekunder.",
- s1:"Vilka former gör konstruktionen stabil?",
- s2:"Hur kan papper vikas eller rullas för att bli styvare?",
- s3:"Beskriv hur du skulle testa och förbättra tornet.",
- solution:"Stöd: triangulering, bred bas, låg tyngdpunkt i botten och rullade/vikta pappersprofiler kan öka stabilitet och hållfasthet."
-},
-smart:{
- title:"🤖 Smart klassrum",
- intro:"Tekniska system, sensorer och styrning.",
- mission:"Designa ett system som automatiskt minskar onödig energianvändning i klassrummet.",
- s1:"Vilket problem ska systemet lösa?",
- s2:"Vilka sensorer, komponenter, input och output behövs?",
- s3:"Förklara systemets algoritm: om... så...",
- solution:"Exempel: ljussensor + rörelsesensor → styrning → lampor. Om ljuset redan är tillräckligt eller ingen är i rummet, ska belysningen stängas av."
-},
-produkt:{
- title:"♻️ Gör om en produkt",
- intro:"Livscykel, material och hållbar design.",
- mission:"Välj en vardagsprodukt och förändra den så att den använder mindre resurser eller håller längre.",
- s1:"Vilka material och delar består produkten av?",
- s2:"Vilket problem finns i dagens design?",
- s3:"Förklara hur din förbättring påverkar användning, tillverkning och återvinning.",
- solution:"Exempel: en produkt kan göras reparerbar, få utbytbara delar, använda mindre material eller material som lättare kan återvinnas."
-},
-perspektiv:{
- title:"📖 Två perspektiv",
- intro:"Berättarperspektiv, gestaltning och språk.",
- mission:"Skriv samma konflikt ur två personers perspektiv. Läsaren ska förstå varför båda tycker att de har rätt.",
- s1:"Bestäm vad varje person vet, känner och vill.",
- s2:"Använd detaljer och tankar som skiljer perspektiven åt.",
- s3:"Jämför hur samma händelse förändras beroende på berättare.",
- solution:"Stöd: låt båda versionerna beskriva samma händelse men välja olika detaljer. Undvik att göra den ena personen helt 'rätt' och den andra helt 'fel'."
-},
-argument:{
- title:"💬 Argumentduellen",
- intro:"Tes, argument, motargument och slutsats.",
- mission:"Fråga: Är läxor bra eller dåliga? Skriv minst två argument för varje sida innan du tar ställning.",
- s1:"Skilj mellan åsikt och argument.",
- s2:"Försök hitta ett starkt argument även för sidan du själv inte håller med om.",
- s3:"Ta ställning och bemöt minst ett motargument.",
- solution:"Stöd: För läxor kan man argumentera för repetition och eget ansvar. Mot läxor kan man lyfta olika hemförutsättningar, återhämtning och fritid. En stark slutsats väger argumenten mot varandra."
-},
-english:{
- title:"🇬🇧 English challenge",
- intro:"Explain, argue and improve your English.",
- mission:"Choose one school rule. Explain it in English, say why it exists, and suggest one improvement.",
- s1:"Describe the rule clearly.",
- s2:"Give at least one reason and one example.",
- s3:"Suggest an improvement and explain why it could be better.",
- solution:"Useful phrases: 'The rule means that…', 'One reason is…', 'For example…', 'I think it could be improved by…', 'This would help because…'."
-}
+const C={
+m1:["👥 30 elever – hur många grupper?","Kluring • Matematik","En klass har 30 elever. Eleverna ska delas i lika stora grupper. På hur många olika sätt kan klassen delas om varje grupp ska ha minst 2 elever och det ska finnas minst 2 grupper?","Vilka tal går 30 jämnt att dela med?","Gruppstorlekarna kan vara 2, 3, 5, 6, 10 och 15 elever. Då blir det 15, 10, 6, 5, 3 eller 2 grupper. Ett komplett resonemang visar att detta är alla faktorpar till 30."],
+m2:["🔍 Mönsterjakten","Kluring • Matematik","Talserien är 5, 9, 13, 17, 21 ... Vilket är det 25:e talet? Beskriv också regeln.","Skillnaden är densamma mellan varje två tal.","Mönstret ökar med 4. Det 25:e talet är 5 + 24·4 = 101. Regeln: börja på 5 och lägg till 4 för varje nytt steg."],
+m3:["📐 Samma omkrets – olika area","Svår • Matematik","En rektangel har omkretsen 32 cm. Hitta minst tre olika rektanglar med heltalssidor. Vilken ger störst area? Förklara.","Längd + bredd måste tillsammans vara 16.","Exempel: 1×15 ger 15 cm², 4×12 ger 48 cm², 8×8 ger 64 cm². När sidorna är så lika som möjligt blir arean störst; här 8×8."],
+m4:["💰 Rabattkedjan","Svår • Matematik","En jacka sänks först med 20 % och därefter med ytterligare 20 %. Är total rabatt 40 %? Visa med ett exempel.","Testa med ett pris som är lätt att räkna på, t.ex. 1000 kr.","1000 kr → 800 kr efter första rabatten. 20 % av 800 är 160, så nya priset blir 640 kr. Total rabatt är 360 kr = 36 %, inte 40 %."],
+m5:["🎯 Talpusslet","Mästarutmaning • Matematik","Jag tänker på ett heltal mellan 20 och 60. Det är delbart med 3 och 4 men inte med 5. Siffersumman är 9. Vilket tal tänker jag på? Visa hur du vet.","Tal som är delbara med både 3 och 4 är delbara med 12.","Mellan 20 och 60 är multiplarna av 12: 24, 36, 48, 60. Inte delbart med 5 tar bort 60. Siffersummorna är 6, 9 och 12. Alltså är talet 36."],
+m6:["📊 Statistikdetektiven","Mästarutmaning • Matematik","Skapa fem heltal där medelvärdet är 10, medianen är 9 och typvärdet är 8. Förklara varför din serie fungerar.","Fem tal med medelvärde 10 måste tillsammans ha summan 50.","Ett exempel är 8, 8, 9, 12, 13. Summan är 50 → medelvärde 10. Mittenvärdet är 9 → median 9. Talet 8 förekommer flest gånger → typvärde 8."],
+
+n1:["🌱 Ekosystemmysteriet","Kluring • NO","I en näringsväv minskar antalet insekter kraftigt. Beskriv minst två möjliga följder för andra organismer.","Tänk både på vilka som äter insekter och vad insekter äter eller pollinerar.","Insektsätande fåglar kan få mindre föda och minska. Växter som äts av vissa insekter kan öka, men växter som behöver insekter för pollinering kan minska. Effekterna beror på relationerna i näringsväven."],
+n2:["⚡ Följ energin","Kluring • NO","En elev äter frukost, cyklar till skolan och använder en dynamolampa. Beskriv minst fyra energiomvandlingar.","Börja med kemisk energi i maten.","Kemisk energi i maten → rörelseenergi i musklerna → rörelseenergi i cykeln → elektrisk energi i dynamon → ljusenergi och värme i lampan."],
+n3:["🧪 Planera en undersökning","Svår • NO","Du vill undersöka om vattnets temperatur påverkar hur snabbt socker löser sig. Skriv hypotes, oberoende variabel, beroende variabel och minst tre kontrollvariabler.","Ändra bara temperaturen. Resten ska hållas så lika som möjligt.","Hypotes: socker löser sig snabbare i varmt vatten. Oberoende variabel: temperatur. Beroende variabel: tid tills sockret löst sig. Kontrollvariabler: mängd vatten, mängd socker, kärl och hur mycket man rör om."],
+n4:["💧 Vattendroppens resa","Svår • NO","Beskriv en möjlig resa för en vattendroppe från havet, upp i atmosfären, tillbaka till marken och vidare till havet igen.","Använd begreppen avdunstning, kondensation, nederbörd och avrinning.","Havsvatten avdunstar → vattenånga stiger → kondenserar till molndroppar → faller som nederbörd → rinner via mark, bäckar och floder eller grundvatten → når havet igen."],
+n5:["🫀 Kroppen under löpning","Mästarutmaning • NO","Förklara hur andningssystemet, cirkulationssystemet och musklerna samarbetar när du springer.","Följ syrets väg från luften till musklerna.","Syre tas in genom lungorna och går över till blodet. Hjärtat pumpar blodet till musklerna. Musklerna använder syre och energirika ämnen i cellandningen för att frigöra energi. Koldioxid transporteras tillbaka med blodet till lungorna och andas ut."],
+n6:["🌍 Hållbarhetskonflikten","Mästarutmaning • NO","En kommun vill bygga en stor solcellspark på mark där det idag finns natur och betesmark. Resonera ur ekologiskt, ekonomiskt och socialt perspektiv.","Det kan finnas både vinster och nackdelar samtidigt.","Ekologiskt kan förnybar el minska klimatpåverkan men naturmiljö och arter kan påverkas. Ekonomiskt kan elproduktion ge inkomster och arbetstillfällen men kräver investeringar. Socialt kan invånare få nytta av el och jobb men markanvändning och landskapsbild kan skapa konflikter. Ett starkt svar väger perspektiven mot varandra."],
+
+t1:["🏗️ Bygg högst","Kluring • Teknik","Du får 20 sugrör och 50 cm tejp. Beskriv hur du bygger ett så högt men stabilt torn som möjligt.","Tänk på bred bas, trianglar och att konstruktionen blir lättare högre upp.","En bra lösning har bred bas, triangelförstärkningar och smalnar av uppåt. Trianglar ger formstabilitet och en bred bas minskar risken att tornet välter."],
+t2:["🤖 Automatisk nattlampa","Kluring • Teknik","Designa en automatisk nattlampa. Beskriv input, villkor och output.","Vilken sensor kan känna av om det är mörkt?","Input: ljussensor. Villkor: om ljusnivån är under ett bestämt värde. Output: lampan tänds. När ljusnivån blir högre släcks lampan."],
+t3:["🌉 Bro för 2 kg","Svår • Teknik","Du ska bygga en bro av kartong och träpinnar som ska bära 2 kg. Vilka former och förstärkningar väljer du? Varför?","Tänk på trianglar, balkar och var belastningen hamnar.","En möjlig lösning är två sidofackverk med trianglar och tvärförbindelser mellan dem. Trianglar ökar formstabiliteten och flera balkar fördelar belastningen."],
+t4:["⚙️ Gör rörelsen långsammare","Svår • Teknik","En motor snurrar för snabbt. Du har två kugghjul: ett litet och ett stort. Hur kopplar du dem för att få långsammare rörelse på utgående axel?","Vilket kugghjul ska driva vilket?","Låt det lilla kugghjulet på motorn driva det större. Det stora kugghjulet roterar då långsammare men med större vridmoment."],
+t5:["🏠 Smart klassrum","Mästarutmaning • Teknik","Designa ett smart klassrum som automatiskt styr belysning och ventilation. Beskriv minst två sensorer, villkor och outputs.","Tänk på ljusnivå, temperatur, koldioxid eller närvaro.","Exempel: ljussensor styr lampor; om ljuset är för lågt tänds de. CO₂-sensor eller temperatursensor styr ventilation; om värdet blir för högt ökar ventilationen. Närvarosensor kan stänga av systemen när rummet är tomt."],
+t6:["♻️ Designa om produkten","Mästarutmaning • Teknik","Välj en vardagsprodukt, till exempel en vattenflaska eller skolpenna. Beskriv hur du skulle göra den mer hållbar under tillverkning, användning och efter användning.","Tänk livscykel: råvara → produktion → användning → återbruk/återvinning.","Ett starkt svar kan föreslå återvunnet eller förnybart material, färre materialslag, lång livslängd, utbytbara delar, energieffektiv tillverkning och att produkten lätt kan återanvändas eller materialåtervinnas."],
+
+s1:["🔎 Läs mellan raderna","Kluring • Svenska/SVA","Text: 'Nora stoppade snabbt ner pappren i lådan när läraren kom in. Hon undvek att möta hans blick.' Vad kan du dra för slutsats? Motivera med två ledtrådar.","Titta på vad Nora gör och hur hon beter sig när läraren kommer.","En rimlig inferens är att Nora försöker dölja något eller är orolig. Ledtrådar: hon stoppar snabbt undan pappren och undviker lärarens blick."],
+s2:["✍️ Bygg ut meningen","Kluring • Svenska/SVA","Utgå från meningen: 'Hunden sprang.' Skriv om den så att läsaren får veta var, hur, varför och vad som händer sedan.","Lägg till beskrivningar och sambandsord.","Exempel: 'Den blöta hunden sprang snabbt över den mörka gården eftersom den hade hört sin ägare ropa. När den nådde grinden stannade den tvärt och började vifta på svansen.'"],
+s3:["💬 Övertyga mig","Svår • Svenska/SVA","Skriv ett kort argumenterande resonemang för eller emot mobilförbud på lektionstid. Ha med tes, två argument, ett motargument och bemötande.","Använd exempelvis eftersom, dessutom, däremot och därför.","Exempel: 'Jag tycker att mobiler bör vara undanlagda eftersom de kan störa koncentrationen. Dessutom blir det lättare att delta i undervisningen. Ett motargument är att mobilen kan vara ett hjälpmedel, men läraren kan bestämma när den får användas.'"],
+s4:["📰 Källkritisk jämförelse","Svår • Svenska/SVA","Källa A är en aktuell myndighetssida. Källa B är ett anonymt inlägg från tre år sedan som påstår motsatsen. Vilken källa skulle du börja lita mest på och vilka frågor behöver du ändå ställa?","Tänk avsändare, aktualitet, syfte, beroende och tendens.","Källa A är en rimligare start eftersom avsändaren är tydlig och informationen aktuell. Men man bör ändå kontrollera syfte, underlag, datum och om andra oberoende källor stödjer uppgifterna."],
+s5:["📚 Två perspektiv","Mästarutmaning • Svenska/SVA","Skriv samma korta händelse – en elev kommer sent till lektionen – först ur elevens perspektiv och sedan ur lärarens perspektiv.","Samma fakta kan uppfattas olika beroende på vem som berättar.","Elevperspektivet kan betona varför förseningen skedde och känslan av stress. Lärarperspektivet kan betona avbrottet i lektionen och behovet av rutiner. Skillnaden ska märkas i vilka detaljer och känslor som lyfts fram."],
+s6:["🧠 Budskap eller tema?","Mästarutmaning • Svenska/SVA","En berättelse handlar om två vänner som blir osams men lär sig att lyssna på varandra. Förklara ett möjligt tema och ett möjligt budskap. Visa skillnaden.","Tema är ett större ämne. Budskap är vad texten kan säga om ämnet.","Tema kan vara vänskap eller konflikter. Budskap kan vara att vänskap kräver att man lyssnar och försöker förstå den andra. Temat är ämnet; budskapet är en tanke om ämnet."],
+
+e1:["💬 Keep the conversation going","Kluring • Engelska","Write a six-line conversation about hobbies. Use at least two follow-up questions and one reaction phrase.","Use: Really? Why? How often? What about you?","Example: A: I love swimming. B: Really? How often do you swim? A: Twice a week. What about you? B: I play basketball. A: Why do you like it? B: Because it's exciting."],
+e2:["🧠 Missing Word Mission","Kluring • Engelska","Imagine you do not know the English word for 'sax'. Describe it in English without using Swedish.","Use: It's something you use for... It has... You can use it to...","Example: 'It's something you use for cutting paper. It has two blades and two holes for your fingers.'"],
+e3:["⚖️ Compare two choices","Svår • Engelska","Which is better for learning: studying alone or studying with others? Compare both and give your opinion with two reasons.","Use: Both..., However..., In my opinion..., One reason is...","Example: 'Both ways can be useful. Studying alone can be quiet, while studying with others lets you discuss ideas. In my opinion, studying with others is better because you can ask questions and explain things to each other.'"],
+e4:["📖 Read between the lines","Svår • Engelska","Text: 'Leo looked at the dark clouds, grabbed his jacket and hurried to close the windows.' What can you infer? Give two clues.","Think about the clouds, jacket and windows.","A reasonable inference is that bad weather or rain is coming. Clues: the clouds are dark and Leo hurries to close the windows."],
+e5:["🎤 Mini debate","Mästarutmaning • Engelska","Should students have homework every day? Give your opinion, two reasons, one counterargument and a response to it.","Use: In my opinion..., One reason..., Some people argue..., However...","Example: 'In my opinion, students should not have homework every day. One reason is that they need time to rest. Another reason is that long school days already require concentration. Some people argue that homework gives extra practice. However, shorter targeted practice may be more useful than homework every day.'"],
+e6:["🌍 Culture without stereotypes","Mästarutmaning • Engelska","You are comparing everyday life in two English-speaking countries. Explain how you can compare them without making stereotypes.","Use words like some, many, can, may, in this example, according to the source.","A strong answer avoids saying that everyone in a country behaves the same way. It uses reliable examples and cautious language, such as 'some people', 'many schools' or 'in this region', and refers to sources."]
 };
 
-let current=null;
+let subjectFilter="alla", levelFilter="alla", current=null;
+const keys=Object.keys(C);
 
+function filterSubject(s,btn){
+  subjectFilter=s;
+  document.querySelectorAll('.quick button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+function filterLevel(l,btn){
+  levelFilter=l;
+  document.querySelectorAll('.level-filter button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+function applyFilters(){
+  document.querySelectorAll('.subject-block').forEach(block=>{
+    const subjectMatch=subjectFilter==="alla" || block.dataset.subject===subjectFilter;
+    let count=0;
+    block.querySelectorAll('.card').forEach(card=>{
+      const levelMatch=levelFilter==="alla" || card.dataset.level===levelFilter;
+      const show=subjectMatch && levelMatch;
+      card.classList.toggle('hide',!show);
+      if(show)count++;
+    });
+    block.classList.toggle('hide',count===0);
+  });
+}
 function openChallenge(key){
   current=key;
-  const c=CHALLENGES[key];
-  document.getElementById('panelTitle').textContent=c.title;
-  document.getElementById('panelIntro').textContent=c.intro;
-  document.getElementById('missionTitle').textContent='🎯 Uppdrag';
-  document.getElementById('missionText').textContent=c.mission;
-  document.getElementById('step1').textContent=c.s1;
-  document.getElementById('step2').textContent=c.s2;
-  document.getElementById('step3').textContent=c.s3;
-  document.getElementById('solution').textContent=c.solution;
+  const c=C[key];
+  document.getElementById('challengeTitle').textContent=c[0];
+  document.getElementById('challengeIntro').textContent=c[1];
+  document.getElementById('challengeQuestion').textContent=c[2];
+  document.getElementById('studentAnswer').value='';
+  document.getElementById('hint').textContent='💡 '+c[3];
+  document.getElementById('solution').textContent='✅ '+c[4];
+  document.getElementById('hint').style.display='none';
   document.getElementById('solution').style.display='none';
   document.getElementById('panel').classList.add('active');
   setTimeout(()=>document.getElementById('panel').scrollIntoView({behavior:'smooth',block:'start'}),50);
 }
-
-function toggleSolution(){
-  const s=document.getElementById('solution');
-  s.style.display=s.style.display==='block'?'none':'block';
+function showHint(){document.getElementById('hint').style.display='block'}
+function showSolution(){document.getElementById('solution').style.display='block'}
+function randomChallenge(){
+  let k=keys[Math.floor(Math.random()*keys.length)];
+  if(keys.length>1 && k===current) k=keys[(keys.indexOf(k)+1)%keys.length];
+  openChallenge(k);
 }
-
 function closeChallenge(){
   document.getElementById('panel').classList.remove('active');
-  document.getElementById('utmaningar').scrollIntoView({behavior:'smooth'});
+  document.getElementById('bank').scrollIntoView({behavior:'smooth'});
 }
 </script>
 
